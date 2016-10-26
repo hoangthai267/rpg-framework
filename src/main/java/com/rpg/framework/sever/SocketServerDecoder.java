@@ -17,7 +17,8 @@ public class SocketServerDecoder extends ByteToMessageDecoder{
             return;
         in.markReaderIndex();
         int bodyLen = in.readInt();
-        int flag = in.readShort();
+        @SuppressWarnings("unused")
+		int flag = in.readShort();
 		
         if (bodyLen <= 0 || bodyLen > MAX_CLIENT_PACKAGE_SIZE) 
         {

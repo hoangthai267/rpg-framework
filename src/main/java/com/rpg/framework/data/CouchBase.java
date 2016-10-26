@@ -2,30 +2,10 @@ package com.rpg.framework.data;
 
 import java.util.*;
 
-import javax.management.Query;
-
 import com.couchbase.client.java.*;
 import com.couchbase.client.java.document.*;
 import com.couchbase.client.java.document.json.*;
-import com.couchbase.client.java.query.N1qlQuery;
-
-import static com.couchbase.client.java.query.dsl.Expression.i;
-import static com.couchbase.client.java.query.dsl.Expression.s;
-import static com.couchbase.client.java.query.dsl.Expression.x;
-import com.couchbase.client.*;
-import com.couchbase.client.deps.com.fasterxml.jackson.core.JsonParser;
-import com.couchbase.client.java.query.N1qlQuery;
-import com.couchbase.client.java.query.N1qlQueryResult;
-import com.couchbase.client.java.query.N1qlQueryRow;
-import com.couchbase.client.java.query.Select;
-import com.couchbase.client.java.query.Statement;
-import com.couchbase.client.java.query.dsl.path.index.CreateIndexPath;
-
-
-import java.io.IOException;
-import java.net.URI;
-import com.couchbase.client.CouchbaseClient;
-import net.spy.memcached.internal.OperationFuture;
+import com.couchbase.client.java.query.*;
 
 public class CouchBase {
 	private static CouchBase Instance = null;
