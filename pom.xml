@@ -3,14 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.hoangthai267</groupId>
 	<artifactId>rpg-framework</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 	<packaging>jar</packaging>
 
 	<name>rpg-framework</name>
 	<url>https://github.com/hoangthai267/rpg-framework</url>
 	<description>A RPG Framework</description>
 	<inceptionYear>2016</inceptionYear>
-	
+
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -24,26 +24,26 @@
 		<developerConnection>Thai Nguyen</developerConnection>
 	</scm>
 
-	 <developers>
-	    <developer>
-	      <name>Thai Nguyen</name>
-	      <email>hoangthai267@gmail.com</email>
-	      <organization>UIT</organization>
-	      <organizationUrl>http://www.uit.edu.vn/</organizationUrl>
-	    </developer>
-	  </developers>
+	<developers>
+		<developer>
+			<name>Thai Nguyen</name>
+			<email>hoangthai267@gmail.com</email>
+			<organization>UIT</organization>
+			<organizationUrl>http://www.uit.edu.vn/</organizationUrl>
+		</developer>
+	</developers>
 
 	<distributionManagement>
 		<snapshotRepository>
 			<id>nexus</id>
-			<url>https://oss.sonatype.org/content/repositories/central_bundles-8429/</url>
-		</snapshotRepository>		
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
 		<repository>
 			<id>nexus</id>
-			<url>https://oss.sonatype.org/content/repositories/central_bundles-8429/</url>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
 		</repository>
 	</distributionManagement>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -58,6 +58,15 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -88,7 +97,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>com.couchbase.client</groupId>
@@ -115,6 +124,6 @@
 			<groupId>com.couchbase.client</groupId>
 			<artifactId>couchbase-client</artifactId>
 			<version>1.4.12</version>
-		</dependency>		
+		</dependency>
 	</dependencies>
 </project>
