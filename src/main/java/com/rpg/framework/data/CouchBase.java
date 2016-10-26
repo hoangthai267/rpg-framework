@@ -76,6 +76,7 @@ public class CouchBase {
 			builder.setResult(Protocol.ResponseCode.SUCCESS);
 			builder.setUserID(queryResult.rows().next().value().getObject("s").getString("userID"));
 		} else {
+			builder.setMessage("Invalid username or password.");
 			System.out.println("Username: " + request.getUsername() + " password: " + request.getPassword());
 			System.out.println(statement);
 		}
