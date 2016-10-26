@@ -26,25 +26,24 @@ import com.rpg.framework.sever.*;
 public class ClientHandler extends ChannelInboundHandlerAdapter {
 	// Stateful properties
 	private volatile Channel channel;
+
 	public ClientHandler() {
 
 	}
 
-	public GeneratedMessage sendMessage(int cmdID,
-				byte[] data
-            , GeneratedMessage message) {
+	public GeneratedMessage sendMessage(int cmdID, byte[] data, GeneratedMessage message) {
 		ByteBuf respBuf = channel.alloc().buffer();
-        int size = data.length + 2;
-        short flag = 0;
+		int size = data.length + 2;
+		short flag = 0;
 
-        respBuf.clear();
-        respBuf.writeInt(size);
-        respBuf.writeShort(flag);
-        respBuf.writeShort(cmdID);
-        respBuf.writeBytes(data);
-        
-        channel.writeAndFlush(respBuf);
-        return message;
+		respBuf.clear();
+		respBuf.writeInt(size);
+		respBuf.writeShort(flag);
+		respBuf.writeShort(cmdID);
+		respBuf.writeBytes(data);
+
+		channel.writeAndFlush(respBuf);
+		return message;
 	}
 
 	public String registerUser() {

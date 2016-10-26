@@ -13,40 +13,40 @@ public class Spymemcached {
 
 	private List<URI> uris;
 	private CouchbaseClient client;
-	
+
 	private static Spymemcached instance;
-	
+
 	public static Spymemcached getInstance() {
-		if(instance == null)
+		if (instance == null)
 			instance = new Spymemcached();
 		return instance;
 	}
-		
-	//Hard-code constructor for demo purpose
+
+	// Hard-code constructor for demo purpose
 	private Spymemcached() {
 		uris = new LinkedList<URI>();
 		// Connect to localhost or to the appropriate URI
 		uris.add(URI.create("http://127.0.0.1:8091/pools"));
 
-		try	{
+		try {
 			client = new CouchbaseClient(uris, "Dynamic", "");
 		} catch (Exception e) {
 			System.err.println("Error connecting to Couchbase: " + e.getMessage());
 			System.exit(0);
-		}	
+		}
 	}
 
-  	public Spymemcached(String bucketName, String password) {
+	public Spymemcached(String bucketName, String password) {
 		uris = new LinkedList<URI>();
 		// Connect to localhost or to the appropriate URI
 		uris.add(URI.create("http://127.0.0.1:8091/pools"));
 
-		try	{
+		try {
 			client = new CouchbaseClient(uris, bucketName, password);
 		} catch (Exception e) {
 			System.err.println("Error connecting to Couchbase: " + e.getMessage());
 			System.exit(0);
-		}		
+		}
 	}
 
 	public void example(boolean do_delete) {
@@ -79,7 +79,7 @@ public class Spymemcached {
 		}
 		// Print the value from synchronous get
 		if (getObject != null) {
-			System.out.println("Synchronous Get Suceeded: "	+ (String) getObject);
+			System.out.println("Synchronous Get Suceeded: " + (String) getObject);
 		} else {
 			System.err.println("Synchronous Get failed");
 		}
@@ -102,7 +102,7 @@ public class Spymemcached {
 					System.err.println("Delete failed: " + delOp.getStatus().getMessage());
 				}
 			} catch (Exception e) {
-				System.err.println("Exception while doing delete: "	+ e.getMessage());
+				System.err.println("Exception while doing delete: " + e.getMessage());
 			}
 		}
 	}
@@ -120,7 +120,7 @@ public class Spymemcached {
 			System.err.println("Exception while doing set: " + e.getMessage());
 		}
 	}
-	
+
 	public void set(String key, String value, int expTime) {
 		OperationFuture<Boolean> setOp = client.set(key, expTime, value);
 		// Check to see if our set succeeded
@@ -134,14 +134,13 @@ public class Spymemcached {
 			System.err.println("Exception while doing set: " + e.getMessage());
 		}
 	}
-	
+
 	public void clear() {
 		OperationFuture<Boolean> flushOP = client.flush();
 		try {
-			if(flushOP.get().booleanValue()) {
+			if (flushOP.get().booleanValue()) {
 				System.out.println("Flush: Completed");
-			}
-			else {
+			} else {
 				System.out.println("Flush: Not compleled");
 			}
 		} catch (InterruptedException e) {
@@ -150,11 +149,11 @@ public class Spymemcached {
 			System.out.println("Flush error: " + e.toString());
 		}
 	}
-	
+
 	public Object get(String key) {
 		return client.get(key);
 	}
-	
+
 	public static void main(String[] args) {
 		new Spymemcached("Dynamic", "").example(false);
 	}

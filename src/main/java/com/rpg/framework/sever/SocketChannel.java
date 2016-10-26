@@ -9,19 +9,19 @@ import io.netty.channel.socket.ServerSocketChannel;
 import io.netty.channel.socket.SocketChannelConfig;
 
 public interface SocketChannel extends Channel {
-    ServerSocketChannel parent();
+	ServerSocketChannel parent();
 
-    SocketChannelConfig config();
+	SocketChannelConfig config();
 
-    InetSocketAddress localAddress();
+	InetSocketAddress localAddress();
 
-    InetSocketAddress remoteAddress();
+	InetSocketAddress remoteAddress();
 
-    boolean isInputShutdown();
+	boolean isInputShutdown();
 
-    boolean isOutputShutdown();
+	boolean isOutputShutdown();
 
-    ChannelFuture shutdownOutput();
+	ChannelFuture shutdownOutput();
 
-    ChannelFuture shutdownOutput(ChannelPromise var1);
+	ChannelFuture shutdownOutput(ChannelPromise var1);
 }

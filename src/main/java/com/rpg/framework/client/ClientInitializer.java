@@ -24,7 +24,7 @@ public class ClientInitializer extends ChannelInitializer<SocketChannel> {
 	public final static String PIPELINE_IDLE = "idle";
 	public final static String PIPELINE_DECODER = "decoder";
 	public final static String PIPELINE_HANDLER = "handler";
-	
+
 	/**
 	 * In seconds
 	 */
@@ -37,21 +37,21 @@ public class ClientInitializer extends ChannelInitializer<SocketChannel> {
 	 * In seconds
 	 */
 	public final static int IDLE_TIME_ALL = 60 * 60; // second
-	
-    private final SslContext sslCtx;
 
-    public ClientInitializer(SslContext sslCtx) {
-        this.sslCtx = sslCtx;
-    }
+	private final SslContext sslCtx;
 
-    @Override
-    public void initChannel(SocketChannel ch) {
-        ChannelPipeline p = ch.pipeline();
-        if (sslCtx != null) {
-            p.addLast(sslCtx.newHandler(ch.alloc(), Client.HOST, Client.PORT));
-        }
+	public ClientInitializer(SslContext sslCtx) {
+		this.sslCtx = sslCtx;
+	}
+
+	@Override
+	public void initChannel(SocketChannel ch) {
+		ChannelPipeline p = ch.pipeline();
+		if (sslCtx != null) {
+			p.addLast(sslCtx.newHandler(ch.alloc(), Client.HOST, Client.PORT));
+		}
 		p.addLast(PIPELINE_IDLE, new IdleStateHandler(IDLE_TIME_READER, IDLE_TIME_WRITER, IDLE_TIME_ALL));
 		p.addLast(PIPELINE_DECODER, new ClientDecoder());
 		p.addLast(PIPELINE_HANDLER, new ClientHandler());
-    }
+	}
 }
