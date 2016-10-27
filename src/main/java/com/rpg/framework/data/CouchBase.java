@@ -6,6 +6,7 @@ import com.couchbase.client.java.*;
 import com.couchbase.client.java.document.*;
 import com.couchbase.client.java.document.json.*;
 import com.couchbase.client.java.query.*;
+import com.rpg.framework.data.Protocol.ResponseCode;
 
 public class CouchBase {
 	private static CouchBase Instance = null;
@@ -58,8 +59,8 @@ public class CouchBase {
 			builder.setUserID(queryResult.rows().next().value().getObject("s").getString("userID"));
 		} else {
 			builder.setMessage("Invalid username or password.");
-			System.out.println("Username: " + request.getUsername() + " password: " + request.getPassword());
-			System.out.println(statement);
+//			System.out.println("Username: " + request.getUsername() + " password: " + request.getPassword());
+//			System.out.println(statement);
 		}
 
 		return builder.build();
@@ -151,7 +152,10 @@ public class CouchBase {
 	}
 
 	public Protocol.ResponseStartGame handleRequest(Protocol.RequestStartGame request) {
-		return null;
+		Protocol.ResponseStartGame.Builder builder = Protocol.ResponseStartGame.newBuilder();
+		builder.setResult(ResponseCode.SUCCESS);
+		
+		return builder.build();
 	}
 
 	public Protocol.ResponseUpdatePosition handleRequest(Protocol.RequestUpdatePosition request) {
