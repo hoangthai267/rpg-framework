@@ -23,11 +23,17 @@ public class SocketServerInitializer extends ChannelInitializer<SocketChannel> {
 	 */
 	public final static int IDLE_TIME_ALL = 60 * 60; // second
 
+	private SocketServer socketServer;
+	
+	public SocketServerInitializer(SocketServer server) {
+		this.socketServer = server;
+	}
+	
 	@Override
 	protected void initChannel(SocketChannel ch) throws Exception {
-		ChannelPipeline p = ch.pipeline();
+		ChannelPipeline p = ch.pipeline();		
 		p.addLast(PIPELINE_IDLE, new IdleStateHandler(IDLE_TIME_READER, IDLE_TIME_WRITER, IDLE_TIME_ALL));
-		p.addLast(PIPELINE_DECODER, new SocketServerDecoder());
-		p.addLast(PIPELINE_HANDLER, new SocketServerHandler());
+		p.addLast(PIPELINE_DECODER, new SocketServerDecoder(socketServer));
+		p.addLast(PIPELINE_HANDLER, new SocketServerHandler(socketServer));
 	}
 }

@@ -19,25 +19,31 @@ public class SocketServer {
 				.childOption(ChannelOption.SO_KEEPALIVE, true).childOption(ChannelOption.TCP_NODELAY, true);
 	}
 
-	public ServerBootstrap getBootstrap() {
-		return bootstrap;
-	}
-
-	public synchronized boolean start(String host, int port) throws Exception {
-		if (bossGroup != null || workerGroup != null) {
-			return false;
-		}
-
+	public SocketServer(String host, int port) {
 		this.host = host;
 		this.port = port;
 		this.numberOfThread = Runtime.getRuntime().availableProcessors() << 2;
 		this.bossGroup = new NioEventLoopGroup();
 		this.workerGroup = new NioEventLoopGroup(numberOfThread);
 
-		bootstrap.group(bossGroup, workerGroup).childHandler(new SocketServerInitializer())
-				.bind(Address.getInetSocketAddress(host, port)).sync();
+		bootstrap = new ServerBootstrap().channel(NioServerSocketChannel.class)
+				.childOption(ChannelOption.SO_KEEPALIVE, true).childOption(ChannelOption.TCP_NODELAY, true);
+	}
+
+	public synchronized boolean start() {
+		try {
+			bootstrap.group(bossGroup, workerGroup).childHandler(new SocketServerInitializer(this))
+					.bind(Address.getInetSocketAddress(host, port)).sync();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			return false;
+		}
 
 		return true;
+	}
+
+	public ServerBootstrap getBootstrap() {
+		return bootstrap;
 	}
 
 	public String GetHost() {
@@ -69,5 +75,9 @@ public class SocketServer {
 	public boolean IsShuttingDown() {
 		return (bossGroup != null && bossGroup.isShuttingDown())
 				|| (workerGroup != null && workerGroup.isShuttingDown());
+	}
+
+	public byte[] handleMessage(int commandID, byte[] data) {
+		return null;
 	}
 }

@@ -17,10 +17,9 @@ package com.rpg.framework.client;
 
 import io.netty.channel.*;
 import io.netty.channel.socket.*;
-import io.netty.handler.ssl.*;
 import io.netty.handler.timeout.*;
 
-public class ClientInitializer extends ChannelInitializer<SocketChannel> {
+public class SocketClientInitializer extends ChannelInitializer<SocketChannel> {
 	public final static String PIPELINE_IDLE = "idle";
 	public final static String PIPELINE_DECODER = "decoder";
 	public final static String PIPELINE_HANDLER = "handler";
@@ -38,20 +37,17 @@ public class ClientInitializer extends ChannelInitializer<SocketChannel> {
 	 */
 	public final static int IDLE_TIME_ALL = 60 * 60; // second
 
-	private final SslContext sslCtx;
-
-	public ClientInitializer(SslContext sslCtx) {
-		this.sslCtx = sslCtx;
+	private SocketClient client;	
+	
+	public SocketClientInitializer(SocketClient client) {
+		this.client = client;
 	}
 
 	@Override
 	public void initChannel(SocketChannel ch) {
 		ChannelPipeline p = ch.pipeline();
-		if (sslCtx != null) {
-			p.addLast(sslCtx.newHandler(ch.alloc(), Client.HOST, Client.PORT));
-		}
 		p.addLast(PIPELINE_IDLE, new IdleStateHandler(IDLE_TIME_READER, IDLE_TIME_WRITER, IDLE_TIME_ALL));
-		p.addLast(PIPELINE_DECODER, new ClientDecoder());
-		p.addLast(PIPELINE_HANDLER, new ClientHandler());
+		p.addLast(PIPELINE_DECODER, new SocketClientDecoder());
+		p.addLast(PIPELINE_HANDLER, new SocketClientHandler(client));
 	}
 }

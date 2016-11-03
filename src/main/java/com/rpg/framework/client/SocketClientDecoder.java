@@ -6,7 +6,7 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 
 import java.util.List;
 
-public class ClientDecoder extends ByteToMessageDecoder {
+public class SocketClientDecoder extends ByteToMessageDecoder {
 	final static int HEADER_LEN = 4;
 
 	@Override
