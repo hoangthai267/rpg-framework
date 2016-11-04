@@ -14,28 +14,6 @@ public class Spymemcached {
 	private List<URI> uris;
 	private CouchbaseClient client;
 
-	private static Spymemcached instance;
-
-	public static Spymemcached getInstance() {
-		if (instance == null)
-			instance = new Spymemcached();
-		return instance;
-	}
-
-	// Hard-code constructor for demo purpose
-	private Spymemcached() {
-		uris = new LinkedList<URI>();
-		// Connect to localhost or to the appropriate URI
-		uris.add(URI.create("http://127.0.0.1:8091/pools"));
-
-		try {
-			client = new CouchbaseClient(uris, "Dynamic", "");
-		} catch (Exception e) {
-			System.err.println("Error connecting to Couchbase: " + e.getMessage());
-			System.exit(0);
-		}
-	}
-
 	public Spymemcached(String bucketName, String password) {
 		uris = new LinkedList<URI>();
 		// Connect to localhost or to the appropriate URI
@@ -155,6 +133,6 @@ public class Spymemcached {
 	}
 
 	public static void main(String[] args) {
-		new Spymemcached("Dynamic", "").example(false);
+		new Spymemcached("Static", "").example(false);
 	}
 }

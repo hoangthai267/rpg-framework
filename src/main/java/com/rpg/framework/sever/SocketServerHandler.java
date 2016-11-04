@@ -115,7 +115,7 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 	
 	public void receive(int commandID, byte[] data) {
 		byte[] result = handleMessage(commandID, data);
-		send(commandID, result);
+		send(commandID + 1, result);
 	}
 	
 	public byte[] handleMessage(int commandID, byte[] data) {

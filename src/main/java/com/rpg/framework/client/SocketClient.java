@@ -33,17 +33,7 @@ public class SocketClient {
 	}
 
 	public void start() {
-		System.out.println("Client start");		
-		new Timer().scheduleAtFixedRate(new TimerTask() {			
-			@Override
-			public void run() {
-				handler.update();
-				if(handler.isRunning() == false) {
-					stop();
-					System.exit(0);
-				}
-			}
-		}, 0, 33);
+		System.out.println("Client start");	
 	}
 
 	public boolean running() {
@@ -53,7 +43,7 @@ public class SocketClient {
 	public void stop() {
 		channel.close();
 		group.shutdownGracefully();
-		System.out.println("Client Stop");
+		System.out.println("Client stop");
 	}
 	
 	public void send(int commandID, byte[] data) {
