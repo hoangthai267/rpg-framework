@@ -16,7 +16,7 @@ public class Client extends SocketClient {
 
 	public void start() {
 		super.start();
-		requestStartGame();
+		sendRegisterRequest();
 	}
 
 	public void stop() {
@@ -52,7 +52,7 @@ public class Client extends SocketClient {
 		try {
 			switch (commandID) {
 			case Protocol.MessageType.RESPONE_LOGIN_VALUE: {
-				System.out.println(Protocol.ResponseLogin.parseFrom(data));			
+				System.out.println(Protocol.ResponseLogin.parseFrom(data));
 				break;
 			}
 			case Protocol.MessageType.RESPONE_REGISTER_VALUE: {
@@ -71,6 +71,9 @@ public class Client extends SocketClient {
 				System.out.println(Protocol.ResponseStartGame.parseFrom(data));
 				break;
 			}
+			case Protocol.MessageType.RESPONE_UPDATE_POSITION_VALUE: {
+				System.out.println(Protocol.ResponseUpdatePosition.parseFrom(data));
+			}
 			default:
 				break;
 			}
@@ -88,22 +91,22 @@ public class Client extends SocketClient {
 
 		send(Protocol.MessageType.REQUEST_LOGIN_VALUE, builder.build().toByteArray());
 	}
-	
+
 	public void sendRegisterRequest() {
 		Protocol.RequestRegister.Builder builder = Protocol.RequestRegister.newBuilder();
-		builder.setUsername("admin1000");
+		builder.setUsername("admin");
 		builder.setPassword("admin");
 
 		send(Protocol.MessageType.REQUEST_REGISTER_VALUE, builder.build().toByteArray());
 	}
-	
+
 	public void requestListOfCharacter() {
 		Protocol.RequestListOfCharacter.Builder builder = Protocol.RequestListOfCharacter.newBuilder();
 		builder.setUserID("User_1");
 
 		send(Protocol.MessageType.REQUEST_LIST_OF_CHARACTER_VALUE, builder.build().toByteArray());
 	}
-	
+
 	public void requestCreateCharacter() {
 		Protocol.RequestCreateCharacter.Builder builder = Protocol.RequestCreateCharacter.newBuilder();
 		builder.setUserID("User_1");
@@ -112,13 +115,23 @@ public class Client extends SocketClient {
 
 		send(Protocol.MessageType.REQUEST_CREATE_CHARACTER_VALUE, builder.build().toByteArray());
 	}
-	
+
 	public void requestStartGame() {
 		Protocol.RequestStartGame.Builder builder = Protocol.RequestStartGame.newBuilder();
 		builder.setUserID("User_1");
 		builder.setCharID("Character_1");
 
 		send(Protocol.MessageType.REQUEST_START_GAME_VALUE, builder.build().toByteArray());
+	}
+
+	public void requestUpdatePosition() {
+		Protocol.RequestUpdatePosition request = Protocol.RequestUpdatePosition.newBuilder()
+				.setUserID("User_1")
+				.setCharID("Character_1")
+				.setNewPosition(Protocol.CharacterPosition.newBuilder().setMapID("Map_1").setX(0.0).setY(0.0).build())
+				.build();
+		
+		send(Protocol.MessageType.REQUEST_UPDATE_POSITION_VALUE, request.toByteArray());
 	}
 
 	public static void main(String args[]) {

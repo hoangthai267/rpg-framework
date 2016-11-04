@@ -6,6 +6,7 @@ import com.couchbase.client.java.query.N1qlQueryResult;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import com.rpg.framework.data.CouchBase;
+import com.rpg.framework.data.Pool;
 import com.rpg.framework.data.Spymemcached;
 import com.rpg.framework.database.Protocol;
 import com.rpg.framework.sever.SocketServer;
@@ -15,7 +16,8 @@ public class Server extends SocketServer {
 	private int port;
 	private CouchBase couchbase;
 	private Spymemcached spymemcached;
-
+	private Pool pool;
+	
 	public Server(String host, int port) {
 		super(host, port);
 		this.host = host;
@@ -23,6 +25,7 @@ public class Server extends SocketServer {
 		
 		this.couchbase = new CouchBase("Static");
 		this.spymemcached = new Spymemcached("Dynamic", "");
+		this.pool = new Pool(couchbase, spymemcached);
 	}
 
 	public static void main(String args[]) throws Exception {
@@ -63,6 +66,9 @@ public class Server extends SocketServer {
 			}
 			case Protocol.MessageType.REQUEST_START_GAME_VALUE: {
 				return handleRequest(Protocol.RequestStartGame.parseFrom(data));
+			}
+			case Protocol.MessageType.REQUEST_UPDATE_POSITION_VALUE: {
+				return handleRequest(Protocol.RequestUpdatePosition.parseFrom(data));
 			}
 
 			default:
@@ -200,6 +206,20 @@ public class Server extends SocketServer {
 		builder.setResult(Protocol.ResponseCode.SUCCESS);
 		builder.setMessage("Welcome to our game.");
 		
+		return builder.build().toByteArray();
+	}
+	
+	public byte[] handleRequest(Protocol.RequestUpdatePosition request) {
+		String id = request.getUserID() + "_" + request.getCharID() + "_Position";
+		JsonObject characterPosition = JsonObject.create()
+				.put("mapID", request.getNewPosition().getMapID())
+				.put("x", request.getNewPosition().getX())
+				.put("y", request.getNewPosition().getY());		
+		
+		pool.set(id, characterPosition);
+		
+		Protocol.ResponseUpdatePosition.Builder builder = Protocol.ResponseUpdatePosition.newBuilder();
+		builder.setResult(Protocol.ResponseCode.SUCCESS);
 		return builder.build().toByteArray();
 	}
 }
