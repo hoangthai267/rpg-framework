@@ -112,7 +112,7 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 		respBuf.writeShort(commandID);
 		respBuf.writeBytes(data);
 
-		channelHandlerContext.writeAndFlush(respBuf).addListener(new MessageListener(commandID, data));
+		channelHandlerContext.writeAndFlush(respBuf);
 	}
 	
 	public void receive(int commandID, byte[] data) {
