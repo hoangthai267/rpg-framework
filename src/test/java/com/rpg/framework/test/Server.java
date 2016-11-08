@@ -1,5 +1,6 @@
 package com.rpg.framework.test;
 
+import com.couchbase.client.java.document.json.JsonArray;
 import com.couchbase.client.java.document.json.JsonObject;
 import com.couchbase.client.java.query.N1qlQueryResult;
 
@@ -17,12 +18,12 @@ public class Server extends SocketServer {
 	private CouchBase couchbase;
 	private Spymemcached spymemcached;
 	private Pool pool;
-	
+
 	public Server(String host, int port) {
 		super(host, port);
 		this.host = host;
 		this.port = port;
-		
+
 		this.couchbase = new CouchBase("Static");
 		this.spymemcached = new Spymemcached("Dynamic", "");
 		this.pool = new Pool(couchbase, spymemcached);
@@ -58,9 +59,9 @@ public class Server extends SocketServer {
 			case Protocol.MessageType.REQUEST_REGISTER_VALUE: {
 				return handleRequest(Protocol.RequestRegister.parseFrom(data));
 			}
-			case Protocol.MessageType.REQUEST_LIST_OF_CHARACTER_VALUE: {
-				return handleRequest(Protocol.RequestListOfCharacter.parseFrom(data));
-			}			
+			case Protocol.MessageType.REQUEST_GET_CHARACTER_VALUE: {
+				return handleRequest(Protocol.RequestGetCharacter.parseFrom(data));
+			}
 			case Protocol.MessageType.REQUEST_CREATE_CHARACTER_VALUE: {
 				return handleRequest(Protocol.RequestCreateCharacter.parseFrom(data));
 			}
@@ -70,134 +71,118 @@ public class Server extends SocketServer {
 			case Protocol.MessageType.REQUEST_UPDATE_POSITION_VALUE: {
 				return handleRequest(Protocol.RequestUpdatePosition.parseFrom(data));
 			}
-
+			case Protocol.MessageType.REQUEST_GET_ITEMS_VALUE: {
+				return handleRequest(Protocol.RequestGetItems.parseFrom(data));
+			}
 			default:
 				break;
 			}
 		} catch (InvalidProtocolBufferException e) {
 			e.printStackTrace();
 		}
-		
 		return data;
 	}
-	
-	public byte[] handleRequestLogin(Protocol.RequestLogin request)	 {
+
+	public byte[] handleRequestLogin(Protocol.RequestLogin request) {
 		Protocol.ResponseLogin.Builder builder = Protocol.ResponseLogin.newBuilder();
 		builder.setResult(Protocol.ResponseCode.FAIL);
-		String statement = "SELECT * FROM `Static` s WHERE `username` = \"" + request.getUsername() + "\" AND `password` = \"" + request.getPassword() + "\";";
+		String statement = "SELECT * FROM `Static` s WHERE `username` = \"" + request.getUsername()
+				+ "\" AND `password` = \"" + request.getPassword() + "\";";
 		N1qlQueryResult queryResult = couchbase.query(statement);
-		if(queryResult.allRows().size() == 1) {
+		if (queryResult.allRows().size() == 1) {
 			builder.setResult(Protocol.ResponseCode.SUCCESS);
 			builder.setUserID(queryResult.rows().next().value().getObject("s").getString("userID"));
+			builder.setHasCharacter(queryResult.rows().next().value().getObject("s").getBoolean("hasCharacter"));
 		} else {
 			builder.setMessage("Invalid username or password.");
 			System.out.println(statement);
 		}
-		
+
 		return builder.build().toByteArray();
 	}
-	
+
 	public byte[] handleRequest(Protocol.RequestRegister request) {
 		Protocol.ResponseRegister.Builder builder = Protocol.ResponseRegister.newBuilder();
 		String statement = "SELECT * FROM `Static` s WHERE s.username = \"" + request.getUsername() + "\";";
-		
+
 		N1qlQueryResult queryResult = couchbase.query(statement);
-		if(!queryResult.allRows().isEmpty()) {
+		if (!queryResult.allRows().isEmpty()) {
 			builder.setResult(Protocol.ResponseCode.FAIL);
 			builder.setMessage("Invalid username");
 			return builder.build().toByteArray();
 		}
-		
+
 		long count = couchbase.counter("index", 1);
-		
-		JsonObject user = JsonObject.create()
-				.put("username", request.getUsername())
-				.put("password", request.getPassword())
-				.put("userID", "User_" + count)
-				.put("numberOfCharacter", 0);
-		
-		couchbase.set("User_" + count, user);		
-		
+
+		JsonObject user = JsonObject.create().put("username", request.getUsername())
+				.put("password", request.getPassword()).put("userID", "User_" + count).put("hasCharacter", false);
+
+		couchbase.set("User_" + count, user);
+
 		builder.setResult(Protocol.ResponseCode.SUCCESS);
 		builder.setMessage("Success");
-		
+
 		return builder.build().toByteArray();
 	}
-	
-	public byte[] handleRequest(Protocol.RequestListOfCharacter request) {
-		int numberOfCharacter = couchbase.get(request.getUserID()).getInt("numberOfCharacter");
-		Protocol.ResponseListOfCharacter.Builder builder = Protocol.ResponseListOfCharacter.newBuilder();
-		
-		builder.setResult(Protocol.ResponseCode.SUCCESS);
-		builder.setNumberOfCharacter(numberOfCharacter);
-		for (int i = 1; i <= numberOfCharacter; i++) {
-			
-			JsonObject data 	= couchbase.get(request.getUserID() + "_Character_" + i + "_Data");
-			JsonObject position = couchbase.get(request.getUserID() + "_Character_" + i + "_Position");
-			JsonObject status 	= couchbase.get(request.getUserID() + "_Character_" + i + "_Status");
-			builder.addListOfCharacter(Protocol.Character.newBuilder()
-					.setData(Protocol.CharacterData.newBuilder()
-							.setName(data.getString("name"))
-							.setOccupation(data.getString("occupation"))
-							.setLevel(data.getInt("level"))
-							.setStrength(data.getInt("strength"))
-							.setMagic(data.getInt("magic"))
-							.setDefense(data.getInt("defense"))
-							.setSpeed(data.getInt("speed"))
-							.setDame(data.getInt("dame"))
-							.setArmor(data.getInt("armor")))
-					.setPosition(Protocol.CharacterPosition.newBuilder()
-							.setMapID(position.getString("mapID"))
-							.setX(position.getDouble("x"))
-							.setY(position.getDouble("y")))
-					.setStatus(Protocol.CharacterStatus.newBuilder()
-							.setCurHP(status.getInt("curHP"))
-							.setMaxHP(status.getInt("maxHP"))
-							.setCurMP(status.getInt("curMP"))
-							.setMaxMP(status.getInt("maxMP")))
-					.setID("Character_" + i)
-					);
-		}
-				
-		return builder.build().toByteArray();
+
+	public byte[] handleRequest(Protocol.RequestGetCharacter request) {
+		JsonObject stats = couchbase.get(request.getUserID() + "_Character_Stats");
+		JsonObject position = couchbase.get(request.getUserID() + "_Character_Position");
+		JsonObject status = couchbase.get(request.getUserID() + "_Character_Status");
+		Protocol.ResponseGetCharacter reponse = Protocol.ResponseGetCharacter.newBuilder()
+				.setResult(Protocol.ResponseCode.SUCCESS)
+				.setCharacter(Protocol.Character.newBuilder()
+						.setName(stats.getString("name"))
+						.setGender(stats.getInt("gender"))
+						.setOccupation(stats.getString("occupation"))
+						.setLevel(stats.getInt("level"))
+						.setStrength(stats.getInt("strength"))
+						.setMagic(stats.getInt("magic"))
+						.setDefense(stats.getInt("defense"))
+						.setSpeed(stats.getInt("speed"))
+						.setDame(stats.getInt("dame"))
+						.setArmor(stats.getInt("armor"))
+						
+						.setMapID(position.getString("mapID"))
+						.setX(position.getDouble("x"))
+						.setY(position.getDouble("y"))
+						
+						.setMaxHP(status.getInt("maxHP"))
+						.setCurHP(status.getInt("curHP"))
+						.setMaxMP(status.getInt("maxMP"))
+						.setCurMP(status.getInt("curMP"))						
+						.build())				
+				.build();
+
+		return reponse.toByteArray();
 	}
-	
-	public byte[] handleRequest(Protocol.RequestCreateCharacter request) {	
+
+	public byte[] handleRequest(Protocol.RequestCreateCharacter request) {
 		JsonObject user = couchbase.get(request.getUserID());
-		int numberOfCharacter = user.getInt("numberOfCharacter");
-		numberOfCharacter++;
-		user.put("numberOfCharacter", numberOfCharacter);
+		user.put("hasCharacter", true);
 		couchbase.set(request.getUserID(), user);
+
+		JsonObject stats = JsonObject.create().put("name", request.getName()).put("gender", 0).put("occupation", "")
+				.put("level", 1).put("strength", 1).put("magic", 1).put("defense", 1).put("speed", 1).put("dame", 1)
+				.put("armor", 1);
+
+		JsonObject position = JsonObject.create().put("mapID", "Map_1").put("x", 0.0).put("y", 0.0);
+
+		JsonObject status = JsonObject.create().put("maxHP", 100).put("curHP", 100).put("maxMP", 100).put("curMP", 100);
+
+		JsonObject items = JsonObject.create().put("items", JsonArray.create().add(0).add(1));
 		
-		JsonObject characterData = JsonObject.create()
-				.put("name", request.getName())
-				.put("occupation", request.getOccupation())				
-				.put("level", 1)
-				.put("strength", 1)
-				.put("magic", 1)
-				.put("defense", 1)
-				.put("speed", 1)
-				.put("dame", 1)
-				.put("armor", 1);		
-		couchbase.set(request.getUserID() + "_Character_" + numberOfCharacter + "_Data", characterData);
-		
-		JsonObject characterPosition = JsonObject.create()
-				.put("mapID", "Map_1")
-				.put("x", 0.0)
-				.put("y", 0.0);		
-		couchbase.set(request.getUserID() + "_Character_" + numberOfCharacter + "_Position", characterPosition);
-		
-		JsonObject characterStatus = JsonObject.create()
-				.put("maxHP", 100)
-				.put("curHP", 100)
-				.put("maxMP", 100)
-				.put("curMP", 100);		
-		couchbase.set(request.getUserID() + "_Character_" + numberOfCharacter + "_Status", characterStatus);
-		
-		
+		JsonObject character = JsonObject.create().put("stats", stats).put("position", position).put("status", status);
+
+		couchbase.set(request.getUserID() + "_Character_Stats", stats);
+		couchbase.set(request.getUserID() + "_Character_Position", position);
+		couchbase.set(request.getUserID() + "_Character_Status", status);
+		couchbase.set(request.getUserID() + "_Character_Items", items);
+//		couchbase.set(request.getUserID() + "_Character", character);
+
 		Protocol.ResponseCreateCharacter.Builder builder = Protocol.ResponseCreateCharacter.newBuilder();
 		builder.setResult(Protocol.ResponseCode.SUCCESS);
-		
+
 		return builder.build().toByteArray();
 	}
 
@@ -205,21 +190,31 @@ public class Server extends SocketServer {
 		Protocol.ResponseStartGame.Builder builder = Protocol.ResponseStartGame.newBuilder();
 		builder.setResult(Protocol.ResponseCode.SUCCESS);
 		builder.setMessage("Welcome to our game.");
-		
+
 		return builder.build().toByteArray();
 	}
-	
+
 	public byte[] handleRequest(Protocol.RequestUpdatePosition request) {
-		String id = request.getUserID() + "_" + request.getCharID() + "_Position";
-		JsonObject characterPosition = JsonObject.create()
-				.put("mapID", request.getNewPosition().getMapID())
-				.put("x", request.getNewPosition().getX())
-				.put("y", request.getNewPosition().getY());		
-		
+		String id = request.getUserID() + "_Character_Position";
+		JsonObject characterPosition = JsonObject.create().put("mapID", request.getMapID()).put("x", request.getX())
+				.put("y", request.getY());
+
 		pool.set(id, characterPosition);
-		
+
 		Protocol.ResponseUpdatePosition.Builder builder = Protocol.ResponseUpdatePosition.newBuilder();
 		builder.setResult(Protocol.ResponseCode.SUCCESS);
 		return builder.build().toByteArray();
+	}
+
+	public byte[] handleRequest(Protocol.RequestGetItems request) {
+		Protocol.ResponseGetItems.Builder builder = Protocol.ResponseGetItems.newBuilder();
+		builder.setResult(Protocol.ResponseCode.SUCCESS);
+
+		JsonArray array = couchbase.get(request.getUserID() + "_Character_Items").getArray("items");
+		for (int i = 0; i < array.size(); i++ ) {
+			builder.addItems(array.getInt(i));
+		}
+		
+		return builder.build().toByteArray();				
 	}
 }

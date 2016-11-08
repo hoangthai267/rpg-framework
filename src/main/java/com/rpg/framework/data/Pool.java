@@ -24,7 +24,7 @@ public class Pool {
 			public void run() {
 				update();
 			}
-		}, 0, 33);
+		}, 0, 1000 / 1);
 	}
 	
 	public void update() {

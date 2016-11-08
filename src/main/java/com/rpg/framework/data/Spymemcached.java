@@ -87,45 +87,45 @@ public class Spymemcached {
 
 	public void set(String key, String value) {
 		OperationFuture<Boolean> setOp = client.set(key, value);
-		// Check to see if our set succeeded
-		try {
-			if (setOp.get().booleanValue()) {
-				System.out.println("Set Succeeded");
-			} else {
-				System.err.println("Set failed: " + setOp.getStatus().getMessage());
-			}
-		} catch (Exception e) {
-			System.err.println("Exception while doing set: " + e.getMessage());
-		}
+//		// Check to see if our set succeeded
+//		try {
+//			if (setOp.get().booleanValue()) {
+//				System.out.println("Set Succeeded");
+//			} else {
+//				System.err.println("Set failed: " + setOp.getStatus().getMessage());
+//			}
+//		} catch (Exception e) {
+//			System.err.println("Exception while doing set: " + e.getMessage());
+//		}
 	}
 
 	public void set(String key, String value, int expTime) {
 		OperationFuture<Boolean> setOp = client.set(key, expTime, value);
-		// Check to see if our set succeeded
-		try {
-			if (setOp.get().booleanValue()) {
-				System.out.println("Set Succeeded");
-			} else {
-				System.err.println("Set failed: " + setOp.getStatus().getMessage());
-			}
-		} catch (Exception e) {
-			System.err.println("Exception while doing set: " + e.getMessage());
-		}
+//		// Check to see if our set succeeded
+//		try {
+//			if (setOp.get().booleanValue()) {
+//				System.out.println("Set Succeeded");
+//			} else {
+//				System.err.println("Set failed: " + setOp.getStatus().getMessage());
+//			}
+//		} catch (Exception e) {
+//			System.err.println("Exception while doing set: " + e.getMessage());
+//		}
 	}
 
 	public void clear() {
 		OperationFuture<Boolean> flushOP = client.flush();
-		try {
-			if (flushOP.get().booleanValue()) {
-				System.out.println("Flush: Completed");
-			} else {
-				System.out.println("Flush: Not compleled");
-			}
-		} catch (InterruptedException e) {
-			System.out.println("Flush error: " + e.toString());
-		} catch (ExecutionException e) {
-			System.out.println("Flush error: " + e.toString());
-		}
+//		try {
+//			if (flushOP.get().booleanValue()) {
+//				System.out.println("Flush: Completed");
+//			} else {
+//				System.out.println("Flush: Not compleled");
+//			}
+//		} catch (InterruptedException e) {
+//			System.out.println("Flush error: " + e.toString());
+//		} catch (ExecutionException e) {
+//			System.out.println("Flush error: " + e.toString());
+//		}
 	}
 
 	public Object get(String key) {

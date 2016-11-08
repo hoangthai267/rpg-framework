@@ -3,7 +3,10 @@ package com.rpg.framework.sever;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.couchbase.client.deps.io.netty.channel.ChannelFuture;
+
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelPipeline;
@@ -37,7 +40,6 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		System.out.println(ctx.channel().toString());
 		ByteBuf data = (ByteBuf) msg;
 		byte[] buffer = new byte[data.capacity() - 2];
 		data.getBytes(2, buffer);
@@ -110,7 +112,7 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 		respBuf.writeShort(commandID);
 		respBuf.writeBytes(data);
 
-		channelHandlerContext.writeAndFlush(respBuf);
+		channelHandlerContext.writeAndFlush(respBuf).addListener(new MessageListener(commandID, data));
 	}
 	
 	public void receive(int commandID, byte[] data) {
@@ -122,3 +124,5 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 		return socketServer.handleMessage(commandID, data);
 	}
 }
+
+
