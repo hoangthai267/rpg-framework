@@ -16,24 +16,26 @@ import io.netty.handler.timeout.IdleStateHandler;
 public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 	private AtomicInteger numberConnection;
 	private ChannelHandlerContext channelHandlerContext;
-	private SocketServer socketServer;
+	private SocketServerManager manager;
 	
-	public SocketServerHandler(SocketServer server) {
+	public SocketServerHandler(SocketServerManager server) {
 		super();		
 		this.numberConnection = new AtomicInteger();
-		this.socketServer = server;
+		this.manager = server;
 	}
 	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		super.channelActive(ctx);
+		manager.addChannel(ctx);
 		numberConnection.incrementAndGet();
-		this.channelHandlerContext = ctx;
+		channelHandlerContext = ctx;
 	}
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		super.channelInactive(ctx);
+		manager.removeChannel(ctx);
 		numberConnection.decrementAndGet();
 		channelHandlerContext = null;
 	}
@@ -43,7 +45,7 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 		ByteBuf data = (ByteBuf) msg;
 		byte[] buffer = new byte[data.capacity() - 2];
 		data.getBytes(2, buffer);
-		receive(data.readShort(), buffer);
+		manager.readChannel(ctx, (int)data.readShort(), buffer);
 	}
 
 	public void HandleExceptionContext(ChannelHandlerContext ctx, Throwable Cause) throws Exception {
@@ -113,15 +115,6 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 		respBuf.writeBytes(data);
 
 		channelHandlerContext.writeAndFlush(respBuf);
-	}
-	
-	public void receive(int commandID, byte[] data) {
-		byte[] result = handleMessage(commandID, data);
-		send(commandID + 1, result);
-	}
-	
-	public byte[] handleMessage(int commandID, byte[] data) {
-		return socketServer.handleMessage(commandID, data);
 	}
 }
 

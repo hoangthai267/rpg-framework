@@ -18,6 +18,7 @@ public class Client extends SocketClient {
 		SEND_REQUEST_START_GAME, 
 		SEND_REQUEST_UPDATE_POSITION,
 		SEND_REQUEST_GET_ITEMS,
+		SEND_REQUEST_UPDATE_ACTION,
 		
 		WAIT_RESPONSE, 
 		HANDLE_RESPONSE, 
@@ -110,6 +111,10 @@ public class Client extends SocketClient {
 			requestGetItems();
 			break;
 		}
+		case SEND_REQUEST_UPDATE_ACTION: {
+			requestUpdateAction();
+			break;
+		}
 		case WAIT_RESPONSE: {
 			break;
 		}
@@ -122,29 +127,12 @@ public class Client extends SocketClient {
 			break;
 		}
 		case HANDLE_RESPONSE: {
-			System.out.println(commandID);
 			handleMessage(commandID, data);
 			break;
 		}
 		default:
 			break;
 		}
-	}
-
-	public String getHost() {
-		return host;
-	}
-
-	public void setHost(String host) {
-		this.host = host;
-	}
-
-	public int getPort() {
-		return port;
-	}
-
-	public void setPort(int port) {
-		this.port = port;
 	}
 
 	public void send(int commandID, byte[] data) {
@@ -187,6 +175,11 @@ public class Client extends SocketClient {
 			}
 			case Protocol.MessageType.RESPONSE_GET_ITEMS_VALUE: {
 				responseGetItems(Protocol.ResponseGetItems.parseFrom(data));
+				break;
+			}
+			case Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE: {
+				System.out.println(Protocol.RequestUpdateAction.parseFrom(data));
+				this.state = State.STOP;
 				break;
 			}
 			default: {
@@ -249,12 +242,11 @@ public class Client extends SocketClient {
 	}
 
 	public void requestUpdatePosition() {
+		this.state = State.WAIT_RESPONSE;
 
 		Protocol.RequestUpdatePosition request = Protocol.RequestUpdatePosition.newBuilder().setUserID(userID)
 				.setMapID(mapID).setX(positionX).setY(positionY).build();
 
-		this.state = State.WAIT_RESPONSE;
-		send(Protocol.MessageType.REQUEST_UPDATE_POSITION_VALUE, request.toByteArray());
 		send(Protocol.MessageType.REQUEST_UPDATE_POSITION_VALUE, request.toByteArray());
 	}
 
@@ -263,6 +255,24 @@ public class Client extends SocketClient {
 				.setUserID(userID).build();
 		
 		send(Protocol.MessageType.REQUEST_GET_ITEMS_VALUE, request.toByteArray());
+	}
+	
+	public void requestUpdateAction() {
+		this.state = State.WAIT_RESPONSE;
+		
+		Protocol.RequestUpdateAction.Builder builder = Protocol.RequestUpdateAction.newBuilder();
+		builder.setUserID(userID);
+		builder.addActions(Protocol.CharacterAction.newBuilder()
+				.setState(10)
+				.setActionCommand(100)
+				.setTimeStart(10)
+				.setTimeEnd(100).build());
+		builder.addActions(Protocol.CharacterAction.newBuilder()
+				.setState(20)
+				.setActionCommand(200)
+				.setTimeStart(100)
+				.setTimeEnd(200).build());
+		send(Protocol.MessageType.REQUEST_UPDATE_ACTION_VALUE, builder.build().toByteArray());
 	}
 	
 	public void responseLogin(Protocol.ResponseLogin response) {
@@ -314,7 +324,7 @@ public class Client extends SocketClient {
 			positionX = rand.nextDouble() * 100;
 			positionY = rand.nextDouble() * 100;
 
-			this.state = State.SEND_REQUEST_GET_ITEMS;
+			this.state = State.SEND_REQUEST_UPDATE_ACTION;
 		}
 	}
 
@@ -322,13 +332,29 @@ public class Client extends SocketClient {
 		if(response.getResult() == Protocol.ResponseCode.SUCCESS) {
 			this.items = response.getItemsList();
 			System.out.println(items);
-			this.state = State.STOP;
 		}
+	}
+
+	public String getHost() {
+		return host;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
 	}
 	
 	public static void main(String args[]) {
 //		for (int i = 1; i < 100; i++)
 //			new Client("localhost", 8463).start("admin" + i, "admin");
 		new Client("localhost", 8463).start("admin", "admin");
+//		new Client("localhost", 8463).start("admin2", "admin");
 	}
 }

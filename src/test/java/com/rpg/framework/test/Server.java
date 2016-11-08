@@ -50,29 +50,40 @@ public class Server extends SocketServer {
 		this.port = port;
 	}
 
-	public byte[] handleMessage(int commandID, byte[] data) {
+	public void handleMessage(int commandID, byte[] data) {
 		try {
 			switch (commandID) {
 			case Protocol.MessageType.REQUEST_LOGIN_VALUE: {
-				return handleRequestLogin(Protocol.RequestLogin.parseFrom(data));
+				send(0, Protocol.MessageType.RESPONE_LOGIN_VALUE, handleRequestLogin(Protocol.RequestLogin.parseFrom(data)));
+				break;
 			}
 			case Protocol.MessageType.REQUEST_REGISTER_VALUE: {
-				return handleRequest(Protocol.RequestRegister.parseFrom(data));
+				send(0, Protocol.MessageType.RESPONE_REGISTER_VALUE, handleRequest(Protocol.RequestRegister.parseFrom(data)));
+				break;
 			}
 			case Protocol.MessageType.REQUEST_GET_CHARACTER_VALUE: {
-				return handleRequest(Protocol.RequestGetCharacter.parseFrom(data));
+				send(0, Protocol.MessageType.RESPONE_GET_CHARACTER_VALUE, handleRequest(Protocol.RequestGetCharacter.parseFrom(data)));
+				break;
 			}
 			case Protocol.MessageType.REQUEST_CREATE_CHARACTER_VALUE: {
-				return handleRequest(Protocol.RequestCreateCharacter.parseFrom(data));
+				send(0, Protocol.MessageType.RESPONE_CREATE_CHARACTER_VALUE, handleRequest(Protocol.RequestCreateCharacter.parseFrom(data)));
+				break;
 			}
 			case Protocol.MessageType.REQUEST_START_GAME_VALUE: {
-				return handleRequest(Protocol.RequestStartGame.parseFrom(data));
+				send(0, Protocol.MessageType.RESPONE_START_GAME_VALUE, handleRequest(Protocol.RequestStartGame.parseFrom(data)));
+				break;
 			}
 			case Protocol.MessageType.REQUEST_UPDATE_POSITION_VALUE: {
-				return handleRequest(Protocol.RequestUpdatePosition.parseFrom(data));
+				send(0, Protocol.MessageType.RESPONE_UPDATE_POSITION_VALUE, handleRequest(Protocol.RequestUpdatePosition.parseFrom(data)));
+				break;
 			}
 			case Protocol.MessageType.REQUEST_GET_ITEMS_VALUE: {
-				return handleRequest(Protocol.RequestGetItems.parseFrom(data));
+				send(0, Protocol.MessageType.RESPONSE_GET_ITEMS_VALUE, handleRequest(Protocol.RequestGetItems.parseFrom(data)));
+				break;
+			}
+			case Protocol.MessageType.REQUEST_UPDATE_ACTION_VALUE: {
+				send(1, Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE, data);
+				break;
 			}
 			default:
 				break;
@@ -80,7 +91,6 @@ public class Server extends SocketServer {
 		} catch (InvalidProtocolBufferException e) {
 			e.printStackTrace();
 		}
-		return data;
 	}
 
 	public byte[] handleRequestLogin(Protocol.RequestLogin request) {

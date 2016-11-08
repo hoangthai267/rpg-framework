@@ -10,10 +10,10 @@ public class SocketServerDecoder extends ByteToMessageDecoder {
 	final public static int HEADER_LEN = 6;
 	final public static int MAX_CLIENT_PACKAGE_SIZE = 1024 * 64;
 	
-	private SocketServer socketServer;
+	private SocketServerManager manager;
 	
-	public SocketServerDecoder(SocketServer server) {
-		this.setSocketServer(server);
+	public SocketServerDecoder(SocketServerManager manager) {
+		this.manager = manager;
 	}
 	
 	@Override
@@ -37,13 +37,5 @@ public class SocketServerDecoder extends ByteToMessageDecoder {
 		}
 		
 		out.add(in.readBytes(bodyLen));
-	}
-
-	public SocketServer getSocketServer() {
-		return socketServer;
-	}
-
-	public void setSocketServer(SocketServer socketServer) {
-		this.socketServer = socketServer;
 	}
 }

@@ -13,7 +13,7 @@ public class SocketServer {
 	private ServerBootstrap bootstrap;
 	private EventLoopGroup bossGroup, workerGroup;
 	private int numberOfThread;
-
+	private SocketServerManager manager;
 	public SocketServer() {
 		bootstrap = new ServerBootstrap().channel(NioServerSocketChannel.class)
 				.childOption(ChannelOption.SO_KEEPALIVE, true).childOption(ChannelOption.TCP_NODELAY, true);
@@ -28,11 +28,13 @@ public class SocketServer {
 
 		bootstrap = new ServerBootstrap().channel(NioServerSocketChannel.class)
 				.childOption(ChannelOption.SO_KEEPALIVE, true).childOption(ChannelOption.TCP_NODELAY, true);
+		
+		this.manager = new SocketServerManager(this);
 	}
 
 	public synchronized boolean start() {
 		try {
-			bootstrap.group(bossGroup, workerGroup).childHandler(new SocketServerInitializer(this))
+			bootstrap.group(bossGroup, workerGroup).childHandler(new SocketServerInitializer(manager))
 					.bind(Address.getInetSocketAddress(host, port)).sync();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -76,8 +78,12 @@ public class SocketServer {
 		return (bossGroup != null && bossGroup.isShuttingDown())
 				|| (workerGroup != null && workerGroup.isShuttingDown());
 	}
+	
+	public void send(int type, int commandID, byte[] data) {
+		manager.sendChannel(type, commandID, data);
+	}
 
-	public byte[] handleMessage(int commandID, byte[] data) {
-		return null;
+	public void handleMessage(int commandID, byte[] data) {
+		
 	}
 }
