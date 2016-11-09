@@ -1,5 +1,10 @@
 package com.rpg.framework.test;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
+
 import com.couchbase.client.java.document.json.JsonArray;
 import com.couchbase.client.java.document.json.JsonObject;
 import com.couchbase.client.java.query.N1qlQueryResult;
@@ -18,7 +23,8 @@ public class Server extends SocketServer {
 	private CouchBase couchbase;
 	private Spymemcached spymemcached;
 	private Pool pool;
-
+	private Queue<Message> messageList;
+	
 	public Server(String host, int port) {
 		super(host, port);
 		this.host = host;
@@ -27,11 +33,75 @@ public class Server extends SocketServer {
 		this.couchbase = new CouchBase("Static");
 		this.spymemcached = new Spymemcached("Dynamic", "");
 		this.pool = new Pool(couchbase, spymemcached);
+		this.messageList = new LinkedList<Message>();
 	}
 
 	public static void main(String args[]) throws Exception {
 		new Server("localhost", 8463).start();
 		System.out.println("Server start.");
+	}
+	
+	public synchronized boolean start() {
+		super.start();
+		loop();
+		
+		return true;
+	}
+	
+	public void loop() {
+		long lastLoopTime = System.nanoTime();
+		final int TARGET_FPS = 60;
+		final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
+		long lastFpsTime = 0;
+		int fps = 0;
+		// keep looping round til the game ends
+		while (true) {
+			// work out how long its been since the last update, this
+			// will be used to calculate how far the entities should
+			// move this loop
+			long now = System.nanoTime();
+			long updateLength = now - lastLoopTime;
+			lastLoopTime = now;
+			
+			if(updateLength < OPTIMAL_TIME) {
+				long sleepTime = (OPTIMAL_TIME - updateLength) / 1000000;
+				try {
+					Thread.sleep(sleepTime);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				updateLength = OPTIMAL_TIME;
+			}
+			
+			double delta = updateLength / ((double)1000000000);
+			// update the frame counter
+			lastFpsTime += updateLength;
+			fps++;
+
+			// update our FPS counter if a second has passed since
+			// we last recorded
+			if (lastFpsTime >= 1000000000) {
+//				System.out.println("(FPS: " + fps + ")");
+				lastFpsTime = 0;
+				fps = 0;
+			}
+
+			// update the game logic
+			update(delta);
+
+			// draw everyting
+			// render();
+		}
+	}
+	
+	private void update(double delta) {
+		while (true) {
+			Message message = messageList.poll();
+			if (message == null)
+				break;
+			handleMessage(message.getChannelID(), message.getCommandID(), message.getData());
+		}
 	}
 
 	public String getHost() {
@@ -50,39 +120,43 @@ public class Server extends SocketServer {
 		this.port = port;
 	}
 
-	public void handleMessage(int commandID, byte[] data) {
+	public void receive(int channelID, int commandID, byte[] data) {
+		messageList.add(new Message(channelID, commandID, data));
+	}
+	
+	public void handleMessage(int channelID, int commandID, byte[] data) {
 		try {
 			switch (commandID) {
 			case Protocol.MessageType.REQUEST_LOGIN_VALUE: {
-				send(0, Protocol.MessageType.RESPONE_LOGIN_VALUE, handleRequestLogin(Protocol.RequestLogin.parseFrom(data)));
+				send(channelID, 0, Protocol.MessageType.RESPONE_LOGIN_VALUE, handleRequestLogin(Protocol.RequestLogin.parseFrom(data)));
 				break;
 			}
 			case Protocol.MessageType.REQUEST_REGISTER_VALUE: {
-				send(0, Protocol.MessageType.RESPONE_REGISTER_VALUE, handleRequest(Protocol.RequestRegister.parseFrom(data)));
+				send(channelID, 0, Protocol.MessageType.RESPONE_REGISTER_VALUE, handleRequest(Protocol.RequestRegister.parseFrom(data)));
 				break;
 			}
 			case Protocol.MessageType.REQUEST_GET_CHARACTER_VALUE: {
-				send(0, Protocol.MessageType.RESPONE_GET_CHARACTER_VALUE, handleRequest(Protocol.RequestGetCharacter.parseFrom(data)));
+				send(channelID, 0, Protocol.MessageType.RESPONE_GET_CHARACTER_VALUE, handleRequest(Protocol.RequestGetCharacter.parseFrom(data)));
 				break;
 			}
 			case Protocol.MessageType.REQUEST_CREATE_CHARACTER_VALUE: {
-				send(0, Protocol.MessageType.RESPONE_CREATE_CHARACTER_VALUE, handleRequest(Protocol.RequestCreateCharacter.parseFrom(data)));
+				send(channelID, 0, Protocol.MessageType.RESPONE_CREATE_CHARACTER_VALUE, handleRequest(Protocol.RequestCreateCharacter.parseFrom(data)));
 				break;
 			}
 			case Protocol.MessageType.REQUEST_START_GAME_VALUE: {
-				send(0, Protocol.MessageType.RESPONE_START_GAME_VALUE, handleRequest(Protocol.RequestStartGame.parseFrom(data)));
+				send(channelID, 0, Protocol.MessageType.RESPONE_START_GAME_VALUE, handleRequest(Protocol.RequestStartGame.parseFrom(data)));
 				break;
 			}
 			case Protocol.MessageType.REQUEST_UPDATE_POSITION_VALUE: {
-				send(0, Protocol.MessageType.RESPONE_UPDATE_POSITION_VALUE, handleRequest(Protocol.RequestUpdatePosition.parseFrom(data)));
+				send(channelID, 0, Protocol.MessageType.RESPONE_UPDATE_POSITION_VALUE, handleRequest(Protocol.RequestUpdatePosition.parseFrom(data)));
 				break;
 			}
 			case Protocol.MessageType.REQUEST_GET_ITEMS_VALUE: {
-				send(0, Protocol.MessageType.RESPONSE_GET_ITEMS_VALUE, handleRequest(Protocol.RequestGetItems.parseFrom(data)));
+				send(channelID, 0, Protocol.MessageType.RESPONSE_GET_ITEMS_VALUE, handleRequest(Protocol.RequestGetItems.parseFrom(data)));
 				break;
 			}
 			case Protocol.MessageType.REQUEST_UPDATE_ACTION_VALUE: {
-				send(1, Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE, data);
+				send(channelID, 1, Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE, data);
 				break;
 			}
 			default:

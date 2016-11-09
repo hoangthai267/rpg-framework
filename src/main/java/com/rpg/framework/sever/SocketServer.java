@@ -79,11 +79,11 @@ public class SocketServer {
 				|| (workerGroup != null && workerGroup.isShuttingDown());
 	}
 	
-	public void send(int type, int commandID, byte[] data) {
-		manager.sendChannel(type, commandID, data);
+	public void send(int channelID, int responseID, int commandID, byte[] data) {
+		manager.writeChannel(channelID, responseID, commandID, data);
 	}
 
-	public void handleMessage(int commandID, byte[] data) {
+	public void receive(int channelID, int commandID, byte[] data) {
 		
 	}
 }

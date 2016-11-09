@@ -33,7 +33,6 @@ public class SocketClient {
 	}
 
 	public void start() {
-		System.out.println("Client start");	
 	}
 
 	public boolean running() {

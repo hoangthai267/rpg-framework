@@ -1,6 +1,10 @@
 package com.rpg.framework.test;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -44,7 +48,9 @@ public class Client extends SocketClient {
 	private byte[] data;
 	private Random rand;
 	private List<Integer> items;
-	
+	private float updatedTime;
+	private Map<Integer, byte[]> messageList;
+	private boolean running;
 	public Client(String host, int port) {
 		super(host, port);
 		this.host = host;
@@ -52,10 +58,13 @@ public class Client extends SocketClient {
 		this.state = State.IDLE;
 		this.gameloop = new Timer();
 		this.rand = new Random();
+		this.running = true;
+		messageList = new HashMap();
 	}
 
 	public void start() {
 		super.start();
+		System.out.println("Client start with " + userName);
 		this.state = State.SEND_REQUEST_LOGIN;
 	}
 
@@ -63,22 +72,71 @@ public class Client extends SocketClient {
 		this.userName = userName;
 		this.password = password;
 		this.state = State.START;
-		this.gameloop.scheduleAtFixedRate(new TimerTask() {
-
-			@Override
-			public void run() {
-				update();
-				// render();
+		this.loop();
+	}
+	
+	public void loop() {
+		long lastLoopTime = System.nanoTime();
+		final int TARGET_FPS = 60;
+		final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
+		long lastFpsTime = 0;
+		int fps = 0;
+		// keep looping round til the game ends
+		while (running) {
+			// work out how long its been since the last update, this
+			// will be used to calculate how far the entities should
+			// move this loop
+			long now = System.nanoTime();
+			long updateLength = now - lastLoopTime;
+			lastLoopTime = now;
+			
+			if(updateLength < OPTIMAL_TIME) {
+				long sleepTime = (OPTIMAL_TIME - updateLength) / 1000000;
+				try {
+					Thread.sleep(sleepTime);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				updateLength = OPTIMAL_TIME;
 			}
-		}, 0, 1000 / 30);
+			
+			double delta = updateLength / ((double)1000000000);
+			// update the frame counter
+			lastFpsTime += updateLength;
+			fps++;
+
+			// update our FPS counter if a second has passed since
+			// we last recorded
+			if (lastFpsTime >= 1000000000) {
+//				System.out.println("(FPS: " + fps + ")");
+				lastFpsTime = 0;
+				fps = 0;
+			}
+
+			// update the game logic
+			update(delta);
+
+			// draw everyting
+			// render();
+		}
 	}
 
 	public void stop() {
 		super.stop();
-		this.gameloop.cancel();
+		this.running = false;
 	}
 
-	public void update() {
+	public void update(double delta) {
+		if(updatedTime >= 1.0f) {
+			requestUpdateAction();
+			requestUpdatePosition();
+			updatedTime -= 1.0f;			
+		} else {
+			updatedTime += delta;			
+
+		}
+		
 		switch (state) {
 		case IDLE: {
 			break;
@@ -104,7 +162,7 @@ public class Client extends SocketClient {
 			break;
 		}
 		case SEND_REQUEST_UPDATE_POSITION: {
-			requestUpdatePosition();
+			//requestUpdatePosition();
 			break;
 		}
 		case SEND_REQUEST_GET_ITEMS: {
@@ -127,7 +185,7 @@ public class Client extends SocketClient {
 			break;
 		}
 		case HANDLE_RESPONSE: {
-			handleMessage(commandID, data);
+			handleMessage();
 			break;
 		}
 		default:
@@ -142,10 +200,19 @@ public class Client extends SocketClient {
 	public void receive(int commandID, byte[] data) {
 		super.receive(commandID, data);
 		this.state = State.HANDLE_RESPONSE;
-		this.commandID = commandID;
-		this.data = data;
+		this.messageList.put(commandID, data);
 	}
 
+	public void handleMessage() {
+		for(Map.Entry<Integer, byte[]> entry : messageList.entrySet()) {
+			int commandID = entry.getKey();
+			byte[] data = entry.getValue();
+			handleMessage(commandID, data);
+		}
+		
+		messageList.clear();
+	}
+	
 	public void handleMessage(int commandID, byte[] data) {
 		try {
 			switch (commandID) {
@@ -178,8 +245,7 @@ public class Client extends SocketClient {
 				break;
 			}
 			case Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE: {
-				System.out.println(Protocol.RequestUpdateAction.parseFrom(data));
-				this.state = State.STOP;
+				System.out.println(Protocol.RequestUpdateAction.parseFrom(data).getUserID());
 				break;
 			}
 			default: {
@@ -242,8 +308,9 @@ public class Client extends SocketClient {
 	}
 
 	public void requestUpdatePosition() {
-		this.state = State.WAIT_RESPONSE;
-
+		if(userID == null ||  mapID == null)
+			return;
+		
 		Protocol.RequestUpdatePosition request = Protocol.RequestUpdatePosition.newBuilder().setUserID(userID)
 				.setMapID(mapID).setX(positionX).setY(positionY).build();
 
@@ -258,8 +325,8 @@ public class Client extends SocketClient {
 	}
 	
 	public void requestUpdateAction() {
-		this.state = State.WAIT_RESPONSE;
-		
+		if(userID == null)
+			return;
 		Protocol.RequestUpdateAction.Builder builder = Protocol.RequestUpdateAction.newBuilder();
 		builder.setUserID(userID);
 		builder.addActions(Protocol.CharacterAction.newBuilder()
@@ -278,6 +345,7 @@ public class Client extends SocketClient {
 	public void responseLogin(Protocol.ResponseLogin response) {
 		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
 			this.userID = response.getUserID();
+			System.out.println("Login success " + userID);
 			if (response.getHasCharacter()) {
 				this.state = State.SEND_REQUEST_GET_CHARACTER;
 			} else {
@@ -290,6 +358,7 @@ public class Client extends SocketClient {
 
 	public void responseRegister(Protocol.ResponseRegister response) {
 		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
+			System.out.println("Register success");
 			this.state = State.SEND_REQUEST_LOGIN;
 		} else {
 			this.state = State.STOP;
@@ -323,8 +392,6 @@ public class Client extends SocketClient {
 
 			positionX = rand.nextDouble() * 100;
 			positionY = rand.nextDouble() * 100;
-
-			this.state = State.SEND_REQUEST_UPDATE_ACTION;
 		}
 	}
 
@@ -354,7 +421,9 @@ public class Client extends SocketClient {
 	public static void main(String args[]) {
 //		for (int i = 1; i < 100; i++)
 //			new Client("localhost", 8463).start("admin" + i, "admin");
-		new Client("localhost", 8463).start("admin", "admin");
+//		new Client("localhost", 8463).start("admin", "admin");
+//		new Client("localhost", 8463).start("admin1", "admin");
 //		new Client("localhost", 8463).start("admin2", "admin");
+		new Client("localhost", 8463).start(args[0], "admin");
 	}
 }

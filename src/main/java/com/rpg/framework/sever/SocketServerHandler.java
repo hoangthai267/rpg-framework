@@ -14,29 +14,25 @@ import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.handler.timeout.IdleStateHandler;
 
 public class SocketServerHandler extends ChannelInboundHandlerAdapter {
-	private AtomicInteger numberConnection;
 	private ChannelHandlerContext channelHandlerContext;
 	private SocketServerManager manager;
-	
+	private int channelID;
 	public SocketServerHandler(SocketServerManager server) {
 		super();		
-		this.numberConnection = new AtomicInteger();
 		this.manager = server;
 	}
 	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		super.channelActive(ctx);
-		manager.addChannel(ctx);
-		numberConnection.incrementAndGet();
+		channelID = manager.addChannel(ctx);
 		channelHandlerContext = ctx;
 	}
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		super.channelInactive(ctx);
-		manager.removeChannel(ctx);
-		numberConnection.decrementAndGet();
+		manager.removeChannel(channelID);
 		channelHandlerContext = null;
 	}
 
@@ -45,7 +41,7 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 		ByteBuf data = (ByteBuf) msg;
 		byte[] buffer = new byte[data.capacity() - 2];
 		data.getBytes(2, buffer);
-		manager.readChannel(ctx, (int)data.readShort(), buffer);
+		manager.readChannel(channelID, (int)data.readShort(), buffer);
 	}
 
 	public void HandleExceptionContext(ChannelHandlerContext ctx, Throwable Cause) throws Exception {
@@ -94,11 +90,8 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 		channelHandlerContext.writeAndFlush(sendBuf);
 	}
 
-	public int getNumConnection() {
-		return numberConnection.get();
-	}
-
 	private void close(ChannelHandlerContext ctx) {
+		manager.removeChannel(this.channelID);
 		ctx.close();
 		System.out.println("Channel shutdown");
 	}
