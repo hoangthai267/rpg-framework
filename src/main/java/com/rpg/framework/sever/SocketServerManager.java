@@ -32,7 +32,7 @@ public class SocketServerManager {
 
 	public int addChannel(ChannelHandlerContext ctx) {
 		listChannel.put(index.incrementAndGet(), ctx);
-		return listChannel.size();
+		return index.get();
 	}
 
 	public boolean removeChannel(int channelID) {

@@ -9,9 +9,11 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.rpg.framework.client.SocketClient;
 import com.rpg.framework.database.Protocol;
+import com.rpg.framework.database.Protocol.Item;
 
 public class Client extends SocketClient {
 	private enum State {
@@ -34,7 +36,6 @@ public class Client extends SocketClient {
 
 	private String host;
 	private int port;
-	private Timer gameloop;
 	private State state;
 
 	private String userName;
@@ -56,7 +57,6 @@ public class Client extends SocketClient {
 		this.host = host;
 		this.port = port;
 		this.state = State.IDLE;
-		this.gameloop = new Timer();
 		this.rand = new Random();
 		this.running = true;
 		messageList = new HashMap();
@@ -178,6 +178,7 @@ public class Client extends SocketClient {
 		}
 		case START: {
 			start();
+			requestGetPrototype();
 			break;
 		}
 		case STOP: {
@@ -245,8 +246,11 @@ public class Client extends SocketClient {
 				break;
 			}
 			case Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE: {
-				System.out.println(Protocol.RequestUpdateAction.parseFrom(data).getUserID());
+				System.out.println(Protocol.ResponseUpdateAction.parseFrom(data).getUserID());
 				break;
+			}
+			case Protocol.MessageType.RESPONSE_GET_PROTOTYPE_VALUE: {
+				responseGetPrototype(Protocol.ResponseGetPrototype.parseFrom(data));
 			}
 			default: {
 				state = State.STOP;
@@ -342,6 +346,13 @@ public class Client extends SocketClient {
 		send(Protocol.MessageType.REQUEST_UPDATE_ACTION_VALUE, builder.build().toByteArray());
 	}
 	
+	public void requestGetPrototype() {
+		Protocol.RequestGetPrototype request = Protocol.RequestGetPrototype.newBuilder()
+				.build();
+		
+		send(Protocol.MessageType.REQUEST_GET_PROTOTYPE_VALUE, request.toByteArray());		
+	}
+	
 	public void responseLogin(Protocol.ResponseLogin response) {
 		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
 			this.userID = response.getUserID();
@@ -399,6 +410,32 @@ public class Client extends SocketClient {
 		if(response.getResult() == Protocol.ResponseCode.SUCCESS) {
 			this.items = response.getItemsList();
 			System.out.println(items);
+		}
+	}
+	
+	public void responseGetPrototype(Protocol.ResponseGetPrototype response) throws InvalidProtocolBufferException {
+		List<Protocol.Item> items = response.getItemsList();
+
+		for (Protocol.Item item : items) {
+			switch (item.getType().getNumber()) {
+			case Protocol.ItemType.ITEM_TYPE_USE_VALUE: {
+				System.out.println(Protocol.Use.parseFrom(item.getData()));
+				break;
+			}
+
+			case Protocol.ItemType.ITEM_TYPE_COLLECT_VALUE: {
+				System.out.println(Protocol.Collect.parseFrom(item.getData()));
+				break;
+			}
+
+			case Protocol.ItemType.ITEM_TYPE_EQUIP_VALUE: {
+				System.out.println(Protocol.Equip.parseFrom(item.getData()));
+				break;
+			}
+
+			default:
+				break;
+			}
 		}
 	}
 

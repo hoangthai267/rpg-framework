@@ -8,9 +8,9 @@ import java.util.Queue;
 import com.couchbase.client.java.document.json.JsonArray;
 import com.couchbase.client.java.document.json.JsonObject;
 import com.couchbase.client.java.query.N1qlQueryResult;
-
+import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
-
+import com.google.protobuf.util.JsonFormat;
 import com.rpg.framework.data.CouchBase;
 import com.rpg.framework.data.Pool;
 import com.rpg.framework.data.Spymemcached;
@@ -159,6 +159,9 @@ public class Server extends SocketServer {
 				send(channelID, 1, Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE, data);
 				break;
 			}
+			case Protocol.MessageType.REQUEST_GET_PROTOTYPE_VALUE: {
+				send(channelID, 0, Protocol.MessageType.RESPONSE_GET_PROTOTYPE_VALUE, handleRequest(Protocol.RequestGetPrototype.parseFrom(data)));
+			}
 			default:
 				break;
 			}
@@ -300,5 +303,65 @@ public class Server extends SocketServer {
 		}
 		
 		return builder.build().toByteArray();				
+	}
+	
+	public byte[] handleRequest(Protocol.RequestGetPrototype request) {
+		Protocol.ResponseGetPrototype.Builder builder = Protocol.ResponseGetPrototype.newBuilder();
+		JsonFormat.Parser parser = JsonFormat.parser();
+		
+		JsonObject items = couchbase.get("Prototype_Items");
+		JsonArray useItems = items.getArray("use");
+		for (int i = 0; i < useItems.size(); i++ ) {
+			String json = useItems.getObject(i).toString();
+			Protocol.Use.Builder newBuilder = Protocol.Use.newBuilder();
+			try {
+				parser.merge(json, newBuilder);
+			} catch (InvalidProtocolBufferException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			builder.addItems(Protocol.Item.newBuilder()
+					.setType(Protocol.ItemType.ITEM_TYPE_USE)
+					.setData(newBuilder.build().toByteString())
+					.build());
+		}
+		
+		JsonArray collectItems = items.getArray("collect");
+		for (int i = 0; i < collectItems.size(); i++ ) {	
+			String json = collectItems.getObject(i).toString();
+			Protocol.Collect.Builder newBuilder = Protocol.Collect.newBuilder();
+			try {
+				parser.merge(json, newBuilder);
+			} catch (InvalidProtocolBufferException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			builder.addItems(Protocol.Item.newBuilder()
+					.setType(Protocol.ItemType.ITEM_TYPE_COLLECT)
+					.setData(newBuilder.build().toByteString())
+					.build());
+		}
+		
+		JsonArray equipItems = items.getArray("equip");
+		for (int i = 0; i < equipItems.size(); i++ ) {
+			String json = equipItems.getObject(i).toString();
+			Protocol.Equip.Builder newBuilder = Protocol.Equip.newBuilder();
+			try {
+				parser.merge(json, newBuilder);
+			} catch (InvalidProtocolBufferException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			builder.addItems(Protocol.Item.newBuilder()
+					.setType(Protocol.ItemType.ITEM_TYPE_EQUIP)
+					.setData(newBuilder.build().toByteString())
+					.build());
+			
+			System.out.println(builder.build().toString());
+		}
+		return builder.build().toByteArray();
 	}
 }
