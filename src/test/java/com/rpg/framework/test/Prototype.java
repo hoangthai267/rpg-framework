@@ -128,18 +128,125 @@ public class Prototype {
 			e.printStackTrace();
 		}
 	}
+	
+	public void addPrototypeMap() {
+		JsonArray mapArray = JsonArray.create();
+		for(int i = 0; i < 3; i++) {
+			mapArray.add(JsonObject.create()
+					.put("id", i)
+					.put("width", 200 * i)
+					.put("height", 300 *i)
+					.put("monsters", JsonArray.create()
+							.add(JsonObject.create()
+									.put("id", 1)
+									.put("index", 1 + 3 * i)
+									.put("x", 0.0)
+									.put("y", 0.0))
+							.add(JsonObject.create()
+									.put("id", 2)
+									.put("index", 2 + 3 * i)
+									.put("x", 0.0)
+									.put("y", 0.0))
+							.add(JsonObject.create()
+									.put("id", 3)
+									.put("index", 3 + 3 * i)
+									.put("x", 0.0)
+									.put("y", 0.0)))
+					.put("items", JsonArray.create()
+							.add(JsonObject.create()
+									.put("id", 1)
+									.put("x", 0.0)
+									.put("y", 0.0))
+							.add(JsonObject.create()
+									.put("id", 2)
+									.put("x", 0.0)
+									.put("y", 0.0))
+							.add(JsonObject.create()
+									.put("id", 3)
+									.put("x", 0.0)
+									.put("y", 0.0)))
+					.put("portals", JsonArray.create()
+							.add(JsonObject.create()
+									.put("id", 1 + i)
+									.put("x", 0.0)
+									.put("y", 0.0)
+									.put("destination", 1))
+							.add(JsonObject.create()
+									.put("id", 2 + i)
+									.put("x", 0.0)
+									.put("y", 0.0)
+									.put("destination", 2))
+							.add(JsonObject.create()
+									.put("id", 3 + i)
+									.put("x", 0.0)
+									.put("y", 0.0)
+									.put("destination", 3)))
+					);
+		}
+				
+		
+		JsonObject maps = JsonObject.create()
+				.put("normalMaps", mapArray)
+				.put("hiddenMaps", mapArray);
+		
+		couchbase.set("Prototype_Maps", maps);				
+	}
+	
+	public void addPrototypeMonsters() {
+		JsonArray data = JsonArray.create()
+				.add(JsonObject.create()
+						.put("id", 1)
+						.put("maxHP", 100)
+						.put("maxMP", 100)
+						.put("damage", 10)
+						.put("defense", 10)
+						.put("speed", 10))
+				.add(JsonObject.create()
+						.put("id", 2)
+						.put("maxHP", 200)
+						.put("maxMP", 200)
+						.put("damage", 20)
+						.put("defense", 20)
+						.put("speed", 20))
+				.add(JsonObject.create()
+						.put("id", 3)
+						.put("maxHP", 300)
+						.put("maxMP", 300)
+						.put("damage", 30)
+						.put("defense", 30)
+						.put("speed", 30));
+		JsonObject document = JsonObject.create()
+				.put("data", data)
+				.put("total", 3);
+		
+		couchbase.set("Prototype_Monsters", document);
+		
+	}
+	
+	public void addPrototypeItems() {
+		addCollectItems(1);
+		addCollectItems(2);
+		addCollectItems(3);
+		
+		addEquipItem(1, 10, 1.0f);
+		addEquipItem(3, 20, 2.0f);
+		addEquipItem(2, 30, 3.0f);
+		
+		addUseItem(100, 0, 10, 10, 0, 0, 0);
+		addUseItem(0, 100, 10, 0, 10, 0, 0);
+		addUseItem(50, 50, 10, 5, 5, 0, 0);
+	}
+	
+	public void initialize() {
+		addPrototypeItems();
+		addPrototypeMap();
+		addPrototypeMonsters();
+	}
 
 	
 	public static void main(String args[]) {
 		Prototype prototype = new Prototype();
-//		prototype.function();
-		prototype.addCollectItems(1);
-//		prototype.addCollectItems(2);
-//		prototype.addCollectItems(3);
-//		prototype.addUseItem(100, 0, 10, 10, 0, 0, 0);
-//		prototype.addUseItem(0, 100, 10, 0, 10, 0, 0);
-		prototype.addUseItem(50, 50, 10, 10, 10, 0, 0);
-		prototype.addEquipItem(1, 50, 5.0f);
-//		prototype.addEquipItem(2, 100, 5.0f);
+		prototype.initialize();
 	}
 }
+

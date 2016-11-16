@@ -40,9 +40,9 @@ public class Client extends SocketClient {
 
 	private String userName;
 	private String password;
-	private String userID;
+	private int userID;
 	private Protocol.Character character;
-	private String mapID;
+	private int mapID;
 	private double positionX;
 	private double positionY;
 	private int commandID;
@@ -128,9 +128,10 @@ public class Client extends SocketClient {
 	}
 
 	public void update(double delta) {
+//		System.out.println(state);
 		if(updatedTime >= 1.0f) {
-			requestUpdateAction();
-			requestUpdatePosition();
+//			requestUpdateAction();
+//			requestUpdatePosition();
 			updatedTime -= 1.0f;			
 		} else {
 			updatedTime += delta;			
@@ -178,7 +179,7 @@ public class Client extends SocketClient {
 		}
 		case START: {
 			start();
-			requestGetPrototype();
+//			requestGetPrototype();
 			break;
 		}
 		case STOP: {
@@ -252,6 +253,16 @@ public class Client extends SocketClient {
 			case Protocol.MessageType.RESPONSE_GET_PROTOTYPE_VALUE: {
 				responseGetPrototype(Protocol.ResponseGetPrototype.parseFrom(data));
 			}
+			case Protocol.MessageType.MESSAGE_KILL_MONSTER_VALUE: {
+				System.out.println("MESSAGE_KILL_MONSTER_VALUE: " + Protocol.MessageKillMonster.parseFrom(data).getMonsterIndex());
+				break;
+			}
+			
+			case Protocol.MessageType.MESSAGE_RESPAWN_MONSTER_VALUE: {
+				System.out.println("MESSAGE_RESPAWN_MONSTER_VALUE: " + Protocol.MessageRespawnMonster.parseFrom(data).getMonsterIndex());
+				break;
+			}	
+			
 			default: {
 				state = State.STOP;
 				break;
@@ -311,10 +322,7 @@ public class Client extends SocketClient {
 		this.state = State.WAIT_RESPONSE;
 	}
 
-	public void requestUpdatePosition() {
-		if(userID == null ||  mapID == null)
-			return;
-		
+	public void requestUpdatePosition() {	
 		Protocol.RequestUpdatePosition request = Protocol.RequestUpdatePosition.newBuilder().setUserID(userID)
 				.setMapID(mapID).setX(positionX).setY(positionY).build();
 
@@ -329,8 +337,6 @@ public class Client extends SocketClient {
 	}
 	
 	public void requestUpdateAction() {
-		if(userID == null)
-			return;
 		Protocol.RequestUpdateAction.Builder builder = Protocol.RequestUpdateAction.newBuilder();
 		builder.setUserID(userID);
 		builder.addActions(Protocol.CharacterAction.newBuilder()
@@ -394,7 +400,8 @@ public class Client extends SocketClient {
 	public void responseStartGame(Protocol.ResponseStartGame response) {
 		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
 			this.state = State.SEND_REQUEST_UPDATE_POSITION;
-			this.mapID = "Map_1";
+			this.mapID = 0;
+			System.out.println(response.getMonstersList());
 		}
 	}
 

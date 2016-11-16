@@ -85,6 +85,14 @@ public final class Protocol {
      * <code>RESPONSE_GET_PROTOTYPE = 17;</code>
      */
     RESPONSE_GET_PROTOTYPE(17, 17),
+    /**
+     * <code>MESSAGE_KILL_MONSTER = 18;</code>
+     */
+    MESSAGE_KILL_MONSTER(18, 18),
+    /**
+     * <code>MESSAGE_RESPAWN_MONSTER = 19;</code>
+     */
+    MESSAGE_RESPAWN_MONSTER(19, 19),
     ;
 
     /**
@@ -159,6 +167,14 @@ public final class Protocol {
      * <code>RESPONSE_GET_PROTOTYPE = 17;</code>
      */
     public static final int RESPONSE_GET_PROTOTYPE_VALUE = 17;
+    /**
+     * <code>MESSAGE_KILL_MONSTER = 18;</code>
+     */
+    public static final int MESSAGE_KILL_MONSTER_VALUE = 18;
+    /**
+     * <code>MESSAGE_RESPAWN_MONSTER = 19;</code>
+     */
+    public static final int MESSAGE_RESPAWN_MONSTER_VALUE = 19;
 
 
     public final int getNumber() { return value; }
@@ -183,6 +199,8 @@ public final class Protocol {
         case 15: return RESPONSE_UPDATE_ACTION;
         case 16: return REQUEST_GET_PROTOTYPE;
         case 17: return RESPONSE_GET_PROTOTYPE;
+        case 18: return MESSAGE_KILL_MONSTER;
+        case 19: return MESSAGE_RESPAWN_MONSTER;
         default: return null;
       }
     }
@@ -449,18 +467,13 @@ public final class Protocol {
         getPasswordBytes();
 
     /**
-     * <code>optional string userID = 3;</code>
+     * <code>optional int32 userID = 3;</code>
      */
     boolean hasUserID();
     /**
-     * <code>optional string userID = 3;</code>
+     * <code>optional int32 userID = 3;</code>
      */
-    java.lang.String getUserID();
-    /**
-     * <code>optional string userID = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getUserIDBytes();
+    int getUserID();
   }
   /**
    * Protobuf type {@code Protobuf.RequestLogin}
@@ -526,10 +539,9 @@ public final class Protocol {
               password_ = bs;
               break;
             }
-            case 26: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 24: {
               bitField0_ |= 0x00000004;
-              userID_ = bs;
+              userID_ = input.readInt32();
               break;
             }
           }
@@ -657,51 +669,24 @@ public final class Protocol {
     }
 
     public static final int USERID_FIELD_NUMBER = 3;
-    private java.lang.Object userID_;
+    private int userID_;
     /**
-     * <code>optional string userID = 3;</code>
+     * <code>optional int32 userID = 3;</code>
      */
     public boolean hasUserID() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional string userID = 3;</code>
+     * <code>optional int32 userID = 3;</code>
      */
-    public java.lang.String getUserID() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          userID_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>optional string userID = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getUserIDBytes() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        userID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getUserID() {
+      return userID_;
     }
 
     private void initFields() {
       username_ = "";
       password_ = "";
-      userID_ = "";
+      userID_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -731,7 +716,7 @@ public final class Protocol {
         output.writeBytes(2, getPasswordBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getUserIDBytes());
+        output.writeInt32(3, userID_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -752,7 +737,7 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getUserIDBytes());
+          .computeInt32Size(3, userID_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -875,7 +860,7 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000001);
         password_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        userID_ = "";
+        userID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
@@ -944,9 +929,7 @@ public final class Protocol {
           onChanged();
         }
         if (other.hasUserID()) {
-          bitField0_ |= 0x00000004;
-          userID_ = other.userID_;
-          onChanged();
+          setUserID(other.getUserID());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -1135,78 +1118,34 @@ public final class Protocol {
         return this;
       }
 
-      private java.lang.Object userID_ = "";
+      private int userID_ ;
       /**
-       * <code>optional string userID = 3;</code>
+       * <code>optional int32 userID = 3;</code>
        */
       public boolean hasUserID() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional string userID = 3;</code>
+       * <code>optional int32 userID = 3;</code>
        */
-      public java.lang.String getUserID() {
-        java.lang.Object ref = userID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            userID_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getUserID() {
+        return userID_;
       }
       /**
-       * <code>optional string userID = 3;</code>
+       * <code>optional int32 userID = 3;</code>
        */
-      public com.google.protobuf.ByteString
-          getUserIDBytes() {
-        java.lang.Object ref = userID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          userID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string userID = 3;</code>
-       */
-      public Builder setUserID(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
+      public Builder setUserID(int value) {
+        bitField0_ |= 0x00000004;
         userID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string userID = 3;</code>
+       * <code>optional int32 userID = 3;</code>
        */
       public Builder clearUserID() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        userID_ = getDefaultInstance().getUserID();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string userID = 3;</code>
-       */
-      public Builder setUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-        userID_ = value;
+        userID_ = 0;
         onChanged();
         return this;
       }
@@ -1250,18 +1189,13 @@ public final class Protocol {
         getMessageBytes();
 
     /**
-     * <code>optional string userID = 3;</code>
+     * <code>optional int32 userID = 3;</code>
      */
     boolean hasUserID();
     /**
-     * <code>optional string userID = 3;</code>
+     * <code>optional int32 userID = 3;</code>
      */
-    java.lang.String getUserID();
-    /**
-     * <code>optional string userID = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getUserIDBytes();
+    int getUserID();
 
     /**
      * <code>optional bool hasCharacter = 4;</code>
@@ -1341,10 +1275,9 @@ public final class Protocol {
               message_ = bs;
               break;
             }
-            case 26: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 24: {
               bitField0_ |= 0x00000004;
-              userID_ = bs;
+              userID_ = input.readInt32();
               break;
             }
             case 32: {
@@ -1450,45 +1383,18 @@ public final class Protocol {
     }
 
     public static final int USERID_FIELD_NUMBER = 3;
-    private java.lang.Object userID_;
+    private int userID_;
     /**
-     * <code>optional string userID = 3;</code>
+     * <code>optional int32 userID = 3;</code>
      */
     public boolean hasUserID() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional string userID = 3;</code>
+     * <code>optional int32 userID = 3;</code>
      */
-    public java.lang.String getUserID() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          userID_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>optional string userID = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getUserIDBytes() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        userID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getUserID() {
+      return userID_;
     }
 
     public static final int HASCHARACTER_FIELD_NUMBER = 4;
@@ -1509,7 +1415,7 @@ public final class Protocol {
     private void initFields() {
       result_ = com.rpg.framework.database.Protocol.ResponseCode.SUCCESS;
       message_ = "";
-      userID_ = "";
+      userID_ = 0;
       hasCharacter_ = false;
     }
     private byte memoizedIsInitialized = -1;
@@ -1536,7 +1442,7 @@ public final class Protocol {
         output.writeBytes(2, getMessageBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getUserIDBytes());
+        output.writeInt32(3, userID_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeBool(4, hasCharacter_);
@@ -1560,7 +1466,7 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getUserIDBytes());
+          .computeInt32Size(3, userID_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
@@ -1687,7 +1593,7 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000001);
         message_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        userID_ = "";
+        userID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
         hasCharacter_ = false;
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -1760,9 +1666,7 @@ public final class Protocol {
           onChanged();
         }
         if (other.hasUserID()) {
-          bitField0_ |= 0x00000004;
-          userID_ = other.userID_;
-          onChanged();
+          setUserID(other.getUserID());
         }
         if (other.hasHasCharacter()) {
           setHasCharacter(other.getHasCharacter());
@@ -1909,78 +1813,34 @@ public final class Protocol {
         return this;
       }
 
-      private java.lang.Object userID_ = "";
+      private int userID_ ;
       /**
-       * <code>optional string userID = 3;</code>
+       * <code>optional int32 userID = 3;</code>
        */
       public boolean hasUserID() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional string userID = 3;</code>
+       * <code>optional int32 userID = 3;</code>
        */
-      public java.lang.String getUserID() {
-        java.lang.Object ref = userID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            userID_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getUserID() {
+        return userID_;
       }
       /**
-       * <code>optional string userID = 3;</code>
+       * <code>optional int32 userID = 3;</code>
        */
-      public com.google.protobuf.ByteString
-          getUserIDBytes() {
-        java.lang.Object ref = userID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          userID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string userID = 3;</code>
-       */
-      public Builder setUserID(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
+      public Builder setUserID(int value) {
+        bitField0_ |= 0x00000004;
         userID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string userID = 3;</code>
+       * <code>optional int32 userID = 3;</code>
        */
       public Builder clearUserID() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        userID_ = getDefaultInstance().getUserID();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string userID = 3;</code>
-       */
-      public Builder setUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-        userID_ = value;
+        userID_ = 0;
         onChanged();
         return this;
       }
@@ -4432,18 +4292,13 @@ public final class Protocol {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string mapID = 1;</code>
+     * <code>optional int32 mapID = 1;</code>
      */
     boolean hasMapID();
     /**
-     * <code>optional string mapID = 1;</code>
+     * <code>optional int32 mapID = 1;</code>
      */
-    java.lang.String getMapID();
-    /**
-     * <code>optional string mapID = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getMapIDBytes();
+    int getMapID();
 
     /**
      * <code>optional double x = 2;</code>
@@ -4515,10 +4370,9 @@ public final class Protocol {
               }
               break;
             }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 8: {
               bitField0_ |= 0x00000001;
-              mapID_ = bs;
+              mapID_ = input.readInt32();
               break;
             }
             case 17: {
@@ -4572,45 +4426,18 @@ public final class Protocol {
 
     private int bitField0_;
     public static final int MAPID_FIELD_NUMBER = 1;
-    private java.lang.Object mapID_;
+    private int mapID_;
     /**
-     * <code>optional string mapID = 1;</code>
+     * <code>optional int32 mapID = 1;</code>
      */
     public boolean hasMapID() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>optional string mapID = 1;</code>
+     * <code>optional int32 mapID = 1;</code>
      */
-    public java.lang.String getMapID() {
-      java.lang.Object ref = mapID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          mapID_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>optional string mapID = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getMapIDBytes() {
-      java.lang.Object ref = mapID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        mapID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getMapID() {
+      return mapID_;
     }
 
     public static final int X_FIELD_NUMBER = 2;
@@ -4644,7 +4471,7 @@ public final class Protocol {
     }
 
     private void initFields() {
-      mapID_ = "";
+      mapID_ = 0;
       x_ = 0D;
       y_ = 0D;
     }
@@ -4662,7 +4489,7 @@ public final class Protocol {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getMapIDBytes());
+        output.writeInt32(1, mapID_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeDouble(2, x_);
@@ -4681,7 +4508,7 @@ public final class Protocol {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getMapIDBytes());
+          .computeInt32Size(1, mapID_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
@@ -4808,7 +4635,7 @@ public final class Protocol {
 
       public Builder clear() {
         super.clear();
-        mapID_ = "";
+        mapID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
         x_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -4871,9 +4698,7 @@ public final class Protocol {
       public Builder mergeFrom(com.rpg.framework.database.Protocol.CharacterPosition other) {
         if (other == com.rpg.framework.database.Protocol.CharacterPosition.getDefaultInstance()) return this;
         if (other.hasMapID()) {
-          bitField0_ |= 0x00000001;
-          mapID_ = other.mapID_;
-          onChanged();
+          setMapID(other.getMapID());
         }
         if (other.hasX()) {
           setX(other.getX());
@@ -4908,78 +4733,34 @@ public final class Protocol {
       }
       private int bitField0_;
 
-      private java.lang.Object mapID_ = "";
+      private int mapID_ ;
       /**
-       * <code>optional string mapID = 1;</code>
+       * <code>optional int32 mapID = 1;</code>
        */
       public boolean hasMapID() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>optional string mapID = 1;</code>
+       * <code>optional int32 mapID = 1;</code>
        */
-      public java.lang.String getMapID() {
-        java.lang.Object ref = mapID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            mapID_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getMapID() {
+        return mapID_;
       }
       /**
-       * <code>optional string mapID = 1;</code>
+       * <code>optional int32 mapID = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getMapIDBytes() {
-        java.lang.Object ref = mapID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          mapID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string mapID = 1;</code>
-       */
-      public Builder setMapID(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+      public Builder setMapID(int value) {
+        bitField0_ |= 0x00000001;
         mapID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string mapID = 1;</code>
+       * <code>optional int32 mapID = 1;</code>
        */
       public Builder clearMapID() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        mapID_ = getDefaultInstance().getMapID();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string mapID = 1;</code>
-       */
-      public Builder setMapIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        mapID_ = value;
+        mapID_ = 0;
         onChanged();
         return this;
       }
@@ -5815,7 +5596,7 @@ public final class Protocol {
     int getArmor();
 
     /**
-     * <code>required string mapID = 11;</code>
+     * <code>required int32 mapID = 11;</code>
      *
      * <pre>
      *position
@@ -5823,22 +5604,13 @@ public final class Protocol {
      */
     boolean hasMapID();
     /**
-     * <code>required string mapID = 11;</code>
+     * <code>required int32 mapID = 11;</code>
      *
      * <pre>
      *position
      * </pre>
      */
-    java.lang.String getMapID();
-    /**
-     * <code>required string mapID = 11;</code>
-     *
-     * <pre>
-     *position
-     * </pre>
-     */
-    com.google.protobuf.ByteString
-        getMapIDBytes();
+    int getMapID();
 
     /**
      * <code>required double x = 12;</code>
@@ -6006,10 +5778,9 @@ public final class Protocol {
               armor_ = input.readInt32();
               break;
             }
-            case 90: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 88: {
               bitField0_ |= 0x00000400;
-              mapID_ = bs;
+              mapID_ = input.readInt32();
               break;
             }
             case 97: {
@@ -6307,9 +6078,9 @@ public final class Protocol {
     }
 
     public static final int MAPID_FIELD_NUMBER = 11;
-    private java.lang.Object mapID_;
+    private int mapID_;
     /**
-     * <code>required string mapID = 11;</code>
+     * <code>required int32 mapID = 11;</code>
      *
      * <pre>
      *position
@@ -6319,45 +6090,14 @@ public final class Protocol {
       return ((bitField0_ & 0x00000400) == 0x00000400);
     }
     /**
-     * <code>required string mapID = 11;</code>
+     * <code>required int32 mapID = 11;</code>
      *
      * <pre>
      *position
      * </pre>
      */
-    public java.lang.String getMapID() {
-      java.lang.Object ref = mapID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          mapID_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string mapID = 11;</code>
-     *
-     * <pre>
-     *position
-     * </pre>
-     */
-    public com.google.protobuf.ByteString
-        getMapIDBytes() {
-      java.lang.Object ref = mapID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        mapID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getMapID() {
+      return mapID_;
     }
 
     public static final int X_FIELD_NUMBER = 12;
@@ -6469,7 +6209,7 @@ public final class Protocol {
       speed_ = 0;
       dame_ = 0;
       armor_ = 0;
-      mapID_ = "";
+      mapID_ = 0;
       x_ = 0D;
       y_ = 0D;
       maxHP_ = 0;
@@ -6589,7 +6329,7 @@ public final class Protocol {
         output.writeInt32(10, armor_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        output.writeBytes(11, getMapIDBytes());
+        output.writeInt32(11, mapID_);
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         output.writeDouble(12, x_);
@@ -6660,7 +6400,7 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(11, getMapIDBytes());
+          .computeInt32Size(11, mapID_);
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
@@ -6823,7 +6563,7 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000100);
         armor_ = 0;
         bitField0_ = (bitField0_ & ~0x00000200);
-        mapID_ = "";
+        mapID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000400);
         x_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000800);
@@ -6984,9 +6724,7 @@ public final class Protocol {
           setArmor(other.getArmor());
         }
         if (other.hasMapID()) {
-          bitField0_ |= 0x00000400;
-          mapID_ = other.mapID_;
-          onChanged();
+          setMapID(other.getMapID());
         }
         if (other.hasX()) {
           setX(other.getX());
@@ -7549,9 +7287,9 @@ public final class Protocol {
         return this;
       }
 
-      private java.lang.Object mapID_ = "";
+      private int mapID_ ;
       /**
-       * <code>required string mapID = 11;</code>
+       * <code>required int32 mapID = 11;</code>
        *
        * <pre>
        *position
@@ -7561,65 +7299,30 @@ public final class Protocol {
         return ((bitField0_ & 0x00000400) == 0x00000400);
       }
       /**
-       * <code>required string mapID = 11;</code>
+       * <code>required int32 mapID = 11;</code>
        *
        * <pre>
        *position
        * </pre>
        */
-      public java.lang.String getMapID() {
-        java.lang.Object ref = mapID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            mapID_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getMapID() {
+        return mapID_;
       }
       /**
-       * <code>required string mapID = 11;</code>
+       * <code>required int32 mapID = 11;</code>
        *
        * <pre>
        *position
        * </pre>
        */
-      public com.google.protobuf.ByteString
-          getMapIDBytes() {
-        java.lang.Object ref = mapID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          mapID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string mapID = 11;</code>
-       *
-       * <pre>
-       *position
-       * </pre>
-       */
-      public Builder setMapID(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000400;
+      public Builder setMapID(int value) {
+        bitField0_ |= 0x00000400;
         mapID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string mapID = 11;</code>
+       * <code>required int32 mapID = 11;</code>
        *
        * <pre>
        *position
@@ -7627,24 +7330,7 @@ public final class Protocol {
        */
       public Builder clearMapID() {
         bitField0_ = (bitField0_ & ~0x00000400);
-        mapID_ = getDefaultInstance().getMapID();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string mapID = 11;</code>
-       *
-       * <pre>
-       *position
-       * </pre>
-       */
-      public Builder setMapIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000400;
-        mapID_ = value;
+        mapID_ = 0;
         onChanged();
         return this;
       }
@@ -7873,18 +7559,13 @@ public final class Protocol {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
     boolean hasUserID();
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
-    java.lang.String getUserID();
-    /**
-     * <code>required string userID = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getUserIDBytes();
+    int getUserID();
   }
   /**
    * Protobuf type {@code Protobuf.RequestGetCharacter}
@@ -7938,10 +7619,9 @@ public final class Protocol {
               }
               break;
             }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 8: {
               bitField0_ |= 0x00000001;
-              userID_ = bs;
+              userID_ = input.readInt32();
               break;
             }
           }
@@ -7985,49 +7665,22 @@ public final class Protocol {
 
     private int bitField0_;
     public static final int USERID_FIELD_NUMBER = 1;
-    private java.lang.Object userID_;
+    private int userID_;
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
     public boolean hasUserID() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
-    public java.lang.String getUserID() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          userID_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string userID = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getUserIDBytes() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        userID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getUserID() {
+      return userID_;
     }
 
     private void initFields() {
-      userID_ = "";
+      userID_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -8047,7 +7700,7 @@ public final class Protocol {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getUserIDBytes());
+        output.writeInt32(1, userID_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -8060,7 +7713,7 @@ public final class Protocol {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getUserIDBytes());
+          .computeInt32Size(1, userID_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -8179,7 +7832,7 @@ public final class Protocol {
 
       public Builder clear() {
         super.clear();
-        userID_ = "";
+        userID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -8230,9 +7883,7 @@ public final class Protocol {
       public Builder mergeFrom(com.rpg.framework.database.Protocol.RequestGetCharacter other) {
         if (other == com.rpg.framework.database.Protocol.RequestGetCharacter.getDefaultInstance()) return this;
         if (other.hasUserID()) {
-          bitField0_ |= 0x00000001;
-          userID_ = other.userID_;
-          onChanged();
+          setUserID(other.getUserID());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -8265,78 +7916,34 @@ public final class Protocol {
       }
       private int bitField0_;
 
-      private java.lang.Object userID_ = "";
+      private int userID_ ;
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
       public boolean hasUserID() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
-      public java.lang.String getUserID() {
-        java.lang.Object ref = userID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            userID_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getUserID() {
+        return userID_;
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getUserIDBytes() {
-        java.lang.Object ref = userID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          userID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string userID = 1;</code>
-       */
-      public Builder setUserID(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+      public Builder setUserID(int value) {
+        bitField0_ |= 0x00000001;
         userID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
       public Builder clearUserID() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        userID_ = getDefaultInstance().getUserID();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string userID = 1;</code>
-       */
-      public Builder setUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        userID_ = value;
+        userID_ = 0;
         onChanged();
         return this;
       }
@@ -9129,18 +8736,13 @@ public final class Protocol {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
     boolean hasUserID();
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
-    java.lang.String getUserID();
-    /**
-     * <code>required string userID = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getUserIDBytes();
+    int getUserID();
 
     /**
      * <code>required string name = 2;</code>
@@ -9217,10 +8819,9 @@ public final class Protocol {
               }
               break;
             }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 8: {
               bitField0_ |= 0x00000001;
-              userID_ = bs;
+              userID_ = input.readInt32();
               break;
             }
             case 18: {
@@ -9275,45 +8876,18 @@ public final class Protocol {
 
     private int bitField0_;
     public static final int USERID_FIELD_NUMBER = 1;
-    private java.lang.Object userID_;
+    private int userID_;
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
     public boolean hasUserID() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
-    public java.lang.String getUserID() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          userID_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string userID = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getUserIDBytes() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        userID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getUserID() {
+      return userID_;
     }
 
     public static final int NAME_FIELD_NUMBER = 2;
@@ -9374,7 +8948,7 @@ public final class Protocol {
     }
 
     private void initFields() {
-      userID_ = "";
+      userID_ = 0;
       name_ = "";
       gender_ = 0;
     }
@@ -9404,7 +8978,7 @@ public final class Protocol {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getUserIDBytes());
+        output.writeInt32(1, userID_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeBytes(2, getNameBytes());
@@ -9423,7 +8997,7 @@ public final class Protocol {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getUserIDBytes());
+          .computeInt32Size(1, userID_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
@@ -9550,7 +9124,7 @@ public final class Protocol {
 
       public Builder clear() {
         super.clear();
-        userID_ = "";
+        userID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
         name_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -9613,9 +9187,7 @@ public final class Protocol {
       public Builder mergeFrom(com.rpg.framework.database.Protocol.RequestCreateCharacter other) {
         if (other == com.rpg.framework.database.Protocol.RequestCreateCharacter.getDefaultInstance()) return this;
         if (other.hasUserID()) {
-          bitField0_ |= 0x00000001;
-          userID_ = other.userID_;
-          onChanged();
+          setUserID(other.getUserID());
         }
         if (other.hasName()) {
           bitField0_ |= 0x00000002;
@@ -9664,78 +9236,34 @@ public final class Protocol {
       }
       private int bitField0_;
 
-      private java.lang.Object userID_ = "";
+      private int userID_ ;
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
       public boolean hasUserID() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
-      public java.lang.String getUserID() {
-        java.lang.Object ref = userID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            userID_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getUserID() {
+        return userID_;
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getUserIDBytes() {
-        java.lang.Object ref = userID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          userID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string userID = 1;</code>
-       */
-      public Builder setUserID(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+      public Builder setUserID(int value) {
+        bitField0_ |= 0x00000001;
         userID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
       public Builder clearUserID() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        userID_ = getDefaultInstance().getUserID();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string userID = 1;</code>
-       */
-      public Builder setUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        userID_ = value;
+        userID_ = 0;
         onChanged();
         return this;
       }
@@ -10435,18 +9963,13 @@ public final class Protocol {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
     boolean hasUserID();
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
-    java.lang.String getUserID();
-    /**
-     * <code>required string userID = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getUserIDBytes();
+    int getUserID();
   }
   /**
    * Protobuf type {@code Protobuf.RequestStartGame}
@@ -10500,10 +10023,9 @@ public final class Protocol {
               }
               break;
             }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 8: {
               bitField0_ |= 0x00000001;
-              userID_ = bs;
+              userID_ = input.readInt32();
               break;
             }
           }
@@ -10547,49 +10069,22 @@ public final class Protocol {
 
     private int bitField0_;
     public static final int USERID_FIELD_NUMBER = 1;
-    private java.lang.Object userID_;
+    private int userID_;
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
     public boolean hasUserID() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
-    public java.lang.String getUserID() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          userID_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string userID = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getUserIDBytes() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        userID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getUserID() {
+      return userID_;
     }
 
     private void initFields() {
-      userID_ = "";
+      userID_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -10609,7 +10104,7 @@ public final class Protocol {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getUserIDBytes());
+        output.writeInt32(1, userID_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -10622,7 +10117,7 @@ public final class Protocol {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getUserIDBytes());
+          .computeInt32Size(1, userID_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -10741,7 +10236,7 @@ public final class Protocol {
 
       public Builder clear() {
         super.clear();
-        userID_ = "";
+        userID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -10792,9 +10287,7 @@ public final class Protocol {
       public Builder mergeFrom(com.rpg.framework.database.Protocol.RequestStartGame other) {
         if (other == com.rpg.framework.database.Protocol.RequestStartGame.getDefaultInstance()) return this;
         if (other.hasUserID()) {
-          bitField0_ |= 0x00000001;
-          userID_ = other.userID_;
-          onChanged();
+          setUserID(other.getUserID());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -10827,78 +10320,34 @@ public final class Protocol {
       }
       private int bitField0_;
 
-      private java.lang.Object userID_ = "";
+      private int userID_ ;
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
       public boolean hasUserID() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
-      public java.lang.String getUserID() {
-        java.lang.Object ref = userID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            userID_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getUserID() {
+        return userID_;
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getUserIDBytes() {
-        java.lang.Object ref = userID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          userID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string userID = 1;</code>
-       */
-      public Builder setUserID(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+      public Builder setUserID(int value) {
+        bitField0_ |= 0x00000001;
         userID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
       public Builder clearUserID() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        userID_ = getDefaultInstance().getUserID();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string userID = 1;</code>
-       */
-      public Builder setUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        userID_ = value;
+        userID_ = 0;
         onChanged();
         return this;
       }
@@ -10940,6 +10389,54 @@ public final class Protocol {
      */
     com.google.protobuf.ByteString
         getMessageBytes();
+
+    /**
+     * <code>repeated .Protobuf.User users = 3;</code>
+     */
+    java.util.List<com.rpg.framework.database.Protocol.User> 
+        getUsersList();
+    /**
+     * <code>repeated .Protobuf.User users = 3;</code>
+     */
+    com.rpg.framework.database.Protocol.User getUsers(int index);
+    /**
+     * <code>repeated .Protobuf.User users = 3;</code>
+     */
+    int getUsersCount();
+    /**
+     * <code>repeated .Protobuf.User users = 3;</code>
+     */
+    java.util.List<? extends com.rpg.framework.database.Protocol.UserOrBuilder> 
+        getUsersOrBuilderList();
+    /**
+     * <code>repeated .Protobuf.User users = 3;</code>
+     */
+    com.rpg.framework.database.Protocol.UserOrBuilder getUsersOrBuilder(
+        int index);
+
+    /**
+     * <code>repeated .Protobuf.Monster monsters = 4;</code>
+     */
+    java.util.List<com.rpg.framework.database.Protocol.Monster> 
+        getMonstersList();
+    /**
+     * <code>repeated .Protobuf.Monster monsters = 4;</code>
+     */
+    com.rpg.framework.database.Protocol.Monster getMonsters(int index);
+    /**
+     * <code>repeated .Protobuf.Monster monsters = 4;</code>
+     */
+    int getMonstersCount();
+    /**
+     * <code>repeated .Protobuf.Monster monsters = 4;</code>
+     */
+    java.util.List<? extends com.rpg.framework.database.Protocol.MonsterOrBuilder> 
+        getMonstersOrBuilderList();
+    /**
+     * <code>repeated .Protobuf.Monster monsters = 4;</code>
+     */
+    com.rpg.framework.database.Protocol.MonsterOrBuilder getMonstersOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code Protobuf.ResponseStartGame}
@@ -11010,6 +10507,22 @@ public final class Protocol {
               message_ = bs;
               break;
             }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+                users_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.User>();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              users_.add(input.readMessage(com.rpg.framework.database.Protocol.User.PARSER, extensionRegistry));
+              break;
+            }
+            case 34: {
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                monsters_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.Monster>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              monsters_.add(input.readMessage(com.rpg.framework.database.Protocol.Monster.PARSER, extensionRegistry));
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -11018,6 +10531,12 @@ public final class Protocol {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+          users_ = java.util.Collections.unmodifiableList(users_);
+        }
+        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+          monsters_ = java.util.Collections.unmodifiableList(monsters_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -11107,9 +10626,81 @@ public final class Protocol {
       }
     }
 
+    public static final int USERS_FIELD_NUMBER = 3;
+    private java.util.List<com.rpg.framework.database.Protocol.User> users_;
+    /**
+     * <code>repeated .Protobuf.User users = 3;</code>
+     */
+    public java.util.List<com.rpg.framework.database.Protocol.User> getUsersList() {
+      return users_;
+    }
+    /**
+     * <code>repeated .Protobuf.User users = 3;</code>
+     */
+    public java.util.List<? extends com.rpg.framework.database.Protocol.UserOrBuilder> 
+        getUsersOrBuilderList() {
+      return users_;
+    }
+    /**
+     * <code>repeated .Protobuf.User users = 3;</code>
+     */
+    public int getUsersCount() {
+      return users_.size();
+    }
+    /**
+     * <code>repeated .Protobuf.User users = 3;</code>
+     */
+    public com.rpg.framework.database.Protocol.User getUsers(int index) {
+      return users_.get(index);
+    }
+    /**
+     * <code>repeated .Protobuf.User users = 3;</code>
+     */
+    public com.rpg.framework.database.Protocol.UserOrBuilder getUsersOrBuilder(
+        int index) {
+      return users_.get(index);
+    }
+
+    public static final int MONSTERS_FIELD_NUMBER = 4;
+    private java.util.List<com.rpg.framework.database.Protocol.Monster> monsters_;
+    /**
+     * <code>repeated .Protobuf.Monster monsters = 4;</code>
+     */
+    public java.util.List<com.rpg.framework.database.Protocol.Monster> getMonstersList() {
+      return monsters_;
+    }
+    /**
+     * <code>repeated .Protobuf.Monster monsters = 4;</code>
+     */
+    public java.util.List<? extends com.rpg.framework.database.Protocol.MonsterOrBuilder> 
+        getMonstersOrBuilderList() {
+      return monsters_;
+    }
+    /**
+     * <code>repeated .Protobuf.Monster monsters = 4;</code>
+     */
+    public int getMonstersCount() {
+      return monsters_.size();
+    }
+    /**
+     * <code>repeated .Protobuf.Monster monsters = 4;</code>
+     */
+    public com.rpg.framework.database.Protocol.Monster getMonsters(int index) {
+      return monsters_.get(index);
+    }
+    /**
+     * <code>repeated .Protobuf.Monster monsters = 4;</code>
+     */
+    public com.rpg.framework.database.Protocol.MonsterOrBuilder getMonstersOrBuilder(
+        int index) {
+      return monsters_.get(index);
+    }
+
     private void initFields() {
       result_ = com.rpg.framework.database.Protocol.ResponseCode.SUCCESS;
       message_ = "";
+      users_ = java.util.Collections.emptyList();
+      monsters_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -11120,6 +10711,18 @@ public final class Protocol {
       if (!hasResult()) {
         memoizedIsInitialized = 0;
         return false;
+      }
+      for (int i = 0; i < getUsersCount(); i++) {
+        if (!getUsers(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      for (int i = 0; i < getMonstersCount(); i++) {
+        if (!getMonsters(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
       }
       memoizedIsInitialized = 1;
       return true;
@@ -11133,6 +10736,12 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeBytes(2, getMessageBytes());
+      }
+      for (int i = 0; i < users_.size(); i++) {
+        output.writeMessage(3, users_.get(i));
+      }
+      for (int i = 0; i < monsters_.size(); i++) {
+        output.writeMessage(4, monsters_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -11150,6 +10759,14 @@ public final class Protocol {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, getMessageBytes());
+      }
+      for (int i = 0; i < users_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, users_.get(i));
+      }
+      for (int i = 0; i < monsters_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, monsters_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -11260,6 +10877,8 @@ public final class Protocol {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getUsersFieldBuilder();
+          getMonstersFieldBuilder();
         }
       }
       private static Builder create() {
@@ -11272,6 +10891,18 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000001);
         message_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
+        if (usersBuilder_ == null) {
+          users_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          usersBuilder_.clear();
+        }
+        if (monstersBuilder_ == null) {
+          monsters_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+        } else {
+          monstersBuilder_.clear();
+        }
         return this;
       }
 
@@ -11308,6 +10939,24 @@ public final class Protocol {
           to_bitField0_ |= 0x00000002;
         }
         result.message_ = message_;
+        if (usersBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            users_ = java.util.Collections.unmodifiableList(users_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.users_ = users_;
+        } else {
+          result.users_ = usersBuilder_.build();
+        }
+        if (monstersBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+            monsters_ = java.util.Collections.unmodifiableList(monsters_);
+            bitField0_ = (bitField0_ & ~0x00000008);
+          }
+          result.monsters_ = monsters_;
+        } else {
+          result.monsters_ = monstersBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -11332,6 +10981,58 @@ public final class Protocol {
           message_ = other.message_;
           onChanged();
         }
+        if (usersBuilder_ == null) {
+          if (!other.users_.isEmpty()) {
+            if (users_.isEmpty()) {
+              users_ = other.users_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureUsersIsMutable();
+              users_.addAll(other.users_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.users_.isEmpty()) {
+            if (usersBuilder_.isEmpty()) {
+              usersBuilder_.dispose();
+              usersBuilder_ = null;
+              users_ = other.users_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              usersBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getUsersFieldBuilder() : null;
+            } else {
+              usersBuilder_.addAllMessages(other.users_);
+            }
+          }
+        }
+        if (monstersBuilder_ == null) {
+          if (!other.monsters_.isEmpty()) {
+            if (monsters_.isEmpty()) {
+              monsters_ = other.monsters_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+            } else {
+              ensureMonstersIsMutable();
+              monsters_.addAll(other.monsters_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.monsters_.isEmpty()) {
+            if (monstersBuilder_.isEmpty()) {
+              monstersBuilder_.dispose();
+              monstersBuilder_ = null;
+              monsters_ = other.monsters_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+              monstersBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getMonstersFieldBuilder() : null;
+            } else {
+              monstersBuilder_.addAllMessages(other.monsters_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -11340,6 +11041,18 @@ public final class Protocol {
         if (!hasResult()) {
           
           return false;
+        }
+        for (int i = 0; i < getUsersCount(); i++) {
+          if (!getUsers(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        for (int i = 0; i < getMonstersCount(); i++) {
+          if (!getMonsters(i).isInitialized()) {
+            
+            return false;
+          }
         }
         return true;
       }
@@ -11474,6 +11187,486 @@ public final class Protocol {
         return this;
       }
 
+      private java.util.List<com.rpg.framework.database.Protocol.User> users_ =
+        java.util.Collections.emptyList();
+      private void ensureUsersIsMutable() {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+          users_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.User>(users_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder> usersBuilder_;
+
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public java.util.List<com.rpg.framework.database.Protocol.User> getUsersList() {
+        if (usersBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(users_);
+        } else {
+          return usersBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public int getUsersCount() {
+        if (usersBuilder_ == null) {
+          return users_.size();
+        } else {
+          return usersBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public com.rpg.framework.database.Protocol.User getUsers(int index) {
+        if (usersBuilder_ == null) {
+          return users_.get(index);
+        } else {
+          return usersBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public Builder setUsers(
+          int index, com.rpg.framework.database.Protocol.User value) {
+        if (usersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUsersIsMutable();
+          users_.set(index, value);
+          onChanged();
+        } else {
+          usersBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public Builder setUsers(
+          int index, com.rpg.framework.database.Protocol.User.Builder builderForValue) {
+        if (usersBuilder_ == null) {
+          ensureUsersIsMutable();
+          users_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          usersBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public Builder addUsers(com.rpg.framework.database.Protocol.User value) {
+        if (usersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUsersIsMutable();
+          users_.add(value);
+          onChanged();
+        } else {
+          usersBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public Builder addUsers(
+          int index, com.rpg.framework.database.Protocol.User value) {
+        if (usersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUsersIsMutable();
+          users_.add(index, value);
+          onChanged();
+        } else {
+          usersBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public Builder addUsers(
+          com.rpg.framework.database.Protocol.User.Builder builderForValue) {
+        if (usersBuilder_ == null) {
+          ensureUsersIsMutable();
+          users_.add(builderForValue.build());
+          onChanged();
+        } else {
+          usersBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public Builder addUsers(
+          int index, com.rpg.framework.database.Protocol.User.Builder builderForValue) {
+        if (usersBuilder_ == null) {
+          ensureUsersIsMutable();
+          users_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          usersBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public Builder addAllUsers(
+          java.lang.Iterable<? extends com.rpg.framework.database.Protocol.User> values) {
+        if (usersBuilder_ == null) {
+          ensureUsersIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, users_);
+          onChanged();
+        } else {
+          usersBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public Builder clearUsers() {
+        if (usersBuilder_ == null) {
+          users_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          usersBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public Builder removeUsers(int index) {
+        if (usersBuilder_ == null) {
+          ensureUsersIsMutable();
+          users_.remove(index);
+          onChanged();
+        } else {
+          usersBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public com.rpg.framework.database.Protocol.User.Builder getUsersBuilder(
+          int index) {
+        return getUsersFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public com.rpg.framework.database.Protocol.UserOrBuilder getUsersOrBuilder(
+          int index) {
+        if (usersBuilder_ == null) {
+          return users_.get(index);  } else {
+          return usersBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public java.util.List<? extends com.rpg.framework.database.Protocol.UserOrBuilder> 
+           getUsersOrBuilderList() {
+        if (usersBuilder_ != null) {
+          return usersBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(users_);
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public com.rpg.framework.database.Protocol.User.Builder addUsersBuilder() {
+        return getUsersFieldBuilder().addBuilder(
+            com.rpg.framework.database.Protocol.User.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public com.rpg.framework.database.Protocol.User.Builder addUsersBuilder(
+          int index) {
+        return getUsersFieldBuilder().addBuilder(
+            index, com.rpg.framework.database.Protocol.User.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 3;</code>
+       */
+      public java.util.List<com.rpg.framework.database.Protocol.User.Builder> 
+           getUsersBuilderList() {
+        return getUsersFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder> 
+          getUsersFieldBuilder() {
+        if (usersBuilder_ == null) {
+          usersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder>(
+                  users_,
+                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  getParentForChildren(),
+                  isClean());
+          users_ = null;
+        }
+        return usersBuilder_;
+      }
+
+      private java.util.List<com.rpg.framework.database.Protocol.Monster> monsters_ =
+        java.util.Collections.emptyList();
+      private void ensureMonstersIsMutable() {
+        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+          monsters_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.Monster>(monsters_);
+          bitField0_ |= 0x00000008;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.rpg.framework.database.Protocol.Monster, com.rpg.framework.database.Protocol.Monster.Builder, com.rpg.framework.database.Protocol.MonsterOrBuilder> monstersBuilder_;
+
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public java.util.List<com.rpg.framework.database.Protocol.Monster> getMonstersList() {
+        if (monstersBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(monsters_);
+        } else {
+          return monstersBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public int getMonstersCount() {
+        if (monstersBuilder_ == null) {
+          return monsters_.size();
+        } else {
+          return monstersBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public com.rpg.framework.database.Protocol.Monster getMonsters(int index) {
+        if (monstersBuilder_ == null) {
+          return monsters_.get(index);
+        } else {
+          return monstersBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public Builder setMonsters(
+          int index, com.rpg.framework.database.Protocol.Monster value) {
+        if (monstersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMonstersIsMutable();
+          monsters_.set(index, value);
+          onChanged();
+        } else {
+          monstersBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public Builder setMonsters(
+          int index, com.rpg.framework.database.Protocol.Monster.Builder builderForValue) {
+        if (monstersBuilder_ == null) {
+          ensureMonstersIsMutable();
+          monsters_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          monstersBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public Builder addMonsters(com.rpg.framework.database.Protocol.Monster value) {
+        if (monstersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMonstersIsMutable();
+          monsters_.add(value);
+          onChanged();
+        } else {
+          monstersBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public Builder addMonsters(
+          int index, com.rpg.framework.database.Protocol.Monster value) {
+        if (monstersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMonstersIsMutable();
+          monsters_.add(index, value);
+          onChanged();
+        } else {
+          monstersBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public Builder addMonsters(
+          com.rpg.framework.database.Protocol.Monster.Builder builderForValue) {
+        if (monstersBuilder_ == null) {
+          ensureMonstersIsMutable();
+          monsters_.add(builderForValue.build());
+          onChanged();
+        } else {
+          monstersBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public Builder addMonsters(
+          int index, com.rpg.framework.database.Protocol.Monster.Builder builderForValue) {
+        if (monstersBuilder_ == null) {
+          ensureMonstersIsMutable();
+          monsters_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          monstersBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public Builder addAllMonsters(
+          java.lang.Iterable<? extends com.rpg.framework.database.Protocol.Monster> values) {
+        if (monstersBuilder_ == null) {
+          ensureMonstersIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, monsters_);
+          onChanged();
+        } else {
+          monstersBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public Builder clearMonsters() {
+        if (monstersBuilder_ == null) {
+          monsters_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+          onChanged();
+        } else {
+          monstersBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public Builder removeMonsters(int index) {
+        if (monstersBuilder_ == null) {
+          ensureMonstersIsMutable();
+          monsters_.remove(index);
+          onChanged();
+        } else {
+          monstersBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public com.rpg.framework.database.Protocol.Monster.Builder getMonstersBuilder(
+          int index) {
+        return getMonstersFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public com.rpg.framework.database.Protocol.MonsterOrBuilder getMonstersOrBuilder(
+          int index) {
+        if (monstersBuilder_ == null) {
+          return monsters_.get(index);  } else {
+          return monstersBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public java.util.List<? extends com.rpg.framework.database.Protocol.MonsterOrBuilder> 
+           getMonstersOrBuilderList() {
+        if (monstersBuilder_ != null) {
+          return monstersBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(monsters_);
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public com.rpg.framework.database.Protocol.Monster.Builder addMonstersBuilder() {
+        return getMonstersFieldBuilder().addBuilder(
+            com.rpg.framework.database.Protocol.Monster.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public com.rpg.framework.database.Protocol.Monster.Builder addMonstersBuilder(
+          int index) {
+        return getMonstersFieldBuilder().addBuilder(
+            index, com.rpg.framework.database.Protocol.Monster.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .Protobuf.Monster monsters = 4;</code>
+       */
+      public java.util.List<com.rpg.framework.database.Protocol.Monster.Builder> 
+           getMonstersBuilderList() {
+        return getMonstersFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.rpg.framework.database.Protocol.Monster, com.rpg.framework.database.Protocol.Monster.Builder, com.rpg.framework.database.Protocol.MonsterOrBuilder> 
+          getMonstersFieldBuilder() {
+        if (monstersBuilder_ == null) {
+          monstersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.rpg.framework.database.Protocol.Monster, com.rpg.framework.database.Protocol.Monster.Builder, com.rpg.framework.database.Protocol.MonsterOrBuilder>(
+                  monsters_,
+                  ((bitField0_ & 0x00000008) == 0x00000008),
+                  getParentForChildren(),
+                  isClean());
+          monsters_ = null;
+        }
+        return monstersBuilder_;
+      }
+
       // @@protoc_insertion_point(builder_scope:Protobuf.ResponseStartGame)
     }
 
@@ -11490,32 +11683,22 @@ public final class Protocol {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
     boolean hasUserID();
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
-    java.lang.String getUserID();
-    /**
-     * <code>required string userID = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getUserIDBytes();
+    int getUserID();
 
     /**
-     * <code>required string mapID = 2;</code>
+     * <code>required int32 mapID = 2;</code>
      */
     boolean hasMapID();
     /**
-     * <code>required string mapID = 2;</code>
+     * <code>required int32 mapID = 2;</code>
      */
-    java.lang.String getMapID();
-    /**
-     * <code>required string mapID = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getMapIDBytes();
+    int getMapID();
 
     /**
      * <code>required double x = 3;</code>
@@ -11587,16 +11770,14 @@ public final class Protocol {
               }
               break;
             }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 8: {
               bitField0_ |= 0x00000001;
-              userID_ = bs;
+              userID_ = input.readInt32();
               break;
             }
-            case 18: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 16: {
               bitField0_ |= 0x00000002;
-              mapID_ = bs;
+              mapID_ = input.readInt32();
               break;
             }
             case 25: {
@@ -11650,87 +11831,33 @@ public final class Protocol {
 
     private int bitField0_;
     public static final int USERID_FIELD_NUMBER = 1;
-    private java.lang.Object userID_;
+    private int userID_;
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
     public boolean hasUserID() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
-    public java.lang.String getUserID() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          userID_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string userID = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getUserIDBytes() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        userID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getUserID() {
+      return userID_;
     }
 
     public static final int MAPID_FIELD_NUMBER = 2;
-    private java.lang.Object mapID_;
+    private int mapID_;
     /**
-     * <code>required string mapID = 2;</code>
+     * <code>required int32 mapID = 2;</code>
      */
     public boolean hasMapID() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required string mapID = 2;</code>
+     * <code>required int32 mapID = 2;</code>
      */
-    public java.lang.String getMapID() {
-      java.lang.Object ref = mapID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          mapID_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string mapID = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getMapIDBytes() {
-      java.lang.Object ref = mapID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        mapID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getMapID() {
+      return mapID_;
     }
 
     public static final int X_FIELD_NUMBER = 3;
@@ -11764,8 +11891,8 @@ public final class Protocol {
     }
 
     private void initFields() {
-      userID_ = "";
-      mapID_ = "";
+      userID_ = 0;
+      mapID_ = 0;
       x_ = 0D;
       y_ = 0D;
     }
@@ -11799,10 +11926,10 @@ public final class Protocol {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getUserIDBytes());
+        output.writeInt32(1, userID_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getMapIDBytes());
+        output.writeInt32(2, mapID_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeDouble(3, x_);
@@ -11821,11 +11948,11 @@ public final class Protocol {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getUserIDBytes());
+          .computeInt32Size(1, userID_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getMapIDBytes());
+          .computeInt32Size(2, mapID_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
@@ -11952,9 +12079,9 @@ public final class Protocol {
 
       public Builder clear() {
         super.clear();
-        userID_ = "";
+        userID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        mapID_ = "";
+        mapID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
         x_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -12021,14 +12148,10 @@ public final class Protocol {
       public Builder mergeFrom(com.rpg.framework.database.Protocol.RequestUpdatePosition other) {
         if (other == com.rpg.framework.database.Protocol.RequestUpdatePosition.getDefaultInstance()) return this;
         if (other.hasUserID()) {
-          bitField0_ |= 0x00000001;
-          userID_ = other.userID_;
-          onChanged();
+          setUserID(other.getUserID());
         }
         if (other.hasMapID()) {
-          bitField0_ |= 0x00000002;
-          mapID_ = other.mapID_;
-          onChanged();
+          setMapID(other.getMapID());
         }
         if (other.hasX()) {
           setX(other.getX());
@@ -12079,154 +12202,66 @@ public final class Protocol {
       }
       private int bitField0_;
 
-      private java.lang.Object userID_ = "";
+      private int userID_ ;
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
       public boolean hasUserID() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
-      public java.lang.String getUserID() {
-        java.lang.Object ref = userID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            userID_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getUserID() {
+        return userID_;
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getUserIDBytes() {
-        java.lang.Object ref = userID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          userID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string userID = 1;</code>
-       */
-      public Builder setUserID(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+      public Builder setUserID(int value) {
+        bitField0_ |= 0x00000001;
         userID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
       public Builder clearUserID() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        userID_ = getDefaultInstance().getUserID();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string userID = 1;</code>
-       */
-      public Builder setUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        userID_ = value;
+        userID_ = 0;
         onChanged();
         return this;
       }
 
-      private java.lang.Object mapID_ = "";
+      private int mapID_ ;
       /**
-       * <code>required string mapID = 2;</code>
+       * <code>required int32 mapID = 2;</code>
        */
       public boolean hasMapID() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required string mapID = 2;</code>
+       * <code>required int32 mapID = 2;</code>
        */
-      public java.lang.String getMapID() {
-        java.lang.Object ref = mapID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            mapID_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getMapID() {
+        return mapID_;
       }
       /**
-       * <code>required string mapID = 2;</code>
+       * <code>required int32 mapID = 2;</code>
        */
-      public com.google.protobuf.ByteString
-          getMapIDBytes() {
-        java.lang.Object ref = mapID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          mapID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string mapID = 2;</code>
-       */
-      public Builder setMapID(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
+      public Builder setMapID(int value) {
+        bitField0_ |= 0x00000002;
         mapID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string mapID = 2;</code>
+       * <code>required int32 mapID = 2;</code>
        */
       public Builder clearMapID() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        mapID_ = getDefaultInstance().getMapID();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string mapID = 2;</code>
-       */
-      public Builder setMapIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        mapID_ = value;
+        mapID_ = 0;
         onChanged();
         return this;
       }
@@ -12882,18 +12917,13 @@ public final class Protocol {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string UserID = 1;</code>
+     * <code>required int32 UserID = 1;</code>
      */
     boolean hasUserID();
     /**
-     * <code>required string UserID = 1;</code>
+     * <code>required int32 UserID = 1;</code>
      */
-    java.lang.String getUserID();
-    /**
-     * <code>required string UserID = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getUserIDBytes();
+    int getUserID();
   }
   /**
    * Protobuf type {@code Protobuf.RequestGetItems}
@@ -12947,10 +12977,9 @@ public final class Protocol {
               }
               break;
             }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 8: {
               bitField0_ |= 0x00000001;
-              userID_ = bs;
+              userID_ = input.readInt32();
               break;
             }
           }
@@ -12994,49 +13023,22 @@ public final class Protocol {
 
     private int bitField0_;
     public static final int USERID_FIELD_NUMBER = 1;
-    private java.lang.Object userID_;
+    private int userID_;
     /**
-     * <code>required string UserID = 1;</code>
+     * <code>required int32 UserID = 1;</code>
      */
     public boolean hasUserID() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string UserID = 1;</code>
+     * <code>required int32 UserID = 1;</code>
      */
-    public java.lang.String getUserID() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          userID_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string UserID = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getUserIDBytes() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        userID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getUserID() {
+      return userID_;
     }
 
     private void initFields() {
-      userID_ = "";
+      userID_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -13056,7 +13058,7 @@ public final class Protocol {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getUserIDBytes());
+        output.writeInt32(1, userID_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -13069,7 +13071,7 @@ public final class Protocol {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getUserIDBytes());
+          .computeInt32Size(1, userID_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -13188,7 +13190,7 @@ public final class Protocol {
 
       public Builder clear() {
         super.clear();
-        userID_ = "";
+        userID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -13239,9 +13241,7 @@ public final class Protocol {
       public Builder mergeFrom(com.rpg.framework.database.Protocol.RequestGetItems other) {
         if (other == com.rpg.framework.database.Protocol.RequestGetItems.getDefaultInstance()) return this;
         if (other.hasUserID()) {
-          bitField0_ |= 0x00000001;
-          userID_ = other.userID_;
-          onChanged();
+          setUserID(other.getUserID());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -13274,78 +13274,34 @@ public final class Protocol {
       }
       private int bitField0_;
 
-      private java.lang.Object userID_ = "";
+      private int userID_ ;
       /**
-       * <code>required string UserID = 1;</code>
+       * <code>required int32 UserID = 1;</code>
        */
       public boolean hasUserID() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string UserID = 1;</code>
+       * <code>required int32 UserID = 1;</code>
        */
-      public java.lang.String getUserID() {
-        java.lang.Object ref = userID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            userID_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getUserID() {
+        return userID_;
       }
       /**
-       * <code>required string UserID = 1;</code>
+       * <code>required int32 UserID = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getUserIDBytes() {
-        java.lang.Object ref = userID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          userID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string UserID = 1;</code>
-       */
-      public Builder setUserID(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+      public Builder setUserID(int value) {
+        bitField0_ |= 0x00000001;
         userID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string UserID = 1;</code>
+       * <code>required int32 UserID = 1;</code>
        */
       public Builder clearUserID() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        userID_ = getDefaultInstance().getUserID();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string UserID = 1;</code>
-       */
-      public Builder setUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        userID_ = value;
+        userID_ = 0;
         onChanged();
         return this;
       }
@@ -14566,18 +14522,13 @@ public final class Protocol {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
     boolean hasUserID();
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
-    java.lang.String getUserID();
-    /**
-     * <code>required string userID = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getUserIDBytes();
+    int getUserID();
 
     /**
      * <code>repeated .Protobuf.CharacterAction actions = 2;</code>
@@ -14655,10 +14606,9 @@ public final class Protocol {
               }
               break;
             }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 8: {
               bitField0_ |= 0x00000001;
-              userID_ = bs;
+              userID_ = input.readInt32();
               break;
             }
             case 18: {
@@ -14713,45 +14663,18 @@ public final class Protocol {
 
     private int bitField0_;
     public static final int USERID_FIELD_NUMBER = 1;
-    private java.lang.Object userID_;
+    private int userID_;
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
     public boolean hasUserID() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
-    public java.lang.String getUserID() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          userID_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string userID = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getUserIDBytes() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        userID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getUserID() {
+      return userID_;
     }
 
     public static final int ACTIONS_FIELD_NUMBER = 2;
@@ -14790,7 +14713,7 @@ public final class Protocol {
     }
 
     private void initFields() {
-      userID_ = "";
+      userID_ = 0;
       actions_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
@@ -14811,7 +14734,7 @@ public final class Protocol {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getUserIDBytes());
+        output.writeInt32(1, userID_);
       }
       for (int i = 0; i < actions_.size(); i++) {
         output.writeMessage(2, actions_.get(i));
@@ -14827,7 +14750,7 @@ public final class Protocol {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getUserIDBytes());
+          .computeInt32Size(1, userID_);
       }
       for (int i = 0; i < actions_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -14951,7 +14874,7 @@ public final class Protocol {
 
       public Builder clear() {
         super.clear();
-        userID_ = "";
+        userID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
         if (actionsBuilder_ == null) {
           actions_ = java.util.Collections.emptyList();
@@ -15017,9 +14940,7 @@ public final class Protocol {
       public Builder mergeFrom(com.rpg.framework.database.Protocol.RequestUpdateAction other) {
         if (other == com.rpg.framework.database.Protocol.RequestUpdateAction.getDefaultInstance()) return this;
         if (other.hasUserID()) {
-          bitField0_ |= 0x00000001;
-          userID_ = other.userID_;
-          onChanged();
+          setUserID(other.getUserID());
         }
         if (actionsBuilder_ == null) {
           if (!other.actions_.isEmpty()) {
@@ -15078,78 +14999,34 @@ public final class Protocol {
       }
       private int bitField0_;
 
-      private java.lang.Object userID_ = "";
+      private int userID_ ;
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
       public boolean hasUserID() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
-      public java.lang.String getUserID() {
-        java.lang.Object ref = userID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            userID_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getUserID() {
+        return userID_;
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getUserIDBytes() {
-        java.lang.Object ref = userID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          userID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string userID = 1;</code>
-       */
-      public Builder setUserID(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+      public Builder setUserID(int value) {
+        bitField0_ |= 0x00000001;
         userID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
       public Builder clearUserID() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        userID_ = getDefaultInstance().getUserID();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string userID = 1;</code>
-       */
-      public Builder setUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        userID_ = value;
+        userID_ = 0;
         onChanged();
         return this;
       }
@@ -15410,18 +15287,13 @@ public final class Protocol {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
     boolean hasUserID();
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
-    java.lang.String getUserID();
-    /**
-     * <code>required string userID = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getUserIDBytes();
+    int getUserID();
 
     /**
      * <code>repeated .Protobuf.CharacterAction actions = 2;</code>
@@ -15499,10 +15371,9 @@ public final class Protocol {
               }
               break;
             }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 8: {
               bitField0_ |= 0x00000001;
-              userID_ = bs;
+              userID_ = input.readInt32();
               break;
             }
             case 18: {
@@ -15557,45 +15428,18 @@ public final class Protocol {
 
     private int bitField0_;
     public static final int USERID_FIELD_NUMBER = 1;
-    private java.lang.Object userID_;
+    private int userID_;
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
     public boolean hasUserID() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string userID = 1;</code>
+     * <code>required int32 userID = 1;</code>
      */
-    public java.lang.String getUserID() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          userID_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string userID = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getUserIDBytes() {
-      java.lang.Object ref = userID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        userID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getUserID() {
+      return userID_;
     }
 
     public static final int ACTIONS_FIELD_NUMBER = 2;
@@ -15634,7 +15478,7 @@ public final class Protocol {
     }
 
     private void initFields() {
-      userID_ = "";
+      userID_ = 0;
       actions_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
@@ -15655,7 +15499,7 @@ public final class Protocol {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getUserIDBytes());
+        output.writeInt32(1, userID_);
       }
       for (int i = 0; i < actions_.size(); i++) {
         output.writeMessage(2, actions_.get(i));
@@ -15671,7 +15515,7 @@ public final class Protocol {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getUserIDBytes());
+          .computeInt32Size(1, userID_);
       }
       for (int i = 0; i < actions_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -15795,7 +15639,7 @@ public final class Protocol {
 
       public Builder clear() {
         super.clear();
-        userID_ = "";
+        userID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
         if (actionsBuilder_ == null) {
           actions_ = java.util.Collections.emptyList();
@@ -15861,9 +15705,7 @@ public final class Protocol {
       public Builder mergeFrom(com.rpg.framework.database.Protocol.ResponseUpdateAction other) {
         if (other == com.rpg.framework.database.Protocol.ResponseUpdateAction.getDefaultInstance()) return this;
         if (other.hasUserID()) {
-          bitField0_ |= 0x00000001;
-          userID_ = other.userID_;
-          onChanged();
+          setUserID(other.getUserID());
         }
         if (actionsBuilder_ == null) {
           if (!other.actions_.isEmpty()) {
@@ -15922,78 +15764,34 @@ public final class Protocol {
       }
       private int bitField0_;
 
-      private java.lang.Object userID_ = "";
+      private int userID_ ;
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
       public boolean hasUserID() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
-      public java.lang.String getUserID() {
-        java.lang.Object ref = userID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            userID_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getUserID() {
+        return userID_;
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getUserIDBytes() {
-        java.lang.Object ref = userID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          userID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string userID = 1;</code>
-       */
-      public Builder setUserID(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+      public Builder setUserID(int value) {
+        bitField0_ |= 0x00000001;
         userID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string userID = 1;</code>
+       * <code>required int32 userID = 1;</code>
        */
       public Builder clearUserID() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        userID_ = getDefaultInstance().getUserID();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string userID = 1;</code>
-       */
-      public Builder setUserIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        userID_ = value;
+        userID_ = 0;
         onChanged();
         return this;
       }
@@ -20414,6 +20212,4931 @@ public final class Protocol {
     // @@protoc_insertion_point(class_scope:Protobuf.ResponseGetPrototype)
   }
 
+  public interface UserOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.User)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    boolean hasId();
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    int getId();
+
+    /**
+     * <code>required .Protobuf.Position position = 2;</code>
+     */
+    boolean hasPosition();
+    /**
+     * <code>required .Protobuf.Position position = 2;</code>
+     */
+    com.rpg.framework.database.Protocol.Position getPosition();
+    /**
+     * <code>required .Protobuf.Position position = 2;</code>
+     */
+    com.rpg.framework.database.Protocol.PositionOrBuilder getPositionOrBuilder();
+
+    /**
+     * <code>required .Protobuf.Status status = 3;</code>
+     */
+    boolean hasStatus();
+    /**
+     * <code>required .Protobuf.Status status = 3;</code>
+     */
+    com.rpg.framework.database.Protocol.Status getStatus();
+    /**
+     * <code>required .Protobuf.Status status = 3;</code>
+     */
+    com.rpg.framework.database.Protocol.StatusOrBuilder getStatusOrBuilder();
+
+    /**
+     * <code>required .Protobuf.Stats stats = 4;</code>
+     */
+    boolean hasStats();
+    /**
+     * <code>required .Protobuf.Stats stats = 4;</code>
+     */
+    com.rpg.framework.database.Protocol.Stats getStats();
+    /**
+     * <code>required .Protobuf.Stats stats = 4;</code>
+     */
+    com.rpg.framework.database.Protocol.StatsOrBuilder getStatsOrBuilder();
+  }
+  /**
+   * Protobuf type {@code Protobuf.User}
+   */
+  public static final class User extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.User)
+      UserOrBuilder {
+    // Use User.newBuilder() to construct.
+    private User(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private User(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final User defaultInstance;
+    public static User getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public User getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private User(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readInt32();
+              break;
+            }
+            case 18: {
+              com.rpg.framework.database.Protocol.Position.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                subBuilder = position_.toBuilder();
+              }
+              position_ = input.readMessage(com.rpg.framework.database.Protocol.Position.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(position_);
+                position_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000002;
+              break;
+            }
+            case 26: {
+              com.rpg.framework.database.Protocol.Status.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000004) == 0x00000004)) {
+                subBuilder = status_.toBuilder();
+              }
+              status_ = input.readMessage(com.rpg.framework.database.Protocol.Status.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(status_);
+                status_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000004;
+              break;
+            }
+            case 34: {
+              com.rpg.framework.database.Protocol.Stats.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000008) == 0x00000008)) {
+                subBuilder = stats_.toBuilder();
+              }
+              stats_ = input.readMessage(com.rpg.framework.database.Protocol.Stats.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(stats_);
+                stats_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000008;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_User_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_User_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.User.class, com.rpg.framework.database.Protocol.User.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<User> PARSER =
+        new com.google.protobuf.AbstractParser<User>() {
+      public User parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new User(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<User> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    public int getId() {
+      return id_;
+    }
+
+    public static final int POSITION_FIELD_NUMBER = 2;
+    private com.rpg.framework.database.Protocol.Position position_;
+    /**
+     * <code>required .Protobuf.Position position = 2;</code>
+     */
+    public boolean hasPosition() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required .Protobuf.Position position = 2;</code>
+     */
+    public com.rpg.framework.database.Protocol.Position getPosition() {
+      return position_;
+    }
+    /**
+     * <code>required .Protobuf.Position position = 2;</code>
+     */
+    public com.rpg.framework.database.Protocol.PositionOrBuilder getPositionOrBuilder() {
+      return position_;
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 3;
+    private com.rpg.framework.database.Protocol.Status status_;
+    /**
+     * <code>required .Protobuf.Status status = 3;</code>
+     */
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required .Protobuf.Status status = 3;</code>
+     */
+    public com.rpg.framework.database.Protocol.Status getStatus() {
+      return status_;
+    }
+    /**
+     * <code>required .Protobuf.Status status = 3;</code>
+     */
+    public com.rpg.framework.database.Protocol.StatusOrBuilder getStatusOrBuilder() {
+      return status_;
+    }
+
+    public static final int STATS_FIELD_NUMBER = 4;
+    private com.rpg.framework.database.Protocol.Stats stats_;
+    /**
+     * <code>required .Protobuf.Stats stats = 4;</code>
+     */
+    public boolean hasStats() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required .Protobuf.Stats stats = 4;</code>
+     */
+    public com.rpg.framework.database.Protocol.Stats getStats() {
+      return stats_;
+    }
+    /**
+     * <code>required .Protobuf.Stats stats = 4;</code>
+     */
+    public com.rpg.framework.database.Protocol.StatsOrBuilder getStatsOrBuilder() {
+      return stats_;
+    }
+
+    private void initFields() {
+      id_ = 0;
+      position_ = com.rpg.framework.database.Protocol.Position.getDefaultInstance();
+      status_ = com.rpg.framework.database.Protocol.Status.getDefaultInstance();
+      stats_ = com.rpg.framework.database.Protocol.Stats.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPosition()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStatus()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStats()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getPosition().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getStatus().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getStats().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeMessage(2, position_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(3, status_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeMessage(4, stats_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, position_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, status_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, stats_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.User parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.User parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.User parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.User parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.User parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.User parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.User parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.User parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.User parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.User parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.User prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.User}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.User)
+        com.rpg.framework.database.Protocol.UserOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_User_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_User_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.User.class, com.rpg.framework.database.Protocol.User.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.User.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getPositionFieldBuilder();
+          getStatusFieldBuilder();
+          getStatsFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (positionBuilder_ == null) {
+          position_ = com.rpg.framework.database.Protocol.Position.getDefaultInstance();
+        } else {
+          positionBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (statusBuilder_ == null) {
+          status_ = com.rpg.framework.database.Protocol.Status.getDefaultInstance();
+        } else {
+          statusBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        if (statsBuilder_ == null) {
+          stats_ = com.rpg.framework.database.Protocol.Stats.getDefaultInstance();
+        } else {
+          statsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_User_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.User getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.User.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.User build() {
+        com.rpg.framework.database.Protocol.User result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.User buildPartial() {
+        com.rpg.framework.database.Protocol.User result = new com.rpg.framework.database.Protocol.User(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        if (positionBuilder_ == null) {
+          result.position_ = position_;
+        } else {
+          result.position_ = positionBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        if (statusBuilder_ == null) {
+          result.status_ = status_;
+        } else {
+          result.status_ = statusBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        if (statsBuilder_ == null) {
+          result.stats_ = stats_;
+        } else {
+          result.stats_ = statsBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.User) {
+          return mergeFrom((com.rpg.framework.database.Protocol.User)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.User other) {
+        if (other == com.rpg.framework.database.Protocol.User.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        if (other.hasPosition()) {
+          mergePosition(other.getPosition());
+        }
+        if (other.hasStatus()) {
+          mergeStatus(other.getStatus());
+        }
+        if (other.hasStats()) {
+          mergeStats(other.getStats());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasId()) {
+          
+          return false;
+        }
+        if (!hasPosition()) {
+          
+          return false;
+        }
+        if (!hasStatus()) {
+          
+          return false;
+        }
+        if (!hasStats()) {
+          
+          return false;
+        }
+        if (!getPosition().isInitialized()) {
+          
+          return false;
+        }
+        if (!getStatus().isInitialized()) {
+          
+          return false;
+        }
+        if (!getStats().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.User parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.User) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int id_ ;
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public int getId() {
+        return id_;
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.rpg.framework.database.Protocol.Position position_ = com.rpg.framework.database.Protocol.Position.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.Position, com.rpg.framework.database.Protocol.Position.Builder, com.rpg.framework.database.Protocol.PositionOrBuilder> positionBuilder_;
+      /**
+       * <code>required .Protobuf.Position position = 2;</code>
+       */
+      public boolean hasPosition() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required .Protobuf.Position position = 2;</code>
+       */
+      public com.rpg.framework.database.Protocol.Position getPosition() {
+        if (positionBuilder_ == null) {
+          return position_;
+        } else {
+          return positionBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .Protobuf.Position position = 2;</code>
+       */
+      public Builder setPosition(com.rpg.framework.database.Protocol.Position value) {
+        if (positionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          position_ = value;
+          onChanged();
+        } else {
+          positionBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Position position = 2;</code>
+       */
+      public Builder setPosition(
+          com.rpg.framework.database.Protocol.Position.Builder builderForValue) {
+        if (positionBuilder_ == null) {
+          position_ = builderForValue.build();
+          onChanged();
+        } else {
+          positionBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Position position = 2;</code>
+       */
+      public Builder mergePosition(com.rpg.framework.database.Protocol.Position value) {
+        if (positionBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              position_ != com.rpg.framework.database.Protocol.Position.getDefaultInstance()) {
+            position_ =
+              com.rpg.framework.database.Protocol.Position.newBuilder(position_).mergeFrom(value).buildPartial();
+          } else {
+            position_ = value;
+          }
+          onChanged();
+        } else {
+          positionBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Position position = 2;</code>
+       */
+      public Builder clearPosition() {
+        if (positionBuilder_ == null) {
+          position_ = com.rpg.framework.database.Protocol.Position.getDefaultInstance();
+          onChanged();
+        } else {
+          positionBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Position position = 2;</code>
+       */
+      public com.rpg.framework.database.Protocol.Position.Builder getPositionBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getPositionFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .Protobuf.Position position = 2;</code>
+       */
+      public com.rpg.framework.database.Protocol.PositionOrBuilder getPositionOrBuilder() {
+        if (positionBuilder_ != null) {
+          return positionBuilder_.getMessageOrBuilder();
+        } else {
+          return position_;
+        }
+      }
+      /**
+       * <code>required .Protobuf.Position position = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.Position, com.rpg.framework.database.Protocol.Position.Builder, com.rpg.framework.database.Protocol.PositionOrBuilder> 
+          getPositionFieldBuilder() {
+        if (positionBuilder_ == null) {
+          positionBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.rpg.framework.database.Protocol.Position, com.rpg.framework.database.Protocol.Position.Builder, com.rpg.framework.database.Protocol.PositionOrBuilder>(
+                  getPosition(),
+                  getParentForChildren(),
+                  isClean());
+          position_ = null;
+        }
+        return positionBuilder_;
+      }
+
+      private com.rpg.framework.database.Protocol.Status status_ = com.rpg.framework.database.Protocol.Status.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.Status, com.rpg.framework.database.Protocol.Status.Builder, com.rpg.framework.database.Protocol.StatusOrBuilder> statusBuilder_;
+      /**
+       * <code>required .Protobuf.Status status = 3;</code>
+       */
+      public boolean hasStatus() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required .Protobuf.Status status = 3;</code>
+       */
+      public com.rpg.framework.database.Protocol.Status getStatus() {
+        if (statusBuilder_ == null) {
+          return status_;
+        } else {
+          return statusBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .Protobuf.Status status = 3;</code>
+       */
+      public Builder setStatus(com.rpg.framework.database.Protocol.Status value) {
+        if (statusBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          status_ = value;
+          onChanged();
+        } else {
+          statusBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Status status = 3;</code>
+       */
+      public Builder setStatus(
+          com.rpg.framework.database.Protocol.Status.Builder builderForValue) {
+        if (statusBuilder_ == null) {
+          status_ = builderForValue.build();
+          onChanged();
+        } else {
+          statusBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Status status = 3;</code>
+       */
+      public Builder mergeStatus(com.rpg.framework.database.Protocol.Status value) {
+        if (statusBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              status_ != com.rpg.framework.database.Protocol.Status.getDefaultInstance()) {
+            status_ =
+              com.rpg.framework.database.Protocol.Status.newBuilder(status_).mergeFrom(value).buildPartial();
+          } else {
+            status_ = value;
+          }
+          onChanged();
+        } else {
+          statusBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Status status = 3;</code>
+       */
+      public Builder clearStatus() {
+        if (statusBuilder_ == null) {
+          status_ = com.rpg.framework.database.Protocol.Status.getDefaultInstance();
+          onChanged();
+        } else {
+          statusBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Status status = 3;</code>
+       */
+      public com.rpg.framework.database.Protocol.Status.Builder getStatusBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getStatusFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .Protobuf.Status status = 3;</code>
+       */
+      public com.rpg.framework.database.Protocol.StatusOrBuilder getStatusOrBuilder() {
+        if (statusBuilder_ != null) {
+          return statusBuilder_.getMessageOrBuilder();
+        } else {
+          return status_;
+        }
+      }
+      /**
+       * <code>required .Protobuf.Status status = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.Status, com.rpg.framework.database.Protocol.Status.Builder, com.rpg.framework.database.Protocol.StatusOrBuilder> 
+          getStatusFieldBuilder() {
+        if (statusBuilder_ == null) {
+          statusBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.rpg.framework.database.Protocol.Status, com.rpg.framework.database.Protocol.Status.Builder, com.rpg.framework.database.Protocol.StatusOrBuilder>(
+                  getStatus(),
+                  getParentForChildren(),
+                  isClean());
+          status_ = null;
+        }
+        return statusBuilder_;
+      }
+
+      private com.rpg.framework.database.Protocol.Stats stats_ = com.rpg.framework.database.Protocol.Stats.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.Stats, com.rpg.framework.database.Protocol.Stats.Builder, com.rpg.framework.database.Protocol.StatsOrBuilder> statsBuilder_;
+      /**
+       * <code>required .Protobuf.Stats stats = 4;</code>
+       */
+      public boolean hasStats() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 4;</code>
+       */
+      public com.rpg.framework.database.Protocol.Stats getStats() {
+        if (statsBuilder_ == null) {
+          return stats_;
+        } else {
+          return statsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 4;</code>
+       */
+      public Builder setStats(com.rpg.framework.database.Protocol.Stats value) {
+        if (statsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          stats_ = value;
+          onChanged();
+        } else {
+          statsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 4;</code>
+       */
+      public Builder setStats(
+          com.rpg.framework.database.Protocol.Stats.Builder builderForValue) {
+        if (statsBuilder_ == null) {
+          stats_ = builderForValue.build();
+          onChanged();
+        } else {
+          statsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 4;</code>
+       */
+      public Builder mergeStats(com.rpg.framework.database.Protocol.Stats value) {
+        if (statsBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) == 0x00000008) &&
+              stats_ != com.rpg.framework.database.Protocol.Stats.getDefaultInstance()) {
+            stats_ =
+              com.rpg.framework.database.Protocol.Stats.newBuilder(stats_).mergeFrom(value).buildPartial();
+          } else {
+            stats_ = value;
+          }
+          onChanged();
+        } else {
+          statsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 4;</code>
+       */
+      public Builder clearStats() {
+        if (statsBuilder_ == null) {
+          stats_ = com.rpg.framework.database.Protocol.Stats.getDefaultInstance();
+          onChanged();
+        } else {
+          statsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 4;</code>
+       */
+      public com.rpg.framework.database.Protocol.Stats.Builder getStatsBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return getStatsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 4;</code>
+       */
+      public com.rpg.framework.database.Protocol.StatsOrBuilder getStatsOrBuilder() {
+        if (statsBuilder_ != null) {
+          return statsBuilder_.getMessageOrBuilder();
+        } else {
+          return stats_;
+        }
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.Stats, com.rpg.framework.database.Protocol.Stats.Builder, com.rpg.framework.database.Protocol.StatsOrBuilder> 
+          getStatsFieldBuilder() {
+        if (statsBuilder_ == null) {
+          statsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.rpg.framework.database.Protocol.Stats, com.rpg.framework.database.Protocol.Stats.Builder, com.rpg.framework.database.Protocol.StatsOrBuilder>(
+                  getStats(),
+                  getParentForChildren(),
+                  isClean());
+          stats_ = null;
+        }
+        return statsBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.User)
+    }
+
+    static {
+      defaultInstance = new User(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.User)
+  }
+
+  public interface MonsterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.Monster)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    boolean hasId();
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    int getId();
+
+    /**
+     * <code>required int32 index = 2;</code>
+     */
+    boolean hasIndex();
+    /**
+     * <code>required int32 index = 2;</code>
+     */
+    int getIndex();
+
+    /**
+     * <code>required .Protobuf.Position position = 3;</code>
+     */
+    boolean hasPosition();
+    /**
+     * <code>required .Protobuf.Position position = 3;</code>
+     */
+    com.rpg.framework.database.Protocol.Position getPosition();
+    /**
+     * <code>required .Protobuf.Position position = 3;</code>
+     */
+    com.rpg.framework.database.Protocol.PositionOrBuilder getPositionOrBuilder();
+
+    /**
+     * <code>required .Protobuf.Status status = 4;</code>
+     */
+    boolean hasStatus();
+    /**
+     * <code>required .Protobuf.Status status = 4;</code>
+     */
+    com.rpg.framework.database.Protocol.Status getStatus();
+    /**
+     * <code>required .Protobuf.Status status = 4;</code>
+     */
+    com.rpg.framework.database.Protocol.StatusOrBuilder getStatusOrBuilder();
+
+    /**
+     * <code>required .Protobuf.Stats stats = 5;</code>
+     */
+    boolean hasStats();
+    /**
+     * <code>required .Protobuf.Stats stats = 5;</code>
+     */
+    com.rpg.framework.database.Protocol.Stats getStats();
+    /**
+     * <code>required .Protobuf.Stats stats = 5;</code>
+     */
+    com.rpg.framework.database.Protocol.StatsOrBuilder getStatsOrBuilder();
+  }
+  /**
+   * Protobuf type {@code Protobuf.Monster}
+   */
+  public static final class Monster extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.Monster)
+      MonsterOrBuilder {
+    // Use Monster.newBuilder() to construct.
+    private Monster(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private Monster(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final Monster defaultInstance;
+    public static Monster getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public Monster getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Monster(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              index_ = input.readInt32();
+              break;
+            }
+            case 26: {
+              com.rpg.framework.database.Protocol.Position.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000004) == 0x00000004)) {
+                subBuilder = position_.toBuilder();
+              }
+              position_ = input.readMessage(com.rpg.framework.database.Protocol.Position.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(position_);
+                position_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000004;
+              break;
+            }
+            case 34: {
+              com.rpg.framework.database.Protocol.Status.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000008) == 0x00000008)) {
+                subBuilder = status_.toBuilder();
+              }
+              status_ = input.readMessage(com.rpg.framework.database.Protocol.Status.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(status_);
+                status_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000008;
+              break;
+            }
+            case 42: {
+              com.rpg.framework.database.Protocol.Stats.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000010) == 0x00000010)) {
+                subBuilder = stats_.toBuilder();
+              }
+              stats_ = input.readMessage(com.rpg.framework.database.Protocol.Stats.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(stats_);
+                stats_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000010;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_Monster_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_Monster_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.Monster.class, com.rpg.framework.database.Protocol.Monster.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<Monster> PARSER =
+        new com.google.protobuf.AbstractParser<Monster>() {
+      public Monster parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Monster(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Monster> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    public int getId() {
+      return id_;
+    }
+
+    public static final int INDEX_FIELD_NUMBER = 2;
+    private int index_;
+    /**
+     * <code>required int32 index = 2;</code>
+     */
+    public boolean hasIndex() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 index = 2;</code>
+     */
+    public int getIndex() {
+      return index_;
+    }
+
+    public static final int POSITION_FIELD_NUMBER = 3;
+    private com.rpg.framework.database.Protocol.Position position_;
+    /**
+     * <code>required .Protobuf.Position position = 3;</code>
+     */
+    public boolean hasPosition() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required .Protobuf.Position position = 3;</code>
+     */
+    public com.rpg.framework.database.Protocol.Position getPosition() {
+      return position_;
+    }
+    /**
+     * <code>required .Protobuf.Position position = 3;</code>
+     */
+    public com.rpg.framework.database.Protocol.PositionOrBuilder getPositionOrBuilder() {
+      return position_;
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 4;
+    private com.rpg.framework.database.Protocol.Status status_;
+    /**
+     * <code>required .Protobuf.Status status = 4;</code>
+     */
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required .Protobuf.Status status = 4;</code>
+     */
+    public com.rpg.framework.database.Protocol.Status getStatus() {
+      return status_;
+    }
+    /**
+     * <code>required .Protobuf.Status status = 4;</code>
+     */
+    public com.rpg.framework.database.Protocol.StatusOrBuilder getStatusOrBuilder() {
+      return status_;
+    }
+
+    public static final int STATS_FIELD_NUMBER = 5;
+    private com.rpg.framework.database.Protocol.Stats stats_;
+    /**
+     * <code>required .Protobuf.Stats stats = 5;</code>
+     */
+    public boolean hasStats() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required .Protobuf.Stats stats = 5;</code>
+     */
+    public com.rpg.framework.database.Protocol.Stats getStats() {
+      return stats_;
+    }
+    /**
+     * <code>required .Protobuf.Stats stats = 5;</code>
+     */
+    public com.rpg.framework.database.Protocol.StatsOrBuilder getStatsOrBuilder() {
+      return stats_;
+    }
+
+    private void initFields() {
+      id_ = 0;
+      index_ = 0;
+      position_ = com.rpg.framework.database.Protocol.Position.getDefaultInstance();
+      status_ = com.rpg.framework.database.Protocol.Status.getDefaultInstance();
+      stats_ = com.rpg.framework.database.Protocol.Stats.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasIndex()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPosition()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStatus()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStats()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getPosition().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getStatus().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getStats().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, index_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(3, position_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeMessage(4, status_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeMessage(5, stats_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, index_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, position_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, status_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, stats_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.Monster parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.Monster parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Monster parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.Monster parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Monster parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.Monster parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Monster parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.Monster parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Monster parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.Monster parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.Monster prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.Monster}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.Monster)
+        com.rpg.framework.database.Protocol.MonsterOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_Monster_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_Monster_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.Monster.class, com.rpg.framework.database.Protocol.Monster.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.Monster.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getPositionFieldBuilder();
+          getStatusFieldBuilder();
+          getStatsFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        index_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (positionBuilder_ == null) {
+          position_ = com.rpg.framework.database.Protocol.Position.getDefaultInstance();
+        } else {
+          positionBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        if (statusBuilder_ == null) {
+          status_ = com.rpg.framework.database.Protocol.Status.getDefaultInstance();
+        } else {
+          statusBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
+        if (statsBuilder_ == null) {
+          stats_ = com.rpg.framework.database.Protocol.Stats.getDefaultInstance();
+        } else {
+          statsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000010);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_Monster_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.Monster getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.Monster.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.Monster build() {
+        com.rpg.framework.database.Protocol.Monster result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.Monster buildPartial() {
+        com.rpg.framework.database.Protocol.Monster result = new com.rpg.framework.database.Protocol.Monster(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.index_ = index_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        if (positionBuilder_ == null) {
+          result.position_ = position_;
+        } else {
+          result.position_ = positionBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        if (statusBuilder_ == null) {
+          result.status_ = status_;
+        } else {
+          result.status_ = statusBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        if (statsBuilder_ == null) {
+          result.stats_ = stats_;
+        } else {
+          result.stats_ = statsBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.Monster) {
+          return mergeFrom((com.rpg.framework.database.Protocol.Monster)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.Monster other) {
+        if (other == com.rpg.framework.database.Protocol.Monster.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        if (other.hasIndex()) {
+          setIndex(other.getIndex());
+        }
+        if (other.hasPosition()) {
+          mergePosition(other.getPosition());
+        }
+        if (other.hasStatus()) {
+          mergeStatus(other.getStatus());
+        }
+        if (other.hasStats()) {
+          mergeStats(other.getStats());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasId()) {
+          
+          return false;
+        }
+        if (!hasIndex()) {
+          
+          return false;
+        }
+        if (!hasPosition()) {
+          
+          return false;
+        }
+        if (!hasStatus()) {
+          
+          return false;
+        }
+        if (!hasStats()) {
+          
+          return false;
+        }
+        if (!getPosition().isInitialized()) {
+          
+          return false;
+        }
+        if (!getStatus().isInitialized()) {
+          
+          return false;
+        }
+        if (!getStats().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.Monster parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.Monster) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int id_ ;
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public int getId() {
+        return id_;
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int index_ ;
+      /**
+       * <code>required int32 index = 2;</code>
+       */
+      public boolean hasIndex() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 index = 2;</code>
+       */
+      public int getIndex() {
+        return index_;
+      }
+      /**
+       * <code>required int32 index = 2;</code>
+       */
+      public Builder setIndex(int value) {
+        bitField0_ |= 0x00000002;
+        index_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 index = 2;</code>
+       */
+      public Builder clearIndex() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        index_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.rpg.framework.database.Protocol.Position position_ = com.rpg.framework.database.Protocol.Position.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.Position, com.rpg.framework.database.Protocol.Position.Builder, com.rpg.framework.database.Protocol.PositionOrBuilder> positionBuilder_;
+      /**
+       * <code>required .Protobuf.Position position = 3;</code>
+       */
+      public boolean hasPosition() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required .Protobuf.Position position = 3;</code>
+       */
+      public com.rpg.framework.database.Protocol.Position getPosition() {
+        if (positionBuilder_ == null) {
+          return position_;
+        } else {
+          return positionBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .Protobuf.Position position = 3;</code>
+       */
+      public Builder setPosition(com.rpg.framework.database.Protocol.Position value) {
+        if (positionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          position_ = value;
+          onChanged();
+        } else {
+          positionBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Position position = 3;</code>
+       */
+      public Builder setPosition(
+          com.rpg.framework.database.Protocol.Position.Builder builderForValue) {
+        if (positionBuilder_ == null) {
+          position_ = builderForValue.build();
+          onChanged();
+        } else {
+          positionBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Position position = 3;</code>
+       */
+      public Builder mergePosition(com.rpg.framework.database.Protocol.Position value) {
+        if (positionBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              position_ != com.rpg.framework.database.Protocol.Position.getDefaultInstance()) {
+            position_ =
+              com.rpg.framework.database.Protocol.Position.newBuilder(position_).mergeFrom(value).buildPartial();
+          } else {
+            position_ = value;
+          }
+          onChanged();
+        } else {
+          positionBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Position position = 3;</code>
+       */
+      public Builder clearPosition() {
+        if (positionBuilder_ == null) {
+          position_ = com.rpg.framework.database.Protocol.Position.getDefaultInstance();
+          onChanged();
+        } else {
+          positionBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Position position = 3;</code>
+       */
+      public com.rpg.framework.database.Protocol.Position.Builder getPositionBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getPositionFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .Protobuf.Position position = 3;</code>
+       */
+      public com.rpg.framework.database.Protocol.PositionOrBuilder getPositionOrBuilder() {
+        if (positionBuilder_ != null) {
+          return positionBuilder_.getMessageOrBuilder();
+        } else {
+          return position_;
+        }
+      }
+      /**
+       * <code>required .Protobuf.Position position = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.Position, com.rpg.framework.database.Protocol.Position.Builder, com.rpg.framework.database.Protocol.PositionOrBuilder> 
+          getPositionFieldBuilder() {
+        if (positionBuilder_ == null) {
+          positionBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.rpg.framework.database.Protocol.Position, com.rpg.framework.database.Protocol.Position.Builder, com.rpg.framework.database.Protocol.PositionOrBuilder>(
+                  getPosition(),
+                  getParentForChildren(),
+                  isClean());
+          position_ = null;
+        }
+        return positionBuilder_;
+      }
+
+      private com.rpg.framework.database.Protocol.Status status_ = com.rpg.framework.database.Protocol.Status.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.Status, com.rpg.framework.database.Protocol.Status.Builder, com.rpg.framework.database.Protocol.StatusOrBuilder> statusBuilder_;
+      /**
+       * <code>required .Protobuf.Status status = 4;</code>
+       */
+      public boolean hasStatus() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required .Protobuf.Status status = 4;</code>
+       */
+      public com.rpg.framework.database.Protocol.Status getStatus() {
+        if (statusBuilder_ == null) {
+          return status_;
+        } else {
+          return statusBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .Protobuf.Status status = 4;</code>
+       */
+      public Builder setStatus(com.rpg.framework.database.Protocol.Status value) {
+        if (statusBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          status_ = value;
+          onChanged();
+        } else {
+          statusBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Status status = 4;</code>
+       */
+      public Builder setStatus(
+          com.rpg.framework.database.Protocol.Status.Builder builderForValue) {
+        if (statusBuilder_ == null) {
+          status_ = builderForValue.build();
+          onChanged();
+        } else {
+          statusBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Status status = 4;</code>
+       */
+      public Builder mergeStatus(com.rpg.framework.database.Protocol.Status value) {
+        if (statusBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) == 0x00000008) &&
+              status_ != com.rpg.framework.database.Protocol.Status.getDefaultInstance()) {
+            status_ =
+              com.rpg.framework.database.Protocol.Status.newBuilder(status_).mergeFrom(value).buildPartial();
+          } else {
+            status_ = value;
+          }
+          onChanged();
+        } else {
+          statusBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Status status = 4;</code>
+       */
+      public Builder clearStatus() {
+        if (statusBuilder_ == null) {
+          status_ = com.rpg.framework.database.Protocol.Status.getDefaultInstance();
+          onChanged();
+        } else {
+          statusBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Status status = 4;</code>
+       */
+      public com.rpg.framework.database.Protocol.Status.Builder getStatusBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return getStatusFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .Protobuf.Status status = 4;</code>
+       */
+      public com.rpg.framework.database.Protocol.StatusOrBuilder getStatusOrBuilder() {
+        if (statusBuilder_ != null) {
+          return statusBuilder_.getMessageOrBuilder();
+        } else {
+          return status_;
+        }
+      }
+      /**
+       * <code>required .Protobuf.Status status = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.Status, com.rpg.framework.database.Protocol.Status.Builder, com.rpg.framework.database.Protocol.StatusOrBuilder> 
+          getStatusFieldBuilder() {
+        if (statusBuilder_ == null) {
+          statusBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.rpg.framework.database.Protocol.Status, com.rpg.framework.database.Protocol.Status.Builder, com.rpg.framework.database.Protocol.StatusOrBuilder>(
+                  getStatus(),
+                  getParentForChildren(),
+                  isClean());
+          status_ = null;
+        }
+        return statusBuilder_;
+      }
+
+      private com.rpg.framework.database.Protocol.Stats stats_ = com.rpg.framework.database.Protocol.Stats.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.Stats, com.rpg.framework.database.Protocol.Stats.Builder, com.rpg.framework.database.Protocol.StatsOrBuilder> statsBuilder_;
+      /**
+       * <code>required .Protobuf.Stats stats = 5;</code>
+       */
+      public boolean hasStats() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 5;</code>
+       */
+      public com.rpg.framework.database.Protocol.Stats getStats() {
+        if (statsBuilder_ == null) {
+          return stats_;
+        } else {
+          return statsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 5;</code>
+       */
+      public Builder setStats(com.rpg.framework.database.Protocol.Stats value) {
+        if (statsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          stats_ = value;
+          onChanged();
+        } else {
+          statsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000010;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 5;</code>
+       */
+      public Builder setStats(
+          com.rpg.framework.database.Protocol.Stats.Builder builderForValue) {
+        if (statsBuilder_ == null) {
+          stats_ = builderForValue.build();
+          onChanged();
+        } else {
+          statsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000010;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 5;</code>
+       */
+      public Builder mergeStats(com.rpg.framework.database.Protocol.Stats value) {
+        if (statsBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) == 0x00000010) &&
+              stats_ != com.rpg.framework.database.Protocol.Stats.getDefaultInstance()) {
+            stats_ =
+              com.rpg.framework.database.Protocol.Stats.newBuilder(stats_).mergeFrom(value).buildPartial();
+          } else {
+            stats_ = value;
+          }
+          onChanged();
+        } else {
+          statsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000010;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 5;</code>
+       */
+      public Builder clearStats() {
+        if (statsBuilder_ == null) {
+          stats_ = com.rpg.framework.database.Protocol.Stats.getDefaultInstance();
+          onChanged();
+        } else {
+          statsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000010);
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 5;</code>
+       */
+      public com.rpg.framework.database.Protocol.Stats.Builder getStatsBuilder() {
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return getStatsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 5;</code>
+       */
+      public com.rpg.framework.database.Protocol.StatsOrBuilder getStatsOrBuilder() {
+        if (statsBuilder_ != null) {
+          return statsBuilder_.getMessageOrBuilder();
+        } else {
+          return stats_;
+        }
+      }
+      /**
+       * <code>required .Protobuf.Stats stats = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.Stats, com.rpg.framework.database.Protocol.Stats.Builder, com.rpg.framework.database.Protocol.StatsOrBuilder> 
+          getStatsFieldBuilder() {
+        if (statsBuilder_ == null) {
+          statsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.rpg.framework.database.Protocol.Stats, com.rpg.framework.database.Protocol.Stats.Builder, com.rpg.framework.database.Protocol.StatsOrBuilder>(
+                  getStats(),
+                  getParentForChildren(),
+                  isClean());
+          stats_ = null;
+        }
+        return statsBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.Monster)
+    }
+
+    static {
+      defaultInstance = new Monster(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.Monster)
+  }
+
+  public interface PositionOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.Position)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    boolean hasMapID();
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    int getMapID();
+
+    /**
+     * <code>required double x = 2;</code>
+     */
+    boolean hasX();
+    /**
+     * <code>required double x = 2;</code>
+     */
+    double getX();
+
+    /**
+     * <code>required double y = 3;</code>
+     */
+    boolean hasY();
+    /**
+     * <code>required double y = 3;</code>
+     */
+    double getY();
+  }
+  /**
+   * Protobuf type {@code Protobuf.Position}
+   */
+  public static final class Position extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.Position)
+      PositionOrBuilder {
+    // Use Position.newBuilder() to construct.
+    private Position(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private Position(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final Position defaultInstance;
+    public static Position getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public Position getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Position(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              mapID_ = input.readInt32();
+              break;
+            }
+            case 17: {
+              bitField0_ |= 0x00000002;
+              x_ = input.readDouble();
+              break;
+            }
+            case 25: {
+              bitField0_ |= 0x00000004;
+              y_ = input.readDouble();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_Position_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_Position_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.Position.class, com.rpg.framework.database.Protocol.Position.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<Position> PARSER =
+        new com.google.protobuf.AbstractParser<Position>() {
+      public Position parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Position(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Position> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int MAPID_FIELD_NUMBER = 1;
+    private int mapID_;
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    public boolean hasMapID() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    public int getMapID() {
+      return mapID_;
+    }
+
+    public static final int X_FIELD_NUMBER = 2;
+    private double x_;
+    /**
+     * <code>required double x = 2;</code>
+     */
+    public boolean hasX() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required double x = 2;</code>
+     */
+    public double getX() {
+      return x_;
+    }
+
+    public static final int Y_FIELD_NUMBER = 3;
+    private double y_;
+    /**
+     * <code>required double y = 3;</code>
+     */
+    public boolean hasY() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required double y = 3;</code>
+     */
+    public double getY() {
+      return y_;
+    }
+
+    private void initFields() {
+      mapID_ = 0;
+      x_ = 0D;
+      y_ = 0D;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasMapID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasX()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasY()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, mapID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeDouble(2, x_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeDouble(3, y_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, mapID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(2, x_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(3, y_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.Position parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.Position parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Position parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.Position parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Position parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.Position parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Position parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.Position parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Position parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.Position parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.Position prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.Position}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.Position)
+        com.rpg.framework.database.Protocol.PositionOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_Position_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_Position_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.Position.class, com.rpg.framework.database.Protocol.Position.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.Position.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        mapID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        x_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        y_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_Position_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.Position getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.Position.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.Position build() {
+        com.rpg.framework.database.Protocol.Position result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.Position buildPartial() {
+        com.rpg.framework.database.Protocol.Position result = new com.rpg.framework.database.Protocol.Position(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.mapID_ = mapID_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.x_ = x_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.y_ = y_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.Position) {
+          return mergeFrom((com.rpg.framework.database.Protocol.Position)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.Position other) {
+        if (other == com.rpg.framework.database.Protocol.Position.getDefaultInstance()) return this;
+        if (other.hasMapID()) {
+          setMapID(other.getMapID());
+        }
+        if (other.hasX()) {
+          setX(other.getX());
+        }
+        if (other.hasY()) {
+          setY(other.getY());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasMapID()) {
+          
+          return false;
+        }
+        if (!hasX()) {
+          
+          return false;
+        }
+        if (!hasY()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.Position parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.Position) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int mapID_ ;
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public boolean hasMapID() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public int getMapID() {
+        return mapID_;
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public Builder setMapID(int value) {
+        bitField0_ |= 0x00000001;
+        mapID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public Builder clearMapID() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        mapID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private double x_ ;
+      /**
+       * <code>required double x = 2;</code>
+       */
+      public boolean hasX() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required double x = 2;</code>
+       */
+      public double getX() {
+        return x_;
+      }
+      /**
+       * <code>required double x = 2;</code>
+       */
+      public Builder setX(double value) {
+        bitField0_ |= 0x00000002;
+        x_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required double x = 2;</code>
+       */
+      public Builder clearX() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        x_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double y_ ;
+      /**
+       * <code>required double y = 3;</code>
+       */
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required double y = 3;</code>
+       */
+      public double getY() {
+        return y_;
+      }
+      /**
+       * <code>required double y = 3;</code>
+       */
+      public Builder setY(double value) {
+        bitField0_ |= 0x00000004;
+        y_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required double y = 3;</code>
+       */
+      public Builder clearY() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        y_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.Position)
+    }
+
+    static {
+      defaultInstance = new Position(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.Position)
+  }
+
+  public interface StatusOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.Status)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 maxHP = 1;</code>
+     */
+    boolean hasMaxHP();
+    /**
+     * <code>required int32 maxHP = 1;</code>
+     */
+    int getMaxHP();
+
+    /**
+     * <code>required int32 curHP = 2;</code>
+     */
+    boolean hasCurHP();
+    /**
+     * <code>required int32 curHP = 2;</code>
+     */
+    int getCurHP();
+
+    /**
+     * <code>required int32 maxMP = 3;</code>
+     */
+    boolean hasMaxMP();
+    /**
+     * <code>required int32 maxMP = 3;</code>
+     */
+    int getMaxMP();
+
+    /**
+     * <code>required int32 curMP = 4;</code>
+     */
+    boolean hasCurMP();
+    /**
+     * <code>required int32 curMP = 4;</code>
+     */
+    int getCurMP();
+  }
+  /**
+   * Protobuf type {@code Protobuf.Status}
+   */
+  public static final class Status extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.Status)
+      StatusOrBuilder {
+    // Use Status.newBuilder() to construct.
+    private Status(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private Status(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final Status defaultInstance;
+    public static Status getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public Status getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Status(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              maxHP_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              curHP_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              maxMP_ = input.readInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              curMP_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_Status_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_Status_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.Status.class, com.rpg.framework.database.Protocol.Status.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<Status> PARSER =
+        new com.google.protobuf.AbstractParser<Status>() {
+      public Status parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Status(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Status> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int MAXHP_FIELD_NUMBER = 1;
+    private int maxHP_;
+    /**
+     * <code>required int32 maxHP = 1;</code>
+     */
+    public boolean hasMaxHP() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 maxHP = 1;</code>
+     */
+    public int getMaxHP() {
+      return maxHP_;
+    }
+
+    public static final int CURHP_FIELD_NUMBER = 2;
+    private int curHP_;
+    /**
+     * <code>required int32 curHP = 2;</code>
+     */
+    public boolean hasCurHP() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 curHP = 2;</code>
+     */
+    public int getCurHP() {
+      return curHP_;
+    }
+
+    public static final int MAXMP_FIELD_NUMBER = 3;
+    private int maxMP_;
+    /**
+     * <code>required int32 maxMP = 3;</code>
+     */
+    public boolean hasMaxMP() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required int32 maxMP = 3;</code>
+     */
+    public int getMaxMP() {
+      return maxMP_;
+    }
+
+    public static final int CURMP_FIELD_NUMBER = 4;
+    private int curMP_;
+    /**
+     * <code>required int32 curMP = 4;</code>
+     */
+    public boolean hasCurMP() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required int32 curMP = 4;</code>
+     */
+    public int getCurMP() {
+      return curMP_;
+    }
+
+    private void initFields() {
+      maxHP_ = 0;
+      curHP_ = 0;
+      maxMP_ = 0;
+      curMP_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasMaxHP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCurHP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMaxMP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCurMP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, maxHP_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, curHP_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, maxMP_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, curMP_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, maxHP_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, curHP_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, maxMP_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, curMP_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.Status parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.Status parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Status parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.Status parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Status parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.Status parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Status parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.Status parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Status parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.Status parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.Status prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.Status}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.Status)
+        com.rpg.framework.database.Protocol.StatusOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_Status_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_Status_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.Status.class, com.rpg.framework.database.Protocol.Status.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.Status.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        maxHP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        curHP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        maxMP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        curMP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_Status_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.Status getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.Status.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.Status build() {
+        com.rpg.framework.database.Protocol.Status result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.Status buildPartial() {
+        com.rpg.framework.database.Protocol.Status result = new com.rpg.framework.database.Protocol.Status(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.maxHP_ = maxHP_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.curHP_ = curHP_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.maxMP_ = maxMP_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.curMP_ = curMP_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.Status) {
+          return mergeFrom((com.rpg.framework.database.Protocol.Status)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.Status other) {
+        if (other == com.rpg.framework.database.Protocol.Status.getDefaultInstance()) return this;
+        if (other.hasMaxHP()) {
+          setMaxHP(other.getMaxHP());
+        }
+        if (other.hasCurHP()) {
+          setCurHP(other.getCurHP());
+        }
+        if (other.hasMaxMP()) {
+          setMaxMP(other.getMaxMP());
+        }
+        if (other.hasCurMP()) {
+          setCurMP(other.getCurMP());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasMaxHP()) {
+          
+          return false;
+        }
+        if (!hasCurHP()) {
+          
+          return false;
+        }
+        if (!hasMaxMP()) {
+          
+          return false;
+        }
+        if (!hasCurMP()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.Status parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.Status) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int maxHP_ ;
+      /**
+       * <code>required int32 maxHP = 1;</code>
+       */
+      public boolean hasMaxHP() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 maxHP = 1;</code>
+       */
+      public int getMaxHP() {
+        return maxHP_;
+      }
+      /**
+       * <code>required int32 maxHP = 1;</code>
+       */
+      public Builder setMaxHP(int value) {
+        bitField0_ |= 0x00000001;
+        maxHP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 maxHP = 1;</code>
+       */
+      public Builder clearMaxHP() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        maxHP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int curHP_ ;
+      /**
+       * <code>required int32 curHP = 2;</code>
+       */
+      public boolean hasCurHP() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 curHP = 2;</code>
+       */
+      public int getCurHP() {
+        return curHP_;
+      }
+      /**
+       * <code>required int32 curHP = 2;</code>
+       */
+      public Builder setCurHP(int value) {
+        bitField0_ |= 0x00000002;
+        curHP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 curHP = 2;</code>
+       */
+      public Builder clearCurHP() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        curHP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int maxMP_ ;
+      /**
+       * <code>required int32 maxMP = 3;</code>
+       */
+      public boolean hasMaxMP() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required int32 maxMP = 3;</code>
+       */
+      public int getMaxMP() {
+        return maxMP_;
+      }
+      /**
+       * <code>required int32 maxMP = 3;</code>
+       */
+      public Builder setMaxMP(int value) {
+        bitField0_ |= 0x00000004;
+        maxMP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 maxMP = 3;</code>
+       */
+      public Builder clearMaxMP() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        maxMP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int curMP_ ;
+      /**
+       * <code>required int32 curMP = 4;</code>
+       */
+      public boolean hasCurMP() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required int32 curMP = 4;</code>
+       */
+      public int getCurMP() {
+        return curMP_;
+      }
+      /**
+       * <code>required int32 curMP = 4;</code>
+       */
+      public Builder setCurMP(int value) {
+        bitField0_ |= 0x00000008;
+        curMP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 curMP = 4;</code>
+       */
+      public Builder clearCurMP() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        curMP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.Status)
+    }
+
+    static {
+      defaultInstance = new Status(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.Status)
+  }
+
+  public interface StatsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.Stats)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 damage = 1;</code>
+     */
+    boolean hasDamage();
+    /**
+     * <code>required int32 damage = 1;</code>
+     */
+    int getDamage();
+
+    /**
+     * <code>required int32 defense = 2;</code>
+     */
+    boolean hasDefense();
+    /**
+     * <code>required int32 defense = 2;</code>
+     */
+    int getDefense();
+
+    /**
+     * <code>required int32 speed = 3;</code>
+     */
+    boolean hasSpeed();
+    /**
+     * <code>required int32 speed = 3;</code>
+     */
+    int getSpeed();
+  }
+  /**
+   * Protobuf type {@code Protobuf.Stats}
+   */
+  public static final class Stats extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.Stats)
+      StatsOrBuilder {
+    // Use Stats.newBuilder() to construct.
+    private Stats(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private Stats(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final Stats defaultInstance;
+    public static Stats getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public Stats getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Stats(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              damage_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              defense_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              speed_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_Stats_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_Stats_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.Stats.class, com.rpg.framework.database.Protocol.Stats.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<Stats> PARSER =
+        new com.google.protobuf.AbstractParser<Stats>() {
+      public Stats parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Stats(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Stats> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int DAMAGE_FIELD_NUMBER = 1;
+    private int damage_;
+    /**
+     * <code>required int32 damage = 1;</code>
+     */
+    public boolean hasDamage() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 damage = 1;</code>
+     */
+    public int getDamage() {
+      return damage_;
+    }
+
+    public static final int DEFENSE_FIELD_NUMBER = 2;
+    private int defense_;
+    /**
+     * <code>required int32 defense = 2;</code>
+     */
+    public boolean hasDefense() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 defense = 2;</code>
+     */
+    public int getDefense() {
+      return defense_;
+    }
+
+    public static final int SPEED_FIELD_NUMBER = 3;
+    private int speed_;
+    /**
+     * <code>required int32 speed = 3;</code>
+     */
+    public boolean hasSpeed() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required int32 speed = 3;</code>
+     */
+    public int getSpeed() {
+      return speed_;
+    }
+
+    private void initFields() {
+      damage_ = 0;
+      defense_ = 0;
+      speed_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasDamage()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasDefense()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSpeed()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, damage_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, defense_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, speed_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, damage_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, defense_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, speed_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.Stats parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.Stats parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Stats parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.Stats parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Stats parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.Stats parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Stats parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.Stats parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Stats parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.Stats parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.Stats prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.Stats}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.Stats)
+        com.rpg.framework.database.Protocol.StatsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_Stats_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_Stats_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.Stats.class, com.rpg.framework.database.Protocol.Stats.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.Stats.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        damage_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        defense_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        speed_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_Stats_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.Stats getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.Stats.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.Stats build() {
+        com.rpg.framework.database.Protocol.Stats result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.Stats buildPartial() {
+        com.rpg.framework.database.Protocol.Stats result = new com.rpg.framework.database.Protocol.Stats(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.damage_ = damage_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.defense_ = defense_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.speed_ = speed_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.Stats) {
+          return mergeFrom((com.rpg.framework.database.Protocol.Stats)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.Stats other) {
+        if (other == com.rpg.framework.database.Protocol.Stats.getDefaultInstance()) return this;
+        if (other.hasDamage()) {
+          setDamage(other.getDamage());
+        }
+        if (other.hasDefense()) {
+          setDefense(other.getDefense());
+        }
+        if (other.hasSpeed()) {
+          setSpeed(other.getSpeed());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasDamage()) {
+          
+          return false;
+        }
+        if (!hasDefense()) {
+          
+          return false;
+        }
+        if (!hasSpeed()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.Stats parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.Stats) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int damage_ ;
+      /**
+       * <code>required int32 damage = 1;</code>
+       */
+      public boolean hasDamage() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 damage = 1;</code>
+       */
+      public int getDamage() {
+        return damage_;
+      }
+      /**
+       * <code>required int32 damage = 1;</code>
+       */
+      public Builder setDamage(int value) {
+        bitField0_ |= 0x00000001;
+        damage_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 damage = 1;</code>
+       */
+      public Builder clearDamage() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        damage_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int defense_ ;
+      /**
+       * <code>required int32 defense = 2;</code>
+       */
+      public boolean hasDefense() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 defense = 2;</code>
+       */
+      public int getDefense() {
+        return defense_;
+      }
+      /**
+       * <code>required int32 defense = 2;</code>
+       */
+      public Builder setDefense(int value) {
+        bitField0_ |= 0x00000002;
+        defense_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 defense = 2;</code>
+       */
+      public Builder clearDefense() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        defense_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int speed_ ;
+      /**
+       * <code>required int32 speed = 3;</code>
+       */
+      public boolean hasSpeed() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required int32 speed = 3;</code>
+       */
+      public int getSpeed() {
+        return speed_;
+      }
+      /**
+       * <code>required int32 speed = 3;</code>
+       */
+      public Builder setSpeed(int value) {
+        bitField0_ |= 0x00000004;
+        speed_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 speed = 3;</code>
+       */
+      public Builder clearSpeed() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        speed_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.Stats)
+    }
+
+    static {
+      defaultInstance = new Stats(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.Stats)
+  }
+
+  public interface MessageKillMonsterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageKillMonster)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    boolean hasMapID();
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    int getMapID();
+
+    /**
+     * <code>required int32 monsterIndex = 2;</code>
+     */
+    boolean hasMonsterIndex();
+    /**
+     * <code>required int32 monsterIndex = 2;</code>
+     */
+    int getMonsterIndex();
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageKillMonster}
+   */
+  public static final class MessageKillMonster extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageKillMonster)
+      MessageKillMonsterOrBuilder {
+    // Use MessageKillMonster.newBuilder() to construct.
+    private MessageKillMonster(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageKillMonster(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageKillMonster defaultInstance;
+    public static MessageKillMonster getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageKillMonster getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageKillMonster(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              mapID_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              monsterIndex_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageKillMonster_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageKillMonster_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageKillMonster.class, com.rpg.framework.database.Protocol.MessageKillMonster.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageKillMonster> PARSER =
+        new com.google.protobuf.AbstractParser<MessageKillMonster>() {
+      public MessageKillMonster parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageKillMonster(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageKillMonster> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int MAPID_FIELD_NUMBER = 1;
+    private int mapID_;
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    public boolean hasMapID() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    public int getMapID() {
+      return mapID_;
+    }
+
+    public static final int MONSTERINDEX_FIELD_NUMBER = 2;
+    private int monsterIndex_;
+    /**
+     * <code>required int32 monsterIndex = 2;</code>
+     */
+    public boolean hasMonsterIndex() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 monsterIndex = 2;</code>
+     */
+    public int getMonsterIndex() {
+      return monsterIndex_;
+    }
+
+    private void initFields() {
+      mapID_ = 0;
+      monsterIndex_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasMapID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMonsterIndex()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, mapID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, monsterIndex_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, mapID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, monsterIndex_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageKillMonster parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillMonster parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillMonster parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillMonster parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillMonster parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillMonster parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillMonster parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillMonster parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillMonster parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillMonster parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageKillMonster prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageKillMonster}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageKillMonster)
+        com.rpg.framework.database.Protocol.MessageKillMonsterOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageKillMonster_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageKillMonster_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageKillMonster.class, com.rpg.framework.database.Protocol.MessageKillMonster.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageKillMonster.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        mapID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        monsterIndex_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageKillMonster_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageKillMonster getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageKillMonster.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageKillMonster build() {
+        com.rpg.framework.database.Protocol.MessageKillMonster result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageKillMonster buildPartial() {
+        com.rpg.framework.database.Protocol.MessageKillMonster result = new com.rpg.framework.database.Protocol.MessageKillMonster(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.mapID_ = mapID_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.monsterIndex_ = monsterIndex_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageKillMonster) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageKillMonster)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageKillMonster other) {
+        if (other == com.rpg.framework.database.Protocol.MessageKillMonster.getDefaultInstance()) return this;
+        if (other.hasMapID()) {
+          setMapID(other.getMapID());
+        }
+        if (other.hasMonsterIndex()) {
+          setMonsterIndex(other.getMonsterIndex());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasMapID()) {
+          
+          return false;
+        }
+        if (!hasMonsterIndex()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageKillMonster parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageKillMonster) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int mapID_ ;
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public boolean hasMapID() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public int getMapID() {
+        return mapID_;
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public Builder setMapID(int value) {
+        bitField0_ |= 0x00000001;
+        mapID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public Builder clearMapID() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        mapID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int monsterIndex_ ;
+      /**
+       * <code>required int32 monsterIndex = 2;</code>
+       */
+      public boolean hasMonsterIndex() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 monsterIndex = 2;</code>
+       */
+      public int getMonsterIndex() {
+        return monsterIndex_;
+      }
+      /**
+       * <code>required int32 monsterIndex = 2;</code>
+       */
+      public Builder setMonsterIndex(int value) {
+        bitField0_ |= 0x00000002;
+        monsterIndex_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 monsterIndex = 2;</code>
+       */
+      public Builder clearMonsterIndex() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        monsterIndex_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageKillMonster)
+    }
+
+    static {
+      defaultInstance = new MessageKillMonster(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageKillMonster)
+  }
+
+  public interface MessageRespawnMonsterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageRespawnMonster)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    boolean hasMapID();
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    int getMapID();
+
+    /**
+     * <code>required int32 monsterIndex = 2;</code>
+     */
+    boolean hasMonsterIndex();
+    /**
+     * <code>required int32 monsterIndex = 2;</code>
+     */
+    int getMonsterIndex();
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageRespawnMonster}
+   */
+  public static final class MessageRespawnMonster extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageRespawnMonster)
+      MessageRespawnMonsterOrBuilder {
+    // Use MessageRespawnMonster.newBuilder() to construct.
+    private MessageRespawnMonster(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageRespawnMonster(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageRespawnMonster defaultInstance;
+    public static MessageRespawnMonster getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageRespawnMonster getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageRespawnMonster(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              mapID_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              monsterIndex_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRespawnMonster_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRespawnMonster_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageRespawnMonster.class, com.rpg.framework.database.Protocol.MessageRespawnMonster.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageRespawnMonster> PARSER =
+        new com.google.protobuf.AbstractParser<MessageRespawnMonster>() {
+      public MessageRespawnMonster parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageRespawnMonster(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageRespawnMonster> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int MAPID_FIELD_NUMBER = 1;
+    private int mapID_;
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    public boolean hasMapID() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    public int getMapID() {
+      return mapID_;
+    }
+
+    public static final int MONSTERINDEX_FIELD_NUMBER = 2;
+    private int monsterIndex_;
+    /**
+     * <code>required int32 monsterIndex = 2;</code>
+     */
+    public boolean hasMonsterIndex() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 monsterIndex = 2;</code>
+     */
+    public int getMonsterIndex() {
+      return monsterIndex_;
+    }
+
+    private void initFields() {
+      mapID_ = 0;
+      monsterIndex_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasMapID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMonsterIndex()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, mapID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, monsterIndex_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, mapID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, monsterIndex_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageRespawnMonster parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnMonster parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnMonster parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnMonster parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnMonster parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnMonster parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnMonster parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnMonster parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnMonster parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnMonster parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageRespawnMonster prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageRespawnMonster}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageRespawnMonster)
+        com.rpg.framework.database.Protocol.MessageRespawnMonsterOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRespawnMonster_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRespawnMonster_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageRespawnMonster.class, com.rpg.framework.database.Protocol.MessageRespawnMonster.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageRespawnMonster.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        mapID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        monsterIndex_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRespawnMonster_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageRespawnMonster getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageRespawnMonster.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageRespawnMonster build() {
+        com.rpg.framework.database.Protocol.MessageRespawnMonster result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageRespawnMonster buildPartial() {
+        com.rpg.framework.database.Protocol.MessageRespawnMonster result = new com.rpg.framework.database.Protocol.MessageRespawnMonster(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.mapID_ = mapID_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.monsterIndex_ = monsterIndex_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageRespawnMonster) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageRespawnMonster)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageRespawnMonster other) {
+        if (other == com.rpg.framework.database.Protocol.MessageRespawnMonster.getDefaultInstance()) return this;
+        if (other.hasMapID()) {
+          setMapID(other.getMapID());
+        }
+        if (other.hasMonsterIndex()) {
+          setMonsterIndex(other.getMonsterIndex());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasMapID()) {
+          
+          return false;
+        }
+        if (!hasMonsterIndex()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageRespawnMonster parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageRespawnMonster) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int mapID_ ;
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public boolean hasMapID() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public int getMapID() {
+        return mapID_;
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public Builder setMapID(int value) {
+        bitField0_ |= 0x00000001;
+        mapID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public Builder clearMapID() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        mapID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int monsterIndex_ ;
+      /**
+       * <code>required int32 monsterIndex = 2;</code>
+       */
+      public boolean hasMonsterIndex() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 monsterIndex = 2;</code>
+       */
+      public int getMonsterIndex() {
+        return monsterIndex_;
+      }
+      /**
+       * <code>required int32 monsterIndex = 2;</code>
+       */
+      public Builder setMonsterIndex(int value) {
+        bitField0_ |= 0x00000002;
+        monsterIndex_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 monsterIndex = 2;</code>
+       */
+      public Builder clearMonsterIndex() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        monsterIndex_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageRespawnMonster)
+    }
+
+    static {
+      defaultInstance = new MessageRespawnMonster(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageRespawnMonster)
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Protobuf_RequestLogin_descriptor;
   private static
@@ -20554,6 +25277,41 @@ public final class Protocol {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_Protobuf_ResponseGetPrototype_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_User_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_User_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_Monster_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_Monster_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_Position_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_Position_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_Status_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_Status_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_Stats_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_Stats_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageKillMonster_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageKillMonster_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageRespawnMonster_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageRespawnMonster_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -20565,9 +25323,9 @@ public final class Protocol {
     java.lang.String[] descriptorData = {
       "\n\016Protocol.proto\022\010Protobuf\"B\n\014RequestLog" +
       "in\022\020\n\010username\030\001 \002(\t\022\020\n\010password\030\002 \002(\t\022\016" +
-      "\n\006userID\030\003 \001(\t\"n\n\rResponseLogin\022&\n\006resul" +
+      "\n\006userID\030\003 \001(\005\"n\n\rResponseLogin\022&\n\006resul" +
       "t\030\001 \002(\0162\026.Protobuf.ResponseCode\022\017\n\007messa" +
-      "ge\030\002 \001(\t\022\016\n\006userID\030\003 \001(\t\022\024\n\014hasCharacter" +
+      "ge\030\002 \001(\t\022\016\n\006userID\030\003 \001(\005\022\024\n\014hasCharacter" +
       "\030\004 \001(\010\"5\n\017RequestRegister\022\020\n\010username\030\001 " +
       "\002(\t\022\020\n\010password\030\002 \002(\t\"K\n\020ResponseRegiste" +
       "r\022&\n\006result\030\001 \002(\0162\026.Protobuf.ResponseCod" +
@@ -20576,67 +25334,85 @@ public final class Protocol {
       "\003 \001(\005\022\020\n\010strength\030\004 \001(\005\022\r\n\005magic\030\005 \001(\005\022\017" +
       "\n\007defense\030\006 \001(\005\022\r\n\005speed\030\007 \001(\005\022\014\n\004dame\030\010" +
       " \001(\005\022\r\n\005armor\030\t \001(\005\"8\n\021CharacterPosition" +
-      "\022\r\n\005mapID\030\001 \001(\t\022\t\n\001x\030\002 \001(\001\022\t\n\001y\030\003 \001(\001\"M\n" +
+      "\022\r\n\005mapID\030\001 \001(\005\022\t\n\001x\030\002 \001(\001\022\t\n\001y\030\003 \001(\001\"M\n" +
       "\017CharacterStatus\022\r\n\005maxHP\030\001 \001(\005\022\r\n\005curHP" +
       "\030\002 \001(\005\022\r\n\005maxMP\030\003 \001(\005\022\r\n\005curMP\030\004 \001(\005\"\213\002\n" +
       "\tCharacter\022\014\n\004name\030\001 \002(\t\022\016\n\006gender\030\002 \002(\005" +
       "\022\022\n\noccupation\030\003 \002(\t\022\r\n\005level\030\004 \002(\005\022\020\n\010s" +
       "trength\030\005 \002(\005\022\r\n\005magic\030\006 \002(\005\022\017\n\007defense\030" +
       "\007 \002(\005\022\r\n\005speed\030\010 \002(\005\022\014\n\004dame\030\t \002(\005\022\r\n\005ar",
-      "mor\030\n \002(\005\022\r\n\005mapID\030\013 \002(\t\022\t\n\001x\030\014 \002(\001\022\t\n\001y" +
+      "mor\030\n \002(\005\022\r\n\005mapID\030\013 \002(\005\022\t\n\001x\030\014 \002(\001\022\t\n\001y" +
       "\030\r \002(\001\022\r\n\005maxHP\030\016 \002(\005\022\r\n\005curHP\030\017 \002(\005\022\r\n\005" +
       "maxMP\030\020 \002(\005\022\r\n\005curMP\030\021 \002(\005\"%\n\023RequestGet" +
-      "Character\022\016\n\006userID\030\001 \002(\t\"w\n\024ResponseGet" +
+      "Character\022\016\n\006userID\030\001 \002(\005\"w\n\024ResponseGet" +
       "Character\022&\n\006result\030\001 \002(\0162\026.Protobuf.Res" +
       "ponseCode\022\017\n\007message\030\002 \001(\t\022&\n\tcharacter\030" +
       "\003 \001(\0132\023.Protobuf.Character\"F\n\026RequestCre" +
-      "ateCharacter\022\016\n\006userID\030\001 \002(\t\022\014\n\004name\030\002 \002" +
+      "ateCharacter\022\016\n\006userID\030\001 \002(\005\022\014\n\004name\030\002 \002" +
       "(\t\022\016\n\006gender\030\003 \002(\005\"R\n\027ResponseCreateChar" +
       "acter\022&\n\006result\030\001 \002(\0162\026.Protobuf.Respons",
       "eCode\022\017\n\007message\030\002 \001(\t\"\"\n\020RequestStartGa" +
-      "me\022\016\n\006userID\030\001 \002(\t\"L\n\021ResponseStartGame\022" +
-      "&\n\006result\030\001 \002(\0162\026.Protobuf.ResponseCode\022" +
-      "\017\n\007message\030\002 \001(\t\"L\n\025RequestUpdatePositio" +
-      "n\022\016\n\006userID\030\001 \002(\t\022\r\n\005mapID\030\002 \002(\t\022\t\n\001x\030\003 " +
-      "\002(\001\022\t\n\001y\030\004 \002(\001\"Q\n\026ResponseUpdatePosition" +
+      "me\022\016\n\006userID\030\001 \002(\005\"\220\001\n\021ResponseStartGame" +
       "\022&\n\006result\030\001 \002(\0162\026.Protobuf.ResponseCode" +
-      "\022\017\n\007message\030\002 \001(\t\"!\n\017RequestGetItems\022\016\n\006" +
-      "UserID\030\001 \002(\t\"I\n\020ResponseGetItems\022&\n\006Resu" +
-      "lt\030\001 \002(\0162\026.Protobuf.ResponseCode\022\r\n\005Item",
-      "s\030\002 \003(\005\"[\n\017CharacterAction\022\r\n\005State\030\001 \001(" +
-      "\005\022\025\n\rActionCommand\030\002 \001(\005\022\021\n\tTimeStart\030\003 " +
-      "\001(\002\022\017\n\007TimeEnd\030\004 \001(\002\"Q\n\023RequestUpdateAct" +
-      "ion\022\016\n\006userID\030\001 \002(\t\022*\n\007actions\030\002 \003(\0132\031.P" +
-      "rotobuf.CharacterAction\"R\n\024ResponseUpdat" +
-      "eAction\022\016\n\006userID\030\001 \002(\t\022*\n\007actions\030\002 \003(\013" +
-      "2\031.Protobuf.CharacterAction\"6\n\004Item\022 \n\004t" +
-      "ype\030\001 \002(\0162\022.Protobuf.ItemType\022\014\n\004data\030\002 " +
-      "\002(\014\"\230\001\n\003Use\022\n\n\002ID\030\001 \002(\005\022\017\n\007HPValue\030\002 \002(\005" +
-      "\022\017\n\007MPValue\030\003 \002(\005\022\020\n\010Duration\030\004 \002(\005\022\023\n\013H",
-      "PPerSecond\030\005 \002(\005\022\023\n\013MPPerSecond\030\006 \002(\005\022\020\n" +
-      "\010BonusExp\030\007 \002(\002\022\025\n\rBonusItemDrop\030\010 \002(\002\"#" +
-      "\n\007Collect\022\n\n\002ID\030\001 \002(\005\022\014\n\004Type\030\002 \002(\005\"K\n\005E" +
-      "quip\022\n\n\002ID\030\001 \002(\005\022\014\n\004Type\030\002 \002(\005\022(\n\nBonusS" +
-      "tats\030\003 \002(\0132\024.Protobuf.BonusStats\"5\n\nBonu" +
-      "sStats\022\017\n\007BonusHP\030\001 \001(\005\022\026\n\016BonusPercentH" +
-      "P\030\002 \001(\002\"\025\n\023RequestGetPrototype\"5\n\024Respon" +
-      "seGetPrototype\022\035\n\005items\030\001 \003(\0132\016.Protobuf" +
-      ".Item*\330\003\n\013MessageType\022\021\n\rREQUEST_LOGIN\020\000" +
-      "\022\021\n\rRESPONE_LOGIN\020\001\022\024\n\020REQUEST_REGISTER\020",
-      "\002\022\024\n\020RESPONE_REGISTER\020\003\022\031\n\025REQUEST_GET_C" +
-      "HARACTER\020\004\022\031\n\025RESPONE_GET_CHARACTER\020\005\022\034\n" +
-      "\030REQUEST_CREATE_CHARACTER\020\006\022\034\n\030RESPONE_C" +
-      "REATE_CHARACTER\020\007\022\026\n\022REQUEST_START_GAME\020" +
-      "\010\022\026\n\022RESPONE_START_GAME\020\t\022\033\n\027REQUEST_UPD" +
-      "ATE_POSITION\020\n\022\033\n\027RESPONE_UPDATE_POSITIO" +
-      "N\020\013\022\025\n\021REQUEST_GET_ITEMS\020\014\022\026\n\022RESPONSE_G" +
-      "ET_ITEMS\020\r\022\031\n\025REQUEST_UPDATE_ACTION\020\016\022\032\n" +
-      "\026RESPONSE_UPDATE_ACTION\020\017\022\031\n\025REQUEST_GET" +
-      "_PROTOTYPE\020\020\022\032\n\026RESPONSE_GET_PROTOTYPE\020\021",
-      "*/\n\014ResponseCode\022\013\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022" +
-      "\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rITEM_TYPE_USE\020\000" +
-      "\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017ITEM_TYPE_EQU" +
-      "IP\020\002B\036\n\032com.rpg.framework.databaseH\001"
+      "\022\017\n\007message\030\002 \001(\t\022\035\n\005users\030\003 \003(\0132\016.Proto" +
+      "buf.User\022#\n\010monsters\030\004 \003(\0132\021.Protobuf.Mo" +
+      "nster\"L\n\025RequestUpdatePosition\022\016\n\006userID" +
+      "\030\001 \002(\005\022\r\n\005mapID\030\002 \002(\005\022\t\n\001x\030\003 \002(\001\022\t\n\001y\030\004 " +
+      "\002(\001\"Q\n\026ResponseUpdatePosition\022&\n\006result\030" +
+      "\001 \002(\0162\026.Protobuf.ResponseCode\022\017\n\007message" +
+      "\030\002 \001(\t\"!\n\017RequestGetItems\022\016\n\006UserID\030\001 \002(",
+      "\005\"I\n\020ResponseGetItems\022&\n\006Result\030\001 \002(\0162\026." +
+      "Protobuf.ResponseCode\022\r\n\005Items\030\002 \003(\005\"[\n\017" +
+      "CharacterAction\022\r\n\005State\030\001 \001(\005\022\025\n\rAction" +
+      "Command\030\002 \001(\005\022\021\n\tTimeStart\030\003 \001(\002\022\017\n\007Time" +
+      "End\030\004 \001(\002\"Q\n\023RequestUpdateAction\022\016\n\006user" +
+      "ID\030\001 \002(\005\022*\n\007actions\030\002 \003(\0132\031.Protobuf.Cha" +
+      "racterAction\"R\n\024ResponseUpdateAction\022\016\n\006" +
+      "userID\030\001 \002(\005\022*\n\007actions\030\002 \003(\0132\031.Protobuf" +
+      ".CharacterAction\"6\n\004Item\022 \n\004type\030\001 \002(\0162\022" +
+      ".Protobuf.ItemType\022\014\n\004data\030\002 \002(\014\"\230\001\n\003Use",
+      "\022\n\n\002ID\030\001 \002(\005\022\017\n\007HPValue\030\002 \002(\005\022\017\n\007MPValue" +
+      "\030\003 \002(\005\022\020\n\010Duration\030\004 \002(\005\022\023\n\013HPPerSecond\030" +
+      "\005 \002(\005\022\023\n\013MPPerSecond\030\006 \002(\005\022\020\n\010BonusExp\030\007" +
+      " \002(\002\022\025\n\rBonusItemDrop\030\010 \002(\002\"#\n\007Collect\022\n" +
+      "\n\002ID\030\001 \002(\005\022\014\n\004Type\030\002 \002(\005\"K\n\005Equip\022\n\n\002ID\030" +
+      "\001 \002(\005\022\014\n\004Type\030\002 \002(\005\022(\n\nBonusStats\030\003 \002(\0132" +
+      "\024.Protobuf.BonusStats\"5\n\nBonusStats\022\017\n\007B" +
+      "onusHP\030\001 \001(\005\022\026\n\016BonusPercentHP\030\002 \001(\002\"\025\n\023" +
+      "RequestGetPrototype\"5\n\024ResponseGetProtot" +
+      "ype\022\035\n\005items\030\001 \003(\0132\016.Protobuf.Item\"z\n\004Us",
+      "er\022\n\n\002id\030\001 \002(\005\022$\n\010position\030\002 \002(\0132\022.Proto" +
+      "buf.Position\022 \n\006status\030\003 \002(\0132\020.Protobuf." +
+      "Status\022\036\n\005stats\030\004 \002(\0132\017.Protobuf.Stats\"\214" +
+      "\001\n\007Monster\022\n\n\002id\030\001 \002(\005\022\r\n\005index\030\002 \002(\005\022$\n" +
+      "\010position\030\003 \002(\0132\022.Protobuf.Position\022 \n\006s" +
+      "tatus\030\004 \002(\0132\020.Protobuf.Status\022\036\n\005stats\030\005" +
+      " \002(\0132\017.Protobuf.Stats\"/\n\010Position\022\r\n\005map" +
+      "ID\030\001 \002(\005\022\t\n\001x\030\002 \002(\001\022\t\n\001y\030\003 \002(\001\"D\n\006Status" +
+      "\022\r\n\005maxHP\030\001 \002(\005\022\r\n\005curHP\030\002 \002(\005\022\r\n\005maxMP\030" +
+      "\003 \002(\005\022\r\n\005curMP\030\004 \002(\005\"7\n\005Stats\022\016\n\006damage\030",
+      "\001 \002(\005\022\017\n\007defense\030\002 \002(\005\022\r\n\005speed\030\003 \002(\005\"9\n" +
+      "\022MessageKillMonster\022\r\n\005mapID\030\001 \002(\005\022\024\n\014mo" +
+      "nsterIndex\030\002 \002(\005\"<\n\025MessageRespawnMonste" +
+      "r\022\r\n\005mapID\030\001 \002(\005\022\024\n\014monsterIndex\030\002 \002(\005*\217" +
+      "\004\n\013MessageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRES" +
+      "PONE_LOGIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RE" +
+      "SPONE_REGISTER\020\003\022\031\n\025REQUEST_GET_CHARACTE" +
+      "R\020\004\022\031\n\025RESPONE_GET_CHARACTER\020\005\022\034\n\030REQUES" +
+      "T_CREATE_CHARACTER\020\006\022\034\n\030RESPONE_CREATE_C" +
+      "HARACTER\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RE",
+      "SPONE_START_GAME\020\t\022\033\n\027REQUEST_UPDATE_POS" +
+      "ITION\020\n\022\033\n\027RESPONE_UPDATE_POSITION\020\013\022\025\n\021" +
+      "REQUEST_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEM" +
+      "S\020\r\022\031\n\025REQUEST_UPDATE_ACTION\020\016\022\032\n\026RESPON" +
+      "SE_UPDATE_ACTION\020\017\022\031\n\025REQUEST_GET_PROTOT" +
+      "YPE\020\020\022\032\n\026RESPONSE_GET_PROTOTYPE\020\021\022\030\n\024MES" +
+      "SAGE_KILL_MONSTER\020\022\022\033\n\027MESSAGE_RESPAWN_M" +
+      "ONSTER\020\023*/\n\014ResponseCode\022\013\n\007SUCCESS\020\001\022\010\n" +
+      "\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rITEM_TY" +
+      "PE_USE\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017ITEM_",
+      "TYPE_EQUIP\020\002B\036\n\032com.rpg.framework.databa" +
+      "seH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -20733,7 +25509,7 @@ public final class Protocol {
     internal_static_Protobuf_ResponseStartGame_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_ResponseStartGame_descriptor,
-        new java.lang.String[] { "Result", "Message", });
+        new java.lang.String[] { "Result", "Message", "Users", "Monsters", });
     internal_static_Protobuf_RequestUpdatePosition_descriptor =
       getDescriptor().getMessageTypes().get(14);
     internal_static_Protobuf_RequestUpdatePosition_fieldAccessorTable = new
@@ -20818,6 +25594,48 @@ public final class Protocol {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_ResponseGetPrototype_descriptor,
         new java.lang.String[] { "Items", });
+    internal_static_Protobuf_User_descriptor =
+      getDescriptor().getMessageTypes().get(28);
+    internal_static_Protobuf_User_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_User_descriptor,
+        new java.lang.String[] { "Id", "Position", "Status", "Stats", });
+    internal_static_Protobuf_Monster_descriptor =
+      getDescriptor().getMessageTypes().get(29);
+    internal_static_Protobuf_Monster_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_Monster_descriptor,
+        new java.lang.String[] { "Id", "Index", "Position", "Status", "Stats", });
+    internal_static_Protobuf_Position_descriptor =
+      getDescriptor().getMessageTypes().get(30);
+    internal_static_Protobuf_Position_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_Position_descriptor,
+        new java.lang.String[] { "MapID", "X", "Y", });
+    internal_static_Protobuf_Status_descriptor =
+      getDescriptor().getMessageTypes().get(31);
+    internal_static_Protobuf_Status_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_Status_descriptor,
+        new java.lang.String[] { "MaxHP", "CurHP", "MaxMP", "CurMP", });
+    internal_static_Protobuf_Stats_descriptor =
+      getDescriptor().getMessageTypes().get(32);
+    internal_static_Protobuf_Stats_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_Stats_descriptor,
+        new java.lang.String[] { "Damage", "Defense", "Speed", });
+    internal_static_Protobuf_MessageKillMonster_descriptor =
+      getDescriptor().getMessageTypes().get(33);
+    internal_static_Protobuf_MessageKillMonster_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageKillMonster_descriptor,
+        new java.lang.String[] { "MapID", "MonsterIndex", });
+    internal_static_Protobuf_MessageRespawnMonster_descriptor =
+      getDescriptor().getMessageTypes().get(34);
+    internal_static_Protobuf_MessageRespawnMonster_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageRespawnMonster_descriptor,
+        new java.lang.String[] { "MapID", "MonsterIndex", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

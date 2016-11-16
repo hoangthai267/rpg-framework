@@ -86,4 +86,12 @@ public class SocketServer {
 	public void receive(int channelID, int commandID, byte[] data) {
 		
 	}
+	
+	public void activeConnection(int connectionID) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public void inactiveConnection(int connectionID) {
+		throw new UnsupportedOperationException();
+	}
 }

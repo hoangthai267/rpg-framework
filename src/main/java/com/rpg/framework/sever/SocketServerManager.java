@@ -32,10 +32,12 @@ public class SocketServerManager {
 
 	public int addChannel(ChannelHandlerContext ctx) {
 		listChannel.put(index.incrementAndGet(), ctx);
+		server.activeConnection(index.get());
 		return index.get();
 	}
 
 	public boolean removeChannel(int channelID) {
+		server.inactiveConnection(channelID);
 		return listChannel.remove(channelID) != null;
 	}
 
@@ -48,6 +50,8 @@ public class SocketServerManager {
 		ChannelHandlerContext currentChannel = listChannel.get(channelID);
 		switch (responseID) {
 		case 0: {
+			if(currentChannel == null)
+				return;
 			ByteBuf respBuf = currentChannel.alloc().buffer();
 			int size = data.length + 8;
 			short flag = 0;
