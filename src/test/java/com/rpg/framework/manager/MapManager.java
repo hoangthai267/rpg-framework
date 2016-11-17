@@ -105,6 +105,10 @@ public class MapManager {
 		mapList.get(mapID).addUser(userID);
 	}
 	
+	public void exitMap(int userID, int mapID) {
+		mapList.get(mapID).removeUser(userID);
+	}
+	
 	public List<Integer> getUserList(int mapID) {
 		return mapList.get(mapID).getUserList();
 	}

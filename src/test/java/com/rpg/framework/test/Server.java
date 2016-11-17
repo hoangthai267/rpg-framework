@@ -1,5 +1,6 @@
 package com.rpg.framework.test;
 
+import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -56,14 +57,15 @@ public class Server extends SocketServer {
 	}
 
 	public static void main(String args[]) throws Exception {
-		new Server("localhost", 8463).start();
-		System.out.println("Server start.");
+			new Server("128.199.255.44", 8463).start();
+//			new Server("127.0.0.1", 8463).start();
 	}
 	
 	public synchronized boolean start() {
 		super.start();
-		loop();
+		System.out.println("Start at host: " + host);
 		
+		loop();
 		return true;
 	}
 	
@@ -101,7 +103,7 @@ public class Server extends SocketServer {
 			// update our FPS counter if a second has passed since
 			// we last recorded
 			if (lastFpsTime >= 1000000000) {
-				System.out.println("(FPS: " + fps);
+//				System.out.println("(FPS: " + fps);
 				lastFpsTime = 0;
 				fps = 0;
 			}
@@ -218,17 +220,15 @@ public class Server extends SocketServer {
 	public byte[] handleRequestLogin(Protocol.RequestLogin request) {
 		Protocol.ResponseLogin.Builder builder = Protocol.ResponseLogin.newBuilder();
 		builder.setResult(Protocol.ResponseCode.FAIL);
-		String statement = "SELECT * FROM `Static` s WHERE `username` = \"" + request.getUsername()
-				+ "\" AND `password` = \"" + request.getPassword() + "\";";
+		String statement = String.format("SELECT %s.* FROM `Static` as Accounts USE KEYS \"Accounts\" WHERE %s.`password` = \"%s\";", 
+				request.getUsername(), 
+				request.getUsername(), 
+				request.getPassword());
+		
 		N1qlQueryResult queryResult = couchbase.query(statement);
 		if (queryResult.allRows().size() == 1) {
 			builder.setResult(Protocol.ResponseCode.SUCCESS);
-			builder.setUserID(queryResult.rows().next().value().getObject("s").getInt("userID"));
-			builder.setHasCharacter(queryResult.rows().next().value().getObject("s").getBoolean("hasCharacter"));
-			
-			if(builder.getHasCharacter()) {
-				userManager.addIdentifiedUser(currentChannel, builder.getUserID());
-			}
+			builder.setUserID(queryResult.rows().next().value().getInt("userID"));
 		} else {
 			builder.setMessage("Invalid username or password.");
 			System.out.println(statement);
@@ -239,10 +239,9 @@ public class Server extends SocketServer {
 
 	public byte[] handleRequest(Protocol.RequestRegister request) {
 		Protocol.ResponseRegister.Builder builder = Protocol.ResponseRegister.newBuilder();
-		String statement = "SELECT * FROM `Static` s WHERE s.username = \"" + request.getUsername() + "\";";
-
-		N1qlQueryResult queryResult = couchbase.query(statement);
-		if (!queryResult.allRows().isEmpty()) {
+		
+		JsonObject accounts = couchbase.get("Accounts");
+		if(accounts.getObject(request.getUsername()) != null) {
 			builder.setResult(Protocol.ResponseCode.FAIL);
 			builder.setMessage("Invalid username");
 			return builder.build().toByteArray();
@@ -253,8 +252,10 @@ public class Server extends SocketServer {
 		JsonObject user = JsonObject.create().put("username", request.getUsername())
 				.put("password", request.getPassword()).put("userID", count).put("hasCharacter", false);
 
+		accounts.put(request.getUsername(), user);
+		
+		couchbase.set("Accounts", accounts);
 		couchbase.set("User_" + count, user);
-
 		builder.setResult(Protocol.ResponseCode.SUCCESS);
 		builder.setMessage("Success");
 
@@ -294,33 +295,35 @@ public class Server extends SocketServer {
 	}
 
 	public byte[] handleRequest(Protocol.RequestCreateCharacter request) {
-		JsonObject user = couchbase.get("User_" + request.getUserID());
-		user.put("hasCharacter", true);
-		couchbase.set("User_" + request.getUserID(), user);
-
-		JsonObject stats = JsonObject.create().put("name", request.getName()).put("gender", 0).put("occupation", "")
-				.put("level", 1).put("strength", 1).put("magic", 1).put("defense", 1).put("speed", 1).put("dame", 1)
-				.put("armor", 1);
-
-		JsonObject position = JsonObject.create().put("mapID", 1).put("x", 0.0).put("y", 0.0);
-
-		JsonObject status = JsonObject.create().put("maxHP", 100).put("curHP", 100).put("maxMP", 100).put("curMP", 100);
-
-		JsonObject items = JsonObject.create().put("items", JsonArray.create().add(0).add(1));
-		
-//		JsonObject character = JsonObject.create().put("stats", stats).put("position", position).put("status", status);
-
-		couchbase.set("User_" + request.getUserID() + "_Stats", stats);
-		couchbase.set("User_" + request.getUserID() + "_Position", position);
-		couchbase.set("User_" + request.getUserID() + "_Status", status);
-		couchbase.set("User_" + request.getUserID() + "_Items", items);
-//		couchbase.set(request.getUserID() + "_Character", character);
-
 		Protocol.ResponseCreateCharacter.Builder builder = Protocol.ResponseCreateCharacter.newBuilder();
 		builder.setResult(Protocol.ResponseCode.SUCCESS);
 		
-		userManager.addIdentifiedUser(currentChannel, request.getUserID());
+		JsonObject user = couchbase.get("User_" + request.getUserID());
+		if (!user.getBoolean("hasCharacter")) {
+			user.put("hasCharacter", true);
+			couchbase.set("User_" + request.getUserID(), user);
 
+			JsonObject stats = JsonObject.create().put("name", request.getName()).put("gender", 0).put("occupation", "")
+					.put("level", 1).put("strength", 1).put("magic", 1).put("defense", 1).put("speed", 1).put("dame", 1)
+					.put("armor", 1);
+
+			JsonObject position = JsonObject.create().put("mapID", 1).put("x", 0.0).put("y", 0.0);
+
+			JsonObject status = JsonObject.create().put("maxHP", 100).put("curHP", 100).put("maxMP", 100).put("curMP",
+					100);
+
+			JsonObject items = JsonObject.create().put("items", JsonArray.create().add(0).add(1));
+
+			// JsonObject character = JsonObject.create().put("stats",
+			// stats).put("position", position).put("status", status);
+
+			couchbase.set("User_" + request.getUserID() + "_Stats", stats);
+			couchbase.set("User_" + request.getUserID() + "_Position", position);
+			couchbase.set("User_" + request.getUserID() + "_Status", status);
+			couchbase.set("User_" + request.getUserID() + "_Items", items);
+			// couchbase.set(request.getUserID() + "_Character", character);
+		}
+		userManager.addIdentifiedUser(currentChannel, request.getUserID());
 		return builder.build().toByteArray();
 	}
 
@@ -329,12 +332,12 @@ public class Server extends SocketServer {
 		builder.setResult(Protocol.ResponseCode.SUCCESS);
 		builder.setMessage("Welcome to our game.");
 		
-		List<Integer> userList = mapManager.getUserList(1);
-		List<Integer> monsterList = mapManager.getMonsterList(1);
+		List<Integer> userList = mapManager.getUserList(0);
+		List<Integer> monsterList = mapManager.getMonsterList(0);
 //		List<Integer> itemList = mapManager.getItemList(1);
 		for (Integer userID : userList) {
 			User user = userManager.getIdentifiedUser(userID);
-			
+			System.out.println(userID);
 			builder.addUsers(Protocol.User.newBuilder()
 					.setId(1)
 					.setPosition(Protocol.Position.newBuilder()
@@ -380,7 +383,7 @@ public class Server extends SocketServer {
 		}
 		
 		
-		mapManager.enterMap(request.getUserID(), 1);
+		mapManager.enterMap(request.getUserID(), 0);
 		
 		
 

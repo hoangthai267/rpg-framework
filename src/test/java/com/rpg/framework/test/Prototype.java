@@ -2,7 +2,8 @@ package com.rpg.framework.test;
 
 import com.couchbase.client.java.document.json.JsonArray;
 import com.couchbase.client.java.document.json.JsonObject;
-
+import com.couchbase.client.java.query.N1qlQueryResult;
+import com.couchbase.client.java.query.N1qlQueryRow;
 import com.rpg.framework.data.CouchBase;
 import com.rpg.framework.database.Protocol;
 
@@ -23,7 +24,8 @@ public class Prototype {
 	private Printer printer;
 	
 	public Prototype() {
-		couchbase 		= new CouchBase("Static");
+//		couchbase 		= new CouchBase("128.199.255.44","Static");
+		couchbase 		= new CouchBase("127.0.0.1","Static");
 		try {
 			items = couchbase.get("Prototype_Items");
 			useItems = items.getArray("use");
@@ -237,16 +239,53 @@ public class Prototype {
 		addUseItem(50, 50, 10, 5, 5, 0, 0);
 	}
 	
+	public void addAccount() {
+		JsonArray data = JsonArray.create()
+				.add(JsonObject.create()
+						.put("username", "admin")
+						.put("password", "admin")
+						.put("id", 1))
+				.add(JsonObject.create()
+						.put("username", "admin1")
+						.put("password", "admin")
+						.put("id", 2));
+		
+		JsonObject document = JsonObject.create()
+				.put("index", 2)
+				.put("admin", JsonObject.create()
+						.put("username", "admin")
+						.put("password", "admin")
+						.put("id", 1))
+				.put("admin1", JsonObject.create()
+						.put("username", "admin1")
+						.put("password", "admin")
+						.put("id", 2));
+		
+		couchbase.set("Accounts", document);
+	}
+	
 	public void initialize() {
+		addAccount();
 		addPrototypeItems();
 		addPrototypeMap();
 		addPrototypeMonsters();
 	}
+	
+	public void query() {
+		String statement = "SELECT admin1.* FROM Static USE KEYS \"Accounts\" WHERE admin1.`password` = \"admin\";";
+		N1qlQueryResult result = couchbase.query(statement);
+		System.out.println(result);
+		System.out.println(result.rows().next().value().getInt("userID"));
+		for (N1qlQueryRow row : result) {
+		}
+		
+	}
 
 	
 	public static void main(String args[]) {
+//		System.out.println(String.format("SELECT %s %.2f", "abc", 1.0f));
 		Prototype prototype = new Prototype();
-		prototype.initialize();
+		prototype.query();
 	}
 }
 

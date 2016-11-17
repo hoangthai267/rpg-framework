@@ -1,5 +1,7 @@
 package com.rpg.framework.test;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -163,7 +165,7 @@ public class Client extends SocketClient {
 			break;
 		}
 		case SEND_REQUEST_UPDATE_POSITION: {
-			//requestUpdatePosition();
+			requestUpdatePosition();
 			break;
 		}
 		case SEND_REQUEST_GET_ITEMS: {
@@ -323,9 +325,10 @@ public class Client extends SocketClient {
 	}
 
 	public void requestUpdatePosition() {	
+		this.state = State.WAIT_RESPONSE;
 		Protocol.RequestUpdatePosition request = Protocol.RequestUpdatePosition.newBuilder().setUserID(userID)
 				.setMapID(mapID).setX(positionX).setY(positionY).build();
-
+		System.out.println("MapID: " + mapID + " Position: (" + positionX + "," + positionY + ")");
 		send(Protocol.MessageType.REQUEST_UPDATE_POSITION_VALUE, request.toByteArray());
 	}
 
@@ -407,7 +410,7 @@ public class Client extends SocketClient {
 
 	public void responseUpdatePosition(Protocol.ResponseUpdatePosition response) {
 		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
-
+			this.state = State.SEND_REQUEST_UPDATE_POSITION;
 			positionX = rand.nextDouble() * 100;
 			positionY = rand.nextDouble() * 100;
 		}
@@ -462,12 +465,10 @@ public class Client extends SocketClient {
 		this.port = port;
 	}
 	
-	public static void main(String args[]) {
-//		for (int i = 1; i < 100; i++)
-//			new Client("localhost", 8463).start("admin" + i, "admin");
-//		new Client("localhost", 8463).start("admin", "admin");
-//		new Client("localhost", 8463).start("admin1", "admin");
-//		new Client("localhost", 8463).start("admin2", "admin");
-		new Client("localhost", 8463).start(args[0], "admin");
+	public static void main(String args[]) throws UnknownHostException {
+		new Client("128.199.255.44", 8463).start("admin", "admin");
+//		new Client("128.199.255.44", 8463).start(args[0], "admin");
+//		new Client("127.0.0.1", 8463).start("admin", "admin");
+//		new Client("128.199.255.44", 8463).start(args[0], "admin");
 	}
 }

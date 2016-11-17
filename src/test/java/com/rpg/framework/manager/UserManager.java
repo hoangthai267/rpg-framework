@@ -131,6 +131,7 @@ public class UserManager {
 		while (iterator.hasNext()) {
 			User user = iterator.next();
 			if (connectionID == user.getConnectionID()) {
+				MapManager.getInstance().exitMap(user.getId(), user.getPosition().getMapID());
 				identifiedUsers.remove(user);
 				return true;
 			}

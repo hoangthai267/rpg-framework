@@ -19,7 +19,7 @@ public class Monster {
 		if(respawnTime > 0.0) {
 			respawnTime -= delta;
 		} else {
-			this.status.setCurHP(this.status.getCurHP() - 1);
+			//this.status.setCurHP(this.status.getCurHP() - 1);
 		}		
 	}
 

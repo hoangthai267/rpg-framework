@@ -1,5 +1,6 @@
 package com.rpg.framework.entity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class Map {
 	private int width;
 	private int height;
 	
-	private LinkedList<Integer> userList;
+	private ArrayList<Integer> userList;
 	
 	private LinkedList<Integer> monstersList;
 	private LinkedList<Integer> itemList;
@@ -32,7 +33,7 @@ public class Map {
 //	private HashMap<Integer, Portal> portalsPrototype;
 	
 	public Map() {
-		this.userList 		= new LinkedList<Integer>();
+		this.userList 		= new ArrayList<Integer>();
 		
 		this.monstersList 	= new LinkedList<Integer>();
 		this.itemList 		= new LinkedList<Integer>();
@@ -88,7 +89,8 @@ public class Map {
 	}
 	
 	public boolean removeUser(Integer userID) {
-		return userList.remove(userID);
+		userList.remove(userID);
+		return true;
 	}
 	
 	public List<Integer> getUserList() {

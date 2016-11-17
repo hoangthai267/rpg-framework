@@ -13,6 +13,10 @@ public class CouchBase {
 		this.bucket = CouchbaseCluster.create("localhost").openBucket(bucketName);
 	}
 	
+	public CouchBase(String host, String bucketName) {
+		this.bucket = CouchbaseCluster.create(host).openBucket(bucketName);
+	}
+	
 	public void set(String key, JsonObject value) {
 		bucket.upsert(JsonDocument.create(key, value));
 	}

@@ -91,7 +91,6 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 	}
 
 	private void close(ChannelHandlerContext ctx) {
-		manager.removeChannel(this.channelID);
 		ctx.close();
 		System.out.println("Channel shutdown");
 	}
