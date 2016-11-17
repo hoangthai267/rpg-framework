@@ -8,7 +8,8 @@ public class User {
 	private Status	status;
 	
 	public User() {
-		
+		id = -1;
+		connectionID = -1;
 	}
 	
 	public void update(double detla) {

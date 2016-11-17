@@ -2,6 +2,7 @@ package com.rpg.framework.test;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +17,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.rpg.framework.client.SocketClient;
 import com.rpg.framework.database.Protocol;
 import com.rpg.framework.database.Protocol.Item;
+import com.rpg.framework.entity.Message;
 
 public class Client extends SocketClient {
 	private enum State {
@@ -53,6 +55,8 @@ public class Client extends SocketClient {
 	private List<Integer> items;
 	private float updatedTime;
 	private Map<Integer, byte[]> messageList;
+	private ArrayList<Message> messages;
+	private ArrayList<Message> updateMessages;
 	private boolean running;
 	public Client(String host, int port) {
 		super(host, port);
@@ -61,7 +65,10 @@ public class Client extends SocketClient {
 		this.state = State.IDLE;
 		this.rand = new Random();
 		this.running = true;
-		messageList = new HashMap();
+		this.userID = -1;
+		this.mapID = -1;
+		this.messages = new ArrayList<Message>();
+		this.updateMessages = new ArrayList<Message>();
 	}
 
 	public void start() {
@@ -130,16 +137,18 @@ public class Client extends SocketClient {
 	}
 
 	public void update(double delta) {
-//		System.out.println(state);
-		if(updatedTime >= 1.0f) {
+//		System.out.println(this.state);
+		if(updatedTime >= 0.5f) {
 //			requestUpdateAction();
 //			requestUpdatePosition();
-			updatedTime -= 1.0f;			
+//			System.out.println("Position: (" + positionX + ", " + positionY + ")" );
+			updatedTime -= 0.5f;			
 		} else {
 			updatedTime += delta;			
-
 		}
 		
+		handleMessage();
+//		requestUpdatePosition();
 		switch (state) {
 		case IDLE: {
 			break;
@@ -164,7 +173,7 @@ public class Client extends SocketClient {
 			requestStartGame();
 			break;
 		}
-		case SEND_REQUEST_UPDATE_POSITION: {
+		case SEND_REQUEST_UPDATE_POSITION: {			
 			requestUpdatePosition();
 			break;
 		}
@@ -188,10 +197,10 @@ public class Client extends SocketClient {
 			stop();
 			break;
 		}
-		case HANDLE_RESPONSE: {
-			handleMessage();
-			break;
-		}
+//		case HANDLE_RESPONSE: {
+//			handleMessage();
+//			break;
+//		}
 		default:
 			break;
 		}
@@ -203,18 +212,20 @@ public class Client extends SocketClient {
 
 	public void receive(int commandID, byte[] data) {
 		super.receive(commandID, data);
-		this.state = State.HANDLE_RESPONSE;
-		this.messageList.put(commandID, data);
+//		this.state = State.HANDLE_RESPONSE;
+//		this.messageList.put(commandID, data);
+		updateMessages.add(new Message(commandID, data));
 	}
 
-	public void handleMessage() {
-		for(Map.Entry<Integer, byte[]> entry : messageList.entrySet()) {
-			int commandID = entry.getKey();
-			byte[] data = entry.getValue();
-			handleMessage(commandID, data);
+	public void handleMessage() {		
+//		while(!updateMessages.isEmpty())
+//			messages.add(updateMessages.remove(0));
+		
+		while(!updateMessages.isEmpty()) {
+			Message message = updateMessages.remove(0);
+			handleMessage(message.getCommandID(), message.getData());
 		}
 		
-		messageList.clear();
 	}
 	
 	public void handleMessage(int commandID, byte[] data) {
@@ -265,8 +276,27 @@ public class Client extends SocketClient {
 				break;
 			}	
 			
+			case Protocol.MessageType.MESSAGE_NEW_USER_VALUE: {
+				Protocol.User user = Protocol.MessageNewUser.parseFrom(data).getUser();
+				System.out.println("MESSAGE_NEW_USER_VALUE: " + user.getId() + " Position: (" + user.getPosition().getX() + ", " + user.getPosition().getY() + ")" );
+				break;
+			}
+			
+			case Protocol.MessageType.MESSAGE_DELETE_USER_VALUE: {
+				Protocol.User user = Protocol.MessageDeleteUser.parseFrom(data).getUser();
+				System.out.println("MESSAGE_DEL_USER_VALUE: " + user.getId() + " Position: (" + user.getPosition().getX() + ", " + user.getPosition().getY() + ")" );				
+				break;
+			}
+			case Protocol.MessageType.MESSAGE_UPDATE_USER_VALUE: {
+				System.out.println("MESSAGE_UPDATE_USER_VALUE: ");
+				List<Protocol.User> users = Protocol.MessageUpdateUser.parseFrom(data).getUsersList();
+				for (Protocol.User user : users) {
+					System.out.println("	+---userID: " + user.getId() + " Position: (" + user.getPosition().getX() + ", " + user.getPosition().getY() + ")" );
+				}
+			}
+			
 			default: {
-				state = State.STOP;
+//				state = State.STOP;
 				break;
 			}
 			}
@@ -277,62 +307,68 @@ public class Client extends SocketClient {
 	}
 
 	public void requestLogin() {
+		System.out.println("Client.requestLogin()");
+		this.state = State.WAIT_RESPONSE;
 		Protocol.RequestLogin.Builder builder = Protocol.RequestLogin.newBuilder();
 		builder.setUsername(userName);
 		builder.setPassword(password);
 
-		this.state = State.WAIT_RESPONSE;
 		send(Protocol.MessageType.REQUEST_LOGIN_VALUE, builder.build().toByteArray());
 
 	}
 
 	public void requestRegister() {
+		System.out.println("Client.requestRegister()");
+		this.state = State.WAIT_RESPONSE;
 		Protocol.RequestRegister.Builder builder = Protocol.RequestRegister.newBuilder();
 		builder.setUsername(userName);
 		builder.setPassword(password);
 
-		this.state = State.WAIT_RESPONSE;
 		send(Protocol.MessageType.REQUEST_REGISTER_VALUE, builder.build().toByteArray());
 
 	}
 
 	public void requestGetCharacter() {
+		System.out.println("Client.requestGetCharacter()");
+		this.state = State.WAIT_RESPONSE;
 		Protocol.RequestGetCharacter.Builder builder = Protocol.RequestGetCharacter.newBuilder();
 		builder.setUserID(userID);
 
 		send(Protocol.MessageType.REQUEST_GET_CHARACTER_VALUE, builder.build().toByteArray());
-		this.state = State.WAIT_RESPONSE;
 	}
 
 	public void requestCreateCharacter() {
+		System.out.println("Client.requestCreateCharacter()");
+		this.state = State.WAIT_RESPONSE;
 		Protocol.RequestCreateCharacter.Builder builder = Protocol.RequestCreateCharacter.newBuilder();
 		builder.setUserID(userID);
 		builder.setName(userName);
 		builder.setGender(0);
 
 		send(Protocol.MessageType.REQUEST_CREATE_CHARACTER_VALUE, builder.build().toByteArray());
-
-		this.state = State.WAIT_RESPONSE;
 	}
 
 	public void requestStartGame() {
+		System.out.println("Client.requestStartGame()");
+		this.state = State.WAIT_RESPONSE;
 		Protocol.RequestStartGame.Builder builder = Protocol.RequestStartGame.newBuilder();
 		builder.setUserID(userID);
 
 		send(Protocol.MessageType.REQUEST_START_GAME_VALUE, builder.build().toByteArray());
-
-		this.state = State.WAIT_RESPONSE;
 	}
 
-	public void requestUpdatePosition() {	
+	public void requestUpdatePosition() {		
+		if(userID == -1 || mapID == -1)
+			return;
 		this.state = State.WAIT_RESPONSE;
 		Protocol.RequestUpdatePosition request = Protocol.RequestUpdatePosition.newBuilder().setUserID(userID)
 				.setMapID(mapID).setX(positionX).setY(positionY).build();
-		System.out.println("MapID: " + mapID + " Position: (" + positionX + "," + positionY + ")");
+//		System.out.println("Client.requestUpdatePosition(): (" + positionX + "," + positionY + ")");
 		send(Protocol.MessageType.REQUEST_UPDATE_POSITION_VALUE, request.toByteArray());
 	}
 
 	public void requestGetItems() {
+		System.out.println("Client.requestGetItems()");
 		Protocol.RequestGetItems request = Protocol.RequestGetItems.newBuilder()
 				.setUserID(userID).build();
 		
@@ -340,6 +376,7 @@ public class Client extends SocketClient {
 	}
 	
 	public void requestUpdateAction() {
+		System.out.println("Client.requestUpdateAction()");
 		Protocol.RequestUpdateAction.Builder builder = Protocol.RequestUpdateAction.newBuilder();
 		builder.setUserID(userID);
 		builder.addActions(Protocol.CharacterAction.newBuilder()
@@ -356,6 +393,7 @@ public class Client extends SocketClient {
 	}
 	
 	public void requestGetPrototype() {
+		System.out.println("Client.requestGetPrototype()");
 		Protocol.RequestGetPrototype request = Protocol.RequestGetPrototype.newBuilder()
 				.build();
 		
@@ -388,7 +426,13 @@ public class Client extends SocketClient {
 	public void responseGetCharacter(Protocol.ResponseGetCharacter response) {
 		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
 			this.character = response.getCharacter();
+			
+			this.mapID = character.getMapID();
+			this.positionX = character.getX();
+			this.positionY = character.getY();
+			
 			this.state = State.SEND_REQUEST_START_GAME;
+			System.out.println("Client.responseGetCharacter()");
 		} else {
 
 		}
@@ -396,6 +440,7 @@ public class Client extends SocketClient {
 
 	public void responseCreateCharacter(Protocol.ResponseCreateCharacter response) {
 		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
+			System.out.println("Client.responseCreateCharacter()");
 			this.state = State.SEND_REQUEST_GET_CHARACTER;
 		}
 	}
@@ -403,8 +448,7 @@ public class Client extends SocketClient {
 	public void responseStartGame(Protocol.ResponseStartGame response) {
 		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
 			this.state = State.SEND_REQUEST_UPDATE_POSITION;
-			this.mapID = 0;
-			System.out.println(response.getMonstersList());
+//			System.out.println(response.getMonstersList());
 		}
 	}
 
@@ -418,6 +462,7 @@ public class Client extends SocketClient {
 
 	public void responseGetItems(Protocol.ResponseGetItems response) {
 		if(response.getResult() == Protocol.ResponseCode.SUCCESS) {
+			System.out.println("Client.responseGetItems()");
 			this.items = response.getItemsList();
 			System.out.println(items);
 		}
@@ -463,12 +508,5 @@ public class Client extends SocketClient {
 
 	public void setPort(int port) {
 		this.port = port;
-	}
-	
-	public static void main(String args[]) throws UnknownHostException {
-		new Client("128.199.255.44", 8463).start("admin", "admin");
-//		new Client("128.199.255.44", 8463).start(args[0], "admin");
-//		new Client("127.0.0.1", 8463).start("admin", "admin");
-//		new Client("128.199.255.44", 8463).start(args[0], "admin");
 	}
 }

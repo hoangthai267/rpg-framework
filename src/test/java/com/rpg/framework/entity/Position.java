@@ -32,4 +32,10 @@ public class Position {
 	public void setY(double y) {
 		this.y = y;
 	}
+	
+	public void set(int mapID, double x, double y) {
+		this.mapID = mapID;
+		this.x = x;
+		this.y = y;
+	}
 }

@@ -28,6 +28,11 @@ public class Message {
 		this.commandID = commandID;
 		this.data = data;
 	}
+	
+	public Message(int commandID, byte[] data) {
+		this.commandID = commandID;
+		this.data = data;
+	}
 
 
 	public int getType() {

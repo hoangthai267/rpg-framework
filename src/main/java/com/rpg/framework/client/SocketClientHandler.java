@@ -15,6 +15,8 @@
  */
 package com.rpg.framework.client;
 
+import com.couchbase.client.deps.io.netty.util.ReferenceCountUtil;
+
 import io.netty.buffer.*;
 import io.netty.channel.*;
 
@@ -47,7 +49,10 @@ public class SocketClientHandler extends ChannelInboundHandlerAdapter {
 		ByteBuf data = (ByteBuf) msg;
 		byte[] buffer = new byte[data.capacity() - 2];
 		data.getBytes(2, buffer);
-		receive(data.readShort(), buffer);		
+		int commandID = data.readShort(); 
+		receive(commandID, buffer);		
+		
+		data.release();
 	}
 
 	@Override
@@ -81,7 +86,10 @@ public class SocketClientHandler extends ChannelInboundHandlerAdapter {
 		respBuf.writeShort(commandID);
 		respBuf.writeBytes(data);
 
+//		channel.writeAndFlush(respBuf).addListener(new ResultMessage(commandID));
 		channel.writeAndFlush(respBuf);
+		
+		ReferenceCountUtil.release(respBuf);
 	}
 	
 	public void receive(int commandID, byte[] data) {

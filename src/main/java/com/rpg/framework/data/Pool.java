@@ -42,8 +42,9 @@ public class Pool {
 	}
 	
 	public void set(String key, JsonObject value, int expTime) {
-		if(!data.contains(key))
+		if(!data.contains(key)) 
 			data.add(key);
+//		System.out.println(data);
 		spymemcached.set(key, value.toString(), expTime);
 	}
 	

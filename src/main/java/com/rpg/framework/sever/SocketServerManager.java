@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.couchbase.client.deps.io.netty.util.ReferenceCountUtil;
 import com.rpg.framework.data.ChannelRequest;
 import com.rpg.framework.data.ChannelResponse;
 
@@ -47,6 +48,7 @@ public class SocketServerManager {
 	}
 
 	public void writeChannel(int channelID, int responseID, int commandID, byte[] data) {
+//		System.out.println("channelID: " + channelID + " commandID: " + commandID);
 		ChannelHandlerContext currentChannel = listChannel.get(channelID);
 		switch (responseID) {
 		case 0: {
@@ -62,7 +64,9 @@ public class SocketServerManager {
 			respBuf.writeShort(commandID);
 			respBuf.writeBytes(data);
 
-			currentChannel.writeAndFlush(respBuf);
+			currentChannel.writeAndFlush(respBuf).addListener(new ResultMessage(commandID, channelID));
+			
+			ReferenceCountUtil.release(respBuf);
 			break;
 		}
 		case 1: {
@@ -79,7 +83,9 @@ public class SocketServerManager {
 				respBuf.writeShort(commandID);
 				respBuf.writeBytes(data);
 
-				channel.writeAndFlush(respBuf);
+				channel.writeAndFlush(respBuf).addListener(new ResultMessage(commandID, channelID));
+				
+				ReferenceCountUtil.release(respBuf);
 			}
 			break;
 		}
@@ -95,7 +101,9 @@ public class SocketServerManager {
 				respBuf.writeShort(commandID);
 				respBuf.writeBytes(data);
 
-				channel.writeAndFlush(respBuf);
+				channel.writeAndFlush(respBuf).addListener(new ResultMessage(commandID, channelID));
+				
+				ReferenceCountUtil.release(respBuf);
 			}
 			break;
 		}

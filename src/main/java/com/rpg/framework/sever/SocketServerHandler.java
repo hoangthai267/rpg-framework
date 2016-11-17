@@ -41,7 +41,10 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 		ByteBuf data = (ByteBuf) msg;
 		byte[] buffer = new byte[data.capacity() - 2];
 		data.getBytes(2, buffer);
-		manager.readChannel(channelID, (int)data.readShort(), buffer);
+		int commandID = data.readShort();
+		manager.readChannel(channelID, commandID, buffer);
+		
+		data.release();
 	}
 
 	public void HandleExceptionContext(ChannelHandlerContext ctx, Throwable Cause) throws Exception {

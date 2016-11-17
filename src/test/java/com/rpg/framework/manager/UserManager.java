@@ -85,6 +85,7 @@ public class UserManager {
 	}
 	
 	public void addIdentifiedUser(int connectionID, int userID) {
+		System.out.println("UserManager.addIdentifiedUser() connectionID:" + connectionID + " userID: " + userID);
 		User identified = anonymousUsers.remove(connectionID);
 		
 		JsonObject userPosition = dataManager.getCouchbase().get("User_" + userID + "_Position");
@@ -107,6 +108,7 @@ public class UserManager {
 		status.setMaxHP(userStatus.getInt("maxHP"));
 		status.setMaxMP(userStatus.getInt("maxMP"));
 		
+		identified.setId(userID);
 		identified.setPosition(position);
 		identified.setStats(stats);
 		identified.setStatus(status);
@@ -131,6 +133,7 @@ public class UserManager {
 		while (iterator.hasNext()) {
 			User user = iterator.next();
 			if (connectionID == user.getConnectionID()) {
+//				System.out.println("UserManager.removeIdentifiedUser() connectionID: " + connectionID + " userID: " + user.getId());
 				MapManager.getInstance().exitMap(user.getId(), user.getPosition().getMapID());
 				identifiedUsers.remove(user);
 				return true;

@@ -93,6 +93,18 @@ public final class Protocol {
      * <code>MESSAGE_RESPAWN_MONSTER = 19;</code>
      */
     MESSAGE_RESPAWN_MONSTER(19, 19),
+    /**
+     * <code>MESSAGE_NEW_USER = 20;</code>
+     */
+    MESSAGE_NEW_USER(20, 20),
+    /**
+     * <code>MESSAGE_DELETE_USER = 21;</code>
+     */
+    MESSAGE_DELETE_USER(21, 21),
+    /**
+     * <code>MESSAGE_UPDATE_USER = 22;</code>
+     */
+    MESSAGE_UPDATE_USER(22, 22),
     ;
 
     /**
@@ -175,6 +187,18 @@ public final class Protocol {
      * <code>MESSAGE_RESPAWN_MONSTER = 19;</code>
      */
     public static final int MESSAGE_RESPAWN_MONSTER_VALUE = 19;
+    /**
+     * <code>MESSAGE_NEW_USER = 20;</code>
+     */
+    public static final int MESSAGE_NEW_USER_VALUE = 20;
+    /**
+     * <code>MESSAGE_DELETE_USER = 21;</code>
+     */
+    public static final int MESSAGE_DELETE_USER_VALUE = 21;
+    /**
+     * <code>MESSAGE_UPDATE_USER = 22;</code>
+     */
+    public static final int MESSAGE_UPDATE_USER_VALUE = 22;
 
 
     public final int getNumber() { return value; }
@@ -201,6 +225,9 @@ public final class Protocol {
         case 17: return RESPONSE_GET_PROTOTYPE;
         case 18: return MESSAGE_KILL_MONSTER;
         case 19: return MESSAGE_RESPAWN_MONSTER;
+        case 20: return MESSAGE_NEW_USER;
+        case 21: return MESSAGE_DELETE_USER;
+        case 22: return MESSAGE_UPDATE_USER;
         default: return null;
       }
     }
@@ -25137,6 +25164,1742 @@ public final class Protocol {
     // @@protoc_insertion_point(class_scope:Protobuf.MessageRespawnMonster)
   }
 
+  public interface MessageNewUserOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageNewUser)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required .Protobuf.User user = 1;</code>
+     */
+    boolean hasUser();
+    /**
+     * <code>required .Protobuf.User user = 1;</code>
+     */
+    com.rpg.framework.database.Protocol.User getUser();
+    /**
+     * <code>required .Protobuf.User user = 1;</code>
+     */
+    com.rpg.framework.database.Protocol.UserOrBuilder getUserOrBuilder();
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageNewUser}
+   */
+  public static final class MessageNewUser extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageNewUser)
+      MessageNewUserOrBuilder {
+    // Use MessageNewUser.newBuilder() to construct.
+    private MessageNewUser(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageNewUser(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageNewUser defaultInstance;
+    public static MessageNewUser getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageNewUser getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageNewUser(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              com.rpg.framework.database.Protocol.User.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = user_.toBuilder();
+              }
+              user_ = input.readMessage(com.rpg.framework.database.Protocol.User.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(user_);
+                user_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageNewUser_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageNewUser_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageNewUser.class, com.rpg.framework.database.Protocol.MessageNewUser.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageNewUser> PARSER =
+        new com.google.protobuf.AbstractParser<MessageNewUser>() {
+      public MessageNewUser parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageNewUser(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageNewUser> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int USER_FIELD_NUMBER = 1;
+    private com.rpg.framework.database.Protocol.User user_;
+    /**
+     * <code>required .Protobuf.User user = 1;</code>
+     */
+    public boolean hasUser() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required .Protobuf.User user = 1;</code>
+     */
+    public com.rpg.framework.database.Protocol.User getUser() {
+      return user_;
+    }
+    /**
+     * <code>required .Protobuf.User user = 1;</code>
+     */
+    public com.rpg.framework.database.Protocol.UserOrBuilder getUserOrBuilder() {
+      return user_;
+    }
+
+    private void initFields() {
+      user_ = com.rpg.framework.database.Protocol.User.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasUser()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getUser().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, user_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, user_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageNewUser parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageNewUser parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageNewUser parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageNewUser parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageNewUser parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageNewUser parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageNewUser parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageNewUser parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageNewUser parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageNewUser parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageNewUser prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageNewUser}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageNewUser)
+        com.rpg.framework.database.Protocol.MessageNewUserOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageNewUser_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageNewUser_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageNewUser.class, com.rpg.framework.database.Protocol.MessageNewUser.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageNewUser.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getUserFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (userBuilder_ == null) {
+          user_ = com.rpg.framework.database.Protocol.User.getDefaultInstance();
+        } else {
+          userBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageNewUser_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageNewUser getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageNewUser.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageNewUser build() {
+        com.rpg.framework.database.Protocol.MessageNewUser result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageNewUser buildPartial() {
+        com.rpg.framework.database.Protocol.MessageNewUser result = new com.rpg.framework.database.Protocol.MessageNewUser(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (userBuilder_ == null) {
+          result.user_ = user_;
+        } else {
+          result.user_ = userBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageNewUser) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageNewUser)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageNewUser other) {
+        if (other == com.rpg.framework.database.Protocol.MessageNewUser.getDefaultInstance()) return this;
+        if (other.hasUser()) {
+          mergeUser(other.getUser());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasUser()) {
+          
+          return false;
+        }
+        if (!getUser().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageNewUser parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageNewUser) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.rpg.framework.database.Protocol.User user_ = com.rpg.framework.database.Protocol.User.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder> userBuilder_;
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public boolean hasUser() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public com.rpg.framework.database.Protocol.User getUser() {
+        if (userBuilder_ == null) {
+          return user_;
+        } else {
+          return userBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public Builder setUser(com.rpg.framework.database.Protocol.User value) {
+        if (userBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          user_ = value;
+          onChanged();
+        } else {
+          userBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public Builder setUser(
+          com.rpg.framework.database.Protocol.User.Builder builderForValue) {
+        if (userBuilder_ == null) {
+          user_ = builderForValue.build();
+          onChanged();
+        } else {
+          userBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public Builder mergeUser(com.rpg.framework.database.Protocol.User value) {
+        if (userBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              user_ != com.rpg.framework.database.Protocol.User.getDefaultInstance()) {
+            user_ =
+              com.rpg.framework.database.Protocol.User.newBuilder(user_).mergeFrom(value).buildPartial();
+          } else {
+            user_ = value;
+          }
+          onChanged();
+        } else {
+          userBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public Builder clearUser() {
+        if (userBuilder_ == null) {
+          user_ = com.rpg.framework.database.Protocol.User.getDefaultInstance();
+          onChanged();
+        } else {
+          userBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public com.rpg.framework.database.Protocol.User.Builder getUserBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getUserFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public com.rpg.framework.database.Protocol.UserOrBuilder getUserOrBuilder() {
+        if (userBuilder_ != null) {
+          return userBuilder_.getMessageOrBuilder();
+        } else {
+          return user_;
+        }
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder> 
+          getUserFieldBuilder() {
+        if (userBuilder_ == null) {
+          userBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder>(
+                  getUser(),
+                  getParentForChildren(),
+                  isClean());
+          user_ = null;
+        }
+        return userBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageNewUser)
+    }
+
+    static {
+      defaultInstance = new MessageNewUser(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageNewUser)
+  }
+
+  public interface MessageDeleteUserOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageDeleteUser)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required .Protobuf.User user = 1;</code>
+     */
+    boolean hasUser();
+    /**
+     * <code>required .Protobuf.User user = 1;</code>
+     */
+    com.rpg.framework.database.Protocol.User getUser();
+    /**
+     * <code>required .Protobuf.User user = 1;</code>
+     */
+    com.rpg.framework.database.Protocol.UserOrBuilder getUserOrBuilder();
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageDeleteUser}
+   */
+  public static final class MessageDeleteUser extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageDeleteUser)
+      MessageDeleteUserOrBuilder {
+    // Use MessageDeleteUser.newBuilder() to construct.
+    private MessageDeleteUser(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageDeleteUser(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageDeleteUser defaultInstance;
+    public static MessageDeleteUser getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageDeleteUser getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageDeleteUser(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              com.rpg.framework.database.Protocol.User.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = user_.toBuilder();
+              }
+              user_ = input.readMessage(com.rpg.framework.database.Protocol.User.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(user_);
+                user_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageDeleteUser_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageDeleteUser_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageDeleteUser.class, com.rpg.framework.database.Protocol.MessageDeleteUser.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageDeleteUser> PARSER =
+        new com.google.protobuf.AbstractParser<MessageDeleteUser>() {
+      public MessageDeleteUser parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageDeleteUser(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageDeleteUser> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int USER_FIELD_NUMBER = 1;
+    private com.rpg.framework.database.Protocol.User user_;
+    /**
+     * <code>required .Protobuf.User user = 1;</code>
+     */
+    public boolean hasUser() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required .Protobuf.User user = 1;</code>
+     */
+    public com.rpg.framework.database.Protocol.User getUser() {
+      return user_;
+    }
+    /**
+     * <code>required .Protobuf.User user = 1;</code>
+     */
+    public com.rpg.framework.database.Protocol.UserOrBuilder getUserOrBuilder() {
+      return user_;
+    }
+
+    private void initFields() {
+      user_ = com.rpg.framework.database.Protocol.User.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasUser()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getUser().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, user_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, user_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageDeleteUser parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageDeleteUser parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageDeleteUser parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageDeleteUser parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageDeleteUser parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageDeleteUser parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageDeleteUser parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageDeleteUser parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageDeleteUser parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageDeleteUser parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageDeleteUser prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageDeleteUser}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageDeleteUser)
+        com.rpg.framework.database.Protocol.MessageDeleteUserOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageDeleteUser_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageDeleteUser_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageDeleteUser.class, com.rpg.framework.database.Protocol.MessageDeleteUser.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageDeleteUser.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getUserFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (userBuilder_ == null) {
+          user_ = com.rpg.framework.database.Protocol.User.getDefaultInstance();
+        } else {
+          userBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageDeleteUser_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageDeleteUser getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageDeleteUser.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageDeleteUser build() {
+        com.rpg.framework.database.Protocol.MessageDeleteUser result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageDeleteUser buildPartial() {
+        com.rpg.framework.database.Protocol.MessageDeleteUser result = new com.rpg.framework.database.Protocol.MessageDeleteUser(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (userBuilder_ == null) {
+          result.user_ = user_;
+        } else {
+          result.user_ = userBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageDeleteUser) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageDeleteUser)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageDeleteUser other) {
+        if (other == com.rpg.framework.database.Protocol.MessageDeleteUser.getDefaultInstance()) return this;
+        if (other.hasUser()) {
+          mergeUser(other.getUser());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasUser()) {
+          
+          return false;
+        }
+        if (!getUser().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageDeleteUser parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageDeleteUser) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.rpg.framework.database.Protocol.User user_ = com.rpg.framework.database.Protocol.User.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder> userBuilder_;
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public boolean hasUser() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public com.rpg.framework.database.Protocol.User getUser() {
+        if (userBuilder_ == null) {
+          return user_;
+        } else {
+          return userBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public Builder setUser(com.rpg.framework.database.Protocol.User value) {
+        if (userBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          user_ = value;
+          onChanged();
+        } else {
+          userBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public Builder setUser(
+          com.rpg.framework.database.Protocol.User.Builder builderForValue) {
+        if (userBuilder_ == null) {
+          user_ = builderForValue.build();
+          onChanged();
+        } else {
+          userBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public Builder mergeUser(com.rpg.framework.database.Protocol.User value) {
+        if (userBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              user_ != com.rpg.framework.database.Protocol.User.getDefaultInstance()) {
+            user_ =
+              com.rpg.framework.database.Protocol.User.newBuilder(user_).mergeFrom(value).buildPartial();
+          } else {
+            user_ = value;
+          }
+          onChanged();
+        } else {
+          userBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public Builder clearUser() {
+        if (userBuilder_ == null) {
+          user_ = com.rpg.framework.database.Protocol.User.getDefaultInstance();
+          onChanged();
+        } else {
+          userBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public com.rpg.framework.database.Protocol.User.Builder getUserBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getUserFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      public com.rpg.framework.database.Protocol.UserOrBuilder getUserOrBuilder() {
+        if (userBuilder_ != null) {
+          return userBuilder_.getMessageOrBuilder();
+        } else {
+          return user_;
+        }
+      }
+      /**
+       * <code>required .Protobuf.User user = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder> 
+          getUserFieldBuilder() {
+        if (userBuilder_ == null) {
+          userBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder>(
+                  getUser(),
+                  getParentForChildren(),
+                  isClean());
+          user_ = null;
+        }
+        return userBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageDeleteUser)
+    }
+
+    static {
+      defaultInstance = new MessageDeleteUser(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageDeleteUser)
+  }
+
+  public interface MessageUpdateUserOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageUpdateUser)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .Protobuf.User users = 1;</code>
+     */
+    java.util.List<com.rpg.framework.database.Protocol.User> 
+        getUsersList();
+    /**
+     * <code>repeated .Protobuf.User users = 1;</code>
+     */
+    com.rpg.framework.database.Protocol.User getUsers(int index);
+    /**
+     * <code>repeated .Protobuf.User users = 1;</code>
+     */
+    int getUsersCount();
+    /**
+     * <code>repeated .Protobuf.User users = 1;</code>
+     */
+    java.util.List<? extends com.rpg.framework.database.Protocol.UserOrBuilder> 
+        getUsersOrBuilderList();
+    /**
+     * <code>repeated .Protobuf.User users = 1;</code>
+     */
+    com.rpg.framework.database.Protocol.UserOrBuilder getUsersOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageUpdateUser}
+   */
+  public static final class MessageUpdateUser extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageUpdateUser)
+      MessageUpdateUserOrBuilder {
+    // Use MessageUpdateUser.newBuilder() to construct.
+    private MessageUpdateUser(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageUpdateUser(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageUpdateUser defaultInstance;
+    public static MessageUpdateUser getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageUpdateUser getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageUpdateUser(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                users_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.User>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              users_.add(input.readMessage(com.rpg.framework.database.Protocol.User.PARSER, extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          users_ = java.util.Collections.unmodifiableList(users_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageUpdateUser_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageUpdateUser_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageUpdateUser.class, com.rpg.framework.database.Protocol.MessageUpdateUser.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageUpdateUser> PARSER =
+        new com.google.protobuf.AbstractParser<MessageUpdateUser>() {
+      public MessageUpdateUser parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageUpdateUser(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageUpdateUser> getParserForType() {
+      return PARSER;
+    }
+
+    public static final int USERS_FIELD_NUMBER = 1;
+    private java.util.List<com.rpg.framework.database.Protocol.User> users_;
+    /**
+     * <code>repeated .Protobuf.User users = 1;</code>
+     */
+    public java.util.List<com.rpg.framework.database.Protocol.User> getUsersList() {
+      return users_;
+    }
+    /**
+     * <code>repeated .Protobuf.User users = 1;</code>
+     */
+    public java.util.List<? extends com.rpg.framework.database.Protocol.UserOrBuilder> 
+        getUsersOrBuilderList() {
+      return users_;
+    }
+    /**
+     * <code>repeated .Protobuf.User users = 1;</code>
+     */
+    public int getUsersCount() {
+      return users_.size();
+    }
+    /**
+     * <code>repeated .Protobuf.User users = 1;</code>
+     */
+    public com.rpg.framework.database.Protocol.User getUsers(int index) {
+      return users_.get(index);
+    }
+    /**
+     * <code>repeated .Protobuf.User users = 1;</code>
+     */
+    public com.rpg.framework.database.Protocol.UserOrBuilder getUsersOrBuilder(
+        int index) {
+      return users_.get(index);
+    }
+
+    private void initFields() {
+      users_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      for (int i = 0; i < getUsersCount(); i++) {
+        if (!getUsers(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      for (int i = 0; i < users_.size(); i++) {
+        output.writeMessage(1, users_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < users_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, users_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageUpdateUser parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateUser parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateUser parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateUser parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateUser parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateUser parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateUser parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateUser parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateUser parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateUser parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageUpdateUser prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageUpdateUser}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageUpdateUser)
+        com.rpg.framework.database.Protocol.MessageUpdateUserOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageUpdateUser_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageUpdateUser_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageUpdateUser.class, com.rpg.framework.database.Protocol.MessageUpdateUser.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageUpdateUser.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getUsersFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (usersBuilder_ == null) {
+          users_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          usersBuilder_.clear();
+        }
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageUpdateUser_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageUpdateUser getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageUpdateUser.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageUpdateUser build() {
+        com.rpg.framework.database.Protocol.MessageUpdateUser result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageUpdateUser buildPartial() {
+        com.rpg.framework.database.Protocol.MessageUpdateUser result = new com.rpg.framework.database.Protocol.MessageUpdateUser(this);
+        int from_bitField0_ = bitField0_;
+        if (usersBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            users_ = java.util.Collections.unmodifiableList(users_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.users_ = users_;
+        } else {
+          result.users_ = usersBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageUpdateUser) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageUpdateUser)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageUpdateUser other) {
+        if (other == com.rpg.framework.database.Protocol.MessageUpdateUser.getDefaultInstance()) return this;
+        if (usersBuilder_ == null) {
+          if (!other.users_.isEmpty()) {
+            if (users_.isEmpty()) {
+              users_ = other.users_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureUsersIsMutable();
+              users_.addAll(other.users_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.users_.isEmpty()) {
+            if (usersBuilder_.isEmpty()) {
+              usersBuilder_.dispose();
+              usersBuilder_ = null;
+              users_ = other.users_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              usersBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getUsersFieldBuilder() : null;
+            } else {
+              usersBuilder_.addAllMessages(other.users_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        for (int i = 0; i < getUsersCount(); i++) {
+          if (!getUsers(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageUpdateUser parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageUpdateUser) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.rpg.framework.database.Protocol.User> users_ =
+        java.util.Collections.emptyList();
+      private void ensureUsersIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          users_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.User>(users_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder> usersBuilder_;
+
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public java.util.List<com.rpg.framework.database.Protocol.User> getUsersList() {
+        if (usersBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(users_);
+        } else {
+          return usersBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public int getUsersCount() {
+        if (usersBuilder_ == null) {
+          return users_.size();
+        } else {
+          return usersBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public com.rpg.framework.database.Protocol.User getUsers(int index) {
+        if (usersBuilder_ == null) {
+          return users_.get(index);
+        } else {
+          return usersBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public Builder setUsers(
+          int index, com.rpg.framework.database.Protocol.User value) {
+        if (usersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUsersIsMutable();
+          users_.set(index, value);
+          onChanged();
+        } else {
+          usersBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public Builder setUsers(
+          int index, com.rpg.framework.database.Protocol.User.Builder builderForValue) {
+        if (usersBuilder_ == null) {
+          ensureUsersIsMutable();
+          users_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          usersBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public Builder addUsers(com.rpg.framework.database.Protocol.User value) {
+        if (usersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUsersIsMutable();
+          users_.add(value);
+          onChanged();
+        } else {
+          usersBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public Builder addUsers(
+          int index, com.rpg.framework.database.Protocol.User value) {
+        if (usersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUsersIsMutable();
+          users_.add(index, value);
+          onChanged();
+        } else {
+          usersBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public Builder addUsers(
+          com.rpg.framework.database.Protocol.User.Builder builderForValue) {
+        if (usersBuilder_ == null) {
+          ensureUsersIsMutable();
+          users_.add(builderForValue.build());
+          onChanged();
+        } else {
+          usersBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public Builder addUsers(
+          int index, com.rpg.framework.database.Protocol.User.Builder builderForValue) {
+        if (usersBuilder_ == null) {
+          ensureUsersIsMutable();
+          users_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          usersBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public Builder addAllUsers(
+          java.lang.Iterable<? extends com.rpg.framework.database.Protocol.User> values) {
+        if (usersBuilder_ == null) {
+          ensureUsersIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, users_);
+          onChanged();
+        } else {
+          usersBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public Builder clearUsers() {
+        if (usersBuilder_ == null) {
+          users_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          usersBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public Builder removeUsers(int index) {
+        if (usersBuilder_ == null) {
+          ensureUsersIsMutable();
+          users_.remove(index);
+          onChanged();
+        } else {
+          usersBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public com.rpg.framework.database.Protocol.User.Builder getUsersBuilder(
+          int index) {
+        return getUsersFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public com.rpg.framework.database.Protocol.UserOrBuilder getUsersOrBuilder(
+          int index) {
+        if (usersBuilder_ == null) {
+          return users_.get(index);  } else {
+          return usersBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public java.util.List<? extends com.rpg.framework.database.Protocol.UserOrBuilder> 
+           getUsersOrBuilderList() {
+        if (usersBuilder_ != null) {
+          return usersBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(users_);
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public com.rpg.framework.database.Protocol.User.Builder addUsersBuilder() {
+        return getUsersFieldBuilder().addBuilder(
+            com.rpg.framework.database.Protocol.User.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public com.rpg.framework.database.Protocol.User.Builder addUsersBuilder(
+          int index) {
+        return getUsersFieldBuilder().addBuilder(
+            index, com.rpg.framework.database.Protocol.User.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .Protobuf.User users = 1;</code>
+       */
+      public java.util.List<com.rpg.framework.database.Protocol.User.Builder> 
+           getUsersBuilderList() {
+        return getUsersFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder> 
+          getUsersFieldBuilder() {
+        if (usersBuilder_ == null) {
+          usersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder>(
+                  users_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          users_ = null;
+        }
+        return usersBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageUpdateUser)
+    }
+
+    static {
+      defaultInstance = new MessageUpdateUser(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageUpdateUser)
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Protobuf_RequestLogin_descriptor;
   private static
@@ -25312,6 +27075,21 @@ public final class Protocol {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_Protobuf_MessageRespawnMonster_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageNewUser_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageNewUser_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageDeleteUser_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageDeleteUser_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageUpdateUser_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageUpdateUser_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -25394,25 +27172,30 @@ public final class Protocol {
       "\001 \002(\005\022\017\n\007defense\030\002 \002(\005\022\r\n\005speed\030\003 \002(\005\"9\n" +
       "\022MessageKillMonster\022\r\n\005mapID\030\001 \002(\005\022\024\n\014mo" +
       "nsterIndex\030\002 \002(\005\"<\n\025MessageRespawnMonste" +
-      "r\022\r\n\005mapID\030\001 \002(\005\022\024\n\014monsterIndex\030\002 \002(\005*\217" +
-      "\004\n\013MessageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRES" +
-      "PONE_LOGIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RE" +
-      "SPONE_REGISTER\020\003\022\031\n\025REQUEST_GET_CHARACTE" +
-      "R\020\004\022\031\n\025RESPONE_GET_CHARACTER\020\005\022\034\n\030REQUES" +
-      "T_CREATE_CHARACTER\020\006\022\034\n\030RESPONE_CREATE_C" +
-      "HARACTER\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RE",
-      "SPONE_START_GAME\020\t\022\033\n\027REQUEST_UPDATE_POS" +
-      "ITION\020\n\022\033\n\027RESPONE_UPDATE_POSITION\020\013\022\025\n\021" +
-      "REQUEST_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEM" +
-      "S\020\r\022\031\n\025REQUEST_UPDATE_ACTION\020\016\022\032\n\026RESPON" +
-      "SE_UPDATE_ACTION\020\017\022\031\n\025REQUEST_GET_PROTOT" +
-      "YPE\020\020\022\032\n\026RESPONSE_GET_PROTOTYPE\020\021\022\030\n\024MES" +
-      "SAGE_KILL_MONSTER\020\022\022\033\n\027MESSAGE_RESPAWN_M" +
-      "ONSTER\020\023*/\n\014ResponseCode\022\013\n\007SUCCESS\020\001\022\010\n" +
-      "\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rITEM_TY" +
-      "PE_USE\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017ITEM_",
-      "TYPE_EQUIP\020\002B\036\n\032com.rpg.framework.databa" +
-      "seH\001"
+      "r\022\r\n\005mapID\030\001 \002(\005\022\024\n\014monsterIndex\030\002 \002(\005\"." +
+      "\n\016MessageNewUser\022\034\n\004user\030\001 \002(\0132\016.Protobu" +
+      "f.User\"1\n\021MessageDeleteUser\022\034\n\004user\030\001 \002(" +
+      "\0132\016.Protobuf.User\"2\n\021MessageUpdateUser\022\035" +
+      "\n\005users\030\001 \003(\0132\016.Protobuf.User*\327\004\n\013Messag" +
+      "eType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPONE_LOGI" +
+      "N\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESPONE_REG",
+      "ISTER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020\004\022\031\n\025RE" +
+      "SPONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_CREATE_" +
+      "CHARACTER\020\006\022\034\n\030RESPONE_CREATE_CHARACTER\020" +
+      "\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESPONE_STA" +
+      "RT_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSITION\020\n\022\033" +
+      "\n\027RESPONE_UPDATE_POSITION\020\013\022\025\n\021REQUEST_G" +
+      "ET_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022\031\n\025RE" +
+      "QUEST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE_UPDATE" +
+      "_ACTION\020\017\022\031\n\025REQUEST_GET_PROTOTYPE\020\020\022\032\n\026" +
+      "RESPONSE_GET_PROTOTYPE\020\021\022\030\n\024MESSAGE_KILL",
+      "_MONSTER\020\022\022\033\n\027MESSAGE_RESPAWN_MONSTER\020\023\022" +
+      "\024\n\020MESSAGE_NEW_USER\020\024\022\027\n\023MESSAGE_DELETE_" +
+      "USER\020\025\022\027\n\023MESSAGE_UPDATE_USER\020\026*/\n\014Respo" +
+      "nseCode\022\013\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003" +
+      "*I\n\010ItemType\022\021\n\rITEM_TYPE_USE\020\000\022\025\n\021ITEM_" +
+      "TYPE_COLLECT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020\002B\036\n\032c" +
+      "om.rpg.framework.databaseH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -25636,6 +27419,24 @@ public final class Protocol {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageRespawnMonster_descriptor,
         new java.lang.String[] { "MapID", "MonsterIndex", });
+    internal_static_Protobuf_MessageNewUser_descriptor =
+      getDescriptor().getMessageTypes().get(35);
+    internal_static_Protobuf_MessageNewUser_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageNewUser_descriptor,
+        new java.lang.String[] { "User", });
+    internal_static_Protobuf_MessageDeleteUser_descriptor =
+      getDescriptor().getMessageTypes().get(36);
+    internal_static_Protobuf_MessageDeleteUser_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageDeleteUser_descriptor,
+        new java.lang.String[] { "User", });
+    internal_static_Protobuf_MessageUpdateUser_descriptor =
+      getDescriptor().getMessageTypes().get(37);
+    internal_static_Protobuf_MessageUpdateUser_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageUpdateUser_descriptor,
+        new java.lang.String[] { "Users", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -55,11 +55,6 @@ public class Server extends SocketServer {
 		this.userManager = UserManager.getInstance();
 		this.messageManager = MessageManager.getInstance();
 	}
-
-	public static void main(String args[]) throws Exception {
-			new Server("128.199.255.44", 8463).start();
-//			new Server("127.0.0.1", 8463).start();
-	}
 	
 	public synchronized boolean start() {
 		super.start();
@@ -71,7 +66,7 @@ public class Server extends SocketServer {
 	
 	public void loop() {
 		long lastLoopTime = System.nanoTime();
-		final int TARGET_FPS = 60;
+		final int TARGET_FPS = 5;
 		final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
 		long lastFpsTime = 0;
 		int fps = 0;
@@ -117,9 +112,9 @@ public class Server extends SocketServer {
 	}
 	
 	private void update(double delta) {
-		Queue<Message> messages = messageManager.getMessages();
-		while(!messages.isEmpty()) {
-			Message message = messages.poll();
+		List<Message> messages = messageManager.getMessages();
+		for(int i = 0; i < messages.size(); i++) {
+			Message message = messages.get(i);
 			switch (message.getType()) {
 				case 1: {
 					send(message.getChannelID(), 0, message.getCommandID(), message.getData());
@@ -144,7 +139,6 @@ public class Server extends SocketServer {
 					break;
 			}
 		}		
-		
 		mapManager.update(delta);
 		MonsterManager.getInstance().update(delta);
 		userManager.update(delta);
@@ -167,6 +161,7 @@ public class Server extends SocketServer {
 	}
 
 	public void receive(int channelID, int commandID, byte[] data) {
+//		System.out.println("Server.receive() channelID: " + channelID + " commandID: " + commandID);
 		messageManager.newMessage(Message.RECEIVE, channelID, commandID, data);
 	}
 	
@@ -195,7 +190,8 @@ public class Server extends SocketServer {
 				break;
 			}
 			case Protocol.MessageType.REQUEST_UPDATE_POSITION_VALUE: {
-				send(channelID, 0, Protocol.MessageType.RESPONE_UPDATE_POSITION_VALUE, handleRequest(Protocol.RequestUpdatePosition.parseFrom(data)));
+				messageManager.newMessage(Message.SEND_TO_ONE, channelID, Protocol.MessageType.RESPONE_UPDATE_POSITION_VALUE, handleRequest(Protocol.RequestUpdatePosition.parseFrom(data)));
+//				send(channelID, 0, Protocol.MessageType.RESPONE_UPDATE_POSITION_VALUE, handleRequest(Protocol.RequestUpdatePosition.parseFrom(data)));
 				break;
 			}
 			case Protocol.MessageType.REQUEST_GET_ITEMS_VALUE: {
@@ -330,14 +326,13 @@ public class Server extends SocketServer {
 	public byte[] handleRequest(Protocol.RequestStartGame request) {
 		Protocol.ResponseStartGame.Builder builder = Protocol.ResponseStartGame.newBuilder();
 		builder.setResult(Protocol.ResponseCode.SUCCESS);
-		builder.setMessage("Welcome to our game.");
-		
-		List<Integer> userList = mapManager.getUserList(0);
-		List<Integer> monsterList = mapManager.getMonsterList(0);
+		builder.setMessage("Welcome to our game.");		
+		int mapID = userManager.getIdentifiedUser(request.getUserID()).getPosition().getMapID();
+		List<Integer> userList = mapManager.getUserList(mapID);
+		List<Integer> monsterList = mapManager.getMonsterList(mapID);
 //		List<Integer> itemList = mapManager.getItemList(1);
 		for (Integer userID : userList) {
 			User user = userManager.getIdentifiedUser(userID);
-			System.out.println(userID);
 			builder.addUsers(Protocol.User.newBuilder()
 					.setId(1)
 					.setPosition(Protocol.Position.newBuilder()
@@ -356,7 +351,7 @@ public class Server extends SocketServer {
 							.setDamage(user.getStats().getDamage())
 							.setDefense(user.getStats().getDefense())
 							.setSpeed(user.getStats().getSpeed()))
-					);
+					);			
 		}
 		
 		for (int i = 0; i < monsterList.size(); i++) {
@@ -383,7 +378,7 @@ public class Server extends SocketServer {
 		}
 		
 		
-		mapManager.enterMap(request.getUserID(), 0);
+		mapManager.enterMap(request.getUserID(), mapID);
 		
 		
 
@@ -394,7 +389,9 @@ public class Server extends SocketServer {
 		String id = "User_" + request.getUserID() + "_Position";
 		JsonObject characterPosition = JsonObject.create().put("mapID", request.getMapID()).put("x", request.getX())
 				.put("y", request.getY());
-
+		
+		userManager.getIdentifiedUser(request.getUserID()).getPosition().set(request.getMapID(), request.getX(), request.getY());
+		
 		pool.set(id, characterPosition);
 
 		Protocol.ResponseUpdatePosition.Builder builder = Protocol.ResponseUpdatePosition.newBuilder();
