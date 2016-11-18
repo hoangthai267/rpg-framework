@@ -199,7 +199,8 @@ public class Server extends SocketServer {
 				break;
 			}
 			case Protocol.MessageType.REQUEST_UPDATE_ACTION_VALUE: {
-				send(channelID, 1, Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE, data);
+//				send(channelID, 1, Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE, handleRequest(Protocol.RequestUpdateAction.parseFrom(data)));
+				handleRequest(Protocol.RequestUpdateAction.parseFrom(data));
 				break;
 			}
 			case Protocol.MessageType.REQUEST_GET_PROTOTYPE_VALUE: {
@@ -211,6 +212,23 @@ public class Server extends SocketServer {
 		} catch (InvalidProtocolBufferException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public byte[] handleRequest(Protocol.RequestUpdateAction request) {
+		int userID = request.getUserID();
+		User user = userManager.getIdentifiedUser(userID);
+		int mapID = user.getPosition().getMapID();
+		
+		List<Integer> userList = mapManager.getUserList(mapID);
+		
+		for (Integer id : userList) {
+			User sendUser = userManager.getIdentifiedUser(id.intValue());
+			if(id.intValue() != userID) {
+				messageManager.newMessage(Message.SEND_TO_ONE, sendUser.getConnectionID(), Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE, request.toByteArray());
+			}
+		}
+		
+		return null;
 	}
 
 	public byte[] handleRequestLogin(Protocol.RequestLogin request) {
@@ -269,6 +287,7 @@ public class Server extends SocketServer {
 	}
 
 	public byte[] handleRequest(Protocol.RequestGetCharacter request) {
+		System.out.println(request.getUserID());
 		JsonObject stats = couchbase.get("User_" + request.getUserID() + "_Stats");
 		JsonObject position = couchbase.get("User_" + request.getUserID() + "_Position");
 		JsonObject status = couchbase.get("User_" + request.getUserID() + "_Status");
@@ -340,12 +359,13 @@ public class Server extends SocketServer {
 		int mapID = userManager.getIdentifiedUser(request.getUserID()).getPosition().getMapID();
 		System.out.println(mapID);
 		List<Integer> userList = mapManager.getUserList(mapID);
+		System.out.println(userList);
 		List<Integer> monsterList = mapManager.getMonsterList(mapID);
 //		List<Integer> itemList = mapManager.getItemList(1);
 		for (Integer userID : userList) {
 			User user = userManager.getIdentifiedUser(userID);
 			builder.addUsers(Protocol.User.newBuilder()
-					.setId(1)
+					.setId(userID)
 					.setPosition(Protocol.Position.newBuilder()
 //							.setMapID(user.getPosition().getMapID()))
 							.setMapID(1)
@@ -402,6 +422,7 @@ public class Server extends SocketServer {
 				.put("y", request.getY());
 		
 		userManager.getIdentifiedUser(request.getUserID()).getPosition().set(request.getMapID(), request.getX(), request.getY());
+		mapManager.sendMessageUpdateUser(request.getMapID(), request.getUserID(), request.getX(), request.getY());
 		
 		pool.set(id, characterPosition);
 

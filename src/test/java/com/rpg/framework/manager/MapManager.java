@@ -142,4 +142,8 @@ public class MapManager {
 		return instance;
 	}
 	
+	public void sendMessageUpdateUser(int mapID, int userID, double x, double y) {
+		mapList.get(mapID).sendMessageUpdateUser(userID, mapID, x, y);
+	}
+	
 }

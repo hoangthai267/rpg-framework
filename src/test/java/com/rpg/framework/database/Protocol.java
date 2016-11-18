@@ -26217,28 +26217,40 @@ public final class Protocol {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>required int32 mapID = 1;</code>
      */
-    java.util.List<com.rpg.framework.database.Protocol.User> 
-        getUsersList();
+    boolean hasMapID();
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>required int32 mapID = 1;</code>
      */
-    com.rpg.framework.database.Protocol.User getUsers(int index);
+    int getMapID();
+
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>required double x = 2;</code>
      */
-    int getUsersCount();
+    boolean hasX();
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>required double x = 2;</code>
      */
-    java.util.List<? extends com.rpg.framework.database.Protocol.UserOrBuilder> 
-        getUsersOrBuilderList();
+    double getX();
+
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>required double y = 3;</code>
      */
-    com.rpg.framework.database.Protocol.UserOrBuilder getUsersOrBuilder(
-        int index);
+    boolean hasY();
+    /**
+     * <code>required double y = 3;</code>
+     */
+    double getY();
+
+    /**
+     * <code>required int32 userID = 4;</code>
+     */
+    boolean hasUserID();
+    /**
+     * <code>required int32 userID = 4;</code>
+     */
+    int getUserID();
   }
   /**
    * Protobuf type {@code Protobuf.MessageUpdateUser}
@@ -26292,12 +26304,24 @@ public final class Protocol {
               }
               break;
             }
-            case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                users_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.User>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              users_.add(input.readMessage(com.rpg.framework.database.Protocol.User.PARSER, extensionRegistry));
+            case 8: {
+              bitField0_ |= 0x00000001;
+              mapID_ = input.readInt32();
+              break;
+            }
+            case 17: {
+              bitField0_ |= 0x00000002;
+              x_ = input.readDouble();
+              break;
+            }
+            case 25: {
+              bitField0_ |= 0x00000004;
+              y_ = input.readDouble();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              userID_ = input.readInt32();
               break;
             }
           }
@@ -26308,9 +26332,6 @@ public final class Protocol {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          users_ = java.util.Collections.unmodifiableList(users_);
-        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -26342,43 +26363,72 @@ public final class Protocol {
       return PARSER;
     }
 
-    public static final int USERS_FIELD_NUMBER = 1;
-    private java.util.List<com.rpg.framework.database.Protocol.User> users_;
+    private int bitField0_;
+    public static final int MAPID_FIELD_NUMBER = 1;
+    private int mapID_;
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>required int32 mapID = 1;</code>
      */
-    public java.util.List<com.rpg.framework.database.Protocol.User> getUsersList() {
-      return users_;
+    public boolean hasMapID() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>required int32 mapID = 1;</code>
      */
-    public java.util.List<? extends com.rpg.framework.database.Protocol.UserOrBuilder> 
-        getUsersOrBuilderList() {
-      return users_;
+    public int getMapID() {
+      return mapID_;
+    }
+
+    public static final int X_FIELD_NUMBER = 2;
+    private double x_;
+    /**
+     * <code>required double x = 2;</code>
+     */
+    public boolean hasX() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>required double x = 2;</code>
      */
-    public int getUsersCount() {
-      return users_.size();
+    public double getX() {
+      return x_;
+    }
+
+    public static final int Y_FIELD_NUMBER = 3;
+    private double y_;
+    /**
+     * <code>required double y = 3;</code>
+     */
+    public boolean hasY() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>required double y = 3;</code>
      */
-    public com.rpg.framework.database.Protocol.User getUsers(int index) {
-      return users_.get(index);
+    public double getY() {
+      return y_;
+    }
+
+    public static final int USERID_FIELD_NUMBER = 4;
+    private int userID_;
+    /**
+     * <code>required int32 userID = 4;</code>
+     */
+    public boolean hasUserID() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>required int32 userID = 4;</code>
      */
-    public com.rpg.framework.database.Protocol.UserOrBuilder getUsersOrBuilder(
-        int index) {
-      return users_.get(index);
+    public int getUserID() {
+      return userID_;
     }
 
     private void initFields() {
-      users_ = java.util.Collections.emptyList();
+      mapID_ = 0;
+      x_ = 0D;
+      y_ = 0D;
+      userID_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -26386,11 +26436,21 @@ public final class Protocol {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      for (int i = 0; i < getUsersCount(); i++) {
-        if (!getUsers(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
+      if (!hasMapID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasX()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasY()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasUserID()) {
+        memoizedIsInitialized = 0;
+        return false;
       }
       memoizedIsInitialized = 1;
       return true;
@@ -26399,8 +26459,17 @@ public final class Protocol {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
-      for (int i = 0; i < users_.size(); i++) {
-        output.writeMessage(1, users_.get(i));
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, mapID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeDouble(2, x_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeDouble(3, y_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, userID_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -26411,9 +26480,21 @@ public final class Protocol {
       if (size != -1) return size;
 
       size = 0;
-      for (int i = 0; i < users_.size(); i++) {
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, users_.get(i));
+          .computeInt32Size(1, mapID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(2, x_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(3, y_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, userID_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -26524,7 +26605,6 @@ public final class Protocol {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getUsersFieldBuilder();
         }
       }
       private static Builder create() {
@@ -26533,12 +26613,14 @@ public final class Protocol {
 
       public Builder clear() {
         super.clear();
-        if (usersBuilder_ == null) {
-          users_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          usersBuilder_.clear();
-        }
+        mapID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        x_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        y_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        userID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -26566,15 +26648,24 @@ public final class Protocol {
       public com.rpg.framework.database.Protocol.MessageUpdateUser buildPartial() {
         com.rpg.framework.database.Protocol.MessageUpdateUser result = new com.rpg.framework.database.Protocol.MessageUpdateUser(this);
         int from_bitField0_ = bitField0_;
-        if (usersBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            users_ = java.util.Collections.unmodifiableList(users_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.users_ = users_;
-        } else {
-          result.users_ = usersBuilder_.build();
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
         }
+        result.mapID_ = mapID_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.x_ = x_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.y_ = y_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.userID_ = userID_;
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -26590,42 +26681,38 @@ public final class Protocol {
 
       public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageUpdateUser other) {
         if (other == com.rpg.framework.database.Protocol.MessageUpdateUser.getDefaultInstance()) return this;
-        if (usersBuilder_ == null) {
-          if (!other.users_.isEmpty()) {
-            if (users_.isEmpty()) {
-              users_ = other.users_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureUsersIsMutable();
-              users_.addAll(other.users_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.users_.isEmpty()) {
-            if (usersBuilder_.isEmpty()) {
-              usersBuilder_.dispose();
-              usersBuilder_ = null;
-              users_ = other.users_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              usersBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getUsersFieldBuilder() : null;
-            } else {
-              usersBuilder_.addAllMessages(other.users_);
-            }
-          }
+        if (other.hasMapID()) {
+          setMapID(other.getMapID());
+        }
+        if (other.hasX()) {
+          setX(other.getX());
+        }
+        if (other.hasY()) {
+          setY(other.getY());
+        }
+        if (other.hasUserID()) {
+          setUserID(other.getUserID());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
 
       public final boolean isInitialized() {
-        for (int i = 0; i < getUsersCount(); i++) {
-          if (!getUsers(i).isInitialized()) {
-            
-            return false;
-          }
+        if (!hasMapID()) {
+          
+          return false;
+        }
+        if (!hasX()) {
+          
+          return false;
+        }
+        if (!hasY()) {
+          
+          return false;
+        }
+        if (!hasUserID()) {
+          
+          return false;
         }
         return true;
       }
@@ -26649,244 +26736,132 @@ public final class Protocol {
       }
       private int bitField0_;
 
-      private java.util.List<com.rpg.framework.database.Protocol.User> users_ =
-        java.util.Collections.emptyList();
-      private void ensureUsersIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          users_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.User>(users_);
-          bitField0_ |= 0x00000001;
-         }
+      private int mapID_ ;
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public boolean hasMapID() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public int getMapID() {
+        return mapID_;
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public Builder setMapID(int value) {
+        bitField0_ |= 0x00000001;
+        mapID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public Builder clearMapID() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        mapID_ = 0;
+        onChanged();
+        return this;
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
-          com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder> usersBuilder_;
+      private double x_ ;
+      /**
+       * <code>required double x = 2;</code>
+       */
+      public boolean hasX() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required double x = 2;</code>
+       */
+      public double getX() {
+        return x_;
+      }
+      /**
+       * <code>required double x = 2;</code>
+       */
+      public Builder setX(double value) {
+        bitField0_ |= 0x00000002;
+        x_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required double x = 2;</code>
+       */
+      public Builder clearX() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        x_ = 0D;
+        onChanged();
+        return this;
+      }
 
+      private double y_ ;
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>required double y = 3;</code>
        */
-      public java.util.List<com.rpg.framework.database.Protocol.User> getUsersList() {
-        if (usersBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(users_);
-        } else {
-          return usersBuilder_.getMessageList();
-        }
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>required double y = 3;</code>
        */
-      public int getUsersCount() {
-        if (usersBuilder_ == null) {
-          return users_.size();
-        } else {
-          return usersBuilder_.getCount();
-        }
+      public double getY() {
+        return y_;
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>required double y = 3;</code>
        */
-      public com.rpg.framework.database.Protocol.User getUsers(int index) {
-        if (usersBuilder_ == null) {
-          return users_.get(index);
-        } else {
-          return usersBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .Protobuf.User users = 1;</code>
-       */
-      public Builder setUsers(
-          int index, com.rpg.framework.database.Protocol.User value) {
-        if (usersBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureUsersIsMutable();
-          users_.set(index, value);
-          onChanged();
-        } else {
-          usersBuilder_.setMessage(index, value);
-        }
+      public Builder setY(double value) {
+        bitField0_ |= 0x00000004;
+        y_ = value;
+        onChanged();
         return this;
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>required double y = 3;</code>
        */
-      public Builder setUsers(
-          int index, com.rpg.framework.database.Protocol.User.Builder builderForValue) {
-        if (usersBuilder_ == null) {
-          ensureUsersIsMutable();
-          users_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          usersBuilder_.setMessage(index, builderForValue.build());
-        }
+      public Builder clearY() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        y_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private int userID_ ;
+      /**
+       * <code>required int32 userID = 4;</code>
+       */
+      public boolean hasUserID() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required int32 userID = 4;</code>
+       */
+      public int getUserID() {
+        return userID_;
+      }
+      /**
+       * <code>required int32 userID = 4;</code>
+       */
+      public Builder setUserID(int value) {
+        bitField0_ |= 0x00000008;
+        userID_ = value;
+        onChanged();
         return this;
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>required int32 userID = 4;</code>
        */
-      public Builder addUsers(com.rpg.framework.database.Protocol.User value) {
-        if (usersBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureUsersIsMutable();
-          users_.add(value);
-          onChanged();
-        } else {
-          usersBuilder_.addMessage(value);
-        }
+      public Builder clearUserID() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        userID_ = 0;
+        onChanged();
         return this;
-      }
-      /**
-       * <code>repeated .Protobuf.User users = 1;</code>
-       */
-      public Builder addUsers(
-          int index, com.rpg.framework.database.Protocol.User value) {
-        if (usersBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureUsersIsMutable();
-          users_.add(index, value);
-          onChanged();
-        } else {
-          usersBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .Protobuf.User users = 1;</code>
-       */
-      public Builder addUsers(
-          com.rpg.framework.database.Protocol.User.Builder builderForValue) {
-        if (usersBuilder_ == null) {
-          ensureUsersIsMutable();
-          users_.add(builderForValue.build());
-          onChanged();
-        } else {
-          usersBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .Protobuf.User users = 1;</code>
-       */
-      public Builder addUsers(
-          int index, com.rpg.framework.database.Protocol.User.Builder builderForValue) {
-        if (usersBuilder_ == null) {
-          ensureUsersIsMutable();
-          users_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          usersBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .Protobuf.User users = 1;</code>
-       */
-      public Builder addAllUsers(
-          java.lang.Iterable<? extends com.rpg.framework.database.Protocol.User> values) {
-        if (usersBuilder_ == null) {
-          ensureUsersIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, users_);
-          onChanged();
-        } else {
-          usersBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .Protobuf.User users = 1;</code>
-       */
-      public Builder clearUsers() {
-        if (usersBuilder_ == null) {
-          users_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          usersBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .Protobuf.User users = 1;</code>
-       */
-      public Builder removeUsers(int index) {
-        if (usersBuilder_ == null) {
-          ensureUsersIsMutable();
-          users_.remove(index);
-          onChanged();
-        } else {
-          usersBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .Protobuf.User users = 1;</code>
-       */
-      public com.rpg.framework.database.Protocol.User.Builder getUsersBuilder(
-          int index) {
-        return getUsersFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .Protobuf.User users = 1;</code>
-       */
-      public com.rpg.framework.database.Protocol.UserOrBuilder getUsersOrBuilder(
-          int index) {
-        if (usersBuilder_ == null) {
-          return users_.get(index);  } else {
-          return usersBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .Protobuf.User users = 1;</code>
-       */
-      public java.util.List<? extends com.rpg.framework.database.Protocol.UserOrBuilder> 
-           getUsersOrBuilderList() {
-        if (usersBuilder_ != null) {
-          return usersBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(users_);
-        }
-      }
-      /**
-       * <code>repeated .Protobuf.User users = 1;</code>
-       */
-      public com.rpg.framework.database.Protocol.User.Builder addUsersBuilder() {
-        return getUsersFieldBuilder().addBuilder(
-            com.rpg.framework.database.Protocol.User.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .Protobuf.User users = 1;</code>
-       */
-      public com.rpg.framework.database.Protocol.User.Builder addUsersBuilder(
-          int index) {
-        return getUsersFieldBuilder().addBuilder(
-            index, com.rpg.framework.database.Protocol.User.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .Protobuf.User users = 1;</code>
-       */
-      public java.util.List<com.rpg.framework.database.Protocol.User.Builder> 
-           getUsersBuilderList() {
-        return getUsersFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilder<
-          com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder> 
-          getUsersFieldBuilder() {
-        if (usersBuilder_ == null) {
-          usersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder>(
-                  users_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
-                  getParentForChildren(),
-                  isClean());
-          users_ = null;
-        }
-        return usersBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:Protobuf.MessageUpdateUser)
@@ -27175,27 +27150,28 @@ public final class Protocol {
       "r\022\r\n\005mapID\030\001 \002(\005\022\024\n\014monsterIndex\030\002 \002(\005\"." +
       "\n\016MessageNewUser\022\034\n\004user\030\001 \002(\0132\016.Protobu" +
       "f.User\"1\n\021MessageDeleteUser\022\034\n\004user\030\001 \002(" +
-      "\0132\016.Protobuf.User\"2\n\021MessageUpdateUser\022\035" +
-      "\n\005users\030\001 \003(\0132\016.Protobuf.User*\327\004\n\013Messag" +
-      "eType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPONE_LOGI" +
-      "N\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESPONE_REG",
-      "ISTER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020\004\022\031\n\025RE" +
-      "SPONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_CREATE_" +
-      "CHARACTER\020\006\022\034\n\030RESPONE_CREATE_CHARACTER\020" +
-      "\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESPONE_STA" +
-      "RT_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSITION\020\n\022\033" +
-      "\n\027RESPONE_UPDATE_POSITION\020\013\022\025\n\021REQUEST_G" +
-      "ET_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022\031\n\025RE" +
-      "QUEST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE_UPDATE" +
-      "_ACTION\020\017\022\031\n\025REQUEST_GET_PROTOTYPE\020\020\022\032\n\026" +
-      "RESPONSE_GET_PROTOTYPE\020\021\022\030\n\024MESSAGE_KILL",
-      "_MONSTER\020\022\022\033\n\027MESSAGE_RESPAWN_MONSTER\020\023\022" +
-      "\024\n\020MESSAGE_NEW_USER\020\024\022\027\n\023MESSAGE_DELETE_" +
-      "USER\020\025\022\027\n\023MESSAGE_UPDATE_USER\020\026*/\n\014Respo" +
-      "nseCode\022\013\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003" +
-      "*I\n\010ItemType\022\021\n\rITEM_TYPE_USE\020\000\022\025\n\021ITEM_" +
-      "TYPE_COLLECT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020\002B\036\n\032c" +
-      "om.rpg.framework.databaseH\001"
+      "\0132\016.Protobuf.User\"H\n\021MessageUpdateUser\022\r" +
+      "\n\005mapID\030\001 \002(\005\022\t\n\001x\030\002 \002(\001\022\t\n\001y\030\003 \002(\001\022\016\n\006u" +
+      "serID\030\004 \002(\005*\327\004\n\013MessageType\022\021\n\rREQUEST_L" +
+      "OGIN\020\000\022\021\n\rRESPONE_LOGIN\020\001\022\024\n\020REQUEST_REG",
+      "ISTER\020\002\022\024\n\020RESPONE_REGISTER\020\003\022\031\n\025REQUEST" +
+      "_GET_CHARACTER\020\004\022\031\n\025RESPONE_GET_CHARACTE" +
+      "R\020\005\022\034\n\030REQUEST_CREATE_CHARACTER\020\006\022\034\n\030RES" +
+      "PONE_CREATE_CHARACTER\020\007\022\026\n\022REQUEST_START" +
+      "_GAME\020\010\022\026\n\022RESPONE_START_GAME\020\t\022\033\n\027REQUE" +
+      "ST_UPDATE_POSITION\020\n\022\033\n\027RESPONE_UPDATE_P" +
+      "OSITION\020\013\022\025\n\021REQUEST_GET_ITEMS\020\014\022\026\n\022RESP" +
+      "ONSE_GET_ITEMS\020\r\022\031\n\025REQUEST_UPDATE_ACTIO" +
+      "N\020\016\022\032\n\026RESPONSE_UPDATE_ACTION\020\017\022\031\n\025REQUE" +
+      "ST_GET_PROTOTYPE\020\020\022\032\n\026RESPONSE_GET_PROTO",
+      "TYPE\020\021\022\030\n\024MESSAGE_KILL_MONSTER\020\022\022\033\n\027MESS" +
+      "AGE_RESPAWN_MONSTER\020\023\022\024\n\020MESSAGE_NEW_USE" +
+      "R\020\024\022\027\n\023MESSAGE_DELETE_USER\020\025\022\027\n\023MESSAGE_" +
+      "UPDATE_USER\020\026*/\n\014ResponseCode\022\013\n\007SUCCESS" +
+      "\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rIT" +
+      "EM_TYPE_USE\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017" +
+      "ITEM_TYPE_EQUIP\020\002B\036\n\032com.rpg.framework.d" +
+      "atabaseH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -27436,7 +27412,7 @@ public final class Protocol {
     internal_static_Protobuf_MessageUpdateUser_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageUpdateUser_descriptor,
-        new java.lang.String[] { "Users", });
+        new java.lang.String[] { "MapID", "X", "Y", "UserID", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -148,7 +148,7 @@ public class Client extends SocketClient {
 		}
 		
 		handleMessage();
-//		requestUpdatePosition();
+		requestUpdatePosition();
 		switch (state) {
 		case IDLE: {
 			break;
@@ -289,10 +289,6 @@ public class Client extends SocketClient {
 			}
 			case Protocol.MessageType.MESSAGE_UPDATE_USER_VALUE: {
 				System.out.println("MESSAGE_UPDATE_USER_VALUE: ");
-				List<Protocol.User> users = Protocol.MessageUpdateUser.parseFrom(data).getUsersList();
-				for (Protocol.User user : users) {
-					System.out.println("	+---userID: " + user.getId() + " Position: (" + user.getPosition().getX() + ", " + user.getPosition().getY() + ")" );
-				}
 			}
 			
 			default: {
@@ -360,7 +356,6 @@ public class Client extends SocketClient {
 	public void requestUpdatePosition() {		
 		if(userID == -1 || mapID == -1)
 			return;
-		this.state = State.WAIT_RESPONSE;
 		Protocol.RequestUpdatePosition request = Protocol.RequestUpdatePosition.newBuilder().setUserID(userID)
 				.setMapID(mapID).setX(positionX).setY(positionY).build();
 //		System.out.println("Client.requestUpdatePosition(): (" + positionX + "," + positionY + ")");
@@ -455,8 +450,9 @@ public class Client extends SocketClient {
 	public void responseUpdatePosition(Protocol.ResponseUpdatePosition response) {
 		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
 			this.state = State.SEND_REQUEST_UPDATE_POSITION;
-			positionX = rand.nextDouble() * 100;
-			positionY = rand.nextDouble() * 100;
+//			positionX = rand.nextDouble() * 100;
+//			positionY = rand.nextDouble() * 100;
+			positionX += 0.0005;
 		}
 	}
 

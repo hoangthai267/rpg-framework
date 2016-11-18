@@ -277,8 +277,7 @@ public class Prototype {
 		System.out.println(result);
 		System.out.println(result.rows().next().value().getInt("userID"));
 		for (N1qlQueryRow row : result) {
-		}
-		
+		}		
 	}
 
 	

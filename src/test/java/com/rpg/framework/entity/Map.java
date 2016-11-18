@@ -80,32 +80,7 @@ public class Map {
 				monstersRespawn.remove(monster);
 				i--;				
 			}				
-		}
-		
-		Protocol.MessageUpdateUser.Builder builder = Protocol.MessageUpdateUser.newBuilder();
-		ArrayList<Integer> channels = new ArrayList<Integer>();
-		for (Integer userID : userList) {
-			User user = UserManager.getInstance().getIdentifiedUser(userID);
-			builder.addUsers(Protocol.User.newBuilder()
-					.setId(user.getId())
-					.setPosition(Protocol.Position.newBuilder()
-							.setMapID(user.getPosition().getMapID())
-							.setX(user.getPosition().getX())
-							.setY(user.getPosition().getY()))
-					.setStats(Protocol.Stats.newBuilder()
-							.setDamage(user.getStats().getDamage())
-							.setDefense(user.getStats().getDefense())
-							.setSpeed(user.getStats().getSpeed()))
-					.setStatus(Protocol.Status.newBuilder()
-							.setCurHP(user.getStatus().getCurHP())
-							.setCurMP(user.getStatus().getCurMP())
-							.setMaxHP(user.getStatus().getMaxHP())
-							.setMaxMP(user.getStatus().getMaxMP())));		
-			
-			channels.add(user.getConnectionID());
-		}		
-		if(channels.size() != 0)
-			MessageManager.getInstance().newMessage(Message.SEND_TO_ALL, channels, Protocol.MessageType.MESSAGE_UPDATE_USER_VALUE, builder.build().toByteArray());
+		}	
 	}
 	
 	public void addUser(Integer userID) {		
@@ -129,6 +104,7 @@ public class Map {
 						
 						).build();
 		for(int i = 0; i < userList.size(); i++) {
+			System.out.println("Map.addUser()");
 			int id = userList.get(i);
 			int userConnectionID = UserManager.getInstance().getIdentifiedUser(id).getConnectionID();
 			MessageManager.getInstance().newMessage(Message.SEND_TO_ONE, userConnectionID, Protocol.MessageType.MESSAGE_NEW_USER_VALUE, message.toByteArray());
@@ -237,5 +213,24 @@ public class Map {
 					.build()
 					.toByteArray()
 				);
+	}
+	
+	public void sendMessageUpdateUser(int id, int mapID, double x, double y) {
+		Protocol.MessageUpdateUser.Builder builder = Protocol.MessageUpdateUser.newBuilder();
+		builder.setMapID(mapID);
+		builder.setX(x);
+		builder.setY(y);
+		builder.setUserID(id);
+		
+		ArrayList<Integer> channels = new ArrayList<Integer>();
+		for (Integer userID : userList) {
+			if(userID.intValue() == id)
+				continue;
+			User user = UserManager.getInstance().getIdentifiedUser(userID);				
+			channels.add(user.getConnectionID());
+		}		
+		if(channels.size() != 0) {
+			MessageManager.getInstance().newMessage(Message.SEND_TO_OTHER, channels, Protocol.MessageType.MESSAGE_UPDATE_USER_VALUE, builder.build().toByteArray());
+		}
 	}
 }
