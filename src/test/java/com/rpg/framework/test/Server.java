@@ -224,7 +224,17 @@ public class Server extends SocketServer {
 		N1qlQueryResult queryResult = couchbase.query(statement);
 		if (queryResult.allRows().size() == 1) {
 			builder.setResult(Protocol.ResponseCode.SUCCESS);
-			builder.setUserID(queryResult.rows().next().value().getInt("userID"));
+
+			int userID = queryResult.rows().next().value().getInt("userID");
+			boolean hasCharacter = couchbase.get("User_" + userID).getBoolean("hasCharacter");
+			
+			builder.setUserID(userID);
+			builder.setHasCharacter(hasCharacter);
+			
+			if(hasCharacter) {
+				userManager.addIdentifiedUser(currentChannel, userID);
+			}
+			
 		} else {
 			builder.setMessage("Invalid username or password.");
 			System.out.println(statement);
@@ -328,6 +338,7 @@ public class Server extends SocketServer {
 		builder.setResult(Protocol.ResponseCode.SUCCESS);
 		builder.setMessage("Welcome to our game.");		
 		int mapID = userManager.getIdentifiedUser(request.getUserID()).getPosition().getMapID();
+		System.out.println(mapID);
 		List<Integer> userList = mapManager.getUserList(mapID);
 		List<Integer> monsterList = mapManager.getMonsterList(mapID);
 //		List<Integer> itemList = mapManager.getItemList(1);
