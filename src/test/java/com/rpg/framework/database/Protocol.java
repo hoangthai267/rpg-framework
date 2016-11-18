@@ -11744,6 +11744,15 @@ public final class Protocol {
      * <code>required double y = 4;</code>
      */
     double getY();
+
+    /**
+     * <code>required int32 state = 5;</code>
+     */
+    boolean hasState();
+    /**
+     * <code>required int32 state = 5;</code>
+     */
+    int getState();
   }
   /**
    * Protobuf type {@code Protobuf.RequestUpdatePosition}
@@ -11815,6 +11824,11 @@ public final class Protocol {
             case 33: {
               bitField0_ |= 0x00000008;
               y_ = input.readDouble();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              state_ = input.readInt32();
               break;
             }
           }
@@ -11917,11 +11931,27 @@ public final class Protocol {
       return y_;
     }
 
+    public static final int STATE_FIELD_NUMBER = 5;
+    private int state_;
+    /**
+     * <code>required int32 state = 5;</code>
+     */
+    public boolean hasState() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required int32 state = 5;</code>
+     */
+    public int getState() {
+      return state_;
+    }
+
     private void initFields() {
       userID_ = 0;
       mapID_ = 0;
       x_ = 0D;
       y_ = 0D;
+      state_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -11945,6 +11975,10 @@ public final class Protocol {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasState()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -11963,6 +11997,9 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeDouble(4, y_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt32(5, state_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -11988,6 +12025,10 @@ public final class Protocol {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeDoubleSize(4, y_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, state_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -12114,6 +12155,8 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000004);
         y_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000008);
+        state_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -12158,6 +12201,10 @@ public final class Protocol {
           to_bitField0_ |= 0x00000008;
         }
         result.y_ = y_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.state_ = state_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -12186,6 +12233,9 @@ public final class Protocol {
         if (other.hasY()) {
           setY(other.getY());
         }
+        if (other.hasState()) {
+          setState(other.getState());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -12204,6 +12254,10 @@ public final class Protocol {
           return false;
         }
         if (!hasY()) {
+          
+          return false;
+        }
+        if (!hasState()) {
           
           return false;
         }
@@ -12353,6 +12407,38 @@ public final class Protocol {
       public Builder clearY() {
         bitField0_ = (bitField0_ & ~0x00000008);
         y_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private int state_ ;
+      /**
+       * <code>required int32 state = 5;</code>
+       */
+      public boolean hasState() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>required int32 state = 5;</code>
+       */
+      public int getState() {
+        return state_;
+      }
+      /**
+       * <code>required int32 state = 5;</code>
+       */
+      public Builder setState(int value) {
+        bitField0_ |= 0x00000010;
+        state_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 state = 5;</code>
+       */
+      public Builder clearState() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        state_ = 0;
         onChanged();
         return this;
       }
@@ -13936,22 +14022,22 @@ public final class Protocol {
     int getActionCommand();
 
     /**
-     * <code>optional float TimeStart = 3;</code>
+     * <code>optional int32 TimeStart = 3;</code>
      */
     boolean hasTimeStart();
     /**
-     * <code>optional float TimeStart = 3;</code>
+     * <code>optional int32 TimeStart = 3;</code>
      */
-    float getTimeStart();
+    int getTimeStart();
 
     /**
-     * <code>optional float TimeEnd = 4;</code>
+     * <code>optional int64 TimeEnd = 4;</code>
      */
     boolean hasTimeEnd();
     /**
-     * <code>optional float TimeEnd = 4;</code>
+     * <code>optional int64 TimeEnd = 4;</code>
      */
-    float getTimeEnd();
+    long getTimeEnd();
   }
   /**
    * Protobuf type {@code Protobuf.CharacterAction}
@@ -14015,14 +14101,14 @@ public final class Protocol {
               actionCommand_ = input.readInt32();
               break;
             }
-            case 29: {
+            case 24: {
               bitField0_ |= 0x00000004;
-              timeStart_ = input.readFloat();
+              timeStart_ = input.readInt32();
               break;
             }
-            case 37: {
+            case 32: {
               bitField0_ |= 0x00000008;
-              timeEnd_ = input.readFloat();
+              timeEnd_ = input.readInt64();
               break;
             }
           }
@@ -14096,40 +14182,40 @@ public final class Protocol {
     }
 
     public static final int TIMESTART_FIELD_NUMBER = 3;
-    private float timeStart_;
+    private int timeStart_;
     /**
-     * <code>optional float TimeStart = 3;</code>
+     * <code>optional int32 TimeStart = 3;</code>
      */
     public boolean hasTimeStart() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional float TimeStart = 3;</code>
+     * <code>optional int32 TimeStart = 3;</code>
      */
-    public float getTimeStart() {
+    public int getTimeStart() {
       return timeStart_;
     }
 
     public static final int TIMEEND_FIELD_NUMBER = 4;
-    private float timeEnd_;
+    private long timeEnd_;
     /**
-     * <code>optional float TimeEnd = 4;</code>
+     * <code>optional int64 TimeEnd = 4;</code>
      */
     public boolean hasTimeEnd() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional float TimeEnd = 4;</code>
+     * <code>optional int64 TimeEnd = 4;</code>
      */
-    public float getTimeEnd() {
+    public long getTimeEnd() {
       return timeEnd_;
     }
 
     private void initFields() {
       state_ = 0;
       actionCommand_ = 0;
-      timeStart_ = 0F;
-      timeEnd_ = 0F;
+      timeStart_ = 0;
+      timeEnd_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -14151,10 +14237,10 @@ public final class Protocol {
         output.writeInt32(2, actionCommand_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeFloat(3, timeStart_);
+        output.writeInt32(3, timeStart_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeFloat(4, timeEnd_);
+        output.writeInt64(4, timeEnd_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -14175,11 +14261,11 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(3, timeStart_);
+          .computeInt32Size(3, timeStart_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(4, timeEnd_);
+          .computeInt64Size(4, timeEnd_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -14302,9 +14388,9 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000001);
         actionCommand_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        timeStart_ = 0F;
+        timeStart_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
-        timeEnd_ = 0F;
+        timeEnd_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
@@ -14469,66 +14555,66 @@ public final class Protocol {
         return this;
       }
 
-      private float timeStart_ ;
+      private int timeStart_ ;
       /**
-       * <code>optional float TimeStart = 3;</code>
+       * <code>optional int32 TimeStart = 3;</code>
        */
       public boolean hasTimeStart() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional float TimeStart = 3;</code>
+       * <code>optional int32 TimeStart = 3;</code>
        */
-      public float getTimeStart() {
+      public int getTimeStart() {
         return timeStart_;
       }
       /**
-       * <code>optional float TimeStart = 3;</code>
+       * <code>optional int32 TimeStart = 3;</code>
        */
-      public Builder setTimeStart(float value) {
+      public Builder setTimeStart(int value) {
         bitField0_ |= 0x00000004;
         timeStart_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float TimeStart = 3;</code>
+       * <code>optional int32 TimeStart = 3;</code>
        */
       public Builder clearTimeStart() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        timeStart_ = 0F;
+        timeStart_ = 0;
         onChanged();
         return this;
       }
 
-      private float timeEnd_ ;
+      private long timeEnd_ ;
       /**
-       * <code>optional float TimeEnd = 4;</code>
+       * <code>optional int64 TimeEnd = 4;</code>
        */
       public boolean hasTimeEnd() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional float TimeEnd = 4;</code>
+       * <code>optional int64 TimeEnd = 4;</code>
        */
-      public float getTimeEnd() {
+      public long getTimeEnd() {
         return timeEnd_;
       }
       /**
-       * <code>optional float TimeEnd = 4;</code>
+       * <code>optional int64 TimeEnd = 4;</code>
        */
-      public Builder setTimeEnd(float value) {
+      public Builder setTimeEnd(long value) {
         bitField0_ |= 0x00000008;
         timeEnd_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float TimeEnd = 4;</code>
+       * <code>optional int64 TimeEnd = 4;</code>
        */
       public Builder clearTimeEnd() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        timeEnd_ = 0F;
+        timeEnd_ = 0L;
         onChanged();
         return this;
       }
@@ -26251,6 +26337,15 @@ public final class Protocol {
      * <code>required int32 userID = 4;</code>
      */
     int getUserID();
+
+    /**
+     * <code>required int32 state = 5;</code>
+     */
+    boolean hasState();
+    /**
+     * <code>required int32 state = 5;</code>
+     */
+    int getState();
   }
   /**
    * Protobuf type {@code Protobuf.MessageUpdateUser}
@@ -26322,6 +26417,11 @@ public final class Protocol {
             case 32: {
               bitField0_ |= 0x00000008;
               userID_ = input.readInt32();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              state_ = input.readInt32();
               break;
             }
           }
@@ -26424,11 +26524,27 @@ public final class Protocol {
       return userID_;
     }
 
+    public static final int STATE_FIELD_NUMBER = 5;
+    private int state_;
+    /**
+     * <code>required int32 state = 5;</code>
+     */
+    public boolean hasState() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required int32 state = 5;</code>
+     */
+    public int getState() {
+      return state_;
+    }
+
     private void initFields() {
       mapID_ = 0;
       x_ = 0D;
       y_ = 0D;
       userID_ = 0;
+      state_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -26452,6 +26568,10 @@ public final class Protocol {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasState()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -26470,6 +26590,9 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeInt32(4, userID_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt32(5, state_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -26495,6 +26618,10 @@ public final class Protocol {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(4, userID_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, state_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -26621,6 +26748,8 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000004);
         userID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
+        state_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -26665,6 +26794,10 @@ public final class Protocol {
           to_bitField0_ |= 0x00000008;
         }
         result.userID_ = userID_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.state_ = state_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -26693,6 +26826,9 @@ public final class Protocol {
         if (other.hasUserID()) {
           setUserID(other.getUserID());
         }
+        if (other.hasState()) {
+          setState(other.getState());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -26711,6 +26847,10 @@ public final class Protocol {
           return false;
         }
         if (!hasUserID()) {
+          
+          return false;
+        }
+        if (!hasState()) {
           
           return false;
         }
@@ -26860,6 +27000,38 @@ public final class Protocol {
       public Builder clearUserID() {
         bitField0_ = (bitField0_ & ~0x00000008);
         userID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int state_ ;
+      /**
+       * <code>required int32 state = 5;</code>
+       */
+      public boolean hasState() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>required int32 state = 5;</code>
+       */
+      public int getState() {
+        return state_;
+      }
+      /**
+       * <code>required int32 state = 5;</code>
+       */
+      public Builder setState(int value) {
+        bitField0_ |= 0x00000010;
+        state_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 state = 5;</code>
+       */
+      public Builder clearState() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        state_ = 0;
         onChanged();
         return this;
       }
@@ -27109,69 +27281,69 @@ public final class Protocol {
       "\022&\n\006result\030\001 \002(\0162\026.Protobuf.ResponseCode" +
       "\022\017\n\007message\030\002 \001(\t\022\035\n\005users\030\003 \003(\0132\016.Proto" +
       "buf.User\022#\n\010monsters\030\004 \003(\0132\021.Protobuf.Mo" +
-      "nster\"L\n\025RequestUpdatePosition\022\016\n\006userID" +
+      "nster\"[\n\025RequestUpdatePosition\022\016\n\006userID" +
       "\030\001 \002(\005\022\r\n\005mapID\030\002 \002(\005\022\t\n\001x\030\003 \002(\001\022\t\n\001y\030\004 " +
-      "\002(\001\"Q\n\026ResponseUpdatePosition\022&\n\006result\030" +
-      "\001 \002(\0162\026.Protobuf.ResponseCode\022\017\n\007message" +
-      "\030\002 \001(\t\"!\n\017RequestGetItems\022\016\n\006UserID\030\001 \002(",
-      "\005\"I\n\020ResponseGetItems\022&\n\006Result\030\001 \002(\0162\026." +
-      "Protobuf.ResponseCode\022\r\n\005Items\030\002 \003(\005\"[\n\017" +
-      "CharacterAction\022\r\n\005State\030\001 \001(\005\022\025\n\rAction" +
-      "Command\030\002 \001(\005\022\021\n\tTimeStart\030\003 \001(\002\022\017\n\007Time" +
-      "End\030\004 \001(\002\"Q\n\023RequestUpdateAction\022\016\n\006user" +
-      "ID\030\001 \002(\005\022*\n\007actions\030\002 \003(\0132\031.Protobuf.Cha" +
-      "racterAction\"R\n\024ResponseUpdateAction\022\016\n\006" +
-      "userID\030\001 \002(\005\022*\n\007actions\030\002 \003(\0132\031.Protobuf" +
-      ".CharacterAction\"6\n\004Item\022 \n\004type\030\001 \002(\0162\022" +
-      ".Protobuf.ItemType\022\014\n\004data\030\002 \002(\014\"\230\001\n\003Use",
-      "\022\n\n\002ID\030\001 \002(\005\022\017\n\007HPValue\030\002 \002(\005\022\017\n\007MPValue" +
-      "\030\003 \002(\005\022\020\n\010Duration\030\004 \002(\005\022\023\n\013HPPerSecond\030" +
-      "\005 \002(\005\022\023\n\013MPPerSecond\030\006 \002(\005\022\020\n\010BonusExp\030\007" +
-      " \002(\002\022\025\n\rBonusItemDrop\030\010 \002(\002\"#\n\007Collect\022\n" +
-      "\n\002ID\030\001 \002(\005\022\014\n\004Type\030\002 \002(\005\"K\n\005Equip\022\n\n\002ID\030" +
-      "\001 \002(\005\022\014\n\004Type\030\002 \002(\005\022(\n\nBonusStats\030\003 \002(\0132" +
-      "\024.Protobuf.BonusStats\"5\n\nBonusStats\022\017\n\007B" +
-      "onusHP\030\001 \001(\005\022\026\n\016BonusPercentHP\030\002 \001(\002\"\025\n\023" +
-      "RequestGetPrototype\"5\n\024ResponseGetProtot" +
-      "ype\022\035\n\005items\030\001 \003(\0132\016.Protobuf.Item\"z\n\004Us",
-      "er\022\n\n\002id\030\001 \002(\005\022$\n\010position\030\002 \002(\0132\022.Proto" +
-      "buf.Position\022 \n\006status\030\003 \002(\0132\020.Protobuf." +
-      "Status\022\036\n\005stats\030\004 \002(\0132\017.Protobuf.Stats\"\214" +
-      "\001\n\007Monster\022\n\n\002id\030\001 \002(\005\022\r\n\005index\030\002 \002(\005\022$\n" +
-      "\010position\030\003 \002(\0132\022.Protobuf.Position\022 \n\006s" +
-      "tatus\030\004 \002(\0132\020.Protobuf.Status\022\036\n\005stats\030\005" +
-      " \002(\0132\017.Protobuf.Stats\"/\n\010Position\022\r\n\005map" +
-      "ID\030\001 \002(\005\022\t\n\001x\030\002 \002(\001\022\t\n\001y\030\003 \002(\001\"D\n\006Status" +
-      "\022\r\n\005maxHP\030\001 \002(\005\022\r\n\005curHP\030\002 \002(\005\022\r\n\005maxMP\030" +
-      "\003 \002(\005\022\r\n\005curMP\030\004 \002(\005\"7\n\005Stats\022\016\n\006damage\030",
-      "\001 \002(\005\022\017\n\007defense\030\002 \002(\005\022\r\n\005speed\030\003 \002(\005\"9\n" +
-      "\022MessageKillMonster\022\r\n\005mapID\030\001 \002(\005\022\024\n\014mo" +
-      "nsterIndex\030\002 \002(\005\"<\n\025MessageRespawnMonste" +
-      "r\022\r\n\005mapID\030\001 \002(\005\022\024\n\014monsterIndex\030\002 \002(\005\"." +
-      "\n\016MessageNewUser\022\034\n\004user\030\001 \002(\0132\016.Protobu" +
-      "f.User\"1\n\021MessageDeleteUser\022\034\n\004user\030\001 \002(" +
-      "\0132\016.Protobuf.User\"H\n\021MessageUpdateUser\022\r" +
-      "\n\005mapID\030\001 \002(\005\022\t\n\001x\030\002 \002(\001\022\t\n\001y\030\003 \002(\001\022\016\n\006u" +
-      "serID\030\004 \002(\005*\327\004\n\013MessageType\022\021\n\rREQUEST_L" +
-      "OGIN\020\000\022\021\n\rRESPONE_LOGIN\020\001\022\024\n\020REQUEST_REG",
-      "ISTER\020\002\022\024\n\020RESPONE_REGISTER\020\003\022\031\n\025REQUEST" +
-      "_GET_CHARACTER\020\004\022\031\n\025RESPONE_GET_CHARACTE" +
-      "R\020\005\022\034\n\030REQUEST_CREATE_CHARACTER\020\006\022\034\n\030RES" +
-      "PONE_CREATE_CHARACTER\020\007\022\026\n\022REQUEST_START" +
-      "_GAME\020\010\022\026\n\022RESPONE_START_GAME\020\t\022\033\n\027REQUE" +
-      "ST_UPDATE_POSITION\020\n\022\033\n\027RESPONE_UPDATE_P" +
-      "OSITION\020\013\022\025\n\021REQUEST_GET_ITEMS\020\014\022\026\n\022RESP" +
-      "ONSE_GET_ITEMS\020\r\022\031\n\025REQUEST_UPDATE_ACTIO" +
-      "N\020\016\022\032\n\026RESPONSE_UPDATE_ACTION\020\017\022\031\n\025REQUE" +
-      "ST_GET_PROTOTYPE\020\020\022\032\n\026RESPONSE_GET_PROTO",
-      "TYPE\020\021\022\030\n\024MESSAGE_KILL_MONSTER\020\022\022\033\n\027MESS" +
-      "AGE_RESPAWN_MONSTER\020\023\022\024\n\020MESSAGE_NEW_USE" +
-      "R\020\024\022\027\n\023MESSAGE_DELETE_USER\020\025\022\027\n\023MESSAGE_" +
-      "UPDATE_USER\020\026*/\n\014ResponseCode\022\013\n\007SUCCESS" +
-      "\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rIT" +
-      "EM_TYPE_USE\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017" +
-      "ITEM_TYPE_EQUIP\020\002B\036\n\032com.rpg.framework.d" +
-      "atabaseH\001"
+      "\002(\001\022\r\n\005state\030\005 \002(\005\"Q\n\026ResponseUpdatePosi" +
+      "tion\022&\n\006result\030\001 \002(\0162\026.Protobuf.Response" +
+      "Code\022\017\n\007message\030\002 \001(\t\"!\n\017RequestGetItems",
+      "\022\016\n\006UserID\030\001 \002(\005\"I\n\020ResponseGetItems\022&\n\006" +
+      "Result\030\001 \002(\0162\026.Protobuf.ResponseCode\022\r\n\005" +
+      "Items\030\002 \003(\005\"[\n\017CharacterAction\022\r\n\005State\030" +
+      "\001 \001(\005\022\025\n\rActionCommand\030\002 \001(\005\022\021\n\tTimeStar" +
+      "t\030\003 \001(\005\022\017\n\007TimeEnd\030\004 \001(\003\"Q\n\023RequestUpdat" +
+      "eAction\022\016\n\006userID\030\001 \002(\005\022*\n\007actions\030\002 \003(\013" +
+      "2\031.Protobuf.CharacterAction\"R\n\024ResponseU" +
+      "pdateAction\022\016\n\006userID\030\001 \002(\005\022*\n\007actions\030\002" +
+      " \003(\0132\031.Protobuf.CharacterAction\"6\n\004Item\022" +
+      " \n\004type\030\001 \002(\0162\022.Protobuf.ItemType\022\014\n\004dat",
+      "a\030\002 \002(\014\"\230\001\n\003Use\022\n\n\002ID\030\001 \002(\005\022\017\n\007HPValue\030\002" +
+      " \002(\005\022\017\n\007MPValue\030\003 \002(\005\022\020\n\010Duration\030\004 \002(\005\022" +
+      "\023\n\013HPPerSecond\030\005 \002(\005\022\023\n\013MPPerSecond\030\006 \002(" +
+      "\005\022\020\n\010BonusExp\030\007 \002(\002\022\025\n\rBonusItemDrop\030\010 \002" +
+      "(\002\"#\n\007Collect\022\n\n\002ID\030\001 \002(\005\022\014\n\004Type\030\002 \002(\005\"" +
+      "K\n\005Equip\022\n\n\002ID\030\001 \002(\005\022\014\n\004Type\030\002 \002(\005\022(\n\nBo" +
+      "nusStats\030\003 \002(\0132\024.Protobuf.BonusStats\"5\n\n" +
+      "BonusStats\022\017\n\007BonusHP\030\001 \001(\005\022\026\n\016BonusPerc" +
+      "entHP\030\002 \001(\002\"\025\n\023RequestGetPrototype\"5\n\024Re" +
+      "sponseGetPrototype\022\035\n\005items\030\001 \003(\0132\016.Prot",
+      "obuf.Item\"z\n\004User\022\n\n\002id\030\001 \002(\005\022$\n\010positio" +
+      "n\030\002 \002(\0132\022.Protobuf.Position\022 \n\006status\030\003 " +
+      "\002(\0132\020.Protobuf.Status\022\036\n\005stats\030\004 \002(\0132\017.P" +
+      "rotobuf.Stats\"\214\001\n\007Monster\022\n\n\002id\030\001 \002(\005\022\r\n" +
+      "\005index\030\002 \002(\005\022$\n\010position\030\003 \002(\0132\022.Protobu" +
+      "f.Position\022 \n\006status\030\004 \002(\0132\020.Protobuf.St" +
+      "atus\022\036\n\005stats\030\005 \002(\0132\017.Protobuf.Stats\"/\n\010" +
+      "Position\022\r\n\005mapID\030\001 \002(\005\022\t\n\001x\030\002 \002(\001\022\t\n\001y\030" +
+      "\003 \002(\001\"D\n\006Status\022\r\n\005maxHP\030\001 \002(\005\022\r\n\005curHP\030" +
+      "\002 \002(\005\022\r\n\005maxMP\030\003 \002(\005\022\r\n\005curMP\030\004 \002(\005\"7\n\005S",
+      "tats\022\016\n\006damage\030\001 \002(\005\022\017\n\007defense\030\002 \002(\005\022\r\n" +
+      "\005speed\030\003 \002(\005\"9\n\022MessageKillMonster\022\r\n\005ma" +
+      "pID\030\001 \002(\005\022\024\n\014monsterIndex\030\002 \002(\005\"<\n\025Messa" +
+      "geRespawnMonster\022\r\n\005mapID\030\001 \002(\005\022\024\n\014monst" +
+      "erIndex\030\002 \002(\005\".\n\016MessageNewUser\022\034\n\004user\030" +
+      "\001 \002(\0132\016.Protobuf.User\"1\n\021MessageDeleteUs" +
+      "er\022\034\n\004user\030\001 \002(\0132\016.Protobuf.User\"W\n\021Mess" +
+      "ageUpdateUser\022\r\n\005mapID\030\001 \002(\005\022\t\n\001x\030\002 \002(\001\022" +
+      "\t\n\001y\030\003 \002(\001\022\016\n\006userID\030\004 \002(\005\022\r\n\005state\030\005 \002(" +
+      "\005*\327\004\n\013MessageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\r",
+      "RESPONE_LOGIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n" +
+      "\020RESPONE_REGISTER\020\003\022\031\n\025REQUEST_GET_CHARA" +
+      "CTER\020\004\022\031\n\025RESPONE_GET_CHARACTER\020\005\022\034\n\030REQ" +
+      "UEST_CREATE_CHARACTER\020\006\022\034\n\030RESPONE_CREAT" +
+      "E_CHARACTER\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n" +
+      "\022RESPONE_START_GAME\020\t\022\033\n\027REQUEST_UPDATE_" +
+      "POSITION\020\n\022\033\n\027RESPONE_UPDATE_POSITION\020\013\022" +
+      "\025\n\021REQUEST_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_I" +
+      "TEMS\020\r\022\031\n\025REQUEST_UPDATE_ACTION\020\016\022\032\n\026RES" +
+      "PONSE_UPDATE_ACTION\020\017\022\031\n\025REQUEST_GET_PRO",
+      "TOTYPE\020\020\022\032\n\026RESPONSE_GET_PROTOTYPE\020\021\022\030\n\024" +
+      "MESSAGE_KILL_MONSTER\020\022\022\033\n\027MESSAGE_RESPAW" +
+      "N_MONSTER\020\023\022\024\n\020MESSAGE_NEW_USER\020\024\022\027\n\023MES" +
+      "SAGE_DELETE_USER\020\025\022\027\n\023MESSAGE_UPDATE_USE" +
+      "R\020\026*/\n\014ResponseCode\022\013\n\007SUCCESS\020\001\022\010\n\004FAIL" +
+      "\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rITEM_TYPE_US" +
+      "E\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017ITEM_TYPE_" +
+      "EQUIP\020\002B\036\n\032com.rpg.framework.databaseH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -27274,7 +27446,7 @@ public final class Protocol {
     internal_static_Protobuf_RequestUpdatePosition_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_RequestUpdatePosition_descriptor,
-        new java.lang.String[] { "UserID", "MapID", "X", "Y", });
+        new java.lang.String[] { "UserID", "MapID", "X", "Y", "State", });
     internal_static_Protobuf_ResponseUpdatePosition_descriptor =
       getDescriptor().getMessageTypes().get(15);
     internal_static_Protobuf_ResponseUpdatePosition_fieldAccessorTable = new
@@ -27412,7 +27584,7 @@ public final class Protocol {
     internal_static_Protobuf_MessageUpdateUser_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageUpdateUser_descriptor,
-        new java.lang.String[] { "MapID", "X", "Y", "UserID", });
+        new java.lang.String[] { "MapID", "X", "Y", "UserID", "State", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

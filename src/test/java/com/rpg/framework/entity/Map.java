@@ -215,12 +215,13 @@ public class Map {
 				);
 	}
 	
-	public void sendMessageUpdateUser(int id, int mapID, double x, double y) {
+	public void sendMessageUpdateUser(int id, int mapID, double x, double y, int state) {
 		Protocol.MessageUpdateUser.Builder builder = Protocol.MessageUpdateUser.newBuilder();
 		builder.setMapID(mapID);
 		builder.setX(x);
 		builder.setY(y);
 		builder.setUserID(id);
+		builder.setState(state);
 		
 		ArrayList<Integer> channels = new ArrayList<Integer>();
 		for (Integer userID : userList) {

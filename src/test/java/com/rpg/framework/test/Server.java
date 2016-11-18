@@ -58,7 +58,7 @@ public class Server extends SocketServer {
 	
 	public synchronized boolean start() {
 		super.start();
-		System.out.println("Start at host: " + host);
+		System.out.println("Start at host: " + host + " port " + port);
 		
 		loop();
 		return true;
@@ -422,7 +422,7 @@ public class Server extends SocketServer {
 				.put("y", request.getY());
 		
 		userManager.getIdentifiedUser(request.getUserID()).getPosition().set(request.getMapID(), request.getX(), request.getY());
-		mapManager.sendMessageUpdateUser(request.getMapID(), request.getUserID(), request.getX(), request.getY());
+		mapManager.sendMessageUpdateUser(request.getMapID(), request.getUserID(), request.getX(), request.getY(), request.getState());
 		
 		pool.set(id, characterPosition);
 
