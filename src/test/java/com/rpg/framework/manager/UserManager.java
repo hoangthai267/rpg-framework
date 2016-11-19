@@ -134,8 +134,11 @@ public class UserManager {
 			User user = iterator.next();
 			if (connectionID == user.getConnectionID()) {
 //				System.out.println("UserManager.removeIdentifiedUser() connectionID: " + connectionID + " userID: " + user.getId());
-				MapManager.getInstance().exitMap(user.getId(), user.getPosition().getMapID());
-				identifiedUsers.remove(user);
+				JsonObject userObject = DataManager.getInstance().getCouchbase().get("User_" + user.getId());
+				userObject.put("hasLogin", false);
+				DataManager.getInstance().getCouchbase().set("User_" + user.getId(), userObject);
+				MapManager.getInstance().exitMap(user.getId(), user.getPosition().getMapID());				
+				identifiedUsers.remove(user);			
 				return true;
 			}
 		}

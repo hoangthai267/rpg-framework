@@ -14022,22 +14022,22 @@ public final class Protocol {
     int getActionCommand();
 
     /**
-     * <code>optional int32 TimeStart = 3;</code>
+     * <code>optional int32 Type = 3;</code>
      */
-    boolean hasTimeStart();
+    boolean hasType();
     /**
-     * <code>optional int32 TimeStart = 3;</code>
+     * <code>optional int32 Type = 3;</code>
      */
-    int getTimeStart();
+    int getType();
 
     /**
-     * <code>optional int64 TimeEnd = 4;</code>
+     * <code>optional float TimeRecord = 4;</code>
      */
-    boolean hasTimeEnd();
+    boolean hasTimeRecord();
     /**
-     * <code>optional int64 TimeEnd = 4;</code>
+     * <code>optional float TimeRecord = 4;</code>
      */
-    long getTimeEnd();
+    float getTimeRecord();
   }
   /**
    * Protobuf type {@code Protobuf.CharacterAction}
@@ -14103,12 +14103,12 @@ public final class Protocol {
             }
             case 24: {
               bitField0_ |= 0x00000004;
-              timeStart_ = input.readInt32();
+              type_ = input.readInt32();
               break;
             }
-            case 32: {
+            case 37: {
               bitField0_ |= 0x00000008;
-              timeEnd_ = input.readInt64();
+              timeRecord_ = input.readFloat();
               break;
             }
           }
@@ -14181,41 +14181,41 @@ public final class Protocol {
       return actionCommand_;
     }
 
-    public static final int TIMESTART_FIELD_NUMBER = 3;
-    private int timeStart_;
+    public static final int TYPE_FIELD_NUMBER = 3;
+    private int type_;
     /**
-     * <code>optional int32 TimeStart = 3;</code>
+     * <code>optional int32 Type = 3;</code>
      */
-    public boolean hasTimeStart() {
+    public boolean hasType() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional int32 TimeStart = 3;</code>
+     * <code>optional int32 Type = 3;</code>
      */
-    public int getTimeStart() {
-      return timeStart_;
+    public int getType() {
+      return type_;
     }
 
-    public static final int TIMEEND_FIELD_NUMBER = 4;
-    private long timeEnd_;
+    public static final int TIMERECORD_FIELD_NUMBER = 4;
+    private float timeRecord_;
     /**
-     * <code>optional int64 TimeEnd = 4;</code>
+     * <code>optional float TimeRecord = 4;</code>
      */
-    public boolean hasTimeEnd() {
+    public boolean hasTimeRecord() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional int64 TimeEnd = 4;</code>
+     * <code>optional float TimeRecord = 4;</code>
      */
-    public long getTimeEnd() {
-      return timeEnd_;
+    public float getTimeRecord() {
+      return timeRecord_;
     }
 
     private void initFields() {
       state_ = 0;
       actionCommand_ = 0;
-      timeStart_ = 0;
-      timeEnd_ = 0L;
+      type_ = 0;
+      timeRecord_ = 0F;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -14237,10 +14237,10 @@ public final class Protocol {
         output.writeInt32(2, actionCommand_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt32(3, timeStart_);
+        output.writeInt32(3, type_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeInt64(4, timeEnd_);
+        output.writeFloat(4, timeRecord_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -14261,11 +14261,11 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, timeStart_);
+          .computeInt32Size(3, type_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(4, timeEnd_);
+          .computeFloatSize(4, timeRecord_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -14388,9 +14388,9 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000001);
         actionCommand_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        timeStart_ = 0;
+        type_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
-        timeEnd_ = 0L;
+        timeRecord_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
@@ -14431,11 +14431,11 @@ public final class Protocol {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.timeStart_ = timeStart_;
+        result.type_ = type_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.timeEnd_ = timeEnd_;
+        result.timeRecord_ = timeRecord_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -14458,11 +14458,11 @@ public final class Protocol {
         if (other.hasActionCommand()) {
           setActionCommand(other.getActionCommand());
         }
-        if (other.hasTimeStart()) {
-          setTimeStart(other.getTimeStart());
+        if (other.hasType()) {
+          setType(other.getType());
         }
-        if (other.hasTimeEnd()) {
-          setTimeEnd(other.getTimeEnd());
+        if (other.hasTimeRecord()) {
+          setTimeRecord(other.getTimeRecord());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -14555,66 +14555,66 @@ public final class Protocol {
         return this;
       }
 
-      private int timeStart_ ;
+      private int type_ ;
       /**
-       * <code>optional int32 TimeStart = 3;</code>
+       * <code>optional int32 Type = 3;</code>
        */
-      public boolean hasTimeStart() {
+      public boolean hasType() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional int32 TimeStart = 3;</code>
+       * <code>optional int32 Type = 3;</code>
        */
-      public int getTimeStart() {
-        return timeStart_;
+      public int getType() {
+        return type_;
       }
       /**
-       * <code>optional int32 TimeStart = 3;</code>
+       * <code>optional int32 Type = 3;</code>
        */
-      public Builder setTimeStart(int value) {
+      public Builder setType(int value) {
         bitField0_ |= 0x00000004;
-        timeStart_ = value;
+        type_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 TimeStart = 3;</code>
+       * <code>optional int32 Type = 3;</code>
        */
-      public Builder clearTimeStart() {
+      public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        timeStart_ = 0;
+        type_ = 0;
         onChanged();
         return this;
       }
 
-      private long timeEnd_ ;
+      private float timeRecord_ ;
       /**
-       * <code>optional int64 TimeEnd = 4;</code>
+       * <code>optional float TimeRecord = 4;</code>
        */
-      public boolean hasTimeEnd() {
+      public boolean hasTimeRecord() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional int64 TimeEnd = 4;</code>
+       * <code>optional float TimeRecord = 4;</code>
        */
-      public long getTimeEnd() {
-        return timeEnd_;
+      public float getTimeRecord() {
+        return timeRecord_;
       }
       /**
-       * <code>optional int64 TimeEnd = 4;</code>
+       * <code>optional float TimeRecord = 4;</code>
        */
-      public Builder setTimeEnd(long value) {
+      public Builder setTimeRecord(float value) {
         bitField0_ |= 0x00000008;
-        timeEnd_ = value;
+        timeRecord_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 TimeEnd = 4;</code>
+       * <code>optional float TimeRecord = 4;</code>
        */
-      public Builder clearTimeEnd() {
+      public Builder clearTimeRecord() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        timeEnd_ = 0L;
+        timeRecord_ = 0F;
         onChanged();
         return this;
       }
@@ -27288,62 +27288,62 @@ public final class Protocol {
       "Code\022\017\n\007message\030\002 \001(\t\"!\n\017RequestGetItems",
       "\022\016\n\006UserID\030\001 \002(\005\"I\n\020ResponseGetItems\022&\n\006" +
       "Result\030\001 \002(\0162\026.Protobuf.ResponseCode\022\r\n\005" +
-      "Items\030\002 \003(\005\"[\n\017CharacterAction\022\r\n\005State\030" +
-      "\001 \001(\005\022\025\n\rActionCommand\030\002 \001(\005\022\021\n\tTimeStar" +
-      "t\030\003 \001(\005\022\017\n\007TimeEnd\030\004 \001(\003\"Q\n\023RequestUpdat" +
-      "eAction\022\016\n\006userID\030\001 \002(\005\022*\n\007actions\030\002 \003(\013" +
-      "2\031.Protobuf.CharacterAction\"R\n\024ResponseU" +
-      "pdateAction\022\016\n\006userID\030\001 \002(\005\022*\n\007actions\030\002" +
-      " \003(\0132\031.Protobuf.CharacterAction\"6\n\004Item\022" +
-      " \n\004type\030\001 \002(\0162\022.Protobuf.ItemType\022\014\n\004dat",
-      "a\030\002 \002(\014\"\230\001\n\003Use\022\n\n\002ID\030\001 \002(\005\022\017\n\007HPValue\030\002" +
-      " \002(\005\022\017\n\007MPValue\030\003 \002(\005\022\020\n\010Duration\030\004 \002(\005\022" +
-      "\023\n\013HPPerSecond\030\005 \002(\005\022\023\n\013MPPerSecond\030\006 \002(" +
-      "\005\022\020\n\010BonusExp\030\007 \002(\002\022\025\n\rBonusItemDrop\030\010 \002" +
-      "(\002\"#\n\007Collect\022\n\n\002ID\030\001 \002(\005\022\014\n\004Type\030\002 \002(\005\"" +
-      "K\n\005Equip\022\n\n\002ID\030\001 \002(\005\022\014\n\004Type\030\002 \002(\005\022(\n\nBo" +
-      "nusStats\030\003 \002(\0132\024.Protobuf.BonusStats\"5\n\n" +
-      "BonusStats\022\017\n\007BonusHP\030\001 \001(\005\022\026\n\016BonusPerc" +
-      "entHP\030\002 \001(\002\"\025\n\023RequestGetPrototype\"5\n\024Re" +
-      "sponseGetPrototype\022\035\n\005items\030\001 \003(\0132\016.Prot",
-      "obuf.Item\"z\n\004User\022\n\n\002id\030\001 \002(\005\022$\n\010positio" +
-      "n\030\002 \002(\0132\022.Protobuf.Position\022 \n\006status\030\003 " +
-      "\002(\0132\020.Protobuf.Status\022\036\n\005stats\030\004 \002(\0132\017.P" +
-      "rotobuf.Stats\"\214\001\n\007Monster\022\n\n\002id\030\001 \002(\005\022\r\n" +
-      "\005index\030\002 \002(\005\022$\n\010position\030\003 \002(\0132\022.Protobu" +
-      "f.Position\022 \n\006status\030\004 \002(\0132\020.Protobuf.St" +
-      "atus\022\036\n\005stats\030\005 \002(\0132\017.Protobuf.Stats\"/\n\010" +
-      "Position\022\r\n\005mapID\030\001 \002(\005\022\t\n\001x\030\002 \002(\001\022\t\n\001y\030" +
-      "\003 \002(\001\"D\n\006Status\022\r\n\005maxHP\030\001 \002(\005\022\r\n\005curHP\030" +
-      "\002 \002(\005\022\r\n\005maxMP\030\003 \002(\005\022\r\n\005curMP\030\004 \002(\005\"7\n\005S",
-      "tats\022\016\n\006damage\030\001 \002(\005\022\017\n\007defense\030\002 \002(\005\022\r\n" +
-      "\005speed\030\003 \002(\005\"9\n\022MessageKillMonster\022\r\n\005ma" +
-      "pID\030\001 \002(\005\022\024\n\014monsterIndex\030\002 \002(\005\"<\n\025Messa" +
-      "geRespawnMonster\022\r\n\005mapID\030\001 \002(\005\022\024\n\014monst" +
-      "erIndex\030\002 \002(\005\".\n\016MessageNewUser\022\034\n\004user\030" +
-      "\001 \002(\0132\016.Protobuf.User\"1\n\021MessageDeleteUs" +
-      "er\022\034\n\004user\030\001 \002(\0132\016.Protobuf.User\"W\n\021Mess" +
-      "ageUpdateUser\022\r\n\005mapID\030\001 \002(\005\022\t\n\001x\030\002 \002(\001\022" +
-      "\t\n\001y\030\003 \002(\001\022\016\n\006userID\030\004 \002(\005\022\r\n\005state\030\005 \002(" +
-      "\005*\327\004\n\013MessageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\r",
-      "RESPONE_LOGIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n" +
-      "\020RESPONE_REGISTER\020\003\022\031\n\025REQUEST_GET_CHARA" +
-      "CTER\020\004\022\031\n\025RESPONE_GET_CHARACTER\020\005\022\034\n\030REQ" +
-      "UEST_CREATE_CHARACTER\020\006\022\034\n\030RESPONE_CREAT" +
-      "E_CHARACTER\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n" +
-      "\022RESPONE_START_GAME\020\t\022\033\n\027REQUEST_UPDATE_" +
-      "POSITION\020\n\022\033\n\027RESPONE_UPDATE_POSITION\020\013\022" +
-      "\025\n\021REQUEST_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_I" +
-      "TEMS\020\r\022\031\n\025REQUEST_UPDATE_ACTION\020\016\022\032\n\026RES" +
-      "PONSE_UPDATE_ACTION\020\017\022\031\n\025REQUEST_GET_PRO",
-      "TOTYPE\020\020\022\032\n\026RESPONSE_GET_PROTOTYPE\020\021\022\030\n\024" +
-      "MESSAGE_KILL_MONSTER\020\022\022\033\n\027MESSAGE_RESPAW" +
-      "N_MONSTER\020\023\022\024\n\020MESSAGE_NEW_USER\020\024\022\027\n\023MES" +
-      "SAGE_DELETE_USER\020\025\022\027\n\023MESSAGE_UPDATE_USE" +
-      "R\020\026*/\n\014ResponseCode\022\013\n\007SUCCESS\020\001\022\010\n\004FAIL" +
-      "\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rITEM_TYPE_US" +
-      "E\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017ITEM_TYPE_" +
-      "EQUIP\020\002B\036\n\032com.rpg.framework.databaseH\001"
+      "Items\030\002 \003(\005\"Y\n\017CharacterAction\022\r\n\005State\030" +
+      "\001 \001(\005\022\025\n\rActionCommand\030\002 \001(\005\022\014\n\004Type\030\003 \001" +
+      "(\005\022\022\n\nTimeRecord\030\004 \001(\002\"Q\n\023RequestUpdateA" +
+      "ction\022\016\n\006userID\030\001 \002(\005\022*\n\007actions\030\002 \003(\0132\031" +
+      ".Protobuf.CharacterAction\"R\n\024ResponseUpd" +
+      "ateAction\022\016\n\006userID\030\001 \002(\005\022*\n\007actions\030\002 \003" +
+      "(\0132\031.Protobuf.CharacterAction\"6\n\004Item\022 \n" +
+      "\004type\030\001 \002(\0162\022.Protobuf.ItemType\022\014\n\004data\030",
+      "\002 \002(\014\"\230\001\n\003Use\022\n\n\002ID\030\001 \002(\005\022\017\n\007HPValue\030\002 \002" +
+      "(\005\022\017\n\007MPValue\030\003 \002(\005\022\020\n\010Duration\030\004 \002(\005\022\023\n" +
+      "\013HPPerSecond\030\005 \002(\005\022\023\n\013MPPerSecond\030\006 \002(\005\022" +
+      "\020\n\010BonusExp\030\007 \002(\002\022\025\n\rBonusItemDrop\030\010 \002(\002" +
+      "\"#\n\007Collect\022\n\n\002ID\030\001 \002(\005\022\014\n\004Type\030\002 \002(\005\"K\n" +
+      "\005Equip\022\n\n\002ID\030\001 \002(\005\022\014\n\004Type\030\002 \002(\005\022(\n\nBonu" +
+      "sStats\030\003 \002(\0132\024.Protobuf.BonusStats\"5\n\nBo" +
+      "nusStats\022\017\n\007BonusHP\030\001 \001(\005\022\026\n\016BonusPercen" +
+      "tHP\030\002 \001(\002\"\025\n\023RequestGetPrototype\"5\n\024Resp" +
+      "onseGetPrototype\022\035\n\005items\030\001 \003(\0132\016.Protob",
+      "uf.Item\"z\n\004User\022\n\n\002id\030\001 \002(\005\022$\n\010position\030" +
+      "\002 \002(\0132\022.Protobuf.Position\022 \n\006status\030\003 \002(" +
+      "\0132\020.Protobuf.Status\022\036\n\005stats\030\004 \002(\0132\017.Pro" +
+      "tobuf.Stats\"\214\001\n\007Monster\022\n\n\002id\030\001 \002(\005\022\r\n\005i" +
+      "ndex\030\002 \002(\005\022$\n\010position\030\003 \002(\0132\022.Protobuf." +
+      "Position\022 \n\006status\030\004 \002(\0132\020.Protobuf.Stat" +
+      "us\022\036\n\005stats\030\005 \002(\0132\017.Protobuf.Stats\"/\n\010Po" +
+      "sition\022\r\n\005mapID\030\001 \002(\005\022\t\n\001x\030\002 \002(\001\022\t\n\001y\030\003 " +
+      "\002(\001\"D\n\006Status\022\r\n\005maxHP\030\001 \002(\005\022\r\n\005curHP\030\002 " +
+      "\002(\005\022\r\n\005maxMP\030\003 \002(\005\022\r\n\005curMP\030\004 \002(\005\"7\n\005Sta",
+      "ts\022\016\n\006damage\030\001 \002(\005\022\017\n\007defense\030\002 \002(\005\022\r\n\005s" +
+      "peed\030\003 \002(\005\"9\n\022MessageKillMonster\022\r\n\005mapI" +
+      "D\030\001 \002(\005\022\024\n\014monsterIndex\030\002 \002(\005\"<\n\025Message" +
+      "RespawnMonster\022\r\n\005mapID\030\001 \002(\005\022\024\n\014monster" +
+      "Index\030\002 \002(\005\".\n\016MessageNewUser\022\034\n\004user\030\001 " +
+      "\002(\0132\016.Protobuf.User\"1\n\021MessageDeleteUser" +
+      "\022\034\n\004user\030\001 \002(\0132\016.Protobuf.User\"W\n\021Messag" +
+      "eUpdateUser\022\r\n\005mapID\030\001 \002(\005\022\t\n\001x\030\002 \002(\001\022\t\n" +
+      "\001y\030\003 \002(\001\022\016\n\006userID\030\004 \002(\005\022\r\n\005state\030\005 \002(\005*" +
+      "\327\004\n\013MessageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRE",
+      "SPONE_LOGIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020R" +
+      "ESPONE_REGISTER\020\003\022\031\n\025REQUEST_GET_CHARACT" +
+      "ER\020\004\022\031\n\025RESPONE_GET_CHARACTER\020\005\022\034\n\030REQUE" +
+      "ST_CREATE_CHARACTER\020\006\022\034\n\030RESPONE_CREATE_" +
+      "CHARACTER\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022R" +
+      "ESPONE_START_GAME\020\t\022\033\n\027REQUEST_UPDATE_PO" +
+      "SITION\020\n\022\033\n\027RESPONE_UPDATE_POSITION\020\013\022\025\n" +
+      "\021REQUEST_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITE" +
+      "MS\020\r\022\031\n\025REQUEST_UPDATE_ACTION\020\016\022\032\n\026RESPO" +
+      "NSE_UPDATE_ACTION\020\017\022\031\n\025REQUEST_GET_PROTO",
+      "TYPE\020\020\022\032\n\026RESPONSE_GET_PROTOTYPE\020\021\022\030\n\024ME" +
+      "SSAGE_KILL_MONSTER\020\022\022\033\n\027MESSAGE_RESPAWN_" +
+      "MONSTER\020\023\022\024\n\020MESSAGE_NEW_USER\020\024\022\027\n\023MESSA" +
+      "GE_DELETE_USER\020\025\022\027\n\023MESSAGE_UPDATE_USER\020" +
+      "\026*/\n\014ResponseCode\022\013\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002" +
+      "\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rITEM_TYPE_USE\020" +
+      "\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017ITEM_TYPE_EQ" +
+      "UIP\020\002B\036\n\032com.rpg.framework.databaseH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -27470,7 +27470,7 @@ public final class Protocol {
     internal_static_Protobuf_CharacterAction_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_CharacterAction_descriptor,
-        new java.lang.String[] { "State", "ActionCommand", "TimeStart", "TimeEnd", });
+        new java.lang.String[] { "State", "ActionCommand", "Type", "TimeRecord", });
     internal_static_Protobuf_RequestUpdateAction_descriptor =
       getDescriptor().getMessageTypes().get(19);
     internal_static_Protobuf_RequestUpdateAction_fieldAccessorTable = new

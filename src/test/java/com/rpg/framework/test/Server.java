@@ -66,7 +66,7 @@ public class Server extends SocketServer {
 	
 	public void loop() {
 		long lastLoopTime = System.nanoTime();
-		final int TARGET_FPS = 5;
+		final int TARGET_FPS = 60;
 		final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
 		long lastFpsTime = 0;
 		int fps = 0;
@@ -241,16 +241,27 @@ public class Server extends SocketServer {
 		
 		N1qlQueryResult queryResult = couchbase.query(statement);
 		if (queryResult.allRows().size() == 1) {
-			builder.setResult(Protocol.ResponseCode.SUCCESS);
 
 			int userID = queryResult.rows().next().value().getInt("userID");
-			boolean hasCharacter = couchbase.get("User_" + userID).getBoolean("hasCharacter");
 			
-			builder.setUserID(userID);
-			builder.setHasCharacter(hasCharacter);
+			JsonObject user = couchbase.get("User_" + userID);
+
+			boolean hasCharacter = user.getBoolean("hasCharacter");
+			boolean hasLogin = user.getBoolean("hasLogin");
 			
-			if(hasCharacter) {
+			
+			if(hasCharacter && !hasLogin) {
 				userManager.addIdentifiedUser(currentChannel, userID);
+				user.put("hasLogin", true);
+				couchbase.set("User_" + userID, user);
+				builder.setResult(Protocol.ResponseCode.SUCCESS);
+				builder.setUserID(userID);
+				builder.setHasCharacter(hasCharacter);
+			}
+			
+			if(hasLogin) {
+				builder.setMessage("The account has been logged.");
+				builder.setUserID(userID);
 			}
 			
 		} else {
@@ -274,7 +285,7 @@ public class Server extends SocketServer {
 		long count = couchbase.counter("index", 1);
 
 		JsonObject user = JsonObject.create().put("username", request.getUsername())
-				.put("password", request.getPassword()).put("userID", count).put("hasCharacter", false);
+				.put("password", request.getPassword()).put("userID", count).put("hasCharacter", false).put("hasLogin", false);
 
 		accounts.put(request.getUsername(), user);
 		

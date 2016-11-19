@@ -142,7 +142,8 @@ public class Client extends SocketClient {
 //			requestUpdateAction();
 //			requestUpdatePosition();
 //			System.out.println("Position: (" + positionX + ", " + positionY + ")" );
-			updatedTime -= 0.5f;			
+			updatedTime -= 0.5f;		
+			requestUpdateAction();
 		} else {
 			updatedTime += delta;			
 		}
@@ -191,6 +192,7 @@ public class Client extends SocketClient {
 		case START: {
 			start();
 //			requestGetPrototype();
+			requestUpdateAction();
 			break;
 		}
 		case STOP: {
@@ -260,7 +262,7 @@ public class Client extends SocketClient {
 				break;
 			}
 			case Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE: {
-				System.out.println(Protocol.ResponseUpdateAction.parseFrom(data).getUserID());
+				System.out.println("RESPONSE_UPDATE_ACTION_VALUE:" + Protocol.ResponseUpdateAction.parseFrom(data).getUserID());
 				break;
 			}
 			case Protocol.MessageType.RESPONSE_GET_PROTOTYPE_VALUE: {
@@ -278,7 +280,7 @@ public class Client extends SocketClient {
 			
 			case Protocol.MessageType.MESSAGE_NEW_USER_VALUE: {
 				Protocol.User user = Protocol.MessageNewUser.parseFrom(data).getUser();
-				System.out.println("MESSAGE_NEW_USER_VALUE: " + user.getId() + " Position: (" + user.getPosition().getX() + ", " + user.getPosition().getY() + ")" );
+//				System.out.println("MESSAGE_NEW_USER_VALUE: " + user.getId() + " Position: (" + user.getPosition().getX() + ", " + user.getPosition().getY() + ")" );
 				break;
 			}
 			
@@ -288,7 +290,7 @@ public class Client extends SocketClient {
 				break;
 			}
 			case Protocol.MessageType.MESSAGE_UPDATE_USER_VALUE: {
-				System.out.println("MESSAGE_UPDATE_USER_VALUE: ");
+//				System.out.println("MESSAGE_UPDATE_USER_VALUE: ");
 			}
 			
 			default: {
@@ -357,7 +359,7 @@ public class Client extends SocketClient {
 		if(userID == -1 || mapID == -1)
 			return;
 		Protocol.RequestUpdatePosition request = Protocol.RequestUpdatePosition.newBuilder().setUserID(userID)
-				.setMapID(mapID).setX(positionX).setY(positionY).build();
+				.setMapID(mapID).setX(positionX).setY(positionY).setState(1).build();
 //		System.out.println("Client.requestUpdatePosition(): (" + positionX + "," + positionY + ")");
 		send(Protocol.MessageType.REQUEST_UPDATE_POSITION_VALUE, request.toByteArray());
 	}
@@ -371,19 +373,21 @@ public class Client extends SocketClient {
 	}
 	
 	public void requestUpdateAction() {
+		if(userID == -1 || mapID == -1)
+			return;
 		System.out.println("Client.requestUpdateAction()");
 		Protocol.RequestUpdateAction.Builder builder = Protocol.RequestUpdateAction.newBuilder();
 		builder.setUserID(userID);
 		builder.addActions(Protocol.CharacterAction.newBuilder()
 				.setState(10)
 				.setActionCommand(100)
-				.setTimeStart(10)
-				.setTimeEnd(100).build());
+				.setType(10)
+				.setTimeRecord(100).build());
 		builder.addActions(Protocol.CharacterAction.newBuilder()
 				.setState(20)
 				.setActionCommand(200)
-				.setTimeStart(100)
-				.setTimeEnd(200).build());
+				.setType(100)
+				.setTimeRecord(200).build());
 		send(Protocol.MessageType.REQUEST_UPDATE_ACTION_VALUE, builder.build().toByteArray());
 	}
 	
@@ -405,7 +409,8 @@ public class Client extends SocketClient {
 				this.state = State.SEND_REQUEST_CREATE_CHARACTER;
 			}
 		} else {
-			this.state = State.SEND_REQUEST_REGISTER;
+			System.out.println(response.getMessage() + ": " + userID);
+			this.state = State.STOP;
 		}
 	}
 
