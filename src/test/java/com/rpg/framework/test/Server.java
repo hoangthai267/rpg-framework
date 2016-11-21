@@ -233,7 +233,6 @@ public class Server extends SocketServer {
 
 	public byte[] handleRequestLogin(Protocol.RequestLogin request) {
 		Protocol.ResponseLogin.Builder builder = Protocol.ResponseLogin.newBuilder();
-		builder.setResult(Protocol.ResponseCode.FAIL);
 		String statement = String.format("SELECT %s.* FROM `Static` as Accounts USE KEYS \"Accounts\" WHERE %s.`password` = \"%s\";", 
 				request.getUsername(), 
 				request.getUsername(), 
@@ -247,24 +246,29 @@ public class Server extends SocketServer {
 			JsonObject user = couchbase.get("User_" + userID);
 
 			boolean hasCharacter = user.getBoolean("hasCharacter");
-			boolean hasLogin = user.getBoolean("hasLogin");
+			boolean hasLogin = user.getBoolean("hasLogin");							
 			
-			
-			if(hasCharacter && !hasLogin) {
-				userManager.addIdentifiedUser(currentChannel, userID);
-				user.put("hasLogin", true);
-				couchbase.set("User_" + userID, user);
-				builder.setResult(Protocol.ResponseCode.SUCCESS);
+			if(hasLogin) {
+				builder.setResult(Protocol.ResponseCode.FAIL);
+				builder.setMessage("The account has been logged.");
 				builder.setUserID(userID);
 				builder.setHasCharacter(hasCharacter);
 			}
-			
-			if(hasLogin) {
-				builder.setMessage("The account has been logged.");
+			else {
+				builder.setResult(Protocol.ResponseCode.SUCCESS);
 				builder.setUserID(userID);
+				builder.setHasCharacter(hasCharacter);
+				
+				if(hasCharacter) {
+					userManager.addIdentifiedUser(currentChannel, userID);
+					user.put("hasLogin", true);
+					couchbase.set("User_" + userID, user);
+				}
+				builder.setMessage("The acconnt don't have a character");
 			}
 			
 		} else {
+			builder.setResult(Protocol.ResponseCode.FAIL);
 			builder.setMessage("Invalid username or password.");
 			System.out.println(statement);
 		}
