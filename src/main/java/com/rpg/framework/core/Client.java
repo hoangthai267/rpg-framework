@@ -5,6 +5,9 @@ import java.util.List;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
@@ -32,6 +35,7 @@ public class Client {
 	
 	private Bootstrap 		bootstrap;
 	private EventLoopGroup 	group;
+	private Channel			channel;
 	private boolean			running;
 	public Client() {
 		 group 		= new NioEventLoopGroup();
@@ -58,7 +62,7 @@ public class Client {
 						
 						in.markReaderIndex();
 						int bodyLen = in.readInt() - 6;
-//						int flag = in.readShort();
+						int flag = in.readShort();
 						
 						if (bodyLen <= 0) {
 							ctx.close();
@@ -78,27 +82,33 @@ public class Client {
 					
 					@Override
 					public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-						System.out.println(
-								"Client.initialize().new ChannelInitializer() {...}.initChannel(...).new ChannelInboundHandlerAdapter() {...}.channelRegistered()");
+						channel = ctx.channel();
 						running = true;
 					}
 					
 					@Override
 					public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-						System.out.println(
-								"Client.initialize().new ChannelInitializer() {...}.initChannel(...).new ChannelInboundHandlerAdapter() {...}.channelUnregistered()");
+						channel = null;
 						running = false;
 					}
 					
 					@Override
 					public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-						System.out.println(
-								"Client.initialize().new ChannelInitializer() {...}.initChannel(...).new ChannelInboundHandlerAdapter() {...}.channelRead()");
+						ByteBuf data = (ByteBuf) msg;
+						try {
+							int messageID = data.readShort();
+							byte[] buffer = new byte[data.capacity() - 2];
+							data.getBytes(2, buffer);
+
+							receiveMessage(messageID, buffer);
+						} finally {
+							data.release();
+						}
 					}
 					
 					@Override
 					public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-
+						System.out.println(cause.getMessage());
 					}
 					
 				});
@@ -160,6 +170,7 @@ public class Client {
 	
 	public void stop() {
 		try {
+			running = false;			
 			group.shutdownGracefully().sync();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -177,7 +188,23 @@ public class Client {
 	}
 	
 	public void sendMessage(int commandID, byte[] data) {
-		
+		ByteBuf respBuf = channel.alloc().buffer();
+		int size = data.length + 2;
+		short flag = 0;
+
+		respBuf.clear();
+		respBuf.writeInt(size);
+		respBuf.writeShort(flag);
+		respBuf.writeShort(commandID);
+		respBuf.writeBytes(data);
+
+		channel.writeAndFlush(respBuf).addListener(new ChannelFutureListener() {
+
+			public void operationComplete(ChannelFuture future) throws Exception {
+
+			}
+			
+		});
 	}
 
 }
