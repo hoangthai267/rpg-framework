@@ -1,42 +1,26 @@
 package com.rpg.framework.manager;
 
-import com.rpg.framework.data.CouchBase;
-import com.rpg.framework.data.Pool;
-import com.rpg.framework.data.Spymemcached;
+import java.util.LinkedList;
+import java.util.Queue;
+
+import com.couchbase.client.java.document.json.JsonObject;
+import com.couchbase.client.java.query.N1qlQueryResult;
+import com.rpg.framework.core.Database;
+
 
 public class DataManager {
-	private CouchBase couchbase;
-	private Spymemcached spymemcached;
-	private Pool pool;
+	private static final double CACHED_TIME = 2.0;
+	
+	private Queue<String> 	keys;
+	private double 			cachedTime;
+	
+	private Database 		database;
 	
 	private DataManager () {
-//		couchbase = new CouchBase("Static");
-//		spymemcached = new Spymemcached("Dynamic", "");
-//		pool = new Pool(couchbase, spymemcached);
-	}
-
-	public CouchBase getCouchbase() {
-		return couchbase;
-	}
-
-	public void setCouchbase(CouchBase couchbase) {
-		this.couchbase = couchbase;
-	}
-
-	public Spymemcached getSpymemcached() {
-		return spymemcached;
-	}
-
-	public void setSpymemcached(Spymemcached spymemcached) {
-		this.spymemcached = spymemcached;
-	}	
-	
-	public Pool getPool() {
-		return pool;
-	}
-
-	public void setPool(Pool pool) {
-		this.pool = pool;
+		keys 		= new LinkedList<String>();
+		cachedTime 	= 0.0;
+		
+		database 	= new Database("Static", "Dynamic");
 	}
 
 	private static DataManager instance;
@@ -50,16 +34,35 @@ public class DataManager {
 	public static void setInstance(DataManager instance) {
 		DataManager.instance = instance;
 	}
-
-	public static CouchBase couchbase() {
-		return getInstance().getCouchbase();
+	
+	public JsonObject get(String key) {
+		return database.getCouchbase(key);
 	}
 	
-	public static Spymemcached memcached() {
-		return getInstance().getSpymemcached();
+	public void set(String key, JsonObject value) {
+		database.setCouchbase(key, value);
 	}
 
-	public static Pool pool() {
-		return getInstance().getPool();
+	public void update(double delta) {
+		if (cachedTime > CACHED_TIME) {
+			cachedTime -= CACHED_TIME;
+			
+			String key = keys.poll();
+			
+			while(key != null) {
+				database.setCouchbase(key, database.getMemcached(key));
+				key = keys.poll();
+			}			
+			
+		} else {
+			cachedTime += delta;
+		}
 	}
+	
+	public void cached(String key, JsonObject value) {
+		if(!keys.contains(key))
+			keys.add(key);
+		database.setMemcached(key, value);
+	}
+	
 }

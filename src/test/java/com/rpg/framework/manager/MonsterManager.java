@@ -31,7 +31,7 @@ public class MonsterManager {
 	
 	public boolean initialize() {
 		DataManager instance = DataManager.getInstance();
-		JsonObject list = instance.getCouchbase().get("Prototype_Monsters");
+		JsonObject list = instance.get("Prototype_Monsters");
 		JsonArray data = list.getArray("data");
 		int total = list.getInt("total");
 		

@@ -104,7 +104,6 @@ public class Map {
 						
 						).build();
 		for(int i = 0; i < userList.size(); i++) {
-			System.out.println("Map.addUser()");
 			int id = userList.get(i);
 			int userConnectionID = UserManager.getInstance().getIdentifiedUser(id).getConnectionID();
 			MessageManager.getInstance().newMessage(Message.SEND_TO_ONE, userConnectionID, Protocol.MessageType.MESSAGE_NEW_USER_VALUE, message.toByteArray());

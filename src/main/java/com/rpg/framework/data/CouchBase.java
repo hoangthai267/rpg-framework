@@ -1,16 +1,17 @@
 package com.rpg.framework.data;
 
-import com.couchbase.client.java.*;
-import com.couchbase.client.java.document.*;
-import com.couchbase.client.java.document.json.*;
-import com.couchbase.client.java.query.*;
-
+import com.couchbase.client.java.Bucket;
+import com.couchbase.client.java.CouchbaseCluster;
+import com.couchbase.client.java.document.JsonDocument;
+import com.couchbase.client.java.document.json.JsonObject;
+import com.couchbase.client.java.query.N1qlQuery;
+import com.couchbase.client.java.query.N1qlQueryResult;
 
 public class CouchBase {	
 	private Bucket bucket;
 
-	public CouchBase(String bucketName) {
-		this.bucket = CouchbaseCluster.create("localhost").openBucket(bucketName);
+	public CouchBase(String bucketName) {	
+		this.bucket = CouchbaseCluster.create( "127.0.0.1").openBucket(bucketName);
 	}
 	
 	public CouchBase(String host, String bucketName) {

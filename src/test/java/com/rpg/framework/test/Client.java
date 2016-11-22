@@ -262,7 +262,7 @@ public class Client extends SocketClient {
 				break;
 			}
 			case Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE: {
-				System.out.println("RESPONSE_UPDATE_ACTION_VALUE:" + Protocol.ResponseUpdateAction.parseFrom(data).getUserID());
+//				System.out.println("RESPONSE_UPDATE_ACTION_VALUE:" + Protocol.ResponseUpdateAction.parseFrom(data).getUserID());
 				break;
 			}
 			case Protocol.MessageType.RESPONSE_GET_PROTOTYPE_VALUE: {
@@ -280,7 +280,7 @@ public class Client extends SocketClient {
 			
 			case Protocol.MessageType.MESSAGE_NEW_USER_VALUE: {
 				Protocol.User user = Protocol.MessageNewUser.parseFrom(data).getUser();
-//				System.out.println("MESSAGE_NEW_USER_VALUE: " + user.getId() + " Position: (" + user.getPosition().getX() + ", " + user.getPosition().getY() + ")" );
+				System.out.println("MESSAGE_NEW_USER_VALUE: " + user.getId() + " Position: (" + user.getPosition().getX() + ", " + user.getPosition().getY() + ")" );
 				break;
 			}
 			

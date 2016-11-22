@@ -244,22 +244,22 @@ public class Prototype {
 				.add(JsonObject.create()
 						.put("username", "admin")
 						.put("password", "admin")
-						.put("id", 1))
+						.put("id", 0))
 				.add(JsonObject.create()
 						.put("username", "admin1")
 						.put("password", "admin")
-						.put("id", 2));
+						.put("id", 1));
 		
 		JsonObject document = JsonObject.create()
-				.put("index", 2)
+				.put("total", 2)
 				.put("admin", JsonObject.create()
 						.put("username", "admin")
 						.put("password", "admin")
-						.put("id", 1))
+						.put("id", 0))
 				.put("admin1", JsonObject.create()
 						.put("username", "admin1")
 						.put("password", "admin")
-						.put("id", 2));
+						.put("id", 1));
 		
 		couchbase.set("Accounts", document);
 	}
@@ -284,7 +284,7 @@ public class Prototype {
 	public static void main(String args[]) {
 //		System.out.println(String.format("SELECT %s %.2f", "abc", 1.0f));
 		Prototype prototype = new Prototype();
-		prototype.query();
+		prototype.initialize();
 	}
 }
 

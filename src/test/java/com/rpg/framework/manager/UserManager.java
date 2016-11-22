@@ -39,9 +39,9 @@ public class UserManager {
 	public void addUser(int id) {
 		User user = new User();
 		
-		JsonObject userPosition = dataManager.getCouchbase().get("User_" + id + "_Position");
-		JsonObject userStats = dataManager.getCouchbase().get("User_" + id + "_Stats");
-		JsonObject userStatus = dataManager.getCouchbase().get("User_" + id + "_Status");
+		JsonObject userPosition = dataManager.get("User_" + id + "_Position");
+		JsonObject userStats = dataManager.get("User_" + id + "_Stats");
+		JsonObject userStatus = dataManager.get("User_" + id + "_Status");
 		
 		Position position = new Position();
 		position.setMapID(userPosition.getInt("mapID"));
@@ -85,12 +85,12 @@ public class UserManager {
 	}
 	
 	public void addIdentifiedUser(int connectionID, int userID) {
-		System.out.println("UserManager.addIdentifiedUser() connectionID:" + connectionID + " userID: " + userID);
+//		System.out.println("UserManager.addIdentifiedUser() connectionID:" + connectionID + " userID: " + userID);
 		User identified = anonymousUsers.remove(connectionID);
 		
-		JsonObject userPosition = dataManager.getCouchbase().get("User_" + userID + "_Position");
-		JsonObject userStats = dataManager.getCouchbase().get("User_" + userID + "_Stats");
-		JsonObject userStatus = dataManager.getCouchbase().get("User_" + userID + "_Status");
+		JsonObject userPosition = dataManager.get("User_" + userID + "_Position");
+		JsonObject userStats = dataManager.get("User_" + userID + "_Stats");
+		JsonObject userStatus = dataManager.get("User_" + userID + "_Status");
 		
 		Position position = new Position();
 		position.setMapID(userPosition.getInt("mapID"));
@@ -134,11 +134,11 @@ public class UserManager {
 			User user = iterator.next();
 			if (connectionID == user.getConnectionID()) {
 //				System.out.println("UserManager.removeIdentifiedUser() connectionID: " + connectionID + " userID: " + user.getId());
-				JsonObject userObject = DataManager.getInstance().getCouchbase().get("User_" + user.getId());
+				JsonObject userObject = DataManager.getInstance().get("User_" + user.getId());
 				userObject.put("hasLogin", false);
-				DataManager.getInstance().getCouchbase().set("User_" + user.getId(), userObject);
+				DataManager.getInstance().set("User_" + user.getId(), userObject);
 				MapManager.getInstance().exitMap(user.getId(), user.getPosition().getMapID());				
-				identifiedUsers.remove(user);			
+				identifiedUsers.remove(user.getId() ,user);			
 				return true;
 			}
 		}

@@ -24,7 +24,7 @@ public class MapManager {
 		DataManager instance = DataManager.getInstance();
 		MonsterManager monsterManager = MonsterManager.getInstance();
 		
-		JsonObject maps = instance.getCouchbase().get("Prototype_Maps");
+		JsonObject maps = instance.get("Prototype_Maps");
 		JsonArray normalMaps = maps.getArray("normalMaps");
 		
 		for (int i = 0; i < normalMaps.size(); i++) {
