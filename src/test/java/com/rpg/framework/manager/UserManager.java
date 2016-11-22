@@ -138,7 +138,7 @@ public class UserManager {
 				userObject.put("hasLogin", false);
 				DataManager.getInstance().set("User_" + user.getId(), userObject);
 				MapManager.getInstance().exitMap(user.getId(), user.getPosition().getMapID());				
-				identifiedUsers.remove(user.getId() ,user);			
+				identifiedUsers.remove(user.getId());			
 				return true;
 			}
 		}

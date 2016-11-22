@@ -110,7 +110,7 @@ public class Server {
 							@Override
 							public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 								numberOfConnection.decrementAndGet();
-								channels.remove(channelID, ctx);
+								channels.remove(channelID);
 								disconnectedClient(channelID);
 							}
 
@@ -130,7 +130,7 @@ public class Server {
 							
 							@Override
 							public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-								
+								System.out.println("exceptionCaught: " + cause.getMessage());
 							}
 						});
 
@@ -236,8 +236,6 @@ public class Server {
 			}
 			
 		});
-		
-		ReferenceCountUtil.release(respBuf);
 	}
 	
 	public void sendMessageToList(List<Integer> clients, int messageID, byte[] data) {
@@ -261,8 +259,6 @@ public class Server {
 				}
 				
 			});
-			
-			ReferenceCountUtil.release(respBuf);
 		}
 	}
 	
@@ -286,8 +282,6 @@ public class Server {
 				}
 				
 			});
-			
-			ReferenceCountUtil.release(respBuf);
 		}
 	}
 }
