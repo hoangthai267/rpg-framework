@@ -3,6 +3,8 @@ package com.rpg.framework.core;
 import java.net.InetSocketAddress;
 import java.util.List;
 
+import com.couchbase.client.deps.io.netty.util.ReferenceCountUtil;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
@@ -61,8 +63,7 @@ public class Client {
 						}
 						
 						in.markReaderIndex();
-						int bodyLen = in.readInt() - 6;
-						int flag = in.readShort();
+						int bodyLen = in.readInt() - 4;
 						
 						if (bodyLen <= 0) {
 							ctx.close();
@@ -108,7 +109,7 @@ public class Client {
 					
 					@Override
 					public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-						System.out.println(cause.getMessage());
+//						cause.printStackTrace();
 					}
 					
 				});
@@ -154,7 +155,7 @@ public class Client {
 
 			// update our FPS counter if a second has passed since we last recorded
 			if (lastFpsTime >= 1000000000) {
-				// System.out.println("FPS: " + fps);
+				updatePerSecond(delta, fps);
 				lastFpsTime = 0;
 				fps = 0;
 			}
@@ -188,13 +189,14 @@ public class Client {
 	}
 	
 	public void sendMessage(int commandID, byte[] data) {
-		ByteBuf respBuf = channel.alloc().buffer();
-		int size = data.length + 2;
-		short flag = 0;
+		if(channel == null)
+			return;
+		
+		ByteBuf respBuf = channel.alloc().buffer();		
+		int size = data.length + 6;
 
 		respBuf.clear();
 		respBuf.writeInt(size);
-		respBuf.writeShort(flag);
 		respBuf.writeShort(commandID);
 		respBuf.writeBytes(data);
 
@@ -205,6 +207,12 @@ public class Client {
 			}
 			
 		});
+		
+		ReferenceCountUtil.release(respBuf);
 	}
 
+	public void updatePerSecond(double delta, int fps) {
+	
+	}
+	
 }

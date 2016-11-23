@@ -125,10 +125,12 @@ public class UserManager {
 	}
 	
 	public boolean removeAnonymousUser(int connectionID) {
+		System.out.println("UserManager.removeAnonymousUser(): " + connectionID);
 		return anonymousUsers.remove(connectionID) != null;
 	}
 	
 	public boolean removeIdentifiedUser(int connectionID) {
+		System.out.println("UserManager.removeIdentifiedUser(): " + connectionID);
 		Iterator<User> iterator = identifiedUsers.values().iterator();
 		while (iterator.hasNext()) {
 			User user = iterator.next();

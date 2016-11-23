@@ -251,15 +251,7 @@ public class Prototype {
 						.put("id", 1));
 		
 		JsonObject document = JsonObject.create()
-				.put("total", 2)
-				.put("admin", JsonObject.create()
-						.put("username", "admin")
-						.put("password", "admin")
-						.put("id", 0))
-				.put("admin1", JsonObject.create()
-						.put("username", "admin1")
-						.put("password", "admin")
-						.put("id", 1));
+				.put("total", 0);
 		
 		couchbase.set("Accounts", document);
 	}

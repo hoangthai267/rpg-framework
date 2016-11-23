@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.rpg.framework.database.Protocol;
+import com.rpg.framework.manager.LogManager;
 
 public class Client extends com.rpg.framework.core.Client {
 	
@@ -38,7 +39,6 @@ public class Client extends com.rpg.framework.core.Client {
 	}
 	
 	public Client(String userName, String password) {
-		System.out.println(userName);
 		this.state 		= State.START;
 		
 		this.userName 	= userName;
@@ -51,7 +51,9 @@ public class Client extends com.rpg.framework.core.Client {
 	}
 	
 	@Override
-	public boolean initialize() {		
+	public boolean initialize() {
+//		LogManager.enable();
+		LogManager.disable();
 		return super.initialize();
 	}
 	
@@ -162,9 +164,14 @@ public class Client extends com.rpg.framework.core.Client {
 			}
 		}
 	}	
+	
+	@Override
+	public void updatePerSecond(double delta, int fps) {		
+//		System.out.println(userName + " : " + fps);
+	}
 		
 	public void sendRequestLogin() {
-		System.out.println("Client.sendRequestLogin()");
+		LogManager.print("Client.sendRequestLogin()");
 		this.state = State.WAIT;
 		
 		Protocol.RequestLogin.Builder builder = Protocol.RequestLogin.newBuilder();
@@ -175,7 +182,7 @@ public class Client extends com.rpg.framework.core.Client {
 	}
 	
 	public void sendRequestRegister() {
-		System.out.println("Client.sendRequestRegister()");
+		LogManager.print("Client.sendRequestRegister()");
 		this.state = State.WAIT;
 		Protocol.RequestRegister.Builder builder = Protocol.RequestRegister.newBuilder();
 		builder.setUsername(userName);
@@ -186,7 +193,7 @@ public class Client extends com.rpg.framework.core.Client {
 	}
 
 	public void sendRequestGetCharacter() {
-		System.out.println("Client.sendRequestGetCharacter()");
+		LogManager.print("Client.sendRequestGetCharacter()");
 		this.state = State.WAIT;
 		Protocol.RequestGetCharacter.Builder builder = Protocol.RequestGetCharacter.newBuilder();
 		builder.setUserID(userID);
@@ -195,18 +202,17 @@ public class Client extends com.rpg.framework.core.Client {
 	}
 
 	public void sendRequestCreateCharacter() {
-		System.out.println("Client.sendRequestCreateCharacter()");
+		LogManager.print("Client.sendRequestCreateCharacter()");		
 		this.state = State.WAIT;
 		Protocol.RequestCreateCharacter.Builder builder = Protocol.RequestCreateCharacter.newBuilder();
 		builder.setUserID(userID);
 		builder.setName(userName);
 		builder.setGender(0);
-
 		sendMessage(Protocol.MessageType.REQUEST_CREATE_CHARACTER_VALUE, builder.build().toByteArray());
 	}
 
 	public void sendRequestStartGame() {
-		System.out.println("Client.sendRequestStartGame()");
+		LogManager.print("Client.sendRequestStartGame()");
 		this.state = State.WAIT;
 		Protocol.RequestStartGame.Builder builder = Protocol.RequestStartGame.newBuilder();
 		builder.setUserID(userID);
@@ -215,7 +221,7 @@ public class Client extends com.rpg.framework.core.Client {
 	}
 
 	public void sendRequestUpdatePosition() {
-		System.out.println("GameClient.sendRequestUpdatePosition()");
+		LogManager.print("GameClient.sendRequestUpdatePosition()");
 		
 		Protocol.RequestUpdatePosition request = Protocol.RequestUpdatePosition.newBuilder().setUserID(userID)
 				.setMapID(mapID).setX(positionX).setY(positionY).setState(1).build();
@@ -224,7 +230,7 @@ public class Client extends com.rpg.framework.core.Client {
 	}
 
 	public void sendRequestGetItems() {
-		System.out.println("Client.sendRequestGetItems()");
+		LogManager.print("Client.sendRequestGetItems()");
 		Protocol.RequestGetItems request = Protocol.RequestGetItems.newBuilder()
 				.setUserID(userID).build();
 		
@@ -232,7 +238,7 @@ public class Client extends com.rpg.framework.core.Client {
 	}
 	
 	public void sendRequestUpdateAction() {
-		System.out.println("Client.sendRequestUpdateAction()");
+		LogManager.print("Client.sendRequestUpdateAction()");
 		
 		Protocol.RequestUpdateAction.Builder builder = Protocol.RequestUpdateAction.newBuilder();
 		builder.setUserID(userID);
@@ -250,7 +256,7 @@ public class Client extends com.rpg.framework.core.Client {
 	}
 	
 	public void sendRequestGetPrototype() {
-		System.out.println("Client.sendRequestGetPrototype()");
+		LogManager.print("Client.sendRequestGetPrototype()");
 		
 		Protocol.RequestGetPrototype request = Protocol.RequestGetPrototype.newBuilder()
 				.build();
@@ -262,7 +268,8 @@ public class Client extends com.rpg.framework.core.Client {
 		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
 			this.userID = response.getUserID();
 			
-			System.out.println("Login success " + userID);
+			LogManager.print("Login success " + userID);
+			System.out.println("Login success " + userName);
 			
 			if (response.getHasCharacter()) {
 				sendRequestGetCharacter();
@@ -273,7 +280,7 @@ public class Client extends com.rpg.framework.core.Client {
 			if (response.getMessage().contains("Invalid username.")) {
 				sendRequestRegister();
 			} else {
-				System.out.println(response.getMessage());
+				LogManager.print(response.getMessage());
 				this.state = State.STOP;
 			}
 			
@@ -282,7 +289,7 @@ public class Client extends com.rpg.framework.core.Client {
 
 	public void responseRegister(Protocol.ResponseRegister response) {
 		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
-			System.out.println("Register success");
+			LogManager.print("Register success");
 			sendRequestLogin();
 		} else {
 			this.state = State.STOP;
@@ -311,6 +318,7 @@ public class Client extends com.rpg.framework.core.Client {
 	public void responseStartGame(Protocol.ResponseStartGame response) {
 		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
 			this.state = State.RUN;
+			System.out.println("Client.responseStartGame(): " + userName);
 		}
 	}
 
@@ -324,9 +332,9 @@ public class Client extends com.rpg.framework.core.Client {
 
 	public void responseGetItems(Protocol.ResponseGetItems response) {
 		if(response.getResult() == Protocol.ResponseCode.SUCCESS) {
-			System.out.println("Client.responseGetItems()");
+			LogManager.print("Client.responseGetItems()");
 			this.items = response.getItemsList();
-			System.out.println(items);
+			LogManager.print(items);
 		}
 	}
 	
@@ -336,17 +344,17 @@ public class Client extends com.rpg.framework.core.Client {
 		for (Protocol.Item item : items) {
 			switch (item.getType().getNumber()) {
 			case Protocol.ItemType.ITEM_TYPE_USE_VALUE: {
-				System.out.println(Protocol.Use.parseFrom(item.getData()));
+				LogManager.print(Protocol.Use.parseFrom(item.getData()));
 				break;
 			}
 
 			case Protocol.ItemType.ITEM_TYPE_COLLECT_VALUE: {
-				System.out.println(Protocol.Collect.parseFrom(item.getData()));
+				LogManager.print(Protocol.Collect.parseFrom(item.getData()));
 				break;
 			}
 
 			case Protocol.ItemType.ITEM_TYPE_EQUIP_VALUE: {
-				System.out.println(Protocol.Equip.parseFrom(item.getData()));
+				LogManager.print(Protocol.Equip.parseFrom(item.getData()));
 				break;
 			}
 

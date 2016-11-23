@@ -59,7 +59,8 @@ public class Server extends com.rpg.framework.core.Server {
 			switch (message.getType()) {
 				// send to one
 				case 1: {
-					sendMessageTo(message.getChannelID(), message.getCommandID(), message.getData());
+					if(!sendMessageTo(message.getChannelID(), message.getCommandID(), message.getData()))
+						MessageManager.getInstance().newMessage(message);
 					break;
 				}
 				// send to other
@@ -363,6 +364,7 @@ public class Server extends com.rpg.framework.core.Server {
 	}
 	
 	private void handleRequestUpdatePosition(int clientID, Protocol.RequestUpdatePosition request) {
+		try {
 		String id = "User_" + request.getUserID() + "_Position";
 		
 		JsonObject characterPosition = JsonObject.create()
@@ -370,7 +372,13 @@ public class Server extends com.rpg.framework.core.Server {
 				.put("x", request.getX())
 				.put("y", request.getY());
 		
-		UserManager.getInstance().getIdentifiedUser(request.getUserID()).getPosition().set(request.getMapID(), request.getX(), request.getY());
+		User user = UserManager.getInstance().getIdentifiedUser(request.getUserID());
+		
+		if(user == null)
+			return;
+		
+		user.getPosition().set(request.getMapID(), request.getX(), request.getY());
+		
 		MapManager.getInstance().sendMessageUpdateUser(request.getMapID(), request.getUserID(), request.getX(), request.getY(), request.getState());
 		DataManager.getInstance().cached(id, characterPosition);
 		
@@ -378,6 +386,9 @@ public class Server extends com.rpg.framework.core.Server {
 		builder.setResult(Protocol.ResponseCode.SUCCESS);
 		
 		sendMessageTo(clientID, Protocol.MessageType.RESPONE_UPDATE_POSITION_VALUE, builder.build().toByteArray());
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage() + "userID :" + request.getUserID());
+		}
 	}
 	
 	private void handleRequestGetItem(int clientID, Protocol.RequestGetItems request) {
@@ -394,18 +405,23 @@ public class Server extends com.rpg.framework.core.Server {
 	}
 	
 	private void handleRequestUpdateAction(int clientID, Protocol.RequestUpdateAction request) {
-		int userID = request.getUserID();
-		User user = UserManager.getInstance().getIdentifiedUser(userID);
-		int mapID = user.getPosition().getMapID();
-		
-		List<Integer> userList = MapManager.getInstance().getUserList(mapID);
-		
-		for (Integer id : userList) {
-			User sendUser = UserManager.getInstance().getIdentifiedUser(id.intValue());
-			if(id.intValue() != userID) {
-				sendMessageTo(sendUser.getConnectionID(), Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE, request.toByteArray());
+		try {
+			int userID = request.getUserID();
+			User user = UserManager.getInstance().getIdentifiedUser(userID);
+			int mapID = user.getPosition().getMapID();
+
+			List<Integer> userList = MapManager.getInstance().getUserList(mapID);
+
+			for (Integer id : userList) {
+				User sendUser = UserManager.getInstance().getIdentifiedUser(id.intValue());
+				if (id.intValue() != userID) {
+					sendMessageTo(sendUser.getConnectionID(), Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE,
+							request.toByteArray());
+				}
 			}
-		}		
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage() + "userID : " + request.getUserID());
+		}
 	}
 	
 	private void handleRequestGetPrototype(int clientID, Protocol.RequestGetPrototype request) {

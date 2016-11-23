@@ -2,6 +2,7 @@ package com.rpg.framework.core;
 
 import java.net.InetSocketAddress;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -47,7 +48,7 @@ public class Server {
 	
 	private AtomicInteger	numberOfConnection;
 	private Map<Integer, ChannelHandlerContext> channels;	
-	
+	private List<Integer> 	writingChannels;
 	
 	public Server() {
 		this.numberOfThread 	= Runtime.getRuntime().availableProcessors() << 2;
@@ -55,6 +56,7 @@ public class Server {
 		this.workerGroup 		= new NioEventLoopGroup(numberOfThread);
 		this.numberOfConnection = new AtomicInteger(0);
 		this.channels			= new HashMap<Integer, ChannelHandlerContext>();
+		this.writingChannels	= new LinkedList<Integer>();
 		this.running			= true;
 	}
 	
@@ -79,8 +81,7 @@ public class Server {
 									return;
 
 								in.markReaderIndex();
-								int bodyLen = in.readInt();
-								int flag = in.readShort();
+								int bodyLen = in.readInt() - 4;
 
 								if (bodyLen <= 0 || bodyLen > MAX_PACKAGE_SIZE) {
 									System.out.println("Message is too big");
@@ -130,7 +131,7 @@ public class Server {
 							
 							@Override
 							public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-								System.out.println("exceptionCaught: " + cause.getMessage());
+//								System.out.println("exceptionCaught: " + cause.getMessage());
 							}
 						});
 
@@ -216,39 +217,48 @@ public class Server {
 
 	}
 	
-	public void sendMessageTo(int clientID, int messageID, byte[] data) {
+	public boolean sendMessageTo(final int clientID, int messageID, byte[] data) {
 		ChannelHandlerContext channel = channels.get(clientID);
+
+		if (channel == null)
+			return true;
+		
+//		if(writingChannels.contains(clientID))
+//			return false;
+//		
+//		writingChannels.add(clientID);
 		
 		ByteBuf respBuf = channel.alloc().buffer();
-		int size = data.length + 8;
+		int size = data.length + 6;
 		short flag = 0;
 
 		respBuf.clear();
 		respBuf.writeInt(size);
-		respBuf.writeShort(flag);
 		respBuf.writeShort(messageID);
 		respBuf.writeBytes(data);
 		
 		channel.writeAndFlush(respBuf).addListener(new ChannelFutureListener() {
 
 			public void operationComplete(ChannelFuture future) throws Exception {
-
+//				writingChannels.remove((Integer)clientID);
 			}
 			
 		});
+		
+		return true;
 	}
 	
 	public void sendMessageToList(List<Integer> clients, int messageID, byte[] data) {
 		for (Integer id : clients) {
 			ChannelHandlerContext channel = channels.get(id);
-			
+			if (channel == null)
+				return;
 			ByteBuf respBuf = channel.alloc().buffer();
-			int size = data.length + 8;
+			int size = data.length + 6;
 			short flag = 0;
 
 			respBuf.clear();
 			respBuf.writeInt(size);
-			respBuf.writeShort(flag);
 			respBuf.writeShort(messageID);
 			respBuf.writeBytes(data);
 
@@ -264,14 +274,14 @@ public class Server {
 	
 	public void sendMessageToAll(int messageID, byte[] data) {
 		for (ChannelHandlerContext channel : channels.values()) {
-			
+			if (channel == null)
+				return;
 			ByteBuf respBuf = channel.alloc().buffer();
-			int size = data.length + 8;
+			int size = data.length + 6;
 			short flag = 0;
 
 			respBuf.clear();
 			respBuf.writeInt(size);
-			respBuf.writeShort(flag);
 			respBuf.writeShort(messageID);
 			respBuf.writeBytes(data);
 

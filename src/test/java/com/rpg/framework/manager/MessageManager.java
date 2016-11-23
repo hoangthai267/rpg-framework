@@ -19,12 +19,19 @@ public class MessageManager {
 		updateMessages.add(new Message(type, channelID, commandID, data));
 	}	
 	
+	public void newMessage(Message message) {
+		updateMessages.add(message);
+	}
+	
 	public void sendMessage(int channelID, int commandID, byte[] data) {
 		updateMessages.add(new Message(Message.SEND_TO_ONE, channelID, commandID, data));
 	}
 	
 	public void sendMessage(List<Integer> channels, int commandID, byte[] data) {
-		updateMessages.add(new Message(Message.SEND_TO_OTHER, channels, commandID, data));
+		for (Integer channel : channels) {
+			updateMessages.add(new Message(Message.SEND_TO_ONE, channel, commandID, data));
+		}
+//		updateMessages.add(new Message(Message.SEND_TO_OTHER, channels, commandID, data));
 	}
 	
 	public void sendMessage(int commandID, byte[] data) {
