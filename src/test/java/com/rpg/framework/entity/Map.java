@@ -65,8 +65,7 @@ public class Map {
 			Monster monster = monstersRespawn.get(i);
 			monster.update(delta);
 			if(monster.isRespawn()) {
-				MessageManager.getInstance().newMessage(
-						Message.SEND_TO_OTHER, 
+				MessageManager.getInstance().sendMessage(
 						UserManager.getInstance().getConnectionListFromIDList(userList), 
 						Protocol.MessageType.MESSAGE_RESPAWN_MONSTER_VALUE, 
 						Protocol.MessageRespawnMonster.newBuilder()
@@ -202,8 +201,7 @@ public class Map {
 
 	public void killMonster(int monsterIndex) {
 		monstersList.remove((Object)monsterIndex);
-		MessageManager.getInstance().newMessage(
-				Message.SEND_TO_OTHER, 
+		MessageManager.getInstance().sendMessage(
 				UserManager.getInstance().getConnectionListFromIDList(userList), 
 				Protocol.MessageType.MESSAGE_KILL_MONSTER_VALUE, 
 				Protocol.MessageKillMonster.newBuilder()
@@ -230,7 +228,7 @@ public class Map {
 			channels.add(user.getConnectionID());
 		}		
 		if(channels.size() != 0) {
-			MessageManager.getInstance().newMessage(Message.SEND_TO_OTHER, channels, Protocol.MessageType.MESSAGE_UPDATE_USER_VALUE, builder.build().toByteArray());
+			MessageManager.getInstance().sendMessage(channels, Protocol.MessageType.MESSAGE_UPDATE_USER_VALUE, builder.build().toByteArray());
 		}
 	}
 }

@@ -1,6 +1,8 @@
 package com.rpg.framework.manager;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 import com.couchbase.client.java.document.json.JsonObject;
@@ -9,34 +11,52 @@ import com.rpg.framework.core.Database;
 
 
 public class DataManager {
-	private static final double CACHED_TIME = 2.0;
 	
-	private Queue<String> 	keys;
-	private double 			cachedTime;
+	private static final double CACHED_TIME 		= 2.0;
 	
-	private Database 		database;
+	private static final String	ACCOUNTS 			= "Accounts";
+	private static final String PROTOTYPE_ITEMS 	= "Prototype_Items";
+	private static final String PROTOTYPE_MAPS 		= "Prototype_Maps";
+	private static final String PROTOTYPE_MONSTERS 	= "Prototype_Monsters";
+	
+	private Database 				database;
+	
+	private Queue<String> 			keys;
+	private Map<String, JsonObject> data;
+	private double 					cachedTime;
 	
 	private DataManager () {
+		database 	= new Database("Static", "Dynamic");
+		
 		keys 		= new LinkedList<String>();
 		cachedTime 	= 0.0;
 		
-		database 	= new Database("Static", "Dynamic");
+		data		= new HashMap<String, JsonObject>();
 	}
 
-	private static DataManager instance;
-	
-	public static DataManager getInstance() {
-		if(instance == null)
-			instance = new DataManager();
-		return instance;
-	}
+	public boolean initialize() {
+		JsonObject accounts = database.getCouchbase(ACCOUNTS);
+		data.put(ACCOUNTS, accounts);
+		
+		JsonObject prototypeItems = database.getCouchbase(PROTOTYPE_ITEMS);
+		data.put(PROTOTYPE_ITEMS, prototypeItems);
 
-	public static void setInstance(DataManager instance) {
-		DataManager.instance = instance;
+		JsonObject prototypeMaps = database.getCouchbase(PROTOTYPE_MAPS);
+		data.put(PROTOTYPE_ITEMS, prototypeMaps);
+		
+		JsonObject prototypeMonsters = database.getCouchbase(PROTOTYPE_MONSTERS);
+		data.put(PROTOTYPE_ITEMS, prototypeMonsters);
+				
+		return true;
 	}
 	
 	public JsonObject get(String key) {
-		return database.getCouchbase(key);
+		JsonObject value = data.get(key);
+		if(value == null) {
+			value = database.getCouchbase(key);
+			data.put(key, value);
+		}
+		return value;
 	}
 	
 	public void set(String key, JsonObject value) {
@@ -65,4 +85,15 @@ public class DataManager {
 		database.setMemcached(key, value);
 	}
 	
+	private static DataManager instance;
+	
+	public static DataManager getInstance() {
+		if(instance == null)
+			instance = new DataManager();
+		return instance;
+	}
+
+	public static void setInstance(DataManager instance) {
+		DataManager.instance = instance;
+	}	
 }

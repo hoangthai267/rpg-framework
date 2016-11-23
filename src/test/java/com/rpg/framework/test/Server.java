@@ -7,10 +7,12 @@ import com.couchbase.client.java.document.json.JsonObject;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
 import com.rpg.framework.database.Protocol;
+import com.rpg.framework.entity.Message;
 import com.rpg.framework.entity.Monster;
 import com.rpg.framework.entity.User;
 import com.rpg.framework.manager.DataManager;
 import com.rpg.framework.manager.MapManager;
+import com.rpg.framework.manager.MessageManager;
 import com.rpg.framework.manager.MonsterManager;
 import com.rpg.framework.manager.UserManager;
 
@@ -21,7 +23,8 @@ public class Server extends com.rpg.framework.core.Server {
 		DataManager.getInstance();
 		MapManager.getInstance();
 		MonsterManager.getInstance();
-		UserManager.getInstance();
+		UserManager.getInstance();		
+		MessageManager.getInstance();
 		
 		super.start(host, port);
 	}
@@ -41,6 +44,47 @@ public class Server extends com.rpg.framework.core.Server {
 	
 	@Override
 	public void receiveMessageFrom(int clientID, int messageID, byte[] data) {
+		MessageManager.getInstance().receiveMessage(clientID, messageID, data);
+	}
+	
+	@Override
+	public void update(double delta) {
+		DataManager.getInstance().update(delta);
+		MapManager.getInstance().update(delta);
+		MonsterManager.getInstance().update(delta);
+		UserManager.getInstance().update(delta);		
+		
+		List<Message> messages = MessageManager.getInstance().getMessages();
+		for (Message message : messages) {
+			switch (message.getType()) {
+				// send to one
+				case 1: {
+					sendMessageTo(message.getChannelID(), message.getCommandID(), message.getData());
+					break;
+				}
+				// send to other
+				case 2: {
+					sendMessageToList(message.getChannels(), message.getCommandID(), message.getData());
+					break;				
+				}
+				// send to all
+				case 3: {
+					sendMessageToAll(message.getCommandID(), message.getData());
+					break;
+				}
+				// receive
+				case 4: {
+					handleRequest(message.getChannelID(), message.getCommandID(), message.getData());
+					break;
+				}	
+				default: {
+					break;
+				}
+			}
+		}
+	}	
+		
+	private void handleRequest(int clientID, int messageID, byte[] data) {
 		try {
 
 			switch (messageID) {
@@ -98,20 +142,8 @@ public class Server extends com.rpg.framework.core.Server {
 		}
 	}
 	
-	@Override
-	public void update(double delta) {
-		DataManager.getInstance().update(delta);
-		MapManager.getInstance().update(delta);
-		MonsterManager.getInstance().update(delta);
-		UserManager.getInstance().update(delta);		
-	}	
-		
 	private void handleRequestLogin(int clientID, Protocol.RequestLogin request) {
 		Protocol.ResponseLogin.Builder builder = Protocol.ResponseLogin.newBuilder();
-		String statement = String.format("SELECT %s.* FROM `Static` as Accounts USE KEYS \"Accounts\" WHERE %s.`password` = \"%s\";", 
-				request.getUsername(), 
-				request.getUsername(), 
-				request.getPassword());
 		
 		JsonObject accounts = DataManager.getInstance().get("Accounts");
 		if(accounts.containsKey(request.getUsername())) {

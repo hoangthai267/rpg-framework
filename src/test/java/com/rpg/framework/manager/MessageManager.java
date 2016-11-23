@@ -9,29 +9,41 @@ import com.rpg.framework.entity.Message;
 
 public class MessageManager {
 	private ArrayList<Message> messages;	
-	private ArrayList<Message> updateMessages;	
+	private Queue<Message> updateMessages;	
 	public MessageManager() {
 		messages = new ArrayList<Message>();
-		updateMessages = new ArrayList<Message>();
+		updateMessages = new LinkedList<Message>();
 	}
 	
 	public void newMessage(int type, int channelID, int commandID, byte[] data) {
 		updateMessages.add(new Message(type, channelID, commandID, data));
-	}
-	
-	public void newMessage(int type, List<Integer> channels, int commandID, byte[] data) {
-		updateMessages.add(new Message(type, channels, commandID, data));
-	}
-	
-	public void newMessage(int type, int commandID, byte[] data) {
-		updateMessages.add(new Message(type, -1, commandID, data));
 	}	
+	
+	public void sendMessage(int channelID, int commandID, byte[] data) {
+		updateMessages.add(new Message(Message.SEND_TO_ONE, channelID, commandID, data));
+	}
+	
+	public void sendMessage(List<Integer> channels, int commandID, byte[] data) {
+		updateMessages.add(new Message(Message.SEND_TO_OTHER, channels, commandID, data));
+	}
+	
+	public void sendMessage(int commandID, byte[] data) {
+		updateMessages.add(new Message(Message.SEND_TO_ALL, commandID, data));
+	}
+	
+	public void receiveMessage(int channelID, int commandID, byte[] data) {
+		updateMessages.add(new Message(Message.RECEIVE, channelID, commandID, data));
+	}
 	
 	public List<Message> getMessages() {
 		messages.clear();
-		while(updateMessages.size() != 0) {			
-			messages.add(updateMessages.remove(0));
+		
+		Message message = updateMessages.poll();
+		while(message != null) {
+			messages.add(message);
+			message = updateMessages.poll();
 		}
+		
 		return this.messages;
 	}
 	
