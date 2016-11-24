@@ -69,8 +69,14 @@ public class DataManager {
 			
 			String key = keys.poll();
 			
-			while(key != null) {
-				database.setCouchbase(key, database.getMemcached(key));
+			while(key != null) {	
+				JsonObject value = null;
+				 try {
+					 value = database.getMemcached(key);
+				 } catch (Exception ex) {
+					 value = data.get(key);
+				 }				
+				database.setCouchbase(key, value);
 				key = keys.poll();
 			}			
 			
@@ -82,6 +88,7 @@ public class DataManager {
 	public void cached(String key, JsonObject value) {
 		if(!keys.contains(key))
 			keys.add(key);
+		data.put(key, value);
 		database.setMemcached(key, value);
 	}
 	

@@ -8,25 +8,19 @@ import com.rpg.framework.core.Testing;
 public class StressTest {
 
 	public static void main(String args[]) {
-		List<com.rpg.framework.core.Client> clients = new LinkedList<com.rpg.framework.core.Client>();
-		int from = Integer.parseInt(args[0]);
-		int to = Integer.parseInt(args[1]);
-		if(from >= to)
-			return;
-		to += 1;
-		for(int i = from; i < to; i++) {
-			Client client = new Client("admin" + i, "admin");
-			if(client.initialize()) {
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				new Testing(client, "128.199.255.44", 8463).start();
-			}
+		LinkedList<Client> list = new LinkedList<Client>();
+		list.add(new Client());
+		list.add(new Client());
+		list.add(null);
+		list.add(new Client());
+		
+		
+		Client client = list.poll();
+		while(!list.isEmpty()) {
+			client = list.poll();
 		}
 		
+		System.out.println(list.size());
 		
 	}
 	

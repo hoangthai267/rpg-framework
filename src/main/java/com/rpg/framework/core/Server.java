@@ -47,14 +47,17 @@ public class Server {
 	private ChannelFuture 	channelFuture;
 	
 	private AtomicInteger	numberOfConnection;
+	private AtomicInteger	index;
 	private Map<Integer, ChannelHandlerContext> channels;	
 	private List<Integer> 	writingChannels;
+	
 	
 	public Server() {
 		this.numberOfThread 	= Runtime.getRuntime().availableProcessors() << 2;
 		this.bossGroup 			= new NioEventLoopGroup();
 		this.workerGroup 		= new NioEventLoopGroup(numberOfThread);
 		this.numberOfConnection = new AtomicInteger(0);
+		this.index				= new AtomicInteger(0);
 		this.channels			= new HashMap<Integer, ChannelHandlerContext>();
 		this.writingChannels	= new LinkedList<Integer>();
 		this.running			= true;
@@ -103,7 +106,8 @@ public class Server {
 
 							@Override
 							public void channelActive(ChannelHandlerContext ctx) throws Exception {
-								channelID = numberOfConnection.incrementAndGet();
+								channelID = index.incrementAndGet(); 
+								numberOfConnection.incrementAndGet();
 								channels.put(channelID, ctx);
 								connectedClient(channelID);
 							}
@@ -131,7 +135,7 @@ public class Server {
 							
 							@Override
 							public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-//								System.out.println("exceptionCaught: " + cause.getMessage());
+								System.out.println("exceptionCaught: " + cause.getMessage());
 							}
 						});
 
@@ -179,6 +183,7 @@ public class Server {
 			// update our FPS counter if a second has passed since we last recorded
 			if (lastFpsTime >= 1000000000) {
 				// System.out.println("FPS: " + fps);
+				updateSecond(delta, fps);
 				lastFpsTime = 0;
 				fps = 0;
 			}
@@ -191,8 +196,10 @@ public class Server {
 		}
 	}
 	
+	public void updateSecond(double delta, int fps) {
+	}
+
 	public void update(double delta) {
-		
 	}
 	
 	public void stop() {

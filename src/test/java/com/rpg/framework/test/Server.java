@@ -48,11 +48,19 @@ public class Server extends com.rpg.framework.core.Server {
 	}
 	
 	@Override
+	public void updateSecond(double delta, int fps) {		
+		super.updateSecond(delta, fps);
+		System.out.println("FPS : " + fps + " Request size: " + MessageManager.getInstance().getMessagesSize());
+	}
+	
+	@Override
 	public void update(double delta) {
+		super.update(delta);
 		DataManager.getInstance().update(delta);
 		MapManager.getInstance().update(delta);
 		MonsterManager.getInstance().update(delta);
 		UserManager.getInstance().update(delta);		
+		MessageManager.getInstance().update(delta);
 		
 		List<Message> messages = MessageManager.getInstance().getMessages();
 		for (Message message : messages) {
@@ -372,14 +380,14 @@ public class Server extends com.rpg.framework.core.Server {
 				.put("x", request.getX())
 				.put("y", request.getY());
 		
-		User user = UserManager.getInstance().getIdentifiedUser(request.getUserID());
-		
-		if(user == null)
-			return;
-		
-		user.getPosition().set(request.getMapID(), request.getX(), request.getY());
-		
-		MapManager.getInstance().sendMessageUpdateUser(request.getMapID(), request.getUserID(), request.getX(), request.getY(), request.getState());
+//		User user = UserManager.getInstance().getIdentifiedUser(request.getUserID());
+//		
+//		if(user == null)
+//			return;
+//		
+//		user.getPosition().set(request.getMapID(), request.getX(), request.getY());
+//		
+//		MapManager.getInstance().sendMessageUpdateUser(request.getMapID(), request.getUserID(), request.getX(), request.getY(), request.getState());
 		DataManager.getInstance().cached(id, characterPosition);
 		
 		Protocol.ResponseUpdatePosition.Builder builder = Protocol.ResponseUpdatePosition.newBuilder();
