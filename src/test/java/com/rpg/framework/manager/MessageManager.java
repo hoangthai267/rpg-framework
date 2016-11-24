@@ -11,11 +11,13 @@ public class MessageManager {
 	private ArrayList<Message> messages;	
 	private ArrayList<Message> updateMessages;
 	private int messagesPerSecond;
+	private int updateMessagesPerSecond;
 	private boolean bGetting;
 	public MessageManager() {
 		messages = new ArrayList<Message>();
 		updateMessages = new ArrayList<Message>();
 		messagesPerSecond = 0;
+		updateMessagesPerSecond= 0;
 		bGetting = false;
 	}
 	
@@ -65,27 +67,40 @@ public class MessageManager {
 	}
 	
 	public List<Message> getMessages() {
-		List<Message> list = new ArrayList<Message>();
+		List<Message> list = null;
 		
 		bGetting = true;
 		
-		while(!messages.isEmpty()) {
-			Message message = messages.remove(0);
-			if (message != null) {
-				messagesPerSecond++;
-				list.add(message);
-			}
-		}
+		@SuppressWarnings("unchecked")
+		List<Message> clone = (List<Message>) messages.clone();
+		list = clone;
+		messagesPerSecond += list.size();
+		messages.clear();
+		
+//		while(!messages.isEmpty()) {
+//			Message message = messages.remove(0);
+//			if (message != null) {
+//				messagesPerSecond++;
+//				list.add(message);
+//			}
+//		}
 		
 		bGetting = false;
-		
+		updateMessagesPerSecond += updateMessages.size();
 		return list;
 	}
 	
 	public int getMessagesSize() {
 		int result = messagesPerSecond;
-		messagesPerSecond = 0;
+		System.out.println("messagesPerSecond: " + messagesPerSecond + " updateMessagesPerSecond: " + updateMessagesPerSecond);
+
 		return result;
+	}
+	
+	public void print() {
+		System.out.println("messagesPerSecond: " + messagesPerSecond + " updateMessagesPerSecond: " + updateMessagesPerSecond);
+		messagesPerSecond = 0;
+		updateMessagesPerSecond = 0;
 	}
 	
 	public void update(double delta) {

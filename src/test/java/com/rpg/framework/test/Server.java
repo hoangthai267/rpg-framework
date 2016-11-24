@@ -50,7 +50,8 @@ public class Server extends com.rpg.framework.core.Server {
 	@Override
 	public void updateSecond(double delta, int fps) {		
 		super.updateSecond(delta, fps);
-		System.out.println("FPS : " + fps + " Request size: " + MessageManager.getInstance().getMessagesSize());
+		System.out.print("FPS : " + fps + " ");
+		MessageManager.getInstance().print();
 	}
 	
 	@Override
@@ -64,6 +65,8 @@ public class Server extends com.rpg.framework.core.Server {
 		
 		List<Message> messages = MessageManager.getInstance().getMessages();
 		for (Message message : messages) {
+			if(message == null)
+				continue;
 			switch (message.getType()) {
 				// send to one
 				case 1: {
@@ -380,13 +383,13 @@ public class Server extends com.rpg.framework.core.Server {
 				.put("x", request.getX())
 				.put("y", request.getY());
 		
-//		User user = UserManager.getInstance().getIdentifiedUser(request.getUserID());
-//		
-//		if(user == null)
-//			return;
-//		
-//		user.getPosition().set(request.getMapID(), request.getX(), request.getY());
-//		
+		User user = UserManager.getInstance().getIdentifiedUser(request.getUserID());
+		
+		if(user == null)
+			return;
+		
+		user.getPosition().set(request.getMapID(), request.getX(), request.getY());
+		
 //		MapManager.getInstance().sendMessageUpdateUser(request.getMapID(), request.getUserID(), request.getX(), request.getY(), request.getState());
 		DataManager.getInstance().cached(id, characterPosition);
 		
@@ -395,7 +398,7 @@ public class Server extends com.rpg.framework.core.Server {
 		
 		sendMessageTo(clientID, Protocol.MessageType.RESPONE_UPDATE_POSITION_VALUE, builder.build().toByteArray());
 		} catch (Exception ex) {
-			System.out.println(ex.getMessage() + "userID :" + request.getUserID());
+			System.out.println(ex.getMessage() + "handleRequestUpdatePosition userID :" + request.getUserID());
 		}
 	}
 	
@@ -416,6 +419,8 @@ public class Server extends com.rpg.framework.core.Server {
 		try {
 			int userID = request.getUserID();
 			User user = UserManager.getInstance().getIdentifiedUser(userID);
+			if(user == null)
+				return;
 			int mapID = user.getPosition().getMapID();
 
 			List<Integer> userList = MapManager.getInstance().getUserList(mapID);
@@ -428,7 +433,7 @@ public class Server extends com.rpg.framework.core.Server {
 				}
 			}
 		} catch (Exception ex) {
-			System.out.println(ex.getMessage() + "userID : " + request.getUserID());
+			System.out.println(ex.getMessage() + "handleRequestUpdateAction userID : " + request.getUserID());
 		}
 	}
 	
