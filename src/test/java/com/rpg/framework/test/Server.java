@@ -50,7 +50,7 @@ public class Server extends com.rpg.framework.core.Server {
 	@Override
 	public void updateSecond(double delta, int fps) {		
 		super.updateSecond(delta, fps);
-		System.out.print("FPS : " + fps + " ");
+//		System.out.print("FPS : " + fps + " ");
 		MessageManager.getInstance().print();
 	}
 	
@@ -64,14 +64,18 @@ public class Server extends com.rpg.framework.core.Server {
 		MessageManager.getInstance().update(delta);
 		
 		List<Message> messages = MessageManager.getInstance().getMessages();
-		for (Message message : messages) {
+//		while(!messages.isEmpty()) {
+//		for (Message message : messages) {
+		for(int i = 0; i < messages.size(); i++) {
+			Message message = messages.get(i);
 			if(message == null)
 				continue;
 			switch (message.getType()) {
 				// send to one
 				case 1: {
-					if(!sendMessageTo(message.getChannelID(), message.getCommandID(), message.getData()))
-						MessageManager.getInstance().newMessage(message);
+					sendMessageTo(message.getChannelID(), message.getCommandID(), message.getData());
+//					if(!sendMessageTo(message.getChannelID(), message.getCommandID(), message.getData()))
+//						MessageManager.getInstance().newMessage(message);
 					break;
 				}
 				// send to other
