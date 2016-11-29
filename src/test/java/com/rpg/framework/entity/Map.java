@@ -22,11 +22,6 @@ public class Map {
 	private LinkedList<Integer> itemList;
 	private LinkedList<Integer> portalList;
 	
-	private HashMap<Integer, MapObject> monsters;
-	private HashMap<Integer, MapObject> items;
-	private HashMap<Integer, MapObject> portals;
-	
-	
 	private HashMap<Integer, Monster> monstersPrototype;
 	private LinkedList<Monster> monstersRespawn;
 //	private HashMap<Integer, Item> itemsPrototype;
@@ -38,10 +33,6 @@ public class Map {
 		this.monstersList 	= new LinkedList<Integer>();
 		this.itemList 		= new LinkedList<Integer>();
 		this.portalList 	= new LinkedList<Integer>();
-		
-		this.monsters 		= new HashMap<Integer, MapObject>();
-		this.items 			= new HashMap<Integer, MapObject>();
-		this.portals 		= new HashMap<Integer, MapObject>();
 		
 		this.monstersPrototype = new HashMap<Integer, Monster>();
 		this.monstersRespawn = new LinkedList<Monster>();
@@ -102,10 +93,11 @@ public class Map {
 								.setMaxMP(newUser.getStatus().getMaxMP()))
 						
 						).build();
+		
 		for(int i = 0; i < userList.size(); i++) {
 			int id = userList.get(i);
 			int userConnectionID = UserManager.getInstance().getIdentifiedUser(id).getConnectionID();
-			MessageManager.getInstance().newMessage(Message.SEND_TO_ONE, userConnectionID, Protocol.MessageType.MESSAGE_NEW_USER_VALUE, message.toByteArray());
+			MessageManager.getInstance().sendMessage(userConnectionID, Protocol.MessageType.MESSAGE_NEW_USER_VALUE, message.toByteArray());
 		}
 		
 		userList.add(userID);
@@ -137,7 +129,7 @@ public class Map {
 		for(int i = 0; i < userList.size(); i++) {
 			int id = userList.get(i);
 			int userConnectionID = UserManager.getInstance().getIdentifiedUser(id).getConnectionID();
-			MessageManager.getInstance().newMessage(Message.SEND_TO_ONE, userConnectionID, Protocol.MessageType.MESSAGE_DELETE_USER_VALUE, message.toByteArray());
+			MessageManager.getInstance().sendMessage(userConnectionID, Protocol.MessageType.MESSAGE_DELETE_USER_VALUE, message.toByteArray());
 		}
 		
 		return true;
@@ -149,18 +141,6 @@ public class Map {
 	
 	public List<Integer> getMonsterList() {
 		return monstersList;
-	}
-	
-	public void addMonster(Integer id, MapObject monster) {
-		monsters.put(id, monster);
-	}
-	
-	public void addItem(Integer id, MapObject item) {
-		items.put(id, item);
-	}
-	
-	public void addPortal(Integer id, MapObject portal) {
-		portals.put(id, portal);
 	}
 
 	public int getId() {
@@ -210,25 +190,5 @@ public class Map {
 					.build()
 					.toByteArray()
 				);
-	}
-	
-	public void sendMessageUpdateUser(int id, int mapID, double x, double y, int state) {
-		Protocol.MessageUpdateUser.Builder builder = Protocol.MessageUpdateUser.newBuilder();
-		builder.setMapID(mapID);
-		builder.setX(x);
-		builder.setY(y);
-		builder.setUserID(id);
-		builder.setState(state);
-		
-		ArrayList<Integer> channels = new ArrayList<Integer>();
-		for (Integer userID : userList) {
-			if(userID.intValue() == id)
-				continue;
-			User user = UserManager.getInstance().getIdentifiedUser(userID);				
-			channels.add(user.getConnectionID());
-		}		
-		if(channels.size() != 0) {
-			MessageManager.getInstance().sendMessage(channels, Protocol.MessageType.MESSAGE_UPDATE_USER_VALUE, builder.build().toByteArray());
-		}
 	}
 }

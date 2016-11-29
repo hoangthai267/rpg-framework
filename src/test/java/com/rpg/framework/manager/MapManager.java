@@ -64,7 +64,10 @@ public class MapManager {
 				int itemPositionX = item.getInt("x");
 				int itemPositionY = item.getInt("y");
 				
-				map.addItem(itemID, new MapObject(itemID, itemPositionX, itemPositionY));
+				
+				
+				
+//				map.addItem(itemID, new MapObject(itemID, itemPositionX, itemPositionY));
 			}
 			
 			JsonArray portals = object.getArray("portals");
@@ -74,7 +77,7 @@ public class MapManager {
 				int portalPositionX = portal.getInt("x");
 				int portalPositionY = portal.getInt("y");
 				
-				map.addPortal(portalID, new MapObject(portalID, portalPositionX, portalPositionY));
+//				map.addPortal(portalID, new MapObject(portalID, portalPositionX, portalPositionY));
 			}
 			
 			map.initalize();
@@ -140,10 +143,6 @@ public class MapManager {
 			instance = new MapManager();
 		}
 		return instance;
-	}
-	
-	public void sendMessageUpdateUser(int mapID, int userID, double x, double y, int state) {
-		mapList.get(mapID).sendMessageUpdateUser(userID, mapID, x, y, state);
 	}
 	
 }

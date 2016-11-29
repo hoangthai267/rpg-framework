@@ -164,7 +164,7 @@ public class Server extends com.rpg.framework.core.Server {
 		JsonObject accounts = DataManager.getInstance().get("Accounts");
 		if(accounts.containsKey(request.getUsername())) {
 			JsonObject user = accounts.getObject(request.getUsername());
-			String userName = user.getString("userName");
+			String userName = user.getString("username");
 			String password = user.getString("password");
 			int	userID 		= user.getInt("userID");
 			
@@ -181,11 +181,12 @@ public class Server extends com.rpg.framework.core.Server {
 					builder.setHasCharacter(hasCharacter);
 				} else {
 					builder.setResult(Protocol.ResponseCode.SUCCESS);
-					builder.setMessage("The account are logged.");
+					builder.setMessage("Sucess.");
 					builder.setUserID(userID);
 					builder.setHasCharacter(hasCharacter);
 					
 					if(hasCharacter) {
+						System.out.println("Server.handleRequestLogin(): " + userName);
 						UserManager.getInstance().addIdentifiedUser(clientID, userID);
 						user.put("hasLogin", true);
 						DataManager.getInstance().set("User_" + userID, user);
@@ -347,7 +348,7 @@ public class Server extends com.rpg.framework.core.Server {
 							.setDamage(user.getStats().getDamage())
 							.setDefense(user.getStats().getDefense())
 							.setSpeed(user.getStats().getSpeed()))
-					);			
+					);
 		}
 		
 		for (int i = 0; i < monsterList.size(); i++) {			
@@ -381,7 +382,6 @@ public class Server extends com.rpg.framework.core.Server {
 	private void handleRequestUpdatePosition(int clientID, Protocol.RequestUpdatePosition request) {
 		try {
 		String id = "User_" + request.getUserID() + "_Position";
-		
 		JsonObject characterPosition = JsonObject.create()
 				.put("mapID", request.getMapID())
 				.put("x", request.getX())
@@ -394,7 +394,6 @@ public class Server extends com.rpg.framework.core.Server {
 		
 		user.getPosition().set(request.getMapID(), request.getX(), request.getY());
 		
-//		MapManager.getInstance().sendMessageUpdateUser(request.getMapID(), request.getUserID(), request.getX(), request.getY(), request.getState());
 		DataManager.getInstance().cached(id, characterPosition);
 		
 		Protocol.ResponseUpdatePosition.Builder builder = Protocol.ResponseUpdatePosition.newBuilder();
