@@ -3,9 +3,11 @@ package com.rpg.framework.manager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.couchbase.client.java.document.json.JsonObject;
+import com.rpg.framework.database.Protocol;
 import com.rpg.framework.entity.Position;
 import com.rpg.framework.entity.Stats;
 import com.rpg.framework.entity.Status;
@@ -164,5 +166,12 @@ public class UserManager {
 			instance = new UserManager();
 		}		
 		return instance;
+	}
+
+	public void sendMessageUpdateMonsterByCommand(List<Integer> userList, byte[] data) {
+		for (Integer id : userList) {
+			User entity = identifiedUsers.get(id);
+			MessageManager.getInstance().sendMessage(entity.getConnectionID(), Protocol.MessageType.MESSAGE_UPDATE_MONSTER_BY_COMMAND_VALUE, data);
+		}	
 	}
 }

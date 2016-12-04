@@ -12,6 +12,9 @@ import com.rpg.framework.manager.MonsterManager;
 import com.rpg.framework.manager.UserManager;
 
 public class Map {
+	private static double REFRESH_TIME = 2.0;
+	
+	
 	private int id;
 	private int width;
 	private int height;
@@ -25,7 +28,10 @@ public class Map {
 	private HashMap<Integer, Monster> monstersPrototype;
 	private LinkedList<Monster> monstersRespawn;
 //	private HashMap<Integer, Item> itemsPrototype;
+//	private LinkedList<Monster> itemsRespawn;
 //	private HashMap<Integer, Portal> portalsPrototype;
+	
+	private double refreshTime;
 	
 	public Map() {
 		this.userList 		= new ArrayList<Integer>();
@@ -36,6 +42,8 @@ public class Map {
 		
 		this.monstersPrototype = new HashMap<Integer, Monster>();
 		this.monstersRespawn = new LinkedList<Monster>();
+		
+		this.refreshTime = REFRESH_TIME;
 	}
 	
 	public boolean initalize() {
@@ -71,6 +79,13 @@ public class Map {
 				i--;				
 			}				
 		}	
+		
+		if(refreshTime > REFRESH_TIME) {
+			refreshTime -= REFRESH_TIME;
+			MonsterManager.getInstance().sendMessageUpdateMonsterByCommand(monstersList, userList);
+		} else {
+			refreshTime += delta;
+		}
 	}
 	
 	public void addUser(Integer userID) {		
@@ -190,5 +205,20 @@ public class Map {
 					.build()
 					.toByteArray()
 				);
+	}
+
+	public void sendMessageUpdateMonsterState(byte[] byteArray) {
+		for (Integer integer : userList) {
+			MessageManager.getInstance().sendMessage(
+					UserManager.getInstance().getIdentifiedUser(integer.intValue()).getConnectionID(), 
+					Protocol.MessageType.MESSAGE_UPDATE_MONSTER_STATE_VALUE, 
+					byteArray);
+		}
+	}
+	
+	public boolean getUpdatedUser(int userID) {
+		if(userList.get(0).intValue() == userID)
+			return true;
+		return false;
 	}
 }

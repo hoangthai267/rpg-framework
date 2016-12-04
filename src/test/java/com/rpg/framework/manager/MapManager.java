@@ -44,15 +44,10 @@ public class MapManager {
 				int monsterPositionX = monster.getInt("x");
 				int monsterPositionY = monster.getInt("y");
 				
-				Position position = new Position();			
-				position.setMapID(map.getId());
-				position.setX(monsterPositionX);
-				position.setY(monsterPositionY);
-				
 				Monster entity = monsterManager.getMonster(monsterID);
 				entity.setId(monsterID);
 				entity.setIndex(monsterIndex);
-				entity.setPosition(position);
+				entity.setPosition(map.getId(), monsterPositionX, monsterPositionY);
 				
 				map.addMonstersPrototype(monsterIndex, entity);
 			}
@@ -143,6 +138,14 @@ public class MapManager {
 			instance = new MapManager();
 		}
 		return instance;
+	}
+
+	public void sendMessageUpdateMonsterState(int mapID, byte[] byteArray) {
+		mapList.get(mapID).sendMessageUpdateMonsterState(byteArray);
+	}
+
+	public boolean getUpdatedUser(int mapID, int userID) {
+		return mapList.get(mapID).getUpdatedUser(userID);		
 	}
 	
 }

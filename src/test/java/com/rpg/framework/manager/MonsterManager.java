@@ -3,13 +3,16 @@ package com.rpg.framework.manager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Set;
 
 import com.couchbase.client.java.document.json.JsonArray;
 import com.couchbase.client.java.document.json.JsonObject;
-
+import com.rpg.framework.database.Protocol;
+import com.rpg.framework.database.Protocol.MessageUpdateMonsterByCommand;
 import com.rpg.framework.entity.Monster;
 import com.rpg.framework.entity.Stats;
 import com.rpg.framework.entity.Status;
@@ -37,25 +40,25 @@ public class MonsterManager {
 		
 		for(int i = 0; i < total; i++) {
 			JsonObject object = data.getObject(i);
+			int id = object.getInt("id");
 			
-			Status status = new Status();
-			status.setMaxHP(object.getInt("maxHP"));
-			status.setMaxMP(object.getInt("maxMP"));
-			status.setCurHP(status.getMaxHP());
-			status.setCurMP(status.getMaxMP());
+			int hp = object.getInt("maxHP");
+			int mp = object.getInt("maxMP");
 			
-			Stats stats = new Stats();
-			stats.setDamage(object.getInt("damage"));
-			stats.setDefense(object.getInt("defense"));
-			stats.setSpeed(object.getInt("speed"));
+			int damage = object.getInt("damage");
+			int defense = object.getInt("defense");
+			int speed = object.getInt("speed");
 			
-
-			Monster monster = new Monster();
-			monster.setId(object.getInt("id"));
-			monster.setStats(stats);
-			monster.setStatus(status);
+			Monster entity = new Monster();
+			entity.setId(id);
+			entity.setCurHP(hp);
+			entity.setMaxHP(hp);
 			
-			monstersPrototype.put(monster.getId(), monster);
+			entity.setDamage(damage);
+			entity.setDefense(defense);
+			entity.setSpeed(speed);
+			
+			monstersPrototype.put(entity.getId(), entity);
 		}
 		
 		
@@ -79,8 +82,8 @@ public class MonsterManager {
 			Monster monster = monsters.get(i);
 			monster.update(delta);
 			if(monster.isDead()) {
-				MapManager.getInstance().killMonster(monster.getPosition().getMapID(), monster.getIndex());
-				MapManager.getInstance().respawnMonster(monster.getPosition().getMapID(), monster.getIndex());
+				MapManager.getInstance().killMonster(monster.getMapID(), monster.getIndex());
+				MapManager.getInstance().respawnMonster(monster.getMapID(), monster.getIndex());
 				monstersList.remove(monster.getIndex(), monster);
 				monsters.remove(i);
 				i--;
@@ -106,5 +109,23 @@ public class MonsterManager {
 		if(instance == null)
 			instance = new MonsterManager();
 		return instance;
+	}
+
+	public void sendMessageUpdateMonsterByCommand(List<Integer> monstersList, List<Integer> userList) {
+		Protocol.MessageUpdateMonsterByCommand.Builder builder = MessageUpdateMonsterByCommand.newBuilder();
+		
+		Random rad = new Random();
+		for (Integer id : monstersList) {
+			Monster entity = monsters.get(id.intValue());
+			int command = rad.nextInt() % 3;
+			
+			builder.addData(Protocol.ActionCommand.newBuilder()
+					.setCommand(command)
+					.setID(entity.getId())
+					.setIndex(entity.getIndex())
+					);			
+		}
+		
+		UserManager.getInstance().sendMessageUpdateMonsterByCommand(userList, builder.build().toByteArray());
 	}	
 }

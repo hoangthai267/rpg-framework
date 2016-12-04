@@ -1,17 +1,29 @@
 package com.rpg.framework.entity;
 
+import java.util.Random;
+
 public class Monster {
-	private int id;
-	private int index;
-	private Position position;
-	private Status status;
-	private Stats stats;
-	private double respawnTime;
+	private int 	id;
+	private int 	index;	
+	
+	private int 	mapID;
+	private double 	positionX;
+	private double 	positionY;
+	
+	private int		state;
+	private int 	direction;
+	
+	private int		damage;
+	private int		defense;
+	private int		speed;
+	
+	private	int		curHP;
+	private int		maxHP;
+
+	private double 	respawnTime;
 	
 	public Monster() {
-		this.position = new Position();
-		this.stats = new Stats();
-		this.status = new Status();
+		
 		this.respawnTime = 5.0f;
 	}
 	
@@ -38,61 +50,85 @@ public class Monster {
 	public void setIndex(int index) {
 		this.index = index;
 	}
-
-	public Position getPosition() {
-		return position;
-	}
-
-	public void setPosition(Position position) {
-		this.position = position;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	public Stats getStats() {
-		return stats;
-	}
-
-	public void setStats(Stats stats) {
-		this.stats = stats;
-	}
 	
-	public boolean isDead() {
-		return status.getCurHP() <= 0;
+	public int getMapID() {
+		return mapID;
 	}
-	
-	public Monster clone() {
-		Status status = new Status();
-		
-		status.setMaxHP(this.status.getMaxHP());
-		status.setCurHP(this.status.getCurHP());
-		status.setMaxMP(this.status.getMaxMP());
-		status.setCurMP(this.status.getCurMP());
-		
-		Stats stats = new Stats();
-		stats.setDamage(this.stats.getDamage());
-		stats.setDefense(this.stats.getDefense());
-		stats.setSpeed(this.stats.getSpeed());
-		
-		Position position = new Position();
-		position.setMapID(this.position.getMapID());
-		position.setX(this.position.getX());
-		position.setY(this.position.getY());
-		
-		Monster monster = new Monster();
-		monster.setId(this.id);
-		monster.setIndex(this.index);
-		monster.setPosition(position);
-		monster.setStats(stats);
-		monster.setStatus(status);
-		
-		return monster;
+
+	public void setMapID(int mapID) {
+		this.mapID = mapID;
+	}
+
+	public double getPositionX() {
+		return positionX;
+	}
+
+	public void setPositionX(double positionX) {
+		this.positionX = positionX;
+	}
+
+	public double getPositionY() {
+		return positionY;
+	}
+
+	public void setPositionY(double positionY) {
+		this.positionY = positionY;
+	}
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
+	public int getDirection() {
+		return direction;
+	}
+
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+
+	public int getDefense() {
+		return defense;
+	}
+
+	public void setDefense(int defense) {
+		this.defense = defense;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
+	public int getCurHP() {
+		return curHP;
+	}
+
+	public void setCurHP(int curHP) {
+		this.curHP = curHP;
+	}
+
+	public int getMaxHP() {
+		return maxHP;
+	}
+
+	public void setMaxHP(int maxHP) {
+		this.maxHP = maxHP;
 	}
 
 	public double getRespawnTime() {
@@ -103,7 +139,42 @@ public class Monster {
 		this.respawnTime = respawnTime;
 	}
 	
+	public Monster clone() {
+		Monster entity = new Monster();
+		
+		entity.setId(id);
+		entity.setIndex(index);
+		
+		entity.setMapID(mapID);
+		entity.setPositionX(positionX);
+		entity.setPositionY(positionY);
+		
+		entity.setState(state);
+		entity.setDirection(direction);
+		
+		entity.setDamage(damage);
+		entity.setDefense(defense);
+		entity.setSpeed(speed);
+		
+		entity.setCurHP(curHP);
+		entity.setMapID(maxHP);
+		
+		
+		return entity;
+	}
+	
 	public boolean isRespawn() {
 		return respawnTime <= 0.0;
 	}
+
+	public boolean isDead() {
+		return this.curHP <= 0;
+	}
+	
+	public void setPosition(int mapID, double positionX, double positionY) {
+		this.mapID = mapID;
+		this.positionX = positionX;
+		this.positionY = positionY;
+	}
+
 }

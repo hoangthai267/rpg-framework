@@ -7,6 +7,7 @@ import com.couchbase.client.java.document.json.JsonObject;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
 import com.rpg.framework.database.Protocol;
+import com.rpg.framework.database.Protocol.MessageUpdateMonsterState;
 import com.rpg.framework.entity.Message;
 import com.rpg.framework.entity.Monster;
 import com.rpg.framework.entity.User;
@@ -146,6 +147,9 @@ public class Server extends com.rpg.framework.core.Server {
 				case Protocol.MessageType.REQUEST_GET_PROTOTYPE_VALUE: {
 					handleRequestGetPrototype(clientID, Protocol.RequestGetPrototype.parseFrom(data));
 					break;
+				}				
+				case Protocol.MessageType.MESSAGE_UPDATE_MONSTER_STATE_VALUE: {					
+					handleMessageUpdateMonsterState(Protocol.MessageUpdateMonsterState.parseFrom(data));
 				}
 	
 				default: {
@@ -157,7 +161,7 @@ public class Server extends com.rpg.framework.core.Server {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void handleRequestLogin(int clientID, Protocol.RequestLogin request) {
 		Protocol.ResponseLogin.Builder builder = Protocol.ResponseLogin.newBuilder();
 		
@@ -322,17 +326,18 @@ public class Server extends com.rpg.framework.core.Server {
 		builder.setResult(Protocol.ResponseCode.SUCCESS);
 		builder.setMessage("Welcome to our game.");		
 		
-		int mapID = UserManager.getInstance().getIdentifiedUser(request.getUserID()).getPosition().getMapID();
+		int userID = request.getUserID();
+		int mapID = UserManager.getInstance().getIdentifiedUser(userID).getPosition().getMapID();
 		
 		List<Integer> userList 		= MapManager.getInstance().getUserList(mapID);
 		List<Integer> monsterList 	= MapManager.getInstance().getMonsterList(mapID);
 //		List<Integer> itemList 		= MapManager.getInstance().getItemList(mapID);
 		
-		for (Integer userID : userList) {
-			User user = UserManager.getInstance().getIdentifiedUser(userID);
+		for (Integer id : userList) {
+			User user = UserManager.getInstance().getIdentifiedUser(id);
 			
 			builder.addUsers(Protocol.User.newBuilder()
-					.setId(userID)
+					.setId(id)
 					.setPosition(Protocol.Position.newBuilder()
 							.setMapID(user.getPosition().getMapID())
 							.setX(user.getPosition().getX())
@@ -358,21 +363,23 @@ public class Server extends com.rpg.framework.core.Server {
 					.setId(entity.getId())
 					.setIndex(entity.getIndex())
 					.setPosition(Protocol.Position.newBuilder()
-							.setMapID(1)
-							.setX(entity.getPosition().getX())
-							.setY(entity.getPosition().getY()))
+							.setMapID(entity.getMapID())
+							.setX(entity.getPositionX())
+							.setY(entity.getPositionY()))
 					.setStats(Protocol.Stats.newBuilder()
-							.setDamage(entity.getStats().getDamage())
-							.setDefense(entity.getStats().getDefense())
-							.setSpeed(entity.getStats().getSpeed()))
+							.setDamage(entity.getDamage())
+							.setDefense(entity.getDefense())
+							.setSpeed(entity.getSpeed()))
 					.setStatus(Protocol.Status.newBuilder()
-							.setCurHP(entity.getStatus().getCurHP())
-							.setCurMP(entity.getStatus().getCurMP())
-							.setMaxHP(entity.getStatus().getMaxHP())
-							.setMaxMP(entity.getStatus().getMaxMP()))
+							.setCurHP(entity.getCurHP())
+//							.setCurMP(entity.getCurMP())
+							.setMaxHP(entity.getMaxHP())
+//							.setMaxMP(entity.getMaxMP())
+							)
 					);
 		}
 		
+		builder.setUpdatedUser(MapManager.getInstance().getUpdatedUser(mapID, userID));
 		
 		MapManager.getInstance().enterMap(request.getUserID(), mapID);
 		
@@ -488,5 +495,20 @@ public class Server extends com.rpg.framework.core.Server {
 		}
 
 		sendMessageTo(clientID, Protocol.MessageType.REQUEST_GET_PROTOTYPE_VALUE, builder.build().toByteArray());
+	}
+	
+
+	
+	private void handleMessageUpdateMonsterState(Protocol.MessageUpdateMonsterState message) {
+		MapManager.getInstance().sendMessageUpdateMonsterState(message.getMapID(), message.toByteArray());
+		
+		
+		for (Protocol.MonsterState data : message.getDataList()) {
+			Monster entity = MonsterManager.getInstance().getMonsterInList(data.getIndex());
+			
+			entity.setPosition(message.getMapID(), data.getPositionX(), data.getPositionY());			
+			entity.setState(data.getState());
+			entity.setDirection(data.getDirection());
+		}
 	}
 }
