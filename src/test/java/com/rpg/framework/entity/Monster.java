@@ -19,7 +19,9 @@ public class Monster {
 	
 	private	int		curHP;
 	private int		maxHP;
-
+	private int		curMP;
+	private int		maxMP;
+	
 	private double 	respawnTime;
 	
 	public Monster() {
@@ -129,6 +131,22 @@ public class Monster {
 
 	public void setMaxHP(int maxHP) {
 		this.maxHP = maxHP;
+	}
+
+	public int getCurMP() {
+		return curMP;
+	}
+
+	public void setCurMP(int curMP) {
+		this.curMP = curMP;
+	}
+
+	public int getMaxMP() {
+		return maxMP;
+	}
+
+	public void setMaxMP(int maxMP) {
+		this.maxMP = maxMP;
 	}
 
 	public double getRespawnTime() {

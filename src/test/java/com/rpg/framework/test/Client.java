@@ -242,6 +242,10 @@ public class Client extends com.rpg.framework.core.Client {
 		
 		Protocol.RequestUpdateAction.Builder builder = Protocol.RequestUpdateAction.newBuilder();
 		builder.setUserID(userID);
+		builder.setPosition(Protocol.Position.newBuilder()
+				.setX(0.0)
+				.setY(0.0)
+				.setMapID(mapID));
 		builder.addActions(Protocol.CharacterAction.newBuilder()
 				.setState(10)
 				.setActionCommand(100)

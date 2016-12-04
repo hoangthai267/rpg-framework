@@ -1,23 +1,19 @@
 package com.rpg.framework.manager;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import com.rpg.framework.entity.Message;
 
 public class MessageManager {
-	private ArrayList<Message> 	messages;	
-	private ArrayList<Message> 	updateMessages;
-	private int 				messagesPerSecond;
-	private int 				updateMessagesPerSecond;
-	private boolean 			bGetting;
+	private Queue<Message> 	messages;
+	private int 			messagesPerSecond;
 	
 	public MessageManager() {
-		messages 				= new ArrayList<Message>();
-		updateMessages 			= new ArrayList<Message>();
+		messages 				= new LinkedList<Message>();
 		messagesPerSecond 		= 0;
-		updateMessagesPerSecond	= 0;
-		bGetting 				= false;
 	}
 	
 	
@@ -49,26 +45,27 @@ public class MessageManager {
 		newMessage(new Message(Message.RECEIVE, channelID, commandID, data));
 	}
 	
-	public ArrayList<Message> getMessages() {
-		ArrayList<Message> list = null;
+	public Queue<Message> getMessages() {
+//		ArrayList<Message> list = null;
+//		
+//		bGetting 				= true;
+//		list 					= messages;		
+//		messagesPerSecond 		+= list.size();
+//	
+//		bGetting 				= false;
+//		messages 				= updateMessages;
+//		updateMessagesPerSecond += updateMessages.size();
+//		
+//		updateMessages 			= new ArrayList<Message>();
 		
-		bGetting 				= true;
-		list 					= messages;		
-		messagesPerSecond 		+= list.size();
-	
-		bGetting 				= false;
-		messages 				= updateMessages;
-		updateMessagesPerSecond += updateMessages.size();
+		messagesPerSecond 		+= messages.size();
 		
-		updateMessages 			= new ArrayList<Message>();
-		
-		return list;
+		return messages;
 	}
 	
 	public void print() {
-		System.out.println("messagesPerSecond: " + messagesPerSecond + " updateMessagesPerSecond: " + updateMessagesPerSecond);
+		System.out.println("messagesPerSecond: " + messagesPerSecond);
 		messagesPerSecond 		= 0;
-		updateMessagesPerSecond = 0;
 	}
 	
 	public void update(double delta) {

@@ -1,6 +1,7 @@
 package com.rpg.framework.test;
 
 import java.util.List;
+import java.util.Queue;
 
 import com.couchbase.client.java.document.json.JsonArray;
 import com.couchbase.client.java.document.json.JsonObject;
@@ -51,7 +52,7 @@ public class Server extends com.rpg.framework.core.Server {
 	@Override
 	public void updateSecond(double delta, int fps) {		
 		super.updateSecond(delta, fps);
-//		System.out.print("FPS : " + fps + " ");
+		System.out.print("FPS : " + fps + " ");
 		MessageManager.getInstance().print();
 	}
 	
@@ -64,11 +65,12 @@ public class Server extends com.rpg.framework.core.Server {
 		UserManager.getInstance().update(delta);		
 		MessageManager.getInstance().update(delta);
 		
-		List<Message> messages = MessageManager.getInstance().getMessages();
-//		while(!messages.isEmpty()) {
+		Queue<Message> messages = MessageManager.getInstance().getMessages();
+		while(!messages.isEmpty()) {
 //		for (Message message : messages) {
-		for(int i = 0; i < messages.size(); i++) {
-			Message message = messages.get(i);
+//		for(int i = 0; i < messages.size(); i++) {
+//			Message message = messages.get(i);
+			Message message = messages.poll();
 			if(message == null)
 				continue;
 			switch (message.getType()) {
@@ -372,17 +374,15 @@ public class Server extends com.rpg.framework.core.Server {
 							.setSpeed(entity.getSpeed()))
 					.setStatus(Protocol.Status.newBuilder()
 							.setCurHP(entity.getCurHP())
-//							.setCurMP(entity.getCurMP())
+							.setCurMP(entity.getCurMP())
 							.setMaxHP(entity.getMaxHP())
-//							.setMaxMP(entity.getMaxMP())
+							.setMaxMP(entity.getMaxMP())
 							)
 					);
 		}
-		
-		builder.setUpdatedUser(MapManager.getInstance().getUpdatedUser(mapID, userID));
-		
 		MapManager.getInstance().enterMap(request.getUserID(), mapID);
 		
+		builder.setUpdatedUser(MapManager.getInstance().getUpdatedUser(mapID, userID));
 		sendMessageTo(clientID, Protocol.MessageType.RESPONE_START_GAME_VALUE, builder.build().toByteArray());
 	}
 	

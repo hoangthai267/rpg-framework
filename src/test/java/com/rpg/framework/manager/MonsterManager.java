@@ -113,10 +113,9 @@ public class MonsterManager {
 
 	public void sendMessageUpdateMonsterByCommand(List<Integer> monstersList, List<Integer> userList) {
 		Protocol.MessageUpdateMonsterByCommand.Builder builder = MessageUpdateMonsterByCommand.newBuilder();
-		
 		Random rad = new Random();
 		for (Integer id : monstersList) {
-			Monster entity = monsters.get(id.intValue());
+			Monster entity = this.monstersList.get(id.intValue());
 			int command = rad.nextInt() % 3;
 			
 			builder.addData(Protocol.ActionCommand.newBuilder()
