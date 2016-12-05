@@ -152,6 +152,22 @@ public class Server extends com.rpg.framework.core.Server {
 				}				
 				case Protocol.MessageType.MESSAGE_UPDATE_MONSTER_STATE_VALUE: {					
 					handleMessageUpdateMonsterState(Protocol.MessageUpdateMonsterState.parseFrom(data));
+					break;
+				}
+				
+				case Protocol.MessageType.REQUEST_CHANGE_MAP_VALUE: {
+					handleRequestChangeMap(clientID, Protocol.RequestChangeMap.parseFrom(data));
+					break;
+				}
+				
+				case Protocol.MessageType.MESSAGE_UPDATE_USER_COLLISION_VALUE: {
+					handleMessageUpdateUserCollision(Protocol.MessageUpdateUserCollision.parseFrom(data));
+					break;
+				}
+				
+				case Protocol.MessageType.MESSAGE_UPDATE_MONSTER_COLLISION_VALUE: {
+					handleMessageUpdateMonsterCollision(Protocol.MessageUpdateMonsterCollision.parseFrom(data));
+					break;
 				}
 	
 				default: {
@@ -509,6 +525,92 @@ public class Server extends com.rpg.framework.core.Server {
 			entity.setPosition(message.getMapID(), data.getPositionX(), data.getPositionY());			
 			entity.setState(data.getState());
 			entity.setDirection(data.getDirection());
+		}
+	}
+	
+	public void handleRequestChangeMap(int clientID, Protocol.RequestChangeMap request) {
+		Protocol.ResponseChangeMap.Builder builder = Protocol.ResponseChangeMap.newBuilder();		
+		
+		int userID 	= request.getUserID();
+		int mapID 	= request.getTo();
+		
+		List<Integer> userList 		= MapManager.getInstance().getUserList(mapID);
+		List<Integer> monsterList 	= MapManager.getInstance().getMonsterList(mapID);
+//		List<Integer> itemList 		= MapManager.getInstance().getItemList(mapID);
+		
+		for (Integer id : userList) {
+			User user = UserManager.getInstance().getIdentifiedUser(id);
+			
+			builder.addUsers(Protocol.User.newBuilder()
+					.setId(id)
+					.setPosition(Protocol.Position.newBuilder()
+							.setMapID(user.getPosition().getMapID())
+							.setX(user.getPosition().getX())
+							.setY(user.getPosition().getY())
+							)
+					.setStatus(Protocol.Status.newBuilder()
+							.setMaxHP(user.getStatus().getMaxHP())
+							.setCurHP(user.getStatus().getCurHP())
+							.setMaxMP(user.getStatus().getMaxMP())
+							.setCurMP(user.getStatus().getCurMP())
+							)
+					.setStats(Protocol.Stats.newBuilder()
+							.setDamage(user.getStats().getDamage())
+							.setDefense(user.getStats().getDefense())
+							.setSpeed(user.getStats().getSpeed()))
+					);
+		}
+		
+		for (int i = 0; i < monsterList.size(); i++) {			
+			Monster entity = MonsterManager.getInstance().getMonsterInList(monsterList.get(i));
+			
+			builder.addMonsters(Protocol.Monster.newBuilder()
+					.setId(entity.getId())
+					.setIndex(entity.getIndex())
+					.setPosition(Protocol.Position.newBuilder()
+							.setMapID(entity.getMapID())
+							.setX(entity.getPositionX())
+							.setY(entity.getPositionY()))
+					.setStats(Protocol.Stats.newBuilder()
+							.setDamage(entity.getDamage())
+							.setDefense(entity.getDefense())
+							.setSpeed(entity.getSpeed()))
+					.setStatus(Protocol.Status.newBuilder()
+							.setCurHP(entity.getCurHP())
+							.setCurMP(entity.getCurMP())
+							.setMaxHP(entity.getMaxHP())
+							.setMaxMP(entity.getMaxMP())
+							)
+					);
+		}
+		MapManager.getInstance().changeMap(request.getUserID(), request.getFrom(), request.getTo());
+		
+		sendMessageTo(clientID, Protocol.MessageType.RESPONSE_CHANGE_MAP_VALUE, builder.build().toByteArray());
+	}
+	
+	public void handleMessageUpdateUserCollision(Protocol.MessageUpdateUserCollision message) {
+		User user = UserManager.getInstance().getIdentifiedUser(message.getUserID());
+		Monster monster = MonsterManager.getInstance().getMonsterInList(message.getIndex());
+		
+		int subHP = user.getStatus().getCurHP() - monster.getDamage();
+		user.getStatus().setCurHP(subHP);
+		
+		List<Integer> list = MapManager.getInstance().getUserList(user.getPosition().getMapID());
+		for (Integer id : list) {
+			sendMessageTo(UserManager.getInstance().getIdentifiedUser(id).getConnectionID(), Protocol.MessageType.MESSAGE_UPDATE_USER_COLLISION_VALUE, message.toByteArray());
+		}
+	}
+	
+	public void handleMessageUpdateMonsterCollision(Protocol.MessageUpdateMonsterCollision message) {
+		User user = UserManager.getInstance().getIdentifiedUser(message.getUserID());
+		Monster monster = MonsterManager.getInstance().getMonsterInList(message.getIndex());
+		
+		int subHP = monster.getCurHP() - user.getStats().getDamage();
+		monster.setCurHP(subHP);
+		
+		List<Integer> list = MapManager.getInstance().getUserList(user.getPosition().getMapID());
+		for (Integer id : list) {
+			sendMessageTo(UserManager.getInstance().getIdentifiedUser(id).getConnectionID(), Protocol.MessageType.MESSAGE_UPDATE_MONSTER_COLLISION_VALUE, message.toByteArray());
 		}
 	}
 }
