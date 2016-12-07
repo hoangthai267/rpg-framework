@@ -8,9 +8,6 @@ import java.util.List;
 
 import com.couchbase.client.java.document.json.JsonObject;
 import com.rpg.framework.database.Protocol;
-import com.rpg.framework.entity.Position;
-import com.rpg.framework.entity.Stats;
-import com.rpg.framework.entity.Status;
 import com.rpg.framework.entity.User;
 
 public class UserManager {
@@ -45,25 +42,18 @@ public class UserManager {
 		JsonObject userStats = dataManager.get("User_" + id + "_Stats");
 		JsonObject userStatus = dataManager.get("User_" + id + "_Status");
 		
-		Position position = new Position();
-		position.setMapID(userPosition.getInt("mapID"));
-		position.setX(userPosition.getDouble("x"));
-		position.setY(userPosition.getDouble("y"));
+		user.setMapID(userPosition.getInt("mapID"));
+		user.setPositionX(userPosition.getDouble("x"));
+		user.setPositionY(userPosition.getDouble("y"));
 		
-		Stats stats = new Stats();
-		stats.setDamage(userStats.getInt("dame"));
-		stats.setDefense(userStats.getInt("defense"));
-		stats.setSpeed(userStats.getInt("speed"));
+		user.setDamage(userStats.getInt("dame"));
+		user.setDefense(userStats.getInt("defense"));
+		user.setSpeed(userStats.getInt("speed"));
 		
-		Status status = new Status();
-		status.setCurHP(userStatus.getInt("curHP"));
-		status.setCurMP(userStatus.getInt("curMP"));
-		status.setMaxHP(userStatus.getInt("maxHP"));
-		status.setMaxMP(userStatus.getInt("maxMP"));
-		
-		user.setPosition(position);
-		user.setStats(stats);
-		user.setStatus(status);
+		user.setCurHP(userStatus.getInt("curHP"));
+		user.setCurMP(userStatus.getInt("curMP"));
+		user.setMaxHP(userStatus.getInt("maxHP"));
+		user.setMaxMP(userStatus.getInt("maxMP"));
 		
 		addUser(id, user);
 	}
@@ -94,26 +84,20 @@ public class UserManager {
 		JsonObject userStats = dataManager.get("User_" + userID + "_Stats");
 		JsonObject userStatus = dataManager.get("User_" + userID + "_Status");
 		
-		Position position = new Position();
-		position.setMapID(userPosition.getInt("mapID"));
-		position.setX(userPosition.getDouble("x"));
-		position.setY(userPosition.getDouble("y"));
+		identified.setMapID(userPosition.getInt("mapID"));
+		identified.setPositionX(userPosition.getDouble("x"));
+		identified.setPositionY(userPosition.getDouble("y"));
 		
-		Stats stats = new Stats();
-		stats.setDamage(userStats.getInt("dame"));
-		stats.setDefense(userStats.getInt("defense"));
-		stats.setSpeed(userStats.getInt("speed"));
+		identified.setDamage(userStats.getInt("dame"));
+		identified.setDefense(userStats.getInt("defense"));
+		identified.setSpeed(userStats.getInt("speed"));
 		
-		Status status = new Status();
-		status.setCurHP(userStatus.getInt("curHP"));
-		status.setCurMP(userStatus.getInt("curMP"));
-		status.setMaxHP(userStatus.getInt("maxHP"));
-		status.setMaxMP(userStatus.getInt("maxMP"));
+		identified.setCurHP(userStatus.getInt("curHP"));
+		identified.setCurMP(userStatus.getInt("curMP"));
+		identified.setMaxHP(userStatus.getInt("maxHP"));
+		identified.setMaxMP(userStatus.getInt("maxMP"));
 		
 		identified.setId(userID);
-		identified.setPosition(position);
-		identified.setStats(stats);
-		identified.setStatus(status);
 		
 		identifiedUsers.put(userID, identified);
 	}
@@ -141,7 +125,7 @@ public class UserManager {
 				JsonObject userObject = DataManager.getInstance().get("User_" + user.getId());
 				userObject.put("hasLogin", false);
 				DataManager.getInstance().set("User_" + user.getId(), userObject);
-				MapManager.getInstance().exitMap(user.getId(), user.getPosition().getMapID());				
+				MapManager.getInstance().exitMap(user.getId(), user.getMapID());				
 				identifiedUsers.remove(user.getId());			
 				return true;
 			}

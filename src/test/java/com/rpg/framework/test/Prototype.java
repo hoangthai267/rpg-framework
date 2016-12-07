@@ -195,31 +195,21 @@ public class Prototype {
 	}
 	
 	public void addPrototypeMonsters() {
-		JsonArray data = JsonArray.create()
-				.add(JsonObject.create()
-						.put("id", 1)
-						.put("maxHP", 100)
-						.put("maxMP", 100)
-						.put("damage", 10)
-						.put("defense", 10)
-						.put("speed", 1))
-				.add(JsonObject.create()
-						.put("id", 2)
-						.put("maxHP", 200)
-						.put("maxMP", 200)
-						.put("damage", 20)
-						.put("defense", 20)
-						.put("speed", 2))
-				.add(JsonObject.create()
-						.put("id", 3)
-						.put("maxHP", 300)
-						.put("maxMP", 300)
-						.put("damage", 30)
-						.put("defense", 30)
-						.put("speed", 3));
+		JsonArray data = JsonArray.create();
+		
+		for(int i = 0; i < Config.NUMBER_OF_MONSTER_TYPE; i++) {
+			data.add(JsonObject.create()
+					.put("id", i + 1)
+					.put("maxHP", 	Config.MONSTER_HP[i])
+					.put("maxMP", 	Config.MONSTER_MP[i])
+					.put("damage", 	Config.MONSTER_DAMAMGE[i])
+					.put("defense", Config.MONSTER_DEFENSE[i])
+					.put("speed", 	Config.MONSTER_SPEED[i]));
+		}
+		
 		JsonObject document = JsonObject.create()
 				.put("data", data)
-				.put("total", 3);
+				.put("total", Config.NUMBER_OF_MONSTER_TYPE);
 		
 		couchbase.set("Prototype_Monsters", document);
 		
@@ -256,11 +246,24 @@ public class Prototype {
 		couchbase.set("Accounts", document);
 	}
 	
+	public void addPrototypeCharacter() {
+		JsonObject data = JsonObject.create()
+				.put("damage", 			Config.CHARACTER_DEFENSE)
+				.put("defense", 		Config.CHARACTER_DEFENSE)
+				.put("speed", 			Config.CHARACTER_SPEED)
+				.put("numberOfAttack", 	Config.CHARACTER_NUMBER_OF_ATTACK)
+				.put("maxHP",	 		Config.CHARACTER_HP)
+				.put("maxMP", 			Config.CHARACTER_MP);
+		
+		couchbase.set("Prototype_Character", data);
+	}
+	
 	public void initialize() {
 		addAccount();
 		addPrototypeItems();
 		addPrototypeMap();
 		addPrototypeMonsters();
+//		addPrototypeCharacter();
 	}
 	
 	public void query() {

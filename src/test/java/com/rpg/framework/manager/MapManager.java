@@ -7,9 +7,7 @@ import java.util.Set;
 import com.couchbase.client.java.document.json.JsonArray;
 import com.couchbase.client.java.document.json.JsonObject;
 import com.rpg.framework.entity.Map;
-import com.rpg.framework.entity.MapObject;
 import com.rpg.framework.entity.Monster;
-import com.rpg.framework.entity.Position;
 
 public class MapManager {
 	HashMap<Integer, Map>	mapList;

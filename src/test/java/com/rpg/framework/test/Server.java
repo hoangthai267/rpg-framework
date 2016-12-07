@@ -307,9 +307,9 @@ public class Server extends com.rpg.framework.core.Server {
 					.put("level", 1)
 					.put("strength", 1)
 					.put("magic", 1)
-					.put("defense", 1)
-					.put("speed", 1)
-					.put("dame", 1)
+					.put("defense", Config.CHARACTER_DEFENSE)
+					.put("speed", Config.CHARACTER_SPEED)
+					.put("dame", Config.CHARACTER_DAMAGE)
 					.put("armor", 1);
 
 			JsonObject position = JsonObject.create()
@@ -318,10 +318,10 @@ public class Server extends com.rpg.framework.core.Server {
 					.put("y", 0.0);
 
 			JsonObject status = JsonObject.create()
-					.put("maxHP", 100)
-					.put("curHP", 100)
-					.put("maxMP", 100)
-					.put("curMP", 100);
+					.put("maxHP", Config.CHARACTER_HP)
+					.put("curHP", Config.CHARACTER_HP)
+					.put("maxMP", Config.CHARACTER_MP)
+					.put("curMP", Config.CHARACTER_MP);
 
 			JsonObject items = JsonObject.create().put("items", JsonArray.create().add(0).add(1));
 
@@ -345,7 +345,7 @@ public class Server extends com.rpg.framework.core.Server {
 		builder.setMessage("Welcome to our game.");		
 		
 		int userID = request.getUserID();
-		int mapID = UserManager.getInstance().getIdentifiedUser(userID).getPosition().getMapID();
+		int mapID = UserManager.getInstance().getIdentifiedUser(userID).getMapID();
 		
 		List<Integer> userList 		= MapManager.getInstance().getUserList(mapID);
 		List<Integer> monsterList 	= MapManager.getInstance().getMonsterList(mapID);
@@ -357,20 +357,20 @@ public class Server extends com.rpg.framework.core.Server {
 			builder.addUsers(Protocol.User.newBuilder()
 					.setId(id)
 					.setPosition(Protocol.Position.newBuilder()
-							.setMapID(user.getPosition().getMapID())
-							.setX(user.getPosition().getX())
-							.setY(user.getPosition().getY())
+							.setMapID(user.getMapID())
+							.setX(user.getPositionX())
+							.setY(user.getPositionY())
 							)
 					.setStatus(Protocol.Status.newBuilder()
-							.setMaxHP(user.getStatus().getMaxHP())
-							.setCurHP(user.getStatus().getCurHP())
-							.setMaxMP(user.getStatus().getMaxMP())
-							.setCurMP(user.getStatus().getCurMP())
+							.setMaxHP(user.getMaxHP())
+							.setCurHP(user.getCurHP())
+							.setMaxMP(user.getMaxMP())
+							.setCurMP(user.getCurMP())
 							)
 					.setStats(Protocol.Stats.newBuilder()
-							.setDamage(user.getStats().getDamage())
-							.setDefense(user.getStats().getDefense())
-							.setSpeed(user.getStats().getSpeed()))
+							.setDamage(user.getDamage())
+							.setDefense(user.getDefense())
+							.setSpeed(user.getSpeed()))
 					);
 		}
 		
@@ -415,7 +415,7 @@ public class Server extends com.rpg.framework.core.Server {
 		if(user == null)
 			return;
 		
-		user.getPosition().set(request.getMapID(), request.getX(), request.getY());
+		user.setPosition(request.getMapID(), request.getX(), request.getY());
 		
 		DataManager.getInstance().cached(id, characterPosition);
 		
@@ -447,7 +447,7 @@ public class Server extends com.rpg.framework.core.Server {
 			User user = UserManager.getInstance().getIdentifiedUser(userID);
 			if(user == null)
 				return;
-			int mapID = user.getPosition().getMapID();
+			int mapID = user.getMapID();
 
 			List<Integer> userList = MapManager.getInstance().getUserList(mapID);
 
@@ -544,20 +544,20 @@ public class Server extends com.rpg.framework.core.Server {
 			builder.addUsers(Protocol.User.newBuilder()
 					.setId(id)
 					.setPosition(Protocol.Position.newBuilder()
-							.setMapID(user.getPosition().getMapID())
-							.setX(user.getPosition().getX())
-							.setY(user.getPosition().getY())
+							.setMapID(user.getMapID())
+							.setX(user.getPositionX())
+							.setY(user.getPositionY())
 							)
 					.setStatus(Protocol.Status.newBuilder()
-							.setMaxHP(user.getStatus().getMaxHP())
-							.setCurHP(user.getStatus().getCurHP())
-							.setMaxMP(user.getStatus().getMaxMP())
-							.setCurMP(user.getStatus().getCurMP())
+							.setMaxHP(user.getMaxHP())
+							.setCurHP(user.getCurHP())
+							.setMaxMP(user.getMaxMP())
+							.setCurMP(user.getCurMP())
 							)
 					.setStats(Protocol.Stats.newBuilder()
-							.setDamage(user.getStats().getDamage())
-							.setDefense(user.getStats().getDefense())
-							.setSpeed(user.getStats().getSpeed()))
+							.setDamage(user.getDamage())
+							.setDefense(user.getDefense())
+							.setSpeed(user.getSpeed()))
 					);
 		}
 		
@@ -592,10 +592,10 @@ public class Server extends com.rpg.framework.core.Server {
 		User user = UserManager.getInstance().getIdentifiedUser(message.getUserID());
 		Monster monster = MonsterManager.getInstance().getMonsterInList(message.getIndex());
 		
-		int subHP = user.getStatus().getCurHP() - monster.getDamage();
-		user.getStatus().setCurHP(subHP);
+		int subHP = user.getCurHP() - monster.getDamage();
+		user.setCurHP(subHP);
 		
-		List<Integer> list = MapManager.getInstance().getUserList(user.getPosition().getMapID());
+		List<Integer> list = MapManager.getInstance().getUserList(user.getMapID());
 		for (Integer id : list) {
 			sendMessageTo(UserManager.getInstance().getIdentifiedUser(id).getConnectionID(), Protocol.MessageType.MESSAGE_UPDATE_USER_COLLISION_VALUE, message.toByteArray());
 		}
@@ -605,10 +605,10 @@ public class Server extends com.rpg.framework.core.Server {
 		User user = UserManager.getInstance().getIdentifiedUser(message.getUserID());
 		Monster monster = MonsterManager.getInstance().getMonsterInList(message.getIndex());
 		
-		int subHP = monster.getCurHP() - user.getStats().getDamage();
+		int subHP = monster.getCurHP() - user.getDamage();
 		monster.setCurHP(subHP);
 		
-		List<Integer> list = MapManager.getInstance().getUserList(user.getPosition().getMapID());
+		List<Integer> list = MapManager.getInstance().getUserList(user.getMapID());
 		for (Integer id : list) {
 			sendMessageTo(UserManager.getInstance().getIdentifiedUser(id).getConnectionID(), Protocol.MessageType.MESSAGE_UPDATE_MONSTER_COLLISION_VALUE, message.toByteArray());
 		}

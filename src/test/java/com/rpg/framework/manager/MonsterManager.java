@@ -14,8 +14,6 @@ import com.couchbase.client.java.document.json.JsonObject;
 import com.rpg.framework.database.Protocol;
 import com.rpg.framework.database.Protocol.MessageUpdateMonsterByCommand;
 import com.rpg.framework.entity.Monster;
-import com.rpg.framework.entity.Stats;
-import com.rpg.framework.entity.Status;
 
 public class MonsterManager {
 	private HashMap<Integer, Monster> monstersPrototype;
@@ -116,7 +114,7 @@ public class MonsterManager {
 		Random rad = new Random();
 		for (Integer id : monstersList) {
 			Monster entity = this.monstersList.get(id.intValue());
-			int command = rad.nextInt() % 3;
+			int command = Math.abs(rad.nextInt() % 3);
 			
 			builder.addData(Protocol.ActionCommand.newBuilder()
 					.setCommand(command)

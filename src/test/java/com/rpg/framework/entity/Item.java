@@ -3,12 +3,14 @@ package com.rpg.framework.entity;
 public class Item {
 	private int id;
 	private int index;
-	private Position position;
+	
+	private int 	mapID;
+	private double 	positionX;
+	private double 	positionY;
 	
 	public Item() {
 		this.id 		= -1;
 		this.index 		= -1;
-		this.position 	= new Position();
 	}
 
 	public int getId() {
@@ -26,22 +28,15 @@ public class Item {
 	public void setIndex(int index) {
 		this.index = index;
 	}
-
-	public Position getPosition() {
-		return position;
-	}
-
-	public void setPosition(Position position) {
-		this.position = position;
-	}
 	
 	public Item clone() {
 		Item result = new Item();
 		
 		result.index 	= index;
 		result.id 		= id;
-		result.position	= new Position();
-		result.position.set(position.getMapID(), position.getX(), position.getY());
+		result.mapID 	= mapID;
+		result.positionX = positionX;
+		result.positionY = positionY;
 		
 		return result;
 	}
