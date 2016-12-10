@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.couchbase.client.deps.io.netty.handler.codec.MessageToByteEncoder;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;
@@ -39,17 +41,16 @@ public class Server {
 	private final static int 	TARGET_FPS 			= 60;
 	private final static long 	OPTIMAL_TIME 		= 1000000000 / TARGET_FPS;
 	
-	private int 			numberOfThread;
-	private boolean			running;
-	private ServerBootstrap bootstrap;
-	private EventLoopGroup 	bossGroup;
-	private EventLoopGroup 	workerGroup;
-	private ChannelFuture 	channelFuture;
-	
-	private AtomicInteger	numberOfConnection;
-	private AtomicInteger	index;
-	private Map<Integer, ChannelHandlerContext> channels;	
-	private List<Integer> 	writingChannels;
+	private int 			numberOfThread;					//(1)
+	private boolean			running;						//(2)
+	private ServerBootstrap bootstrap;						//(3)
+	private EventLoopGroup 	bossGroup;						//(4)
+	private EventLoopGroup 	workerGroup;					//(5)	
+	private ChannelFuture 	channelFuture;					//(6)
+		
+	private AtomicInteger	numberOfConnection;				//(7)
+	private AtomicInteger	index;							//(8)
+	private Map<Integer, ChannelHandlerContext> channels;	//(9)	
 	
 	
 	public Server() {
@@ -59,12 +60,11 @@ public class Server {
 		this.numberOfConnection = new AtomicInteger(0);
 		this.index				= new AtomicInteger(0);
 		this.channels			= new HashMap<Integer, ChannelHandlerContext>();
-		this.writingChannels	= new LinkedList<Integer>();
 		this.running			= true;
 	}
 	
 	public boolean initialize() {
-		this.bootstrap = new ServerBootstrap()
+		bootstrap = new ServerBootstrap()
 				.channel(NioServerSocketChannel.class)
 				.childOption(ChannelOption.SO_KEEPALIVE, true)
 				.childOption(ChannelOption.TCP_NODELAY, true)
@@ -73,10 +73,8 @@ public class Server {
 					@Override
 					protected void initChannel(SocketChannel ch) throws Exception {
 						ChannelPipeline p = ch.pipeline();
-						p.addLast(PIPELINE_IDLE,
-								new IdleStateHandler(IDLE_TIME_READER, IDLE_TIME_WRITER, IDLE_TIME_ALL));
+						p.addLast(PIPELINE_IDLE,	new IdleStateHandler(IDLE_TIME_READER, IDLE_TIME_WRITER, IDLE_TIME_ALL));
 						p.addLast(PIPELINE_DECODER, new ByteToMessageDecoder() {
-
 							@Override
 							protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out)
 									throws Exception {
@@ -99,7 +97,7 @@ public class Server {
 
 								out.add(in.readBytes(bodyLen));
 							}
-
+							
 						});
 						p.addLast(PIPELINE_HANDLER, new ChannelInboundHandlerAdapter() {
 							private int channelID;
@@ -138,11 +136,8 @@ public class Server {
 								System.out.println("exceptionCaught: " + cause.getMessage());
 							}
 						});
-
 					}
-				});
-		
-		
+				});				
 		return true;
 	}
 	
@@ -224,81 +219,57 @@ public class Server {
 
 	}
 	
-	public boolean sendMessageTo(final int clientID, int messageID, byte[] data) {
+	public void sendMessageTo(final int clientID, int messageID, byte[] data) {
 		ChannelHandlerContext channel = channels.get(clientID);
 
 		if (channel == null)
-			return true;
-		
-//		if(writingChannels.contains(clientID))
-//			return false;
-//		
-//		writingChannels.add(clientID);
+			return;
 		
 		ByteBuf respBuf = channel.alloc().buffer();
 		int size = data.length + 6;
-		short flag = 0;
 
 		respBuf.clear();
 		respBuf.writeInt(size);
 		respBuf.writeShort(messageID);
 		respBuf.writeBytes(data);
 		
-		channel.writeAndFlush(respBuf).addListener(new ChannelFutureListener() {
-
-			public void operationComplete(ChannelFuture future) throws Exception {
-//				writingChannels.remove((Integer)clientID);
-			}
-			
-		});
-		
-		return true;
+		channel.writeAndFlush(respBuf);
 	}
 	
 	public void sendMessageToList(List<Integer> clients, int messageID, byte[] data) {
 		for (Integer id : clients) {
 			ChannelHandlerContext channel = channels.get(id);
+			
 			if (channel == null)
 				return;
+			
 			ByteBuf respBuf = channel.alloc().buffer();
 			int size = data.length + 6;
-			short flag = 0;
 
 			respBuf.clear();
 			respBuf.writeInt(size);
 			respBuf.writeShort(messageID);
 			respBuf.writeBytes(data);
 
-			channel.writeAndFlush(respBuf).addListener(new ChannelFutureListener() {
-
-				public void operationComplete(ChannelFuture future) throws Exception {
-
-				}
-				
-			});
+			channel.writeAndFlush(respBuf);
 		}
 	}
 	
 	public void sendMessageToAll(int messageID, byte[] data) {
 		for (ChannelHandlerContext channel : channels.values()) {
+			
 			if (channel == null)
 				return;
+			
 			ByteBuf respBuf = channel.alloc().buffer();
 			int size = data.length + 6;
-			short flag = 0;
 
 			respBuf.clear();
 			respBuf.writeInt(size);
 			respBuf.writeShort(messageID);
 			respBuf.writeBytes(data);
 
-			channel.writeAndFlush(respBuf).addListener(new ChannelFutureListener() {
-
-				public void operationComplete(ChannelFuture future) throws Exception {
-					
-				}
-				
-			});
+			channel.writeAndFlush(respBuf);
 		}
 	}
 }

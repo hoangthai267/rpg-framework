@@ -248,7 +248,7 @@ public class Prototype {
 	
 	public void addPrototypeCharacter() {
 		JsonObject data = JsonObject.create()
-				.put("damage", 			Config.CHARACTER_DEFENSE)
+				.put("damage", 			Config.CHARACTER_DAMAGE)
 				.put("defense", 		Config.CHARACTER_DEFENSE)
 				.put("speed", 			Config.CHARACTER_SPEED)
 				.put("numberOfAttack", 	Config.CHARACTER_NUMBER_OF_ATTACK)

@@ -35,91 +35,99 @@ public class Client {
 	private final static int 	TARGET_FPS 			= 60;
 	private final static long 	OPTIMAL_TIME 		= 1000000000 / TARGET_FPS;
 	
+	//(1)
 	private Bootstrap 		bootstrap;
+	//(2)
 	private EventLoopGroup 	group;
+	//(3)
 	private Channel			channel;
+	//(4)
 	private boolean			running;
+	
 	public Client() {
 		 group 		= new NioEventLoopGroup();
 		 bootstrap 	= new Bootstrap();
 		 running	= true;
 	}
-
+	//(1)
 	public boolean initialize() {
-		bootstrap.group(group).channel(NioSocketChannel.class).handler(new ChannelInitializer<SocketChannel>() {
+		bootstrap = new Bootstrap()
+				.channel(NioSocketChannel.class)
+				.group(group)
+				.handler(new ChannelInitializer<SocketChannel>() {
+					@Override
+					protected void initChannel(SocketChannel ch) throws Exception {
+						ChannelPipeline p = ch.pipeline();
+						p.addLast(PIPELINE_IDLE,	new IdleStateHandler(IDLE_TIME_READER, IDLE_TIME_WRITER, IDLE_TIME_ALL));
+						
+						p.addLast(PIPELINE_DECODER, new ByteToMessageDecoder() {
 
-			@Override
-			protected void initChannel(SocketChannel ch) throws Exception {
-				ChannelPipeline p = ch.pipeline();
-				p.addLast(PIPELINE_IDLE, new IdleStateHandler(IDLE_TIME_READER, IDLE_TIME_WRITER, IDLE_TIME_ALL));
-				
-				p.addLast(PIPELINE_DECODER, new ByteToMessageDecoder() {
-					
-					@Override
-					protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-						if (in.readableBytes() <= HEADER_LEN) // 4 byte len, x byte data
-						{
-							return;
-						}
-						
-						in.markReaderIndex();
-						int bodyLen = in.readInt() - 4;
-						
-						if (bodyLen <= 0) {
-							ctx.close();
-							return;
-						}
-						
-						if (bodyLen > in.readableBytes()) {
-							in.resetReaderIndex();
-							return;
-						}
-						
-						out.add(in.readBytes(bodyLen));
-					}
-				});
-				
-				p.addLast(PIPELINE_HANDLER, new ChannelInboundHandlerAdapter() {
-					
-					@Override
-					public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-						channel = ctx.channel();
-						running = true;
-					}
-					
-					@Override
-					public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-						channel = null;
-						running = false;
-					}
-					
-					@Override
-					public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-						ByteBuf data = (ByteBuf) msg;
-						try {
-							int messageID = data.readShort();
-							byte[] buffer = new byte[data.capacity() - 2];
-							data.getBytes(2, buffer);
+							@Override
+							protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out)
+									throws Exception {
+								if (in.readableBytes() <= HEADER_LEN) // 4 byte len, x bytes data
+								{
+									return;
+								}
 
-							receiveMessage(messageID, buffer);
-						} finally {
-							data.release();
-						}
+								in.markReaderIndex();
+								int bodyLen = in.readInt() - 4;
+
+								if (bodyLen <= 0) {
+									ctx.close();
+									return;
+								}
+
+								if (bodyLen > in.readableBytes()) {
+									in.resetReaderIndex();
+									return;
+								}
+
+								out.add(in.readBytes(bodyLen));
+							}
+						});
+
+						p.addLast(PIPELINE_HANDLER, new ChannelInboundHandlerAdapter() {
+
+							@Override
+							public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+								channel = ctx.channel();
+								running = true;
+							}
+
+							@Override
+							public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+								channel = null;
+								running = false;
+							}
+
+							@Override
+							public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+								ByteBuf data = (ByteBuf) msg;
+								try {
+									int messageID = data.readShort();
+									byte[] buffer = new byte[data.capacity() - 2];
+									data.getBytes(2, buffer);
+
+									receiveMessage(messageID, buffer);
+								} finally {
+									data.release();
+								}
+							}
+
+							@Override
+							public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+								cause.printStackTrace();
+							}
+
+						});
 					}
-					
-					@Override
-					public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-						cause.printStackTrace();
-					}
-					
+
 				});
-			}
-			
-		});
 		
 		return true;
 	}
-
+	//(1)
 	public void start(String host, int port) {
 		try {
 			bootstrap.connect(new InetSocketAddress(host, port)).sync();
@@ -168,7 +176,7 @@ public class Client {
 		}
 		
 	}
-	
+	//(1)
 	public void stop() {
 		try {
 			running = false;			
@@ -179,15 +187,15 @@ public class Client {
 			System.out.println("Client disconnect.");
 		}
 	}
-	
+	//(1)
 	public void update(double delta) {
 		
 	}
-
+	//(1)
 	public void receiveMessage(int commandID, byte[] data) {
 		
 	}
-	
+	//(1)
 	public void sendMessage(int commandID, byte[] data) {
 		if(channel == null)
 			return;
