@@ -15749,19 +15749,6 @@ public final class Protocol {
     int getUserID();
 
     /**
-     * <code>required .Protobuf.Position position = 2;</code>
-     */
-    boolean hasPosition();
-    /**
-     * <code>required .Protobuf.Position position = 2;</code>
-     */
-    com.rpg.framework.database.Protocol.Position getPosition();
-    /**
-     * <code>required .Protobuf.Position position = 2;</code>
-     */
-    com.rpg.framework.database.Protocol.PositionOrBuilder getPositionOrBuilder();
-
-    /**
      * <code>repeated .Protobuf.CharacterAction actions = 3;</code>
      */
     java.util.List<com.rpg.framework.database.Protocol.CharacterAction> 
@@ -15842,23 +15829,10 @@ public final class Protocol {
               userID_ = input.readInt32();
               break;
             }
-            case 18: {
-              com.rpg.framework.database.Protocol.Position.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000002) == 0x00000002)) {
-                subBuilder = position_.toBuilder();
-              }
-              position_ = input.readMessage(com.rpg.framework.database.Protocol.Position.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(position_);
-                position_ = subBuilder.buildPartial();
-              }
-              bitField0_ |= 0x00000002;
-              break;
-            }
             case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
                 actions_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.CharacterAction>();
-                mutable_bitField0_ |= 0x00000004;
+                mutable_bitField0_ |= 0x00000002;
               }
               actions_.add(input.readMessage(com.rpg.framework.database.Protocol.CharacterAction.PARSER, extensionRegistry));
               break;
@@ -15871,7 +15845,7 @@ public final class Protocol {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
           actions_ = java.util.Collections.unmodifiableList(actions_);
         }
         this.unknownFields = unknownFields.build();
@@ -15921,27 +15895,6 @@ public final class Protocol {
       return userID_;
     }
 
-    public static final int POSITION_FIELD_NUMBER = 2;
-    private com.rpg.framework.database.Protocol.Position position_;
-    /**
-     * <code>required .Protobuf.Position position = 2;</code>
-     */
-    public boolean hasPosition() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>required .Protobuf.Position position = 2;</code>
-     */
-    public com.rpg.framework.database.Protocol.Position getPosition() {
-      return position_;
-    }
-    /**
-     * <code>required .Protobuf.Position position = 2;</code>
-     */
-    public com.rpg.framework.database.Protocol.PositionOrBuilder getPositionOrBuilder() {
-      return position_;
-    }
-
     public static final int ACTIONS_FIELD_NUMBER = 3;
     private java.util.List<com.rpg.framework.database.Protocol.CharacterAction> actions_;
     /**
@@ -15979,7 +15932,6 @@ public final class Protocol {
 
     private void initFields() {
       userID_ = 0;
-      position_ = com.rpg.framework.database.Protocol.Position.getDefaultInstance();
       actions_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
@@ -15989,14 +15941,6 @@ public final class Protocol {
       if (isInitialized == 0) return false;
 
       if (!hasUserID()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPosition()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getPosition().isInitialized()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -16016,9 +15960,6 @@ public final class Protocol {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeInt32(1, userID_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeMessage(2, position_);
-      }
       for (int i = 0; i < actions_.size(); i++) {
         output.writeMessage(3, actions_.get(i));
       }
@@ -16034,10 +15975,6 @@ public final class Protocol {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(1, userID_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, position_);
       }
       for (int i = 0; i < actions_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -16152,7 +16089,6 @@ public final class Protocol {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getPositionFieldBuilder();
           getActionsFieldBuilder();
         }
       }
@@ -16164,15 +16100,9 @@ public final class Protocol {
         super.clear();
         userID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        if (positionBuilder_ == null) {
-          position_ = com.rpg.framework.database.Protocol.Position.getDefaultInstance();
-        } else {
-          positionBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000002);
         if (actionsBuilder_ == null) {
           actions_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
+          bitField0_ = (bitField0_ & ~0x00000002);
         } else {
           actionsBuilder_.clear();
         }
@@ -16208,18 +16138,10 @@ public final class Protocol {
           to_bitField0_ |= 0x00000001;
         }
         result.userID_ = userID_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        if (positionBuilder_ == null) {
-          result.position_ = position_;
-        } else {
-          result.position_ = positionBuilder_.build();
-        }
         if (actionsBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
             actions_ = java.util.Collections.unmodifiableList(actions_);
-            bitField0_ = (bitField0_ & ~0x00000004);
+            bitField0_ = (bitField0_ & ~0x00000002);
           }
           result.actions_ = actions_;
         } else {
@@ -16244,14 +16166,11 @@ public final class Protocol {
         if (other.hasUserID()) {
           setUserID(other.getUserID());
         }
-        if (other.hasPosition()) {
-          mergePosition(other.getPosition());
-        }
         if (actionsBuilder_ == null) {
           if (!other.actions_.isEmpty()) {
             if (actions_.isEmpty()) {
               actions_ = other.actions_;
-              bitField0_ = (bitField0_ & ~0x00000004);
+              bitField0_ = (bitField0_ & ~0x00000002);
             } else {
               ensureActionsIsMutable();
               actions_.addAll(other.actions_);
@@ -16264,7 +16183,7 @@ public final class Protocol {
               actionsBuilder_.dispose();
               actionsBuilder_ = null;
               actions_ = other.actions_;
-              bitField0_ = (bitField0_ & ~0x00000004);
+              bitField0_ = (bitField0_ & ~0x00000002);
               actionsBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getActionsFieldBuilder() : null;
@@ -16279,14 +16198,6 @@ public final class Protocol {
 
       public final boolean isInitialized() {
         if (!hasUserID()) {
-          
-          return false;
-        }
-        if (!hasPosition()) {
-          
-          return false;
-        }
-        if (!getPosition().isInitialized()) {
           
           return false;
         }
@@ -16350,128 +16261,12 @@ public final class Protocol {
         return this;
       }
 
-      private com.rpg.framework.database.Protocol.Position position_ = com.rpg.framework.database.Protocol.Position.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          com.rpg.framework.database.Protocol.Position, com.rpg.framework.database.Protocol.Position.Builder, com.rpg.framework.database.Protocol.PositionOrBuilder> positionBuilder_;
-      /**
-       * <code>required .Protobuf.Position position = 2;</code>
-       */
-      public boolean hasPosition() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>required .Protobuf.Position position = 2;</code>
-       */
-      public com.rpg.framework.database.Protocol.Position getPosition() {
-        if (positionBuilder_ == null) {
-          return position_;
-        } else {
-          return positionBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>required .Protobuf.Position position = 2;</code>
-       */
-      public Builder setPosition(com.rpg.framework.database.Protocol.Position value) {
-        if (positionBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          position_ = value;
-          onChanged();
-        } else {
-          positionBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000002;
-        return this;
-      }
-      /**
-       * <code>required .Protobuf.Position position = 2;</code>
-       */
-      public Builder setPosition(
-          com.rpg.framework.database.Protocol.Position.Builder builderForValue) {
-        if (positionBuilder_ == null) {
-          position_ = builderForValue.build();
-          onChanged();
-        } else {
-          positionBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000002;
-        return this;
-      }
-      /**
-       * <code>required .Protobuf.Position position = 2;</code>
-       */
-      public Builder mergePosition(com.rpg.framework.database.Protocol.Position value) {
-        if (positionBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002) &&
-              position_ != com.rpg.framework.database.Protocol.Position.getDefaultInstance()) {
-            position_ =
-              com.rpg.framework.database.Protocol.Position.newBuilder(position_).mergeFrom(value).buildPartial();
-          } else {
-            position_ = value;
-          }
-          onChanged();
-        } else {
-          positionBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000002;
-        return this;
-      }
-      /**
-       * <code>required .Protobuf.Position position = 2;</code>
-       */
-      public Builder clearPosition() {
-        if (positionBuilder_ == null) {
-          position_ = com.rpg.framework.database.Protocol.Position.getDefaultInstance();
-          onChanged();
-        } else {
-          positionBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000002);
-        return this;
-      }
-      /**
-       * <code>required .Protobuf.Position position = 2;</code>
-       */
-      public com.rpg.framework.database.Protocol.Position.Builder getPositionBuilder() {
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return getPositionFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>required .Protobuf.Position position = 2;</code>
-       */
-      public com.rpg.framework.database.Protocol.PositionOrBuilder getPositionOrBuilder() {
-        if (positionBuilder_ != null) {
-          return positionBuilder_.getMessageOrBuilder();
-        } else {
-          return position_;
-        }
-      }
-      /**
-       * <code>required .Protobuf.Position position = 2;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          com.rpg.framework.database.Protocol.Position, com.rpg.framework.database.Protocol.Position.Builder, com.rpg.framework.database.Protocol.PositionOrBuilder> 
-          getPositionFieldBuilder() {
-        if (positionBuilder_ == null) {
-          positionBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.rpg.framework.database.Protocol.Position, com.rpg.framework.database.Protocol.Position.Builder, com.rpg.framework.database.Protocol.PositionOrBuilder>(
-                  getPosition(),
-                  getParentForChildren(),
-                  isClean());
-          position_ = null;
-        }
-        return positionBuilder_;
-      }
-
       private java.util.List<com.rpg.framework.database.Protocol.CharacterAction> actions_ =
         java.util.Collections.emptyList();
       private void ensureActionsIsMutable() {
-        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
           actions_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.CharacterAction>(actions_);
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000002;
          }
       }
 
@@ -16621,7 +16416,7 @@ public final class Protocol {
       public Builder clearActions() {
         if (actionsBuilder_ == null) {
           actions_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
+          bitField0_ = (bitField0_ & ~0x00000002);
           onChanged();
         } else {
           actionsBuilder_.clear();
@@ -16698,7 +16493,7 @@ public final class Protocol {
           actionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.rpg.framework.database.Protocol.CharacterAction, com.rpg.framework.database.Protocol.CharacterAction.Builder, com.rpg.framework.database.Protocol.CharacterActionOrBuilder>(
                   actions_,
-                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  ((bitField0_ & 0x00000002) == 0x00000002),
                   getParentForChildren(),
                   isClean());
           actions_ = null;
@@ -32805,76 +32600,76 @@ public final class Protocol {
       "(\005\022\014\n\004Type\030\004 \001(\005\022\022\n\nTimeRecord\030\005 \001(\002\"Q\n\023" +
       "RequestUpdateAction\022\016\n\006userID\030\001 \002(\005\022*\n\007a" +
       "ctions\030\003 \003(\0132\031.Protobuf.CharacterAction\"" +
-      "x\n\024ResponseUpdateAction\022\016\n\006userID\030\001 \002(\005\022" +
-      "$\n\010position\030\002 \002(\0132\022.Protobuf.Position\022*\n",
-      "\007actions\030\003 \003(\0132\031.Protobuf.CharacterActio" +
-      "n\"6\n\004Item\022 \n\004type\030\001 \002(\0162\022.Protobuf.ItemT" +
-      "ype\022\014\n\004data\030\002 \002(\014\"\230\001\n\003Use\022\n\n\002ID\030\001 \002(\005\022\017\n" +
-      "\007HPValue\030\002 \002(\005\022\017\n\007MPValue\030\003 \002(\005\022\020\n\010Durat" +
-      "ion\030\004 \002(\005\022\023\n\013HPPerSecond\030\005 \002(\005\022\023\n\013MPPerS" +
-      "econd\030\006 \002(\005\022\020\n\010BonusExp\030\007 \002(\002\022\025\n\rBonusIt" +
-      "emDrop\030\010 \002(\002\"#\n\007Collect\022\n\n\002ID\030\001 \002(\005\022\014\n\004T" +
-      "ype\030\002 \002(\005\"K\n\005Equip\022\n\n\002ID\030\001 \002(\005\022\014\n\004Type\030\002" +
-      " \002(\005\022(\n\nBonusStats\030\003 \002(\0132\024.Protobuf.Bonu" +
-      "sStats\"5\n\nBonusStats\022\017\n\007BonusHP\030\001 \001(\005\022\026\n",
-      "\016BonusPercentHP\030\002 \001(\002\"\025\n\023RequestGetProto" +
-      "type\"5\n\024ResponseGetPrototype\022\035\n\005items\030\001 " +
-      "\003(\0132\016.Protobuf.Item\"z\n\004User\022\n\n\002id\030\001 \002(\005\022" +
-      "$\n\010position\030\002 \002(\0132\022.Protobuf.Position\022 \n" +
-      "\006status\030\003 \002(\0132\020.Protobuf.Status\022\036\n\005stats" +
-      "\030\004 \002(\0132\017.Protobuf.Stats\"\214\001\n\007Monster\022\n\n\002i" +
-      "d\030\001 \002(\005\022\r\n\005index\030\002 \002(\005\022$\n\010position\030\003 \002(\013" +
-      "2\022.Protobuf.Position\022 \n\006status\030\004 \002(\0132\020.P" +
-      "rotobuf.Status\022\036\n\005stats\030\005 \002(\0132\017.Protobuf" +
-      ".Stats\"/\n\010Position\022\r\n\005mapID\030\001 \002(\005\022\t\n\001x\030\002",
-      " \002(\001\022\t\n\001y\030\003 \002(\001\"D\n\006Status\022\r\n\005maxHP\030\001 \002(\005" +
-      "\022\r\n\005curHP\030\002 \002(\005\022\r\n\005maxMP\030\003 \002(\005\022\r\n\005curMP\030" +
-      "\004 \002(\005\"7\n\005Stats\022\016\n\006damage\030\001 \002(\005\022\017\n\007defens" +
-      "e\030\002 \002(\005\022\r\n\005speed\030\003 \002(\005\"9\n\022MessageKillMon" +
-      "ster\022\r\n\005mapID\030\001 \002(\005\022\024\n\014monsterIndex\030\002 \002(" +
-      "\005\"<\n\025MessageRespawnMonster\022\r\n\005mapID\030\001 \002(" +
-      "\005\022\024\n\014monsterIndex\030\002 \002(\005\".\n\016MessageNewUse" +
-      "r\022\034\n\004user\030\001 \002(\0132\016.Protobuf.User\"1\n\021Messa" +
-      "geDeleteUser\022\034\n\004user\030\001 \002(\0132\016.Protobuf.Us" +
-      "er\"q\n\014MonsterState\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030",
-      "\002 \002(\005\022\021\n\tPositionX\030\004 \002(\001\022\021\n\tPositionY\030\005 " +
-      "\002(\001\022\r\n\005State\030\006 \002(\005\022\021\n\tDirection\030\007 \002(\005\"P\n" +
-      "\031MessageUpdateMonsterState\022\r\n\005MapID\030\001 \002(" +
-      "\005\022$\n\004Data\030\002 \003(\0132\026.Protobuf.MonsterState\"" +
-      ";\n\rActionCommand\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 " +
-      "\002(\005\022\017\n\007Command\030\003 \002(\005\"F\n\035MessageUpdateMon" +
-      "sterByCommand\022%\n\004Data\030\001 \003(\0132\027.Protobuf.A" +
-      "ctionCommand\"J\n\035MessageUpdateMonsterColl" +
-      "ision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006User" +
-      "ID\030\003 \002(\005\"<\n\020RequestChangeMap\022\016\n\006userID\030\001",
-      " \002(\005\022\014\n\004from\030\002 \002(\005\022\n\n\002to\030\003 \002(\005\"W\n\021Respon" +
-      "seChangeMap\022\035\n\005users\030\001 \003(\0132\016.Protobuf.Us" +
-      "er\022#\n\010monsters\030\002 \003(\0132\021.Protobuf.Monster\"" +
-      "G\n\032MessageUpdateUserCollision\022\n\n\002ID\030\001 \002(" +
-      "\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005*\201\006\n\013Mes" +
-      "sageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPONE_L" +
-      "OGIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESPONE_" +
-      "REGISTER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020\004\022\031\n" +
-      "\025RESPONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_CREA" +
-      "TE_CHARACTER\020\006\022\034\n\030RESPONE_CREATE_CHARACT",
-      "ER\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESPONE_" +
-      "START_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSITION\020" +
-      "\n\022\033\n\027RESPONE_UPDATE_POSITION\020\013\022\025\n\021REQUES" +
-      "T_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022\031\n" +
-      "\025REQUEST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE_UPD" +
-      "ATE_ACTION\020\017\022\031\n\025REQUEST_GET_PROTOTYPE\020\020\022" +
-      "\032\n\026RESPONSE_GET_PROTOTYPE\020\021\022\026\n\022REQUEST_C" +
-      "HANGE_MAP\020\022\022\027\n\023RESPONSE_CHANGE_MAP\020\023\022\030\n\024" +
-      "MESSAGE_KILL_MONSTER\020\024\022\033\n\027MESSAGE_RESPAW" +
-      "N_MONSTER\020\025\022 \n\034MESSAGE_UPDATE_MONSTER_ST",
-      "ATE\020\026\022%\n!MESSAGE_UPDATE_MONSTER_BY_COMMA" +
-      "ND\020\027\022$\n MESSAGE_UPDATE_MONSTER_COLLISION" +
-      "\020\030\022\024\n\020MESSAGE_NEW_USER\020\031\022\027\n\023MESSAGE_DELE" +
-      "TE_USER\020\032\022!\n\035MESSAGE_UPDATE_USER_COLLISI" +
-      "ON\020\033*/\n\014ResponseCode\022\013\n\007SUCCESS\020\001\022\010\n\004FAI" +
-      "L\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rITEM_TYPE_U" +
-      "SE\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017ITEM_TYPE" +
-      "_EQUIP\020\002B\036\n\032com.rpg.framework.databaseH\001"
+      "R\n\024ResponseUpdateAction\022\016\n\006userID\030\001 \002(\005\022" +
+      "*\n\007actions\030\003 \003(\0132\031.Protobuf.CharacterAct",
+      "ion\"6\n\004Item\022 \n\004type\030\001 \002(\0162\022.Protobuf.Ite" +
+      "mType\022\014\n\004data\030\002 \002(\014\"\230\001\n\003Use\022\n\n\002ID\030\001 \002(\005\022" +
+      "\017\n\007HPValue\030\002 \002(\005\022\017\n\007MPValue\030\003 \002(\005\022\020\n\010Dur" +
+      "ation\030\004 \002(\005\022\023\n\013HPPerSecond\030\005 \002(\005\022\023\n\013MPPe" +
+      "rSecond\030\006 \002(\005\022\020\n\010BonusExp\030\007 \002(\002\022\025\n\rBonus" +
+      "ItemDrop\030\010 \002(\002\"#\n\007Collect\022\n\n\002ID\030\001 \002(\005\022\014\n" +
+      "\004Type\030\002 \002(\005\"K\n\005Equip\022\n\n\002ID\030\001 \002(\005\022\014\n\004Type" +
+      "\030\002 \002(\005\022(\n\nBonusStats\030\003 \002(\0132\024.Protobuf.Bo" +
+      "nusStats\"5\n\nBonusStats\022\017\n\007BonusHP\030\001 \001(\005\022" +
+      "\026\n\016BonusPercentHP\030\002 \001(\002\"\025\n\023RequestGetPro",
+      "totype\"5\n\024ResponseGetPrototype\022\035\n\005items\030" +
+      "\001 \003(\0132\016.Protobuf.Item\"z\n\004User\022\n\n\002id\030\001 \002(" +
+      "\005\022$\n\010position\030\002 \002(\0132\022.Protobuf.Position\022" +
+      " \n\006status\030\003 \002(\0132\020.Protobuf.Status\022\036\n\005sta" +
+      "ts\030\004 \002(\0132\017.Protobuf.Stats\"\214\001\n\007Monster\022\n\n" +
+      "\002id\030\001 \002(\005\022\r\n\005index\030\002 \002(\005\022$\n\010position\030\003 \002" +
+      "(\0132\022.Protobuf.Position\022 \n\006status\030\004 \002(\0132\020" +
+      ".Protobuf.Status\022\036\n\005stats\030\005 \002(\0132\017.Protob" +
+      "uf.Stats\"/\n\010Position\022\r\n\005mapID\030\001 \002(\005\022\t\n\001x" +
+      "\030\002 \002(\001\022\t\n\001y\030\003 \002(\001\"D\n\006Status\022\r\n\005maxHP\030\001 \002",
+      "(\005\022\r\n\005curHP\030\002 \002(\005\022\r\n\005maxMP\030\003 \002(\005\022\r\n\005curM" +
+      "P\030\004 \002(\005\"7\n\005Stats\022\016\n\006damage\030\001 \002(\005\022\017\n\007defe" +
+      "nse\030\002 \002(\005\022\r\n\005speed\030\003 \002(\005\"9\n\022MessageKillM" +
+      "onster\022\r\n\005mapID\030\001 \002(\005\022\024\n\014monsterIndex\030\002 " +
+      "\002(\005\"<\n\025MessageRespawnMonster\022\r\n\005mapID\030\001 " +
+      "\002(\005\022\024\n\014monsterIndex\030\002 \002(\005\".\n\016MessageNewU" +
+      "ser\022\034\n\004user\030\001 \002(\0132\016.Protobuf.User\"1\n\021Mes" +
+      "sageDeleteUser\022\034\n\004user\030\001 \002(\0132\016.Protobuf." +
+      "User\"q\n\014MonsterState\022\n\n\002ID\030\001 \002(\005\022\r\n\005Inde" +
+      "x\030\002 \002(\005\022\021\n\tPositionX\030\004 \002(\001\022\021\n\tPositionY\030",
+      "\005 \002(\001\022\r\n\005State\030\006 \002(\005\022\021\n\tDirection\030\007 \002(\005\"" +
+      "P\n\031MessageUpdateMonsterState\022\r\n\005MapID\030\001 " +
+      "\002(\005\022$\n\004Data\030\002 \003(\0132\026.Protobuf.MonsterStat" +
+      "e\";\n\rActionCommand\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030" +
+      "\002 \002(\005\022\017\n\007Command\030\003 \002(\005\"F\n\035MessageUpdateM" +
+      "onsterByCommand\022%\n\004Data\030\001 \003(\0132\027.Protobuf" +
+      ".ActionCommand\"J\n\035MessageUpdateMonsterCo" +
+      "llision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006Us" +
+      "erID\030\003 \002(\005\"<\n\020RequestChangeMap\022\016\n\006userID" +
+      "\030\001 \002(\005\022\014\n\004from\030\002 \002(\005\022\n\n\002to\030\003 \002(\005\"W\n\021Resp",
+      "onseChangeMap\022\035\n\005users\030\001 \003(\0132\016.Protobuf." +
+      "User\022#\n\010monsters\030\002 \003(\0132\021.Protobuf.Monste" +
+      "r\"G\n\032MessageUpdateUserCollision\022\n\n\002ID\030\001 " +
+      "\002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005*\201\006\n\013M" +
+      "essageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPONE" +
+      "_LOGIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESPON" +
+      "E_REGISTER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020\004\022" +
+      "\031\n\025RESPONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_CR" +
+      "EATE_CHARACTER\020\006\022\034\n\030RESPONE_CREATE_CHARA" +
+      "CTER\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESPON",
+      "E_START_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSITIO" +
+      "N\020\n\022\033\n\027RESPONE_UPDATE_POSITION\020\013\022\025\n\021REQU" +
+      "EST_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022" +
+      "\031\n\025REQUEST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE_U" +
+      "PDATE_ACTION\020\017\022\031\n\025REQUEST_GET_PROTOTYPE\020" +
+      "\020\022\032\n\026RESPONSE_GET_PROTOTYPE\020\021\022\026\n\022REQUEST" +
+      "_CHANGE_MAP\020\022\022\027\n\023RESPONSE_CHANGE_MAP\020\023\022\030" +
+      "\n\024MESSAGE_KILL_MONSTER\020\024\022\033\n\027MESSAGE_RESP" +
+      "AWN_MONSTER\020\025\022 \n\034MESSAGE_UPDATE_MONSTER_" +
+      "STATE\020\026\022%\n!MESSAGE_UPDATE_MONSTER_BY_COM",
+      "MAND\020\027\022$\n MESSAGE_UPDATE_MONSTER_COLLISI" +
+      "ON\020\030\022\024\n\020MESSAGE_NEW_USER\020\031\022\027\n\023MESSAGE_DE" +
+      "LETE_USER\020\032\022!\n\035MESSAGE_UPDATE_USER_COLLI" +
+      "SION\020\033*/\n\014ResponseCode\022\013\n\007SUCCESS\020\001\022\010\n\004F" +
+      "AIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rITEM_TYPE" +
+      "_USE\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017ITEM_TY" +
+      "PE_EQUIP\020\002B\036\n\032com.rpg.framework.database" +
+      "H\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -33013,7 +32808,7 @@ public final class Protocol {
     internal_static_Protobuf_ResponseUpdateAction_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_ResponseUpdateAction_descriptor,
-        new java.lang.String[] { "UserID", "Position", "Actions", });
+        new java.lang.String[] { "UserID", "Actions", });
     internal_static_Protobuf_Item_descriptor =
       getDescriptor().getMessageTypes().get(21);
     internal_static_Protobuf_Item_fieldAccessorTable = new
