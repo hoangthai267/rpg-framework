@@ -77,8 +77,6 @@ public class Server extends com.rpg.framework.core.Server {
 				// send to one
 				case 1: {
 					sendMessageTo(message.getChannelID(), message.getCommandID(), message.getData());
-//					if(!sendMessageTo(message.getChannelID(), message.getCommandID(), message.getData()))
-//						MessageManager.getInstance().newMessage(message);
 					break;
 				}
 				// send to other
@@ -212,6 +210,7 @@ public class Server extends com.rpg.framework.core.Server {
 						UserManager.getInstance().addIdentifiedUser(clientID, userID);
 						user.put("hasLogin", true);
 						DataManager.getInstance().set("User_" + userID, user);
+						builder.setMapID(DataManager.getInstance().get("User_" + request.getUserID() + "_Position").getInt("mapID"));
 					} else {
 						builder.setMessage("The acconnt don't have a character");
 					}
