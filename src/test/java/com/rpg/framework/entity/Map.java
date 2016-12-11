@@ -69,6 +69,7 @@ public class Map {
 						Protocol.MessageType.MESSAGE_RESPAWN_MONSTER_VALUE, 
 						Protocol.MessageRespawnMonster.newBuilder()
 							.setMapID(this.id)
+							.setMonsterID(monster.getId())
 							.setMonsterIndex(monster.getIndex())
 							.build()
 							.toByteArray()
