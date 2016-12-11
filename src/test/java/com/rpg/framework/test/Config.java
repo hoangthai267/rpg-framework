@@ -1,10 +1,10 @@
 package com.rpg.framework.test;
 
 public class Config {
-	public final static int CHARACTER_DAMAGE 			= 1;
+	public final static int CHARACTER_DAMAGE 			= 5;
 	public final static int CHARACTER_DEFENSE	 		= 2;
-	public final static int CHARACTER_SPEED 			= 10;
-	public final static int CHARACTER_NUMBER_OF_ATTACK 	= 4;
+	public final static int CHARACTER_SPEED 			= 3;
+	public final static int CHARACTER_NUMBER_OF_ATTACK 	= 3;
 	public final static int CHARACTER_HP		 		= 100;
 	public final static int CHARACTER_MP		 		= 100;
 	
