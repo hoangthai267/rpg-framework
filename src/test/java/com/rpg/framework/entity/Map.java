@@ -190,17 +190,18 @@ public class Map {
 		monstersPrototype.put(index, monster);
 	}
 	
-	public void respawnMonster(int index) {
-		monstersRespawn.add(monstersPrototype.get(index).clone());
+	public void respawnMonster(int monsterID, int monsterIndex) {
+		monstersRespawn.add(monstersPrototype.get(monsterIndex).clone());
 	}
 
-	public void killMonster(int monsterIndex) {
+	public void killMonster(int monsterID, int monsterIndex) {
 		monstersList.remove((Object)monsterIndex);
 		MessageManager.getInstance().sendMessage(
 				UserManager.getInstance().getConnectionListFromIDList(userList), 
 				Protocol.MessageType.MESSAGE_KILL_MONSTER_VALUE, 
 				Protocol.MessageKillMonster.newBuilder()
 					.setMapID(this.id)
+					.setMonsterID(monsterID)
 					.setMonsterIndex(monsterIndex)
 					.build()
 					.toByteArray()

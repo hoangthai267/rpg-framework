@@ -24712,11 +24712,20 @@ public final class Protocol {
     int getMapID();
 
     /**
-     * <code>required int32 monsterIndex = 2;</code>
+     * <code>required int32 monsterID = 2;</code>
+     */
+    boolean hasMonsterID();
+    /**
+     * <code>required int32 monsterID = 2;</code>
+     */
+    int getMonsterID();
+
+    /**
+     * <code>required int32 monsterIndex = 3;</code>
      */
     boolean hasMonsterIndex();
     /**
-     * <code>required int32 monsterIndex = 2;</code>
+     * <code>required int32 monsterIndex = 3;</code>
      */
     int getMonsterIndex();
   }
@@ -24779,6 +24788,11 @@ public final class Protocol {
             }
             case 16: {
               bitField0_ |= 0x00000002;
+              monsterID_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
               monsterIndex_ = input.readInt32();
               break;
             }
@@ -24837,16 +24851,31 @@ public final class Protocol {
       return mapID_;
     }
 
-    public static final int MONSTERINDEX_FIELD_NUMBER = 2;
-    private int monsterIndex_;
+    public static final int MONSTERID_FIELD_NUMBER = 2;
+    private int monsterID_;
     /**
-     * <code>required int32 monsterIndex = 2;</code>
+     * <code>required int32 monsterID = 2;</code>
      */
-    public boolean hasMonsterIndex() {
+    public boolean hasMonsterID() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required int32 monsterIndex = 2;</code>
+     * <code>required int32 monsterID = 2;</code>
+     */
+    public int getMonsterID() {
+      return monsterID_;
+    }
+
+    public static final int MONSTERINDEX_FIELD_NUMBER = 3;
+    private int monsterIndex_;
+    /**
+     * <code>required int32 monsterIndex = 3;</code>
+     */
+    public boolean hasMonsterIndex() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required int32 monsterIndex = 3;</code>
      */
     public int getMonsterIndex() {
       return monsterIndex_;
@@ -24854,6 +24883,7 @@ public final class Protocol {
 
     private void initFields() {
       mapID_ = 0;
+      monsterID_ = 0;
       monsterIndex_ = 0;
     }
     private byte memoizedIsInitialized = -1;
@@ -24863,6 +24893,10 @@ public final class Protocol {
       if (isInitialized == 0) return false;
 
       if (!hasMapID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMonsterID()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -24881,7 +24915,10 @@ public final class Protocol {
         output.writeInt32(1, mapID_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, monsterIndex_);
+        output.writeInt32(2, monsterID_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, monsterIndex_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -24898,7 +24935,11 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, monsterIndex_);
+          .computeInt32Size(2, monsterID_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, monsterIndex_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -25019,8 +25060,10 @@ public final class Protocol {
         super.clear();
         mapID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        monsterIndex_ = 0;
+        monsterID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
+        monsterIndex_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -25056,6 +25099,10 @@ public final class Protocol {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
+        result.monsterID_ = monsterID_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
         result.monsterIndex_ = monsterIndex_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -25076,6 +25123,9 @@ public final class Protocol {
         if (other.hasMapID()) {
           setMapID(other.getMapID());
         }
+        if (other.hasMonsterID()) {
+          setMonsterID(other.getMonsterID());
+        }
         if (other.hasMonsterIndex()) {
           setMonsterIndex(other.getMonsterIndex());
         }
@@ -25085,6 +25135,10 @@ public final class Protocol {
 
       public final boolean isInitialized() {
         if (!hasMapID()) {
+          
+          return false;
+        }
+        if (!hasMonsterID()) {
           
           return false;
         }
@@ -25146,33 +25200,65 @@ public final class Protocol {
         return this;
       }
 
-      private int monsterIndex_ ;
+      private int monsterID_ ;
       /**
-       * <code>required int32 monsterIndex = 2;</code>
+       * <code>required int32 monsterID = 2;</code>
        */
-      public boolean hasMonsterIndex() {
+      public boolean hasMonsterID() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required int32 monsterIndex = 2;</code>
+       * <code>required int32 monsterID = 2;</code>
+       */
+      public int getMonsterID() {
+        return monsterID_;
+      }
+      /**
+       * <code>required int32 monsterID = 2;</code>
+       */
+      public Builder setMonsterID(int value) {
+        bitField0_ |= 0x00000002;
+        monsterID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 monsterID = 2;</code>
+       */
+      public Builder clearMonsterID() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        monsterID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int monsterIndex_ ;
+      /**
+       * <code>required int32 monsterIndex = 3;</code>
+       */
+      public boolean hasMonsterIndex() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required int32 monsterIndex = 3;</code>
        */
       public int getMonsterIndex() {
         return monsterIndex_;
       }
       /**
-       * <code>required int32 monsterIndex = 2;</code>
+       * <code>required int32 monsterIndex = 3;</code>
        */
       public Builder setMonsterIndex(int value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         monsterIndex_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 monsterIndex = 2;</code>
+       * <code>required int32 monsterIndex = 3;</code>
        */
       public Builder clearMonsterIndex() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         monsterIndex_ = 0;
         onChanged();
         return this;
@@ -25203,11 +25289,20 @@ public final class Protocol {
     int getMapID();
 
     /**
-     * <code>required int32 monsterIndex = 2;</code>
+     * <code>required int32 monsterID = 2;</code>
+     */
+    boolean hasMonsterID();
+    /**
+     * <code>required int32 monsterID = 2;</code>
+     */
+    int getMonsterID();
+
+    /**
+     * <code>required int32 monsterIndex = 3;</code>
      */
     boolean hasMonsterIndex();
     /**
-     * <code>required int32 monsterIndex = 2;</code>
+     * <code>required int32 monsterIndex = 3;</code>
      */
     int getMonsterIndex();
   }
@@ -25270,6 +25365,11 @@ public final class Protocol {
             }
             case 16: {
               bitField0_ |= 0x00000002;
+              monsterID_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
               monsterIndex_ = input.readInt32();
               break;
             }
@@ -25328,16 +25428,31 @@ public final class Protocol {
       return mapID_;
     }
 
-    public static final int MONSTERINDEX_FIELD_NUMBER = 2;
-    private int monsterIndex_;
+    public static final int MONSTERID_FIELD_NUMBER = 2;
+    private int monsterID_;
     /**
-     * <code>required int32 monsterIndex = 2;</code>
+     * <code>required int32 monsterID = 2;</code>
      */
-    public boolean hasMonsterIndex() {
+    public boolean hasMonsterID() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required int32 monsterIndex = 2;</code>
+     * <code>required int32 monsterID = 2;</code>
+     */
+    public int getMonsterID() {
+      return monsterID_;
+    }
+
+    public static final int MONSTERINDEX_FIELD_NUMBER = 3;
+    private int monsterIndex_;
+    /**
+     * <code>required int32 monsterIndex = 3;</code>
+     */
+    public boolean hasMonsterIndex() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required int32 monsterIndex = 3;</code>
      */
     public int getMonsterIndex() {
       return monsterIndex_;
@@ -25345,6 +25460,7 @@ public final class Protocol {
 
     private void initFields() {
       mapID_ = 0;
+      monsterID_ = 0;
       monsterIndex_ = 0;
     }
     private byte memoizedIsInitialized = -1;
@@ -25354,6 +25470,10 @@ public final class Protocol {
       if (isInitialized == 0) return false;
 
       if (!hasMapID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMonsterID()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -25372,7 +25492,10 @@ public final class Protocol {
         output.writeInt32(1, mapID_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, monsterIndex_);
+        output.writeInt32(2, monsterID_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, monsterIndex_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -25389,7 +25512,11 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, monsterIndex_);
+          .computeInt32Size(2, monsterID_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, monsterIndex_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -25510,8 +25637,10 @@ public final class Protocol {
         super.clear();
         mapID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        monsterIndex_ = 0;
+        monsterID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
+        monsterIndex_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -25547,6 +25676,10 @@ public final class Protocol {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
+        result.monsterID_ = monsterID_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
         result.monsterIndex_ = monsterIndex_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -25567,6 +25700,9 @@ public final class Protocol {
         if (other.hasMapID()) {
           setMapID(other.getMapID());
         }
+        if (other.hasMonsterID()) {
+          setMonsterID(other.getMonsterID());
+        }
         if (other.hasMonsterIndex()) {
           setMonsterIndex(other.getMonsterIndex());
         }
@@ -25576,6 +25712,10 @@ public final class Protocol {
 
       public final boolean isInitialized() {
         if (!hasMapID()) {
+          
+          return false;
+        }
+        if (!hasMonsterID()) {
           
           return false;
         }
@@ -25637,33 +25777,65 @@ public final class Protocol {
         return this;
       }
 
-      private int monsterIndex_ ;
+      private int monsterID_ ;
       /**
-       * <code>required int32 monsterIndex = 2;</code>
+       * <code>required int32 monsterID = 2;</code>
        */
-      public boolean hasMonsterIndex() {
+      public boolean hasMonsterID() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required int32 monsterIndex = 2;</code>
+       * <code>required int32 monsterID = 2;</code>
+       */
+      public int getMonsterID() {
+        return monsterID_;
+      }
+      /**
+       * <code>required int32 monsterID = 2;</code>
+       */
+      public Builder setMonsterID(int value) {
+        bitField0_ |= 0x00000002;
+        monsterID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 monsterID = 2;</code>
+       */
+      public Builder clearMonsterID() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        monsterID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int monsterIndex_ ;
+      /**
+       * <code>required int32 monsterIndex = 3;</code>
+       */
+      public boolean hasMonsterIndex() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required int32 monsterIndex = 3;</code>
        */
       public int getMonsterIndex() {
         return monsterIndex_;
       }
       /**
-       * <code>required int32 monsterIndex = 2;</code>
+       * <code>required int32 monsterIndex = 3;</code>
        */
       public Builder setMonsterIndex(int value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         monsterIndex_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 monsterIndex = 2;</code>
+       * <code>required int32 monsterIndex = 3;</code>
        */
       public Builder clearMonsterIndex() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         monsterIndex_ = 0;
         onChanged();
         return this;
@@ -32703,51 +32875,52 @@ public final class Protocol {
       "us\022\r\n\005maxHP\030\001 \002(\005\022\r\n\005curHP\030\002 \002(\005\022\r\n\005maxM" +
       "P\030\003 \002(\005\022\r\n\005curMP\030\004 \002(\005\"7\n\005Stats\022\016\n\006damag" +
       "e\030\001 \002(\005\022\017\n\007defense\030\002 \002(\005\022\r\n\005speed\030\003 \002(\005\"" +
-      "9\n\022MessageKillMonster\022\r\n\005mapID\030\001 \002(\005\022\024\n\014" +
-      "monsterIndex\030\002 \002(\005\"<\n\025MessageRespawnMons" +
-      "ter\022\r\n\005mapID\030\001 \002(\005\022\024\n\014monsterIndex\030\002 \002(\005" +
-      "\".\n\016MessageNewUser\022\034\n\004user\030\001 \002(\0132\016.Proto" +
-      "buf.User\"1\n\021MessageDeleteUser\022\034\n\004user\030\001 " +
-      "\002(\0132\016.Protobuf.User\"q\n\014MonsterState\022\n\n\002I" +
-      "D\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\021\n\tPositionX\030\004 \002(",
-      "\001\022\021\n\tPositionY\030\005 \002(\001\022\r\n\005State\030\006 \002(\005\022\021\n\tD" +
-      "irection\030\007 \002(\005\"P\n\031MessageUpdateMonsterSt" +
-      "ate\022\r\n\005MapID\030\001 \002(\005\022$\n\004Data\030\002 \003(\0132\026.Proto" +
-      "buf.MonsterState\";\n\rActionCommand\022\n\n\002ID\030" +
-      "\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\017\n\007Command\030\003 \002(\005\"F\n" +
-      "\035MessageUpdateMonsterByCommand\022%\n\004Data\030\001" +
-      " \003(\0132\027.Protobuf.ActionCommand\"J\n\035Message" +
-      "UpdateMonsterCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005In" +
-      "dex\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"<\n\020RequestChan" +
-      "geMap\022\016\n\006userID\030\001 \002(\005\022\014\n\004from\030\002 \002(\005\022\n\n\002t",
-      "o\030\003 \002(\005\"W\n\021ResponseChangeMap\022\035\n\005users\030\001 " +
-      "\003(\0132\016.Protobuf.User\022#\n\010monsters\030\002 \003(\0132\021." +
-      "Protobuf.Monster\"G\n\032MessageUpdateUserCol" +
-      "lision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006Use" +
-      "rID\030\003 \002(\005*\201\006\n\013MessageType\022\021\n\rREQUEST_LOG" +
-      "IN\020\000\022\021\n\rRESPONE_LOGIN\020\001\022\024\n\020REQUEST_REGIS" +
-      "TER\020\002\022\024\n\020RESPONE_REGISTER\020\003\022\031\n\025REQUEST_G" +
-      "ET_CHARACTER\020\004\022\031\n\025RESPONE_GET_CHARACTER\020" +
-      "\005\022\034\n\030REQUEST_CREATE_CHARACTER\020\006\022\034\n\030RESPO" +
-      "NE_CREATE_CHARACTER\020\007\022\026\n\022REQUEST_START_G",
-      "AME\020\010\022\026\n\022RESPONE_START_GAME\020\t\022\033\n\027REQUEST" +
-      "_UPDATE_POSITION\020\n\022\033\n\027RESPONE_UPDATE_POS" +
-      "ITION\020\013\022\025\n\021REQUEST_GET_ITEMS\020\014\022\026\n\022RESPON" +
-      "SE_GET_ITEMS\020\r\022\031\n\025REQUEST_UPDATE_ACTION\020" +
-      "\016\022\032\n\026RESPONSE_UPDATE_ACTION\020\017\022\031\n\025REQUEST" +
-      "_GET_PROTOTYPE\020\020\022\032\n\026RESPONSE_GET_PROTOTY" +
-      "PE\020\021\022\026\n\022REQUEST_CHANGE_MAP\020\022\022\027\n\023RESPONSE" +
-      "_CHANGE_MAP\020\023\022\030\n\024MESSAGE_KILL_MONSTER\020\024\022" +
-      "\033\n\027MESSAGE_RESPAWN_MONSTER\020\025\022 \n\034MESSAGE_" +
-      "UPDATE_MONSTER_STATE\020\026\022%\n!MESSAGE_UPDATE",
-      "_MONSTER_BY_COMMAND\020\027\022$\n MESSAGE_UPDATE_" +
-      "MONSTER_COLLISION\020\030\022\024\n\020MESSAGE_NEW_USER\020" +
-      "\031\022\027\n\023MESSAGE_DELETE_USER\020\032\022!\n\035MESSAGE_UP" +
-      "DATE_USER_COLLISION\020\033*/\n\014ResponseCode\022\013\n" +
-      "\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemTy" +
-      "pe\022\021\n\rITEM_TYPE_USE\020\000\022\025\n\021ITEM_TYPE_COLLE" +
-      "CT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020\002B\036\n\032com.rpg.fra" +
-      "mework.databaseH\001"
+      "L\n\022MessageKillMonster\022\r\n\005mapID\030\001 \002(\005\022\021\n\t" +
+      "monsterID\030\002 \002(\005\022\024\n\014monsterIndex\030\003 \002(\005\"O\n" +
+      "\025MessageRespawnMonster\022\r\n\005mapID\030\001 \002(\005\022\021\n" +
+      "\tmonsterID\030\002 \002(\005\022\024\n\014monsterIndex\030\003 \002(\005\"." +
+      "\n\016MessageNewUser\022\034\n\004user\030\001 \002(\0132\016.Protobu" +
+      "f.User\"1\n\021MessageDeleteUser\022\034\n\004user\030\001 \002(" +
+      "\0132\016.Protobuf.User\"q\n\014MonsterState\022\n\n\002ID\030",
+      "\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\021\n\tPositionX\030\004 \002(\001\022" +
+      "\021\n\tPositionY\030\005 \002(\001\022\r\n\005State\030\006 \002(\005\022\021\n\tDir" +
+      "ection\030\007 \002(\005\"P\n\031MessageUpdateMonsterStat" +
+      "e\022\r\n\005MapID\030\001 \002(\005\022$\n\004Data\030\002 \003(\0132\026.Protobu" +
+      "f.MonsterState\";\n\rActionCommand\022\n\n\002ID\030\001 " +
+      "\002(\005\022\r\n\005Index\030\002 \002(\005\022\017\n\007Command\030\003 \002(\005\"F\n\035M" +
+      "essageUpdateMonsterByCommand\022%\n\004Data\030\001 \003" +
+      "(\0132\027.Protobuf.ActionCommand\"J\n\035MessageUp" +
+      "dateMonsterCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Inde" +
+      "x\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"<\n\020RequestChange",
+      "Map\022\016\n\006userID\030\001 \002(\005\022\014\n\004from\030\002 \002(\005\022\n\n\002to\030" +
+      "\003 \002(\005\"W\n\021ResponseChangeMap\022\035\n\005users\030\001 \003(" +
+      "\0132\016.Protobuf.User\022#\n\010monsters\030\002 \003(\0132\021.Pr" +
+      "otobuf.Monster\"G\n\032MessageUpdateUserColli" +
+      "sion\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006UserI" +
+      "D\030\003 \002(\005*\201\006\n\013MessageType\022\021\n\rREQUEST_LOGIN" +
+      "\020\000\022\021\n\rRESPONE_LOGIN\020\001\022\024\n\020REQUEST_REGISTE" +
+      "R\020\002\022\024\n\020RESPONE_REGISTER\020\003\022\031\n\025REQUEST_GET" +
+      "_CHARACTER\020\004\022\031\n\025RESPONE_GET_CHARACTER\020\005\022" +
+      "\034\n\030REQUEST_CREATE_CHARACTER\020\006\022\034\n\030RESPONE",
+      "_CREATE_CHARACTER\020\007\022\026\n\022REQUEST_START_GAM" +
+      "E\020\010\022\026\n\022RESPONE_START_GAME\020\t\022\033\n\027REQUEST_U" +
+      "PDATE_POSITION\020\n\022\033\n\027RESPONE_UPDATE_POSIT" +
+      "ION\020\013\022\025\n\021REQUEST_GET_ITEMS\020\014\022\026\n\022RESPONSE" +
+      "_GET_ITEMS\020\r\022\031\n\025REQUEST_UPDATE_ACTION\020\016\022" +
+      "\032\n\026RESPONSE_UPDATE_ACTION\020\017\022\031\n\025REQUEST_G" +
+      "ET_PROTOTYPE\020\020\022\032\n\026RESPONSE_GET_PROTOTYPE" +
+      "\020\021\022\026\n\022REQUEST_CHANGE_MAP\020\022\022\027\n\023RESPONSE_C" +
+      "HANGE_MAP\020\023\022\030\n\024MESSAGE_KILL_MONSTER\020\024\022\033\n" +
+      "\027MESSAGE_RESPAWN_MONSTER\020\025\022 \n\034MESSAGE_UP",
+      "DATE_MONSTER_STATE\020\026\022%\n!MESSAGE_UPDATE_M" +
+      "ONSTER_BY_COMMAND\020\027\022$\n MESSAGE_UPDATE_MO" +
+      "NSTER_COLLISION\020\030\022\024\n\020MESSAGE_NEW_USER\020\031\022" +
+      "\027\n\023MESSAGE_DELETE_USER\020\032\022!\n\035MESSAGE_UPDA" +
+      "TE_USER_COLLISION\020\033*/\n\014ResponseCode\022\013\n\007S" +
+      "UCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType" +
+      "\022\021\n\rITEM_TYPE_USE\020\000\022\025\n\021ITEM_TYPE_COLLECT" +
+      "\020\001\022\023\n\017ITEM_TYPE_EQUIP\020\002B\036\n\032com.rpg.frame" +
+      "work.databaseH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -32964,13 +33137,13 @@ public final class Protocol {
     internal_static_Protobuf_MessageKillMonster_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageKillMonster_descriptor,
-        new java.lang.String[] { "MapID", "MonsterIndex", });
+        new java.lang.String[] { "MapID", "MonsterID", "MonsterIndex", });
     internal_static_Protobuf_MessageRespawnMonster_descriptor =
       getDescriptor().getMessageTypes().get(34);
     internal_static_Protobuf_MessageRespawnMonster_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageRespawnMonster_descriptor,
-        new java.lang.String[] { "MapID", "MonsterIndex", });
+        new java.lang.String[] { "MapID", "MonsterID", "MonsterIndex", });
     internal_static_Protobuf_MessageNewUser_descriptor =
       getDescriptor().getMessageTypes().get(35);
     internal_static_Protobuf_MessageNewUser_fieldAccessorTable = new

@@ -80,8 +80,8 @@ public class MonsterManager {
 			Monster monster = monsters.get(i);
 			monster.update(delta);
 			if(monster.isDead()) {
-				MapManager.getInstance().killMonster(monster.getMapID(), monster.getIndex());
-				MapManager.getInstance().respawnMonster(monster.getMapID(), monster.getIndex());
+				MapManager.getInstance().killMonster(monster.getMapID(), monster.getId(), monster.getIndex());
+				MapManager.getInstance().respawnMonster(monster.getMapID(), monster.getId(), monster.getIndex());
 				monstersList.remove(monster.getIndex(), monster);
 				monsters.remove(i);
 				i--;

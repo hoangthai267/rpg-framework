@@ -121,12 +121,12 @@ public class MapManager {
 		return mapList.get(mapID).getItemList();
 	}
 	
-	public void respawnMonster(int mapID, int monsterIndex) {
-		mapList.get(mapID).respawnMonster(monsterIndex);
+	public void respawnMonster(int mapID, int monsterID, int monsterIndex) {
+		mapList.get(mapID).respawnMonster(monsterID, monsterIndex);
 	}
 	
-	public void killMonster(int mapID, int monsterIndex) {
-		mapList.get(mapID).killMonster(monsterIndex);
+	public void killMonster(int mapID, int monsterID, int monsterIndex) {
+		mapList.get(mapID).killMonster(monsterID, monsterIndex);
 	}
 	
 	private static MapManager instance;
