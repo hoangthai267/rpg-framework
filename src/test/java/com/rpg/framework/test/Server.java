@@ -603,7 +603,8 @@ public class Server extends com.rpg.framework.core.Server {
 	public void handleMessageUpdateMonsterCollision(Protocol.MessageUpdateMonsterCollision message) {
 		User user = UserManager.getInstance().getIdentifiedUser(message.getUserID());
 		Monster monster = MonsterManager.getInstance().getMonsterInList(message.getIndex());
-		
+		if(monster == null)
+			return;
 		int subHP = monster.getCurHP() - user.getDamage();
 		monster.setCurHP(subHP);
 		
