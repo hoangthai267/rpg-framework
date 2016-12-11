@@ -175,7 +175,7 @@ public class Monster {
 		entity.setSpeed(speed);
 		
 		entity.setCurHP(curHP);
-		entity.setMapID(maxHP);
+		entity.setMaxHP(maxHP);
 		
 		
 		return entity;
