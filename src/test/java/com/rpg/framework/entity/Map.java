@@ -31,6 +31,8 @@ public class Map {
 //	private LinkedList<Monster> itemsRespawn;
 //	private HashMap<Integer, Portal> portalsPrototype;
 	
+	private int updatedUser;
+	
 	private double refreshTime;
 	
 	public Map() {
@@ -42,6 +44,8 @@ public class Map {
 		
 		this.monstersPrototype = new HashMap<Integer, Monster>();
 		this.monstersRespawn = new LinkedList<Monster>();
+		
+		this.updatedUser	= -1;
 		
 		this.refreshTime = REFRESH_TIME;
 	}
@@ -117,6 +121,8 @@ public class Map {
 		}
 		
 		userList.add(userID);
+		
+		checkUpdatedUser(userID, true);
 	}
 	
 	public boolean removeUser(Integer userID) {
@@ -147,6 +153,8 @@ public class Map {
 			int userConnectionID = UserManager.getInstance().getIdentifiedUser(id).getConnectionID();
 			MessageManager.getInstance().sendMessage(userConnectionID, Protocol.MessageType.MESSAGE_DELETE_USER_VALUE, message.toByteArray());
 		}
+		
+		checkUpdatedUser(userID, false);
 		
 		return true;
 	}
@@ -222,5 +230,31 @@ public class Map {
 		if(userList.get(0).intValue() == userID)
 			return true;
 		return false;
+	}
+	
+	public void checkUpdatedUser(int userID, boolean flag) {
+		//enter map
+		if(flag) {
+			if(updatedUser == -1) {
+				updatedUser = userID;
+				MessageManager.getInstance().sendMessage(UserManager.getInstance().getIdentifiedUser(updatedUser).getConnectionID(),
+						Protocol.MessageType.MESSAGE_REQUEST_USER_UPDATE_MAP_INFORMATION_VALUE,
+						Protocol.MessageRequestUserUpdateMapInformation.newBuilder().setMapID(id).build().toByteArray());
+			}	
+		}
+		// exit map
+		else {
+			if(updatedUser == userID) {
+				if(userList.size() > 0) {
+					updatedUser = userList.get(0);
+					MessageManager.getInstance().sendMessage(UserManager.getInstance().getIdentifiedUser(updatedUser).getConnectionID(),
+							Protocol.MessageType.MESSAGE_REQUEST_USER_UPDATE_MAP_INFORMATION_VALUE,
+							Protocol.MessageRequestUserUpdateMapInformation.newBuilder().setMapID(id).build().toByteArray());
+				} else {
+					updatedUser = -1;
+				}
+			}
+		}
+		
 	}
 }

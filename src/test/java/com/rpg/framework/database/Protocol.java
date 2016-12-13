@@ -125,6 +125,10 @@ public final class Protocol {
      * <code>MESSAGE_UPDATE_USER_COLLISION = 27;</code>
      */
     MESSAGE_UPDATE_USER_COLLISION(27, 27),
+    /**
+     * <code>MESSAGE_REQUEST_USER_UPDATE_MAP_INFORMATION = 28;</code>
+     */
+    MESSAGE_REQUEST_USER_UPDATE_MAP_INFORMATION(28, 28),
     ;
 
     /**
@@ -239,6 +243,10 @@ public final class Protocol {
      * <code>MESSAGE_UPDATE_USER_COLLISION = 27;</code>
      */
     public static final int MESSAGE_UPDATE_USER_COLLISION_VALUE = 27;
+    /**
+     * <code>MESSAGE_REQUEST_USER_UPDATE_MAP_INFORMATION = 28;</code>
+     */
+    public static final int MESSAGE_REQUEST_USER_UPDATE_MAP_INFORMATION_VALUE = 28;
 
 
     public final int getNumber() { return value; }
@@ -273,6 +281,7 @@ public final class Protocol {
         case 25: return MESSAGE_NEW_USER;
         case 26: return MESSAGE_DELETE_USER;
         case 27: return MESSAGE_UPDATE_USER_COLLISION;
+        case 28: return MESSAGE_REQUEST_USER_UPDATE_MAP_INFORMATION;
         default: return null;
       }
     }
@@ -32489,6 +32498,411 @@ public final class Protocol {
     // @@protoc_insertion_point(class_scope:Protobuf.MessageUpdateUserCollision)
   }
 
+  public interface MessageRequestUserUpdateMapInformationOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageRequestUserUpdateMapInformation)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    boolean hasMapID();
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    int getMapID();
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageRequestUserUpdateMapInformation}
+   */
+  public static final class MessageRequestUserUpdateMapInformation extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageRequestUserUpdateMapInformation)
+      MessageRequestUserUpdateMapInformationOrBuilder {
+    // Use MessageRequestUserUpdateMapInformation.newBuilder() to construct.
+    private MessageRequestUserUpdateMapInformation(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageRequestUserUpdateMapInformation(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageRequestUserUpdateMapInformation defaultInstance;
+    public static MessageRequestUserUpdateMapInformation getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageRequestUserUpdateMapInformation getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageRequestUserUpdateMapInformation(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              mapID_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRequestUserUpdateMapInformation_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRequestUserUpdateMapInformation_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation.class, com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageRequestUserUpdateMapInformation> PARSER =
+        new com.google.protobuf.AbstractParser<MessageRequestUserUpdateMapInformation>() {
+      public MessageRequestUserUpdateMapInformation parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageRequestUserUpdateMapInformation(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageRequestUserUpdateMapInformation> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int MAPID_FIELD_NUMBER = 1;
+    private int mapID_;
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    public boolean hasMapID() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    public int getMapID() {
+      return mapID_;
+    }
+
+    private void initFields() {
+      mapID_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasMapID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, mapID_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, mapID_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageRequestUserUpdateMapInformation}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageRequestUserUpdateMapInformation)
+        com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformationOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRequestUserUpdateMapInformation_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRequestUserUpdateMapInformation_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation.class, com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        mapID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRequestUserUpdateMapInformation_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation build() {
+        com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation buildPartial() {
+        com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation result = new com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.mapID_ = mapID_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation other) {
+        if (other == com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation.getDefaultInstance()) return this;
+        if (other.hasMapID()) {
+          setMapID(other.getMapID());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasMapID()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageRequestUserUpdateMapInformation) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int mapID_ ;
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public boolean hasMapID() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public int getMapID() {
+        return mapID_;
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public Builder setMapID(int value) {
+        bitField0_ |= 0x00000001;
+        mapID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public Builder clearMapID() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        mapID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageRequestUserUpdateMapInformation)
+    }
+
+    static {
+      defaultInstance = new MessageRequestUserUpdateMapInformation(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageRequestUserUpdateMapInformation)
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Protobuf_RequestLogin_descriptor;
   private static
@@ -32714,6 +33128,11 @@ public final class Protocol {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_Protobuf_MessageUpdateUserCollision_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageRequestUserUpdateMapInformation_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageRequestUserUpdateMapInformation_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -32818,30 +33237,33 @@ public final class Protocol {
       "\001 \003(\0132\016.Protobuf.User\022#\n\010monsters\030\002 \003(\0132" +
       "\021.Protobuf.Monster\"G\n\032MessageUpdateUserC" +
       "ollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006U" +
-      "serID\030\003 \002(\005*\201\006\n\013MessageType\022\021\n\rREQUEST_L" +
-      "OGIN\020\000\022\021\n\rRESPONE_LOGIN\020\001\022\024\n\020REQUEST_REG" +
-      "ISTER\020\002\022\024\n\020RESPONE_REGISTER\020\003\022\031\n\025REQUEST" +
-      "_GET_CHARACTER\020\004\022\031\n\025RESPONE_GET_CHARACTE" +
-      "R\020\005\022\034\n\030REQUEST_CREATE_CHARACTER\020\006\022\034\n\030RES",
-      "PONE_CREATE_CHARACTER\020\007\022\026\n\022REQUEST_START" +
-      "_GAME\020\010\022\026\n\022RESPONE_START_GAME\020\t\022\033\n\027REQUE" +
-      "ST_UPDATE_POSITION\020\n\022\033\n\027RESPONE_UPDATE_P" +
-      "OSITION\020\013\022\025\n\021REQUEST_GET_ITEMS\020\014\022\026\n\022RESP" +
-      "ONSE_GET_ITEMS\020\r\022\031\n\025REQUEST_UPDATE_ACTIO" +
-      "N\020\016\022\032\n\026RESPONSE_UPDATE_ACTION\020\017\022\031\n\025REQUE" +
-      "ST_GET_PROTOTYPE\020\020\022\032\n\026RESPONSE_GET_PROTO" +
-      "TYPE\020\021\022\026\n\022REQUEST_CHANGE_MAP\020\022\022\027\n\023RESPON" +
-      "SE_CHANGE_MAP\020\023\022\030\n\024MESSAGE_KILL_MONSTER\020" +
-      "\024\022\033\n\027MESSAGE_RESPAWN_MONSTER\020\025\022 \n\034MESSAG",
-      "E_UPDATE_MONSTER_STATE\020\026\022%\n!MESSAGE_UPDA" +
-      "TE_MONSTER_BY_COMMAND\020\027\022$\n MESSAGE_UPDAT" +
-      "E_MONSTER_COLLISION\020\030\022\024\n\020MESSAGE_NEW_USE" +
-      "R\020\031\022\027\n\023MESSAGE_DELETE_USER\020\032\022!\n\035MESSAGE_" +
-      "UPDATE_USER_COLLISION\020\033*/\n\014ResponseCode\022" +
-      "\013\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010Item" +
-      "Type\022\021\n\rITEM_TYPE_USE\020\000\022\025\n\021ITEM_TYPE_COL" +
-      "LECT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020\002B\036\n\032com.rpg.f" +
-      "ramework.databaseH\001"
+      "serID\030\003 \002(\005\"7\n&MessageRequestUserUpdateM" +
+      "apInformation\022\r\n\005mapID\030\001 \002(\005*\262\006\n\013Message" +
+      "Type\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPONE_LOGIN" +
+      "\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESPONE_REGI" +
+      "STER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020\004\022\031\n\025RES",
+      "PONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_CREATE_C" +
+      "HARACTER\020\006\022\034\n\030RESPONE_CREATE_CHARACTER\020\007" +
+      "\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESPONE_STAR" +
+      "T_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSITION\020\n\022\033\n" +
+      "\027RESPONE_UPDATE_POSITION\020\013\022\025\n\021REQUEST_GE" +
+      "T_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022\031\n\025REQ" +
+      "UEST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE_UPDATE_" +
+      "ACTION\020\017\022\031\n\025REQUEST_GET_PROTOTYPE\020\020\022\032\n\026R" +
+      "ESPONSE_GET_PROTOTYPE\020\021\022\026\n\022REQUEST_CHANG" +
+      "E_MAP\020\022\022\027\n\023RESPONSE_CHANGE_MAP\020\023\022\030\n\024MESS",
+      "AGE_KILL_MONSTER\020\024\022\033\n\027MESSAGE_RESPAWN_MO" +
+      "NSTER\020\025\022 \n\034MESSAGE_UPDATE_MONSTER_STATE\020" +
+      "\026\022%\n!MESSAGE_UPDATE_MONSTER_BY_COMMAND\020\027" +
+      "\022$\n MESSAGE_UPDATE_MONSTER_COLLISION\020\030\022\024" +
+      "\n\020MESSAGE_NEW_USER\020\031\022\027\n\023MESSAGE_DELETE_U" +
+      "SER\020\032\022!\n\035MESSAGE_UPDATE_USER_COLLISION\020\033" +
+      "\022/\n+MESSAGE_REQUEST_USER_UPDATE_MAP_INFO" +
+      "RMATION\020\034*/\n\014ResponseCode\022\013\n\007SUCCESS\020\001\022\010" +
+      "\n\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rITEM_T" +
+      "YPE_USE\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017ITEM",
+      "_TYPE_EQUIP\020\002B\036\n\032com.rpg.framework.datab" +
+      "aseH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -33125,6 +33547,12 @@ public final class Protocol {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageUpdateUserCollision_descriptor,
         new java.lang.String[] { "ID", "Index", "UserID", });
+    internal_static_Protobuf_MessageRequestUserUpdateMapInformation_descriptor =
+      getDescriptor().getMessageTypes().get(45);
+    internal_static_Protobuf_MessageRequestUserUpdateMapInformation_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageRequestUserUpdateMapInformation_descriptor,
+        new java.lang.String[] { "MapID", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
