@@ -207,7 +207,7 @@ public class Client extends com.rpg.framework.core.Client {
 		Protocol.RequestCreateCharacter.Builder builder = Protocol.RequestCreateCharacter.newBuilder();
 		builder.setUserID(userID);
 		builder.setName(userName);
-		builder.setGender(0);
+		builder.setOccupation(0);
 		sendMessage(Protocol.MessageType.REQUEST_CREATE_CHARACTER_VALUE, builder.build().toByteArray());
 	}
 
