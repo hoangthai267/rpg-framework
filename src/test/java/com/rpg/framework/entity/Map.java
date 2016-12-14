@@ -103,6 +103,15 @@ public class Map {
 				.setMapID(newUser.getMapID())
 				.setX(newUser.getPositionX())
 				.setY(newUser.getPositionY())
+				
+				.setDamage(newUser.getDamage())
+				.setDefense(newUser.getDefense())
+				.setSpeed(newUser.getSpeed())
+				
+				.setCurHP(newUser.getCurHP())
+				.setCurMP(newUser.getCurMP())
+				.setMaxHP(newUser.getMaxHP())
+				.setMaxMP(newUser.getMaxMP())
 			
 				.build();
 		
