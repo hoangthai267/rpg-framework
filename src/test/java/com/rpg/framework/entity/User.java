@@ -4,7 +4,7 @@ public class User {
 	private int	id;
 	private int connectionID;
 	private int occupation;
-	
+	private String name;
 	private int 	mapID;
 	private double 	positionX;
 	private double 	positionY;
@@ -56,6 +56,14 @@ public class User {
 
 	public int getMapID() {
 		return mapID;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setMapID(int mapID) {

@@ -98,7 +98,8 @@ public class Map {
 		Protocol.MessageNewUser message = Protocol.MessageNewUser.newBuilder()
 				.setId(newUser.getId())
 				.setOccupation(newUser.getOccupation())
-			
+				.setName(newUser.getName())
+				
 				.setMapID(newUser.getMapID())
 				.setX(newUser.getPositionX())
 				.setY(newUser.getPositionY())

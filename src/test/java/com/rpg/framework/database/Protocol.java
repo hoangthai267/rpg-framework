@@ -17293,92 +17293,106 @@ public final class Protocol {
     int getOccupation();
 
     /**
-     * <code>required int32 mapID = 3;</code>
+     * <code>required string name = 3;</code>
+     */
+    boolean hasName();
+    /**
+     * <code>required string name = 3;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>required string name = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>required int32 mapID = 4;</code>
      */
     boolean hasMapID();
     /**
-     * <code>required int32 mapID = 3;</code>
+     * <code>required int32 mapID = 4;</code>
      */
     int getMapID();
 
     /**
-     * <code>required double x = 4;</code>
+     * <code>required double x = 5;</code>
      */
     boolean hasX();
     /**
-     * <code>required double x = 4;</code>
+     * <code>required double x = 5;</code>
      */
     double getX();
 
     /**
-     * <code>required double y = 5;</code>
+     * <code>required double y = 6;</code>
      */
     boolean hasY();
     /**
-     * <code>required double y = 5;</code>
+     * <code>required double y = 6;</code>
      */
     double getY();
 
     /**
-     * <code>required int32 maxHP = 6;</code>
+     * <code>required int32 maxHP = 7;</code>
      */
     boolean hasMaxHP();
     /**
-     * <code>required int32 maxHP = 6;</code>
+     * <code>required int32 maxHP = 7;</code>
      */
     int getMaxHP();
 
     /**
-     * <code>required int32 curHP = 7;</code>
+     * <code>required int32 curHP = 8;</code>
      */
     boolean hasCurHP();
     /**
-     * <code>required int32 curHP = 7;</code>
+     * <code>required int32 curHP = 8;</code>
      */
     int getCurHP();
 
     /**
-     * <code>required int32 maxMP = 8;</code>
+     * <code>required int32 maxMP = 9;</code>
      */
     boolean hasMaxMP();
     /**
-     * <code>required int32 maxMP = 8;</code>
+     * <code>required int32 maxMP = 9;</code>
      */
     int getMaxMP();
 
     /**
-     * <code>required int32 curMP = 9;</code>
+     * <code>required int32 curMP = 10;</code>
      */
     boolean hasCurMP();
     /**
-     * <code>required int32 curMP = 9;</code>
+     * <code>required int32 curMP = 10;</code>
      */
     int getCurMP();
 
     /**
-     * <code>required int32 damage = 10;</code>
+     * <code>required int32 damage = 11;</code>
      */
     boolean hasDamage();
     /**
-     * <code>required int32 damage = 10;</code>
+     * <code>required int32 damage = 11;</code>
      */
     int getDamage();
 
     /**
-     * <code>required int32 defense = 11;</code>
+     * <code>required int32 defense = 12;</code>
      */
     boolean hasDefense();
     /**
-     * <code>required int32 defense = 11;</code>
+     * <code>required int32 defense = 12;</code>
      */
     int getDefense();
 
     /**
-     * <code>required int32 speed = 12;</code>
+     * <code>required int32 speed = 13;</code>
      */
     boolean hasSpeed();
     /**
-     * <code>required int32 speed = 12;</code>
+     * <code>required int32 speed = 13;</code>
      */
     int getSpeed();
   }
@@ -17444,53 +17458,59 @@ public final class Protocol {
               occupation_ = input.readInt32();
               break;
             }
-            case 24: {
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
-              mapID_ = input.readInt32();
+              name_ = bs;
               break;
             }
-            case 33: {
+            case 32: {
               bitField0_ |= 0x00000008;
-              x_ = input.readDouble();
+              mapID_ = input.readInt32();
               break;
             }
             case 41: {
               bitField0_ |= 0x00000010;
-              y_ = input.readDouble();
+              x_ = input.readDouble();
               break;
             }
-            case 48: {
+            case 49: {
               bitField0_ |= 0x00000020;
-              maxHP_ = input.readInt32();
+              y_ = input.readDouble();
               break;
             }
             case 56: {
               bitField0_ |= 0x00000040;
-              curHP_ = input.readInt32();
+              maxHP_ = input.readInt32();
               break;
             }
             case 64: {
               bitField0_ |= 0x00000080;
-              maxMP_ = input.readInt32();
+              curHP_ = input.readInt32();
               break;
             }
             case 72: {
               bitField0_ |= 0x00000100;
-              curMP_ = input.readInt32();
+              maxMP_ = input.readInt32();
               break;
             }
             case 80: {
               bitField0_ |= 0x00000200;
-              damage_ = input.readInt32();
+              curMP_ = input.readInt32();
               break;
             }
             case 88: {
               bitField0_ |= 0x00000400;
-              defense_ = input.readInt32();
+              damage_ = input.readInt32();
               break;
             }
             case 96: {
               bitField0_ |= 0x00000800;
+              defense_ = input.readInt32();
+              break;
+            }
+            case 104: {
+              bitField0_ |= 0x00001000;
               speed_ = input.readInt32();
               break;
             }
@@ -17564,151 +17584,193 @@ public final class Protocol {
       return occupation_;
     }
 
-    public static final int MAPID_FIELD_NUMBER = 3;
-    private int mapID_;
+    public static final int NAME_FIELD_NUMBER = 3;
+    private java.lang.Object name_;
     /**
-     * <code>required int32 mapID = 3;</code>
+     * <code>required string name = 3;</code>
      */
-    public boolean hasMapID() {
+    public boolean hasName() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required int32 mapID = 3;</code>
+     * <code>required string name = 3;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string name = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MAPID_FIELD_NUMBER = 4;
+    private int mapID_;
+    /**
+     * <code>required int32 mapID = 4;</code>
+     */
+    public boolean hasMapID() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required int32 mapID = 4;</code>
      */
     public int getMapID() {
       return mapID_;
     }
 
-    public static final int X_FIELD_NUMBER = 4;
+    public static final int X_FIELD_NUMBER = 5;
     private double x_;
     /**
-     * <code>required double x = 4;</code>
+     * <code>required double x = 5;</code>
      */
     public boolean hasX() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>required double x = 4;</code>
+     * <code>required double x = 5;</code>
      */
     public double getX() {
       return x_;
     }
 
-    public static final int Y_FIELD_NUMBER = 5;
+    public static final int Y_FIELD_NUMBER = 6;
     private double y_;
     /**
-     * <code>required double y = 5;</code>
+     * <code>required double y = 6;</code>
      */
     public boolean hasY() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
-     * <code>required double y = 5;</code>
+     * <code>required double y = 6;</code>
      */
     public double getY() {
       return y_;
     }
 
-    public static final int MAXHP_FIELD_NUMBER = 6;
+    public static final int MAXHP_FIELD_NUMBER = 7;
     private int maxHP_;
     /**
-     * <code>required int32 maxHP = 6;</code>
+     * <code>required int32 maxHP = 7;</code>
      */
     public boolean hasMaxHP() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     /**
-     * <code>required int32 maxHP = 6;</code>
+     * <code>required int32 maxHP = 7;</code>
      */
     public int getMaxHP() {
       return maxHP_;
     }
 
-    public static final int CURHP_FIELD_NUMBER = 7;
+    public static final int CURHP_FIELD_NUMBER = 8;
     private int curHP_;
     /**
-     * <code>required int32 curHP = 7;</code>
+     * <code>required int32 curHP = 8;</code>
      */
     public boolean hasCurHP() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
+      return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     /**
-     * <code>required int32 curHP = 7;</code>
+     * <code>required int32 curHP = 8;</code>
      */
     public int getCurHP() {
       return curHP_;
     }
 
-    public static final int MAXMP_FIELD_NUMBER = 8;
+    public static final int MAXMP_FIELD_NUMBER = 9;
     private int maxMP_;
     /**
-     * <code>required int32 maxMP = 8;</code>
+     * <code>required int32 maxMP = 9;</code>
      */
     public boolean hasMaxMP() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000100) == 0x00000100);
     }
     /**
-     * <code>required int32 maxMP = 8;</code>
+     * <code>required int32 maxMP = 9;</code>
      */
     public int getMaxMP() {
       return maxMP_;
     }
 
-    public static final int CURMP_FIELD_NUMBER = 9;
+    public static final int CURMP_FIELD_NUMBER = 10;
     private int curMP_;
     /**
-     * <code>required int32 curMP = 9;</code>
+     * <code>required int32 curMP = 10;</code>
      */
     public boolean hasCurMP() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000200) == 0x00000200);
     }
     /**
-     * <code>required int32 curMP = 9;</code>
+     * <code>required int32 curMP = 10;</code>
      */
     public int getCurMP() {
       return curMP_;
     }
 
-    public static final int DAMAGE_FIELD_NUMBER = 10;
+    public static final int DAMAGE_FIELD_NUMBER = 11;
     private int damage_;
     /**
-     * <code>required int32 damage = 10;</code>
+     * <code>required int32 damage = 11;</code>
      */
     public boolean hasDamage() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
+      return ((bitField0_ & 0x00000400) == 0x00000400);
     }
     /**
-     * <code>required int32 damage = 10;</code>
+     * <code>required int32 damage = 11;</code>
      */
     public int getDamage() {
       return damage_;
     }
 
-    public static final int DEFENSE_FIELD_NUMBER = 11;
+    public static final int DEFENSE_FIELD_NUMBER = 12;
     private int defense_;
     /**
-     * <code>required int32 defense = 11;</code>
+     * <code>required int32 defense = 12;</code>
      */
     public boolean hasDefense() {
-      return ((bitField0_ & 0x00000400) == 0x00000400);
+      return ((bitField0_ & 0x00000800) == 0x00000800);
     }
     /**
-     * <code>required int32 defense = 11;</code>
+     * <code>required int32 defense = 12;</code>
      */
     public int getDefense() {
       return defense_;
     }
 
-    public static final int SPEED_FIELD_NUMBER = 12;
+    public static final int SPEED_FIELD_NUMBER = 13;
     private int speed_;
     /**
-     * <code>required int32 speed = 12;</code>
+     * <code>required int32 speed = 13;</code>
      */
     public boolean hasSpeed() {
-      return ((bitField0_ & 0x00000800) == 0x00000800);
+      return ((bitField0_ & 0x00001000) == 0x00001000);
     }
     /**
-     * <code>required int32 speed = 12;</code>
+     * <code>required int32 speed = 13;</code>
      */
     public int getSpeed() {
       return speed_;
@@ -17717,6 +17779,7 @@ public final class Protocol {
     private void initFields() {
       id_ = 0;
       occupation_ = 0;
+      name_ = "";
       mapID_ = 0;
       x_ = 0D;
       y_ = 0D;
@@ -17739,6 +17802,10 @@ public final class Protocol {
         return false;
       }
       if (!hasOccupation()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasName()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -17796,34 +17863,37 @@ public final class Protocol {
         output.writeInt32(2, occupation_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt32(3, mapID_);
+        output.writeBytes(3, getNameBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeDouble(4, x_);
+        output.writeInt32(4, mapID_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeDouble(5, y_);
+        output.writeDouble(5, x_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeInt32(6, maxHP_);
+        output.writeDouble(6, y_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeInt32(7, curHP_);
+        output.writeInt32(7, maxHP_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeInt32(8, maxMP_);
+        output.writeInt32(8, curHP_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeInt32(9, curMP_);
+        output.writeInt32(9, maxMP_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        output.writeInt32(10, damage_);
+        output.writeInt32(10, curMP_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        output.writeInt32(11, defense_);
+        output.writeInt32(11, damage_);
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        output.writeInt32(12, speed_);
+        output.writeInt32(12, defense_);
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        output.writeInt32(13, speed_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -17844,43 +17914,47 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, mapID_);
+          .computeBytesSize(3, getNameBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(4, x_);
+          .computeInt32Size(4, mapID_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(5, y_);
+          .computeDoubleSize(5, x_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, maxHP_);
+          .computeDoubleSize(6, y_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, curHP_);
+          .computeInt32Size(7, maxHP_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(8, maxMP_);
+          .computeInt32Size(8, curHP_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(9, curMP_);
+          .computeInt32Size(9, maxMP_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(10, damage_);
+          .computeInt32Size(10, curMP_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(11, defense_);
+          .computeInt32Size(11, damage_);
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(12, speed_);
+          .computeInt32Size(12, defense_);
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(13, speed_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -18003,26 +18077,28 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000001);
         occupation_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        mapID_ = 0;
+        name_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
-        x_ = 0D;
+        mapID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
-        y_ = 0D;
+        x_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000010);
-        maxHP_ = 0;
+        y_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000020);
-        curHP_ = 0;
+        maxHP_ = 0;
         bitField0_ = (bitField0_ & ~0x00000040);
-        maxMP_ = 0;
+        curHP_ = 0;
         bitField0_ = (bitField0_ & ~0x00000080);
-        curMP_ = 0;
+        maxMP_ = 0;
         bitField0_ = (bitField0_ & ~0x00000100);
-        damage_ = 0;
+        curMP_ = 0;
         bitField0_ = (bitField0_ & ~0x00000200);
-        defense_ = 0;
+        damage_ = 0;
         bitField0_ = (bitField0_ & ~0x00000400);
-        speed_ = 0;
+        defense_ = 0;
         bitField0_ = (bitField0_ & ~0x00000800);
+        speed_ = 0;
+        bitField0_ = (bitField0_ & ~0x00001000);
         return this;
       }
 
@@ -18062,41 +18138,45 @@ public final class Protocol {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.mapID_ = mapID_;
+        result.name_ = name_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.x_ = x_;
+        result.mapID_ = mapID_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.y_ = y_;
+        result.x_ = x_;
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
-        result.maxHP_ = maxHP_;
+        result.y_ = y_;
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000040;
         }
-        result.curHP_ = curHP_;
+        result.maxHP_ = maxHP_;
         if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
           to_bitField0_ |= 0x00000080;
         }
-        result.maxMP_ = maxMP_;
+        result.curHP_ = curHP_;
         if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
           to_bitField0_ |= 0x00000100;
         }
-        result.curMP_ = curMP_;
+        result.maxMP_ = maxMP_;
         if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
           to_bitField0_ |= 0x00000200;
         }
-        result.damage_ = damage_;
+        result.curMP_ = curMP_;
         if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
           to_bitField0_ |= 0x00000400;
         }
-        result.defense_ = defense_;
+        result.damage_ = damage_;
         if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
           to_bitField0_ |= 0x00000800;
+        }
+        result.defense_ = defense_;
+        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
+          to_bitField0_ |= 0x00001000;
         }
         result.speed_ = speed_;
         result.bitField0_ = to_bitField0_;
@@ -18120,6 +18200,11 @@ public final class Protocol {
         }
         if (other.hasOccupation()) {
           setOccupation(other.getOccupation());
+        }
+        if (other.hasName()) {
+          bitField0_ |= 0x00000004;
+          name_ = other.name_;
+          onChanged();
         }
         if (other.hasMapID()) {
           setMapID(other.getMapID());
@@ -18161,6 +18246,10 @@ public final class Protocol {
           return false;
         }
         if (!hasOccupation()) {
+          
+          return false;
+        }
+        if (!hasName()) {
           
           return false;
         }
@@ -18290,33 +18379,109 @@ public final class Protocol {
         return this;
       }
 
-      private int mapID_ ;
+      private java.lang.Object name_ = "";
       /**
-       * <code>required int32 mapID = 3;</code>
+       * <code>required string name = 3;</code>
        */
-      public boolean hasMapID() {
+      public boolean hasName() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required int32 mapID = 3;</code>
+       * <code>required string name = 3;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            name_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string name = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string name = 3;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 3;</code>
+       */
+      public Builder clearName() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 3;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int mapID_ ;
+      /**
+       * <code>required int32 mapID = 4;</code>
+       */
+      public boolean hasMapID() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required int32 mapID = 4;</code>
        */
       public int getMapID() {
         return mapID_;
       }
       /**
-       * <code>required int32 mapID = 3;</code>
+       * <code>required int32 mapID = 4;</code>
        */
       public Builder setMapID(int value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         mapID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 mapID = 3;</code>
+       * <code>required int32 mapID = 4;</code>
        */
       public Builder clearMapID() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         mapID_ = 0;
         onChanged();
         return this;
@@ -18324,31 +18489,31 @@ public final class Protocol {
 
       private double x_ ;
       /**
-       * <code>required double x = 4;</code>
+       * <code>required double x = 5;</code>
        */
       public boolean hasX() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>required double x = 4;</code>
+       * <code>required double x = 5;</code>
        */
       public double getX() {
         return x_;
       }
       /**
-       * <code>required double x = 4;</code>
+       * <code>required double x = 5;</code>
        */
       public Builder setX(double value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         x_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required double x = 4;</code>
+       * <code>required double x = 5;</code>
        */
       public Builder clearX() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         x_ = 0D;
         onChanged();
         return this;
@@ -18356,31 +18521,31 @@ public final class Protocol {
 
       private double y_ ;
       /**
-       * <code>required double y = 5;</code>
+       * <code>required double y = 6;</code>
        */
       public boolean hasY() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>required double y = 5;</code>
+       * <code>required double y = 6;</code>
        */
       public double getY() {
         return y_;
       }
       /**
-       * <code>required double y = 5;</code>
+       * <code>required double y = 6;</code>
        */
       public Builder setY(double value) {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         y_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required double y = 5;</code>
+       * <code>required double y = 6;</code>
        */
       public Builder clearY() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         y_ = 0D;
         onChanged();
         return this;
@@ -18388,31 +18553,31 @@ public final class Protocol {
 
       private int maxHP_ ;
       /**
-       * <code>required int32 maxHP = 6;</code>
+       * <code>required int32 maxHP = 7;</code>
        */
       public boolean hasMaxHP() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       /**
-       * <code>required int32 maxHP = 6;</code>
+       * <code>required int32 maxHP = 7;</code>
        */
       public int getMaxHP() {
         return maxHP_;
       }
       /**
-       * <code>required int32 maxHP = 6;</code>
+       * <code>required int32 maxHP = 7;</code>
        */
       public Builder setMaxHP(int value) {
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         maxHP_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 maxHP = 6;</code>
+       * <code>required int32 maxHP = 7;</code>
        */
       public Builder clearMaxHP() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         maxHP_ = 0;
         onChanged();
         return this;
@@ -18420,31 +18585,31 @@ public final class Protocol {
 
       private int curHP_ ;
       /**
-       * <code>required int32 curHP = 7;</code>
+       * <code>required int32 curHP = 8;</code>
        */
       public boolean hasCurHP() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       /**
-       * <code>required int32 curHP = 7;</code>
+       * <code>required int32 curHP = 8;</code>
        */
       public int getCurHP() {
         return curHP_;
       }
       /**
-       * <code>required int32 curHP = 7;</code>
+       * <code>required int32 curHP = 8;</code>
        */
       public Builder setCurHP(int value) {
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         curHP_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 curHP = 7;</code>
+       * <code>required int32 curHP = 8;</code>
        */
       public Builder clearCurHP() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         curHP_ = 0;
         onChanged();
         return this;
@@ -18452,31 +18617,31 @@ public final class Protocol {
 
       private int maxMP_ ;
       /**
-       * <code>required int32 maxMP = 8;</code>
+       * <code>required int32 maxMP = 9;</code>
        */
       public boolean hasMaxMP() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+        return ((bitField0_ & 0x00000100) == 0x00000100);
       }
       /**
-       * <code>required int32 maxMP = 8;</code>
+       * <code>required int32 maxMP = 9;</code>
        */
       public int getMaxMP() {
         return maxMP_;
       }
       /**
-       * <code>required int32 maxMP = 8;</code>
+       * <code>required int32 maxMP = 9;</code>
        */
       public Builder setMaxMP(int value) {
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000100;
         maxMP_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 maxMP = 8;</code>
+       * <code>required int32 maxMP = 9;</code>
        */
       public Builder clearMaxMP() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000100);
         maxMP_ = 0;
         onChanged();
         return this;
@@ -18484,31 +18649,31 @@ public final class Protocol {
 
       private int curMP_ ;
       /**
-       * <code>required int32 curMP = 9;</code>
+       * <code>required int32 curMP = 10;</code>
        */
       public boolean hasCurMP() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
+        return ((bitField0_ & 0x00000200) == 0x00000200);
       }
       /**
-       * <code>required int32 curMP = 9;</code>
+       * <code>required int32 curMP = 10;</code>
        */
       public int getCurMP() {
         return curMP_;
       }
       /**
-       * <code>required int32 curMP = 9;</code>
+       * <code>required int32 curMP = 10;</code>
        */
       public Builder setCurMP(int value) {
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000200;
         curMP_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 curMP = 9;</code>
+       * <code>required int32 curMP = 10;</code>
        */
       public Builder clearCurMP() {
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000200);
         curMP_ = 0;
         onChanged();
         return this;
@@ -18516,31 +18681,31 @@ public final class Protocol {
 
       private int damage_ ;
       /**
-       * <code>required int32 damage = 10;</code>
+       * <code>required int32 damage = 11;</code>
        */
       public boolean hasDamage() {
-        return ((bitField0_ & 0x00000200) == 0x00000200);
+        return ((bitField0_ & 0x00000400) == 0x00000400);
       }
       /**
-       * <code>required int32 damage = 10;</code>
+       * <code>required int32 damage = 11;</code>
        */
       public int getDamage() {
         return damage_;
       }
       /**
-       * <code>required int32 damage = 10;</code>
+       * <code>required int32 damage = 11;</code>
        */
       public Builder setDamage(int value) {
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000400;
         damage_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 damage = 10;</code>
+       * <code>required int32 damage = 11;</code>
        */
       public Builder clearDamage() {
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000400);
         damage_ = 0;
         onChanged();
         return this;
@@ -18548,31 +18713,31 @@ public final class Protocol {
 
       private int defense_ ;
       /**
-       * <code>required int32 defense = 11;</code>
+       * <code>required int32 defense = 12;</code>
        */
       public boolean hasDefense() {
-        return ((bitField0_ & 0x00000400) == 0x00000400);
+        return ((bitField0_ & 0x00000800) == 0x00000800);
       }
       /**
-       * <code>required int32 defense = 11;</code>
+       * <code>required int32 defense = 12;</code>
        */
       public int getDefense() {
         return defense_;
       }
       /**
-       * <code>required int32 defense = 11;</code>
+       * <code>required int32 defense = 12;</code>
        */
       public Builder setDefense(int value) {
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000800;
         defense_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 defense = 11;</code>
+       * <code>required int32 defense = 12;</code>
        */
       public Builder clearDefense() {
-        bitField0_ = (bitField0_ & ~0x00000400);
+        bitField0_ = (bitField0_ & ~0x00000800);
         defense_ = 0;
         onChanged();
         return this;
@@ -18580,31 +18745,31 @@ public final class Protocol {
 
       private int speed_ ;
       /**
-       * <code>required int32 speed = 12;</code>
+       * <code>required int32 speed = 13;</code>
        */
       public boolean hasSpeed() {
-        return ((bitField0_ & 0x00000800) == 0x00000800);
+        return ((bitField0_ & 0x00001000) == 0x00001000);
       }
       /**
-       * <code>required int32 speed = 12;</code>
+       * <code>required int32 speed = 13;</code>
        */
       public int getSpeed() {
         return speed_;
       }
       /**
-       * <code>required int32 speed = 12;</code>
+       * <code>required int32 speed = 13;</code>
        */
       public Builder setSpeed(int value) {
-        bitField0_ |= 0x00000800;
+        bitField0_ |= 0x00001000;
         speed_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 speed = 12;</code>
+       * <code>required int32 speed = 13;</code>
        */
       public Builder clearSpeed() {
-        bitField0_ = (bitField0_ & ~0x00000800);
+        bitField0_ = (bitField0_ & ~0x00001000);
         speed_ = 0;
         onChanged();
         return this;
@@ -21149,29 +21314,43 @@ public final class Protocol {
     int getOccupation();
 
     /**
-     * <code>required int32 mapID = 3;</code>
+     * <code>required string name = 3;</code>
+     */
+    boolean hasName();
+    /**
+     * <code>required string name = 3;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>required string name = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>required int32 mapID = 4;</code>
      */
     boolean hasMapID();
     /**
-     * <code>required int32 mapID = 3;</code>
+     * <code>required int32 mapID = 4;</code>
      */
     int getMapID();
 
     /**
-     * <code>required double x = 4;</code>
+     * <code>required double x = 5;</code>
      */
     boolean hasX();
     /**
-     * <code>required double x = 4;</code>
+     * <code>required double x = 5;</code>
      */
     double getX();
 
     /**
-     * <code>required double y = 5;</code>
+     * <code>required double y = 6;</code>
      */
     boolean hasY();
     /**
-     * <code>required double y = 5;</code>
+     * <code>required double y = 6;</code>
      */
     double getY();
   }
@@ -21237,18 +21416,24 @@ public final class Protocol {
               occupation_ = input.readInt32();
               break;
             }
-            case 24: {
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
-              mapID_ = input.readInt32();
+              name_ = bs;
               break;
             }
-            case 33: {
+            case 32: {
               bitField0_ |= 0x00000008;
-              x_ = input.readDouble();
+              mapID_ = input.readInt32();
               break;
             }
             case 41: {
               bitField0_ |= 0x00000010;
+              x_ = input.readDouble();
+              break;
+            }
+            case 49: {
+              bitField0_ |= 0x00000020;
               y_ = input.readDouble();
               break;
             }
@@ -21322,46 +21507,88 @@ public final class Protocol {
       return occupation_;
     }
 
-    public static final int MAPID_FIELD_NUMBER = 3;
-    private int mapID_;
+    public static final int NAME_FIELD_NUMBER = 3;
+    private java.lang.Object name_;
     /**
-     * <code>required int32 mapID = 3;</code>
+     * <code>required string name = 3;</code>
      */
-    public boolean hasMapID() {
+    public boolean hasName() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required int32 mapID = 3;</code>
+     * <code>required string name = 3;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string name = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MAPID_FIELD_NUMBER = 4;
+    private int mapID_;
+    /**
+     * <code>required int32 mapID = 4;</code>
+     */
+    public boolean hasMapID() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required int32 mapID = 4;</code>
      */
     public int getMapID() {
       return mapID_;
     }
 
-    public static final int X_FIELD_NUMBER = 4;
+    public static final int X_FIELD_NUMBER = 5;
     private double x_;
     /**
-     * <code>required double x = 4;</code>
+     * <code>required double x = 5;</code>
      */
     public boolean hasX() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>required double x = 4;</code>
+     * <code>required double x = 5;</code>
      */
     public double getX() {
       return x_;
     }
 
-    public static final int Y_FIELD_NUMBER = 5;
+    public static final int Y_FIELD_NUMBER = 6;
     private double y_;
     /**
-     * <code>required double y = 5;</code>
+     * <code>required double y = 6;</code>
      */
     public boolean hasY() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
-     * <code>required double y = 5;</code>
+     * <code>required double y = 6;</code>
      */
     public double getY() {
       return y_;
@@ -21370,6 +21597,7 @@ public final class Protocol {
     private void initFields() {
       id_ = 0;
       occupation_ = 0;
+      name_ = "";
       mapID_ = 0;
       x_ = 0D;
       y_ = 0D;
@@ -21385,6 +21613,10 @@ public final class Protocol {
         return false;
       }
       if (!hasOccupation()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasName()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -21414,13 +21646,16 @@ public final class Protocol {
         output.writeInt32(2, occupation_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt32(3, mapID_);
+        output.writeBytes(3, getNameBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeDouble(4, x_);
+        output.writeInt32(4, mapID_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeDouble(5, y_);
+        output.writeDouble(5, x_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeDouble(6, y_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -21441,15 +21676,19 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, mapID_);
+          .computeBytesSize(3, getNameBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(4, x_);
+          .computeInt32Size(4, mapID_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(5, y_);
+          .computeDoubleSize(5, x_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(6, y_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -21572,12 +21811,14 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000001);
         occupation_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        mapID_ = 0;
+        name_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
-        x_ = 0D;
+        mapID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
-        y_ = 0D;
+        x_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000010);
+        y_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -21617,13 +21858,17 @@ public final class Protocol {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.mapID_ = mapID_;
+        result.name_ = name_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.x_ = x_;
+        result.mapID_ = mapID_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
+        }
+        result.x_ = x_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
         }
         result.y_ = y_;
         result.bitField0_ = to_bitField0_;
@@ -21648,6 +21893,11 @@ public final class Protocol {
         if (other.hasOccupation()) {
           setOccupation(other.getOccupation());
         }
+        if (other.hasName()) {
+          bitField0_ |= 0x00000004;
+          name_ = other.name_;
+          onChanged();
+        }
         if (other.hasMapID()) {
           setMapID(other.getMapID());
         }
@@ -21667,6 +21917,10 @@ public final class Protocol {
           return false;
         }
         if (!hasOccupation()) {
+          
+          return false;
+        }
+        if (!hasName()) {
           
           return false;
         }
@@ -21768,33 +22022,109 @@ public final class Protocol {
         return this;
       }
 
-      private int mapID_ ;
+      private java.lang.Object name_ = "";
       /**
-       * <code>required int32 mapID = 3;</code>
+       * <code>required string name = 3;</code>
        */
-      public boolean hasMapID() {
+      public boolean hasName() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required int32 mapID = 3;</code>
+       * <code>required string name = 3;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            name_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string name = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string name = 3;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 3;</code>
+       */
+      public Builder clearName() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 3;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int mapID_ ;
+      /**
+       * <code>required int32 mapID = 4;</code>
+       */
+      public boolean hasMapID() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required int32 mapID = 4;</code>
        */
       public int getMapID() {
         return mapID_;
       }
       /**
-       * <code>required int32 mapID = 3;</code>
+       * <code>required int32 mapID = 4;</code>
        */
       public Builder setMapID(int value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         mapID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 mapID = 3;</code>
+       * <code>required int32 mapID = 4;</code>
        */
       public Builder clearMapID() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         mapID_ = 0;
         onChanged();
         return this;
@@ -21802,31 +22132,31 @@ public final class Protocol {
 
       private double x_ ;
       /**
-       * <code>required double x = 4;</code>
+       * <code>required double x = 5;</code>
        */
       public boolean hasX() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>required double x = 4;</code>
+       * <code>required double x = 5;</code>
        */
       public double getX() {
         return x_;
       }
       /**
-       * <code>required double x = 4;</code>
+       * <code>required double x = 5;</code>
        */
       public Builder setX(double value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         x_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required double x = 4;</code>
+       * <code>required double x = 5;</code>
        */
       public Builder clearX() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         x_ = 0D;
         onChanged();
         return this;
@@ -21834,31 +22164,31 @@ public final class Protocol {
 
       private double y_ ;
       /**
-       * <code>required double y = 5;</code>
+       * <code>required double y = 6;</code>
        */
       public boolean hasY() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>required double y = 5;</code>
+       * <code>required double y = 6;</code>
        */
       public double getY() {
         return y_;
       }
       /**
-       * <code>required double y = 5;</code>
+       * <code>required double y = 6;</code>
        */
       public Builder setY(double value) {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         y_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required double y = 5;</code>
+       * <code>required double y = 6;</code>
        */
       public Builder clearY() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         y_ = 0D;
         onChanged();
         return this;
@@ -28606,65 +28936,66 @@ public final class Protocol {
       "(\0132\024.Protobuf.BonusStats\"5\n\nBonusStats\022\017" +
       "\n\007BonusHP\030\001 \001(\005\022\026\n\016BonusPercentHP\030\002 \001(\002\"" +
       "\025\n\023RequestGetPrototype\"5\n\024ResponseGetPro" +
-      "totype\022\035\n\005items\030\001 \003(\0132\016.Protobuf.Item\"\267\001",
-      "\n\004User\022\n\n\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\r" +
-      "\n\005mapID\030\003 \002(\005\022\t\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\022\r\n\005m" +
-      "axHP\030\006 \002(\005\022\r\n\005curHP\030\007 \002(\005\022\r\n\005maxMP\030\010 \002(\005" +
-      "\022\r\n\005curMP\030\t \002(\005\022\016\n\006damage\030\n \002(\005\022\017\n\007defen" +
-      "se\030\013 \002(\005\022\r\n\005speed\030\014 \002(\005\"\265\001\n\007Monster\022\n\n\002i" +
-      "d\030\001 \002(\005\022\r\n\005index\030\002 \002(\005\022\r\n\005mapID\030\003 \002(\005\022\t\n" +
-      "\001x\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\022\r\n\005maxHP\030\006 \002(\005\022\r\n\005cu" +
-      "rHP\030\007 \002(\005\022\r\n\005maxMP\030\010 \002(\005\022\r\n\005curMP\030\t \002(\005\022" +
-      "\016\n\006damage\030\n \002(\005\022\017\n\007defense\030\013 \002(\005\022\r\n\005spee" +
-      "d\030\014 \002(\005\"L\n\022MessageKillMonster\022\r\n\005mapID\030\001",
-      " \002(\005\022\021\n\tmonsterID\030\002 \002(\005\022\024\n\014monsterIndex\030" +
-      "\003 \002(\005\"O\n\025MessageRespawnMonster\022\r\n\005mapID\030" +
-      "\001 \002(\005\022\021\n\tmonsterID\030\002 \002(\005\022\024\n\014monsterIndex" +
-      "\030\003 \002(\005\"U\n\016MessageNewUser\022\n\n\002id\030\001 \002(\005\022\022\n\n" +
-      "occupation\030\002 \002(\005\022\r\n\005mapID\030\003 \002(\005\022\t\n\001x\030\004 \002" +
-      "(\001\022\t\n\001y\030\005 \002(\001\"\037\n\021MessageDeleteUser\022\n\n\002id" +
-      "\030\001 \002(\005\"q\n\014MonsterState\022\n\n\002ID\030\001 \002(\005\022\r\n\005In" +
-      "dex\030\002 \002(\005\022\021\n\tPositionX\030\004 \002(\001\022\021\n\tPosition" +
-      "Y\030\005 \002(\001\022\r\n\005State\030\006 \002(\005\022\021\n\tDirection\030\007 \002(" +
-      "\005\"P\n\031MessageUpdateMonsterState\022\r\n\005MapID\030",
-      "\001 \002(\005\022$\n\004Data\030\002 \003(\0132\026.Protobuf.MonsterSt" +
-      "ate\";\n\rActionCommand\022\n\n\002ID\030\001 \002(\005\022\r\n\005Inde" +
-      "x\030\002 \002(\005\022\017\n\007Command\030\003 \002(\005\"F\n\035MessageUpdat" +
-      "eMonsterByCommand\022%\n\004Data\030\001 \003(\0132\027.Protob" +
-      "uf.ActionCommand\"J\n\035MessageUpdateMonster" +
-      "Collision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006" +
-      "UserID\030\003 \002(\005\"<\n\020RequestChangeMap\022\016\n\006user" +
-      "ID\030\001 \002(\005\022\014\n\004from\030\002 \002(\005\022\n\n\002to\030\003 \002(\005\"W\n\021Re" +
-      "sponseChangeMap\022\035\n\005users\030\001 \003(\0132\016.Protobu" +
-      "f.User\022#\n\010monsters\030\002 \003(\0132\021.Protobuf.Mons",
-      "ter\"G\n\032MessageUpdateUserCollision\022\n\n\002ID\030" +
-      "\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"7\n&" +
-      "MessageRequestUserUpdateMapInformation\022\r" +
-      "\n\005mapID\030\001 \002(\005*\262\006\n\013MessageType\022\021\n\rREQUEST" +
-      "_LOGIN\020\000\022\021\n\rRESPONE_LOGIN\020\001\022\024\n\020REQUEST_R" +
-      "EGISTER\020\002\022\024\n\020RESPONE_REGISTER\020\003\022\031\n\025REQUE" +
-      "ST_GET_CHARACTER\020\004\022\031\n\025RESPONE_GET_CHARAC" +
-      "TER\020\005\022\034\n\030REQUEST_CREATE_CHARACTER\020\006\022\034\n\030R" +
-      "ESPONE_CREATE_CHARACTER\020\007\022\026\n\022REQUEST_STA" +
-      "RT_GAME\020\010\022\026\n\022RESPONE_START_GAME\020\t\022\033\n\027REQ",
-      "UEST_UPDATE_POSITION\020\n\022\033\n\027RESPONE_UPDATE" +
-      "_POSITION\020\013\022\025\n\021REQUEST_GET_ITEMS\020\014\022\026\n\022RE" +
-      "SPONSE_GET_ITEMS\020\r\022\031\n\025REQUEST_UPDATE_ACT" +
-      "ION\020\016\022\032\n\026RESPONSE_UPDATE_ACTION\020\017\022\031\n\025REQ" +
-      "UEST_GET_PROTOTYPE\020\020\022\032\n\026RESPONSE_GET_PRO" +
-      "TOTYPE\020\021\022\026\n\022REQUEST_CHANGE_MAP\020\022\022\027\n\023RESP" +
-      "ONSE_CHANGE_MAP\020\023\022\030\n\024MESSAGE_KILL_MONSTE" +
-      "R\020\024\022\033\n\027MESSAGE_RESPAWN_MONSTER\020\025\022 \n\034MESS" +
-      "AGE_UPDATE_MONSTER_STATE\020\026\022%\n!MESSAGE_UP" +
-      "DATE_MONSTER_BY_COMMAND\020\027\022$\n MESSAGE_UPD",
-      "ATE_MONSTER_COLLISION\020\030\022\024\n\020MESSAGE_NEW_U" +
-      "SER\020\031\022\027\n\023MESSAGE_DELETE_USER\020\032\022!\n\035MESSAG" +
-      "E_UPDATE_USER_COLLISION\020\033\022/\n+MESSAGE_REQ" +
-      "UEST_USER_UPDATE_MAP_INFORMATION\020\034*/\n\014Re" +
-      "sponseCode\022\013\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDL" +
-      "E\020\003*I\n\010ItemType\022\021\n\rITEM_TYPE_USE\020\000\022\025\n\021IT" +
-      "EM_TYPE_COLLECT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020\002B\036" +
-      "\n\032com.rpg.framework.databaseH\001"
+      "totype\022\035\n\005items\030\001 \003(\0132\016.Protobuf.Item\"\305\001",
+      "\n\004User\022\n\n\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014" +
+      "\n\004name\030\003 \002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t" +
+      "\n\001y\030\006 \002(\001\022\r\n\005maxHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022" +
+      "\r\n\005maxMP\030\t \002(\005\022\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030" +
+      "\013 \002(\005\022\017\n\007defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"\265\001" +
+      "\n\007Monster\022\n\n\002id\030\001 \002(\005\022\r\n\005index\030\002 \002(\005\022\r\n\005" +
+      "mapID\030\003 \002(\005\022\t\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\022\r\n\005max" +
+      "HP\030\006 \002(\005\022\r\n\005curHP\030\007 \002(\005\022\r\n\005maxMP\030\010 \002(\005\022\r" +
+      "\n\005curMP\030\t \002(\005\022\016\n\006damage\030\n \002(\005\022\017\n\007defense" +
+      "\030\013 \002(\005\022\r\n\005speed\030\014 \002(\005\"L\n\022MessageKillMons",
+      "ter\022\r\n\005mapID\030\001 \002(\005\022\021\n\tmonsterID\030\002 \002(\005\022\024\n" +
+      "\014monsterIndex\030\003 \002(\005\"O\n\025MessageRespawnMon" +
+      "ster\022\r\n\005mapID\030\001 \002(\005\022\021\n\tmonsterID\030\002 \002(\005\022\024" +
+      "\n\014monsterIndex\030\003 \002(\005\"c\n\016MessageNewUser\022\n" +
+      "\n\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030\003" +
+      " \002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(" +
+      "\001\"\037\n\021MessageDeleteUser\022\n\n\002id\030\001 \002(\005\"q\n\014Mo" +
+      "nsterState\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\021\n" +
+      "\tPositionX\030\004 \002(\001\022\021\n\tPositionY\030\005 \002(\001\022\r\n\005S" +
+      "tate\030\006 \002(\005\022\021\n\tDirection\030\007 \002(\005\"P\n\031Message",
+      "UpdateMonsterState\022\r\n\005MapID\030\001 \002(\005\022$\n\004Dat" +
+      "a\030\002 \003(\0132\026.Protobuf.MonsterState\";\n\rActio" +
+      "nCommand\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\017\n\007C" +
+      "ommand\030\003 \002(\005\"F\n\035MessageUpdateMonsterByCo" +
+      "mmand\022%\n\004Data\030\001 \003(\0132\027.Protobuf.ActionCom" +
+      "mand\"J\n\035MessageUpdateMonsterCollision\022\n\n" +
+      "\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005" +
+      "\"<\n\020RequestChangeMap\022\016\n\006userID\030\001 \002(\005\022\014\n\004" +
+      "from\030\002 \002(\005\022\n\n\002to\030\003 \002(\005\"W\n\021ResponseChange" +
+      "Map\022\035\n\005users\030\001 \003(\0132\016.Protobuf.User\022#\n\010mo",
+      "nsters\030\002 \003(\0132\021.Protobuf.Monster\"G\n\032Messa" +
+      "geUpdateUserCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Ind" +
+      "ex\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"7\n&MessageReque" +
+      "stUserUpdateMapInformation\022\r\n\005mapID\030\001 \002(" +
+      "\005*\262\006\n\013MessageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\r" +
+      "RESPONE_LOGIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n" +
+      "\020RESPONE_REGISTER\020\003\022\031\n\025REQUEST_GET_CHARA" +
+      "CTER\020\004\022\031\n\025RESPONE_GET_CHARACTER\020\005\022\034\n\030REQ" +
+      "UEST_CREATE_CHARACTER\020\006\022\034\n\030RESPONE_CREAT" +
+      "E_CHARACTER\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n",
+      "\022RESPONE_START_GAME\020\t\022\033\n\027REQUEST_UPDATE_" +
+      "POSITION\020\n\022\033\n\027RESPONE_UPDATE_POSITION\020\013\022" +
+      "\025\n\021REQUEST_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_I" +
+      "TEMS\020\r\022\031\n\025REQUEST_UPDATE_ACTION\020\016\022\032\n\026RES" +
+      "PONSE_UPDATE_ACTION\020\017\022\031\n\025REQUEST_GET_PRO" +
+      "TOTYPE\020\020\022\032\n\026RESPONSE_GET_PROTOTYPE\020\021\022\026\n\022" +
+      "REQUEST_CHANGE_MAP\020\022\022\027\n\023RESPONSE_CHANGE_" +
+      "MAP\020\023\022\030\n\024MESSAGE_KILL_MONSTER\020\024\022\033\n\027MESSA" +
+      "GE_RESPAWN_MONSTER\020\025\022 \n\034MESSAGE_UPDATE_M" +
+      "ONSTER_STATE\020\026\022%\n!MESSAGE_UPDATE_MONSTER",
+      "_BY_COMMAND\020\027\022$\n MESSAGE_UPDATE_MONSTER_" +
+      "COLLISION\020\030\022\024\n\020MESSAGE_NEW_USER\020\031\022\027\n\023MES" +
+      "SAGE_DELETE_USER\020\032\022!\n\035MESSAGE_UPDATE_USE" +
+      "R_COLLISION\020\033\022/\n+MESSAGE_REQUEST_USER_UP" +
+      "DATE_MAP_INFORMATION\020\034*/\n\014ResponseCode\022\013" +
+      "\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemT" +
+      "ype\022\021\n\rITEM_TYPE_USE\020\000\022\025\n\021ITEM_TYPE_COLL" +
+      "ECT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020\002B\036\n\032com.rpg.fr" +
+      "amework.databaseH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -28827,7 +29158,7 @@ public final class Protocol {
     internal_static_Protobuf_User_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_User_descriptor,
-        new java.lang.String[] { "Id", "Occupation", "MapID", "X", "Y", "MaxHP", "CurHP", "MaxMP", "CurMP", "Damage", "Defense", "Speed", });
+        new java.lang.String[] { "Id", "Occupation", "Name", "MapID", "X", "Y", "MaxHP", "CurHP", "MaxMP", "CurMP", "Damage", "Defense", "Speed", });
     internal_static_Protobuf_Monster_descriptor =
       getDescriptor().getMessageTypes().get(25);
     internal_static_Protobuf_Monster_fieldAccessorTable = new
@@ -28851,7 +29182,7 @@ public final class Protocol {
     internal_static_Protobuf_MessageNewUser_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageNewUser_descriptor,
-        new java.lang.String[] { "Id", "Occupation", "MapID", "X", "Y", });
+        new java.lang.String[] { "Id", "Occupation", "Name", "MapID", "X", "Y", });
     internal_static_Protobuf_MessageDeleteUser_descriptor =
       getDescriptor().getMessageTypes().get(29);
     internal_static_Protobuf_MessageDeleteUser_fieldAccessorTable = new

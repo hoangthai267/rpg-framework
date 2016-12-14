@@ -350,6 +350,7 @@ public class Server extends com.rpg.framework.core.Server {
 			builder.addUsers(Protocol.User.newBuilder()
 					.setId(id)
 					.setOccupation(user.getOccupation())
+					.setName(user.getName())
 					
 					.setMapID(user.getMapID())
 					.setX(user.getPositionX())
@@ -533,6 +534,7 @@ public class Server extends com.rpg.framework.core.Server {
 			builder.addUsers(Protocol.User.newBuilder()
 					.setId(id)
 					.setOccupation(user.getOccupation())
+					.setName(user.getName())
 					
 					.setMapID(user.getMapID())
 					.setX(user.getPositionX())
