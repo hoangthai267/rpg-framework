@@ -70,7 +70,9 @@ public class Client extends com.rpg.framework.core.Client {
 					break;
 				}
 				case Protocol.MessageType.RESPONE_GET_CHARACTER_VALUE: {
+					long cur = System.currentTimeMillis();
 					responseGetCharacter(Protocol.ResponseGetCharacter.parseFrom(data));
+					System.out.println("Delta: " + (System.currentTimeMillis() - cur));
 					break;
 				}
 				case Protocol.MessageType.RESPONE_CREATE_CHARACTER_VALUE: {
@@ -103,9 +105,11 @@ public class Client extends com.rpg.framework.core.Client {
 					break;
 				}
 				case Protocol.MessageType.MESSAGE_NEW_USER_VALUE: {
+					System.out.println("MESSAGE_NEW_USER_VALUE");
 					break;
 				}
 				case Protocol.MessageType.MESSAGE_DELETE_USER_VALUE: {
+					System.out.println("MESSAGE_DELETE_USER_VALUE");
 					break;
 				}
 				default:
@@ -243,15 +247,23 @@ public class Client extends com.rpg.framework.core.Client {
 		Protocol.RequestUpdateAction.Builder builder = Protocol.RequestUpdateAction.newBuilder();
 		builder.setUserID(userID);
 		builder.addActions(Protocol.CharacterAction.newBuilder()
+				.setMapID(1)
+				.setX(0.0)
+				.setY(0.0)
 				.setState(10)
 				.setActionCommand(100)
 				.setType(10)
 				.setTimeRecord(100).build());
 		builder.addActions(Protocol.CharacterAction.newBuilder()
+				.setMapID(1)
+				.setX(0.0)
+				.setY(0.0)
 				.setState(20)
 				.setActionCommand(200)
 				.setType(100)
 				.setTimeRecord(200).build());
+		
+		
 		sendMessage(Protocol.MessageType.REQUEST_UPDATE_ACTION_VALUE, builder.build().toByteArray());
 	}
 	
@@ -296,16 +308,12 @@ public class Client extends com.rpg.framework.core.Client {
 		}
 	}
 
-	public void responseGetCharacter(Protocol.ResponseGetCharacter response) {
-		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {			
-			this.mapID 		= response.getCharacter().getMapID();
-			this.positionX 	= response.getCharacter().getX();
-			this.positionY 	= response.getCharacter().getY();
-			
+	public void responseGetCharacter(Protocol.ResponseGetCharacter response) {		
+			this.mapID 		= response.getMapID();
+			this.positionX 	= response.getX();
+			this.positionY 	= response.getY();
+			System.out.println(response);
 			sendRequestStartGame();
-		} else {
-
-		}
 	}
 
 	public void responseCreateCharacter(Protocol.ResponseCreateCharacter response) {
@@ -316,10 +324,8 @@ public class Client extends com.rpg.framework.core.Client {
 	}
 
 	public void responseStartGame(Protocol.ResponseStartGame response) {
-		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
 			this.state = State.RUN;
-			System.out.println("Client.responseStartGame(): " + userName);
-		}
+			System.out.println("Client.responseStartGame(): " + userName);		
 	}
 
 	public void responseUpdatePosition(Protocol.ResponseUpdatePosition response) {

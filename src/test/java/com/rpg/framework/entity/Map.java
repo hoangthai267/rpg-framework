@@ -96,23 +96,14 @@ public class Map {
 	public void addUser(Integer userID) {		
 		User newUser = UserManager.getInstance().getIdentifiedUser(userID);
 		Protocol.MessageNewUser message = Protocol.MessageNewUser.newBuilder()
-				.setUser(Protocol.User.newBuilder()
-						.setId(newUser.getId())
-						.setPosition(Protocol.Position.newBuilder()
-								.setMapID(newUser.getMapID())
-								.setX(newUser.getPositionX())
-								.setY(newUser.getPositionY()))
-						.setStats(Protocol.Stats.newBuilder()
-								.setDamage(newUser.getDamage())
-								.setDefense(newUser.getDefense())
-								.setSpeed(newUser.getSpeed()))
-						.setStatus(Protocol.Status.newBuilder()
-								.setCurHP(newUser.getCurHP())
-								.setCurMP(newUser.getCurMP())
-								.setMaxHP(newUser.getMaxHP())
-								.setMaxMP(newUser.getMaxMP()))
-						
-						).build();
+				.setId(newUser.getId())
+				.setOccupation(newUser.getOccupation())
+			
+				.setMapID(newUser.getMapID())
+				.setX(newUser.getPositionX())
+				.setY(newUser.getPositionY())
+			
+				.build();
 		
 		for(int i = 0; i < userList.size(); i++) {
 			int id = userList.get(i);
@@ -129,24 +120,9 @@ public class Map {
 		userList.remove(userID);
 		
 		User oldUser = UserManager.getInstance().getIdentifiedUser(userID);
-		Protocol.MessageNewUser message = Protocol.MessageNewUser.newBuilder()
-				.setUser(Protocol.User.newBuilder()
-						.setId(oldUser.getId())
-						.setPosition(Protocol.Position.newBuilder()
-								.setMapID(oldUser.getMapID())
-								.setX(oldUser.getPositionX())
-								.setY(oldUser.getPositionY()))
-						.setStats(Protocol.Stats.newBuilder()
-								.setDamage(oldUser.getDamage())
-								.setDefense(oldUser.getDefense())
-								.setSpeed(oldUser.getSpeed()))
-						.setStatus(Protocol.Status.newBuilder()
-								.setCurHP(oldUser.getCurHP())
-								.setCurMP(oldUser.getCurMP())
-								.setMaxHP(oldUser.getMaxHP())
-								.setMaxMP(oldUser.getMaxMP()))
-						
-						).build();
+		Protocol.MessageDeleteUser message = Protocol.MessageDeleteUser.newBuilder()
+						.setId(oldUser.getId())								
+						.build();
 		
 		for(int i = 0; i < userList.size(); i++) {
 			int id = userList.get(i);

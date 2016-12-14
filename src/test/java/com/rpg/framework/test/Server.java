@@ -262,28 +262,25 @@ public class Server extends com.rpg.framework.core.Server {
 		JsonObject position = DataManager.getInstance().get("User_" + request.getUserID() + "_Position");
 		JsonObject status = DataManager.getInstance().get("User_" + request.getUserID() + "_Status");
 		Protocol.ResponseGetCharacter reponse = Protocol.ResponseGetCharacter.newBuilder()
-				.setResult(Protocol.ResponseCode.SUCCESS)
-				.setCharacter(Protocol.Character.newBuilder()
-						.setName(stats.getString("name"))
-						.setGender(stats.getInt("gender"))
-						.setOccupation(stats.getInt("occupation"))
-						.setLevel(stats.getInt("level"))
-						.setStrength(stats.getInt("strength"))
-						.setMagic(stats.getInt("magic"))
-						.setDefense(stats.getInt("defense"))
-						.setSpeed(stats.getInt("speed"))
-						.setDame(stats.getInt("dame"))
-						.setArmor(stats.getInt("armor"))
-						
-						.setMapID(position.getInt("mapID"))
-						.setX(position.getDouble("x"))
-						.setY(position.getDouble("y"))
-						
-						.setMaxHP(status.getInt("maxHP"))
-						.setCurHP(status.getInt("curHP"))
-						.setMaxMP(status.getInt("maxMP"))
-						.setCurMP(status.getInt("curMP"))						
-						.build())				
+				.setName(stats.getString("name"))
+				.setGender(stats.getInt("gender"))
+				.setOccupation(stats.getInt("occupation"))
+				.setLevel(stats.getInt("level"))
+				.setStrength(stats.getInt("strength"))
+				.setMagic(stats.getInt("magic"))
+				.setDefense(stats.getInt("defense"))
+				.setSpeed(stats.getInt("speed"))
+				.setDame(stats.getInt("dame"))
+				.setArmor(stats.getInt("armor"))
+				
+				.setMapID(position.getInt("mapID"))
+				.setX(position.getDouble("x"))
+				.setY(position.getDouble("y"))
+				
+				.setMaxHP(status.getInt("maxHP"))
+				.setCurHP(status.getInt("curHP"))
+				.setMaxMP(status.getInt("maxMP"))
+				.setCurMP(status.getInt("curMP"))										
 				.build();
 		
 		sendMessageTo(clientID, Protocol.MessageType.RESPONE_GET_CHARACTER_VALUE, reponse.toByteArray());
@@ -340,9 +337,6 @@ public class Server extends com.rpg.framework.core.Server {
 	private void handleRequestStartGame(int clientID, Protocol.RequestStartGame request) {
 		Protocol.ResponseStartGame.Builder builder = Protocol.ResponseStartGame.newBuilder();
 		
-		builder.setResult(Protocol.ResponseCode.SUCCESS);
-		builder.setMessage("Welcome to our game.");		
-		
 		int userID = request.getUserID();
 		int mapID = UserManager.getInstance().getIdentifiedUser(userID).getMapID();
 		
@@ -355,21 +349,20 @@ public class Server extends com.rpg.framework.core.Server {
 			
 			builder.addUsers(Protocol.User.newBuilder()
 					.setId(id)
-					.setPosition(Protocol.Position.newBuilder()
-							.setMapID(user.getMapID())
-							.setX(user.getPositionX())
-							.setY(user.getPositionY())
-							)
-					.setStatus(Protocol.Status.newBuilder()
-							.setMaxHP(user.getMaxHP())
-							.setCurHP(user.getCurHP())
-							.setMaxMP(user.getMaxMP())
-							.setCurMP(user.getCurMP())
-							)
-					.setStats(Protocol.Stats.newBuilder()
-							.setDamage(user.getDamage())
-							.setDefense(user.getDefense())
-							.setSpeed(user.getSpeed()))
+					.setOccupation(user.getOccupation())
+					
+					.setMapID(user.getMapID())
+					.setX(user.getPositionX())
+					.setY(user.getPositionY())
+					
+					.setMaxHP(user.getMaxHP())
+					.setCurHP(user.getCurHP())
+					.setMaxMP(user.getMaxMP())
+					.setCurMP(user.getCurMP())
+					
+					.setDamage(user.getDamage())
+					.setDefense(user.getDefense())
+					.setSpeed(user.getSpeed())
 					);
 		}
 		
@@ -379,25 +372,22 @@ public class Server extends com.rpg.framework.core.Server {
 			builder.addMonsters(Protocol.Monster.newBuilder()
 					.setId(entity.getId())
 					.setIndex(entity.getIndex())
-					.setPosition(Protocol.Position.newBuilder()
-							.setMapID(entity.getMapID())
-							.setX(entity.getPositionX())
-							.setY(entity.getPositionY()))
-					.setStats(Protocol.Stats.newBuilder()
-							.setDamage(entity.getDamage())
-							.setDefense(entity.getDefense())
-							.setSpeed(entity.getSpeed()))
-					.setStatus(Protocol.Status.newBuilder()
-							.setCurHP(entity.getCurHP())
-							.setCurMP(entity.getCurMP())
-							.setMaxHP(entity.getMaxHP())
-							.setMaxMP(entity.getMaxMP())
-							)
+					.setMapID(entity.getMapID())
+					.setX(entity.getPositionX())
+					.setY(entity.getPositionY())
+					
+					.setDamage(entity.getDamage())
+					.setDefense(entity.getDefense())
+					.setSpeed(entity.getSpeed())
+					
+					.setCurHP(entity.getCurHP())
+					.setCurMP(entity.getCurMP())
+					.setMaxHP(entity.getMaxHP())
+					.setMaxMP(entity.getMaxMP())							
 					);
 		}
 		MapManager.getInstance().enterMap(request.getUserID(), mapID);
 		
-		builder.setUpdatedUser(MapManager.getInstance().getUpdatedUser(mapID, userID));
 		sendMessageTo(clientID, Protocol.MessageType.RESPONE_START_GAME_VALUE, builder.build().toByteArray());
 	}
 	
@@ -542,21 +532,20 @@ public class Server extends com.rpg.framework.core.Server {
 			
 			builder.addUsers(Protocol.User.newBuilder()
 					.setId(id)
-					.setPosition(Protocol.Position.newBuilder()
-							.setMapID(user.getMapID())
-							.setX(user.getPositionX())
-							.setY(user.getPositionY())
-							)
-					.setStatus(Protocol.Status.newBuilder()
-							.setMaxHP(user.getMaxHP())
-							.setCurHP(user.getCurHP())
-							.setMaxMP(user.getMaxMP())
-							.setCurMP(user.getCurMP())
-							)
-					.setStats(Protocol.Stats.newBuilder()
-							.setDamage(user.getDamage())
-							.setDefense(user.getDefense())
-							.setSpeed(user.getSpeed()))
+					.setOccupation(user.getOccupation())
+					
+					.setMapID(user.getMapID())
+					.setX(user.getPositionX())
+					.setY(user.getPositionY())
+					
+					.setMaxHP(user.getMaxHP())
+					.setCurHP(user.getCurHP())
+					.setMaxMP(user.getMaxMP())
+					.setCurMP(user.getCurMP())
+					
+					.setDamage(user.getDamage())
+					.setDefense(user.getDefense())
+					.setSpeed(user.getSpeed())
 					);
 		}
 		
@@ -566,20 +555,19 @@ public class Server extends com.rpg.framework.core.Server {
 			builder.addMonsters(Protocol.Monster.newBuilder()
 					.setId(entity.getId())
 					.setIndex(entity.getIndex())
-					.setPosition(Protocol.Position.newBuilder()
-							.setMapID(entity.getMapID())
-							.setX(entity.getPositionX())
-							.setY(entity.getPositionY()))
-					.setStats(Protocol.Stats.newBuilder()
-							.setDamage(entity.getDamage())
-							.setDefense(entity.getDefense())
-							.setSpeed(entity.getSpeed()))
-					.setStatus(Protocol.Status.newBuilder()
-							.setCurHP(entity.getCurHP())
-							.setCurMP(entity.getCurMP())
-							.setMaxHP(entity.getMaxHP())
-							.setMaxMP(entity.getMaxMP())
-							)
+					
+					.setMapID(entity.getMapID())
+					.setX(entity.getPositionX())
+					.setY(entity.getPositionY())
+					
+					.setDamage(entity.getDamage())
+					.setDefense(entity.getDefense())
+					.setSpeed(entity.getSpeed())
+					
+					.setCurHP(entity.getCurHP())
+					.setCurMP(entity.getCurMP())
+					.setMaxHP(entity.getMaxHP())
+					.setMaxMP(entity.getMaxMP())							
 					);
 		}
 		MapManager.getInstance().changeMap(request.getUserID(), request.getFrom(), request.getTo());

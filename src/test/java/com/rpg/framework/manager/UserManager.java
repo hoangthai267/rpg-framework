@@ -88,6 +88,7 @@ public class UserManager {
 		identified.setPositionX(userPosition.getDouble("x"));
 		identified.setPositionY(userPosition.getDouble("y"));
 		
+		identified.setOccupation(userStats.getInt("occupation"));
 		identified.setDamage(userStats.getInt("dame"));
 		identified.setDefense(userStats.getInt("defense"));
 		identified.setSpeed(userStats.getInt("speed"));

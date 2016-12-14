@@ -133,7 +133,7 @@ public class Server {
 							
 							@Override
 							public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-								System.out.println("exceptionCaught: " + cause.getMessage());
+								cause.printStackTrace();
 							}
 						});
 					}

@@ -3,6 +3,7 @@ package com.rpg.framework.entity;
 public class User {
 	private int	id;
 	private int connectionID;
+	private int occupation;
 	
 	private int 	mapID;
 	private double 	positionX;
@@ -43,6 +44,14 @@ public class User {
 
 	public void setConnectionID(int connectionID) {
 		this.connectionID = connectionID;
+	}
+
+	public int getOccupation() {
+		return occupation;
+	}
+
+	public void setOccupation(int occupation) {
+		this.occupation = occupation;
 	}
 
 	public int getMapID() {
