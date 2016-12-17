@@ -20719,31 +20719,49 @@ public final class Protocol {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required int32 mapID = 1;</code>
-     */
-    boolean hasMapID();
-    /**
-     * <code>required int32 mapID = 1;</code>
-     */
-    int getMapID();
-
-    /**
-     * <code>required int32 monsterID = 2;</code>
+     * <code>required int32 monsterID = 1;</code>
      */
     boolean hasMonsterID();
     /**
-     * <code>required int32 monsterID = 2;</code>
+     * <code>required int32 monsterID = 1;</code>
      */
     int getMonsterID();
 
     /**
-     * <code>required int32 monsterIndex = 3;</code>
+     * <code>required int32 monsterIndex = 2;</code>
      */
     boolean hasMonsterIndex();
     /**
-     * <code>required int32 monsterIndex = 3;</code>
+     * <code>required int32 monsterIndex = 2;</code>
      */
     int getMonsterIndex();
+
+    /**
+     * <code>required int32 mapID = 3;</code>
+     */
+    boolean hasMapID();
+    /**
+     * <code>required int32 mapID = 3;</code>
+     */
+    int getMapID();
+
+    /**
+     * <code>required double x = 4;</code>
+     */
+    boolean hasX();
+    /**
+     * <code>required double x = 4;</code>
+     */
+    double getX();
+
+    /**
+     * <code>required double y = 5;</code>
+     */
+    boolean hasY();
+    /**
+     * <code>required double y = 5;</code>
+     */
+    double getY();
   }
   /**
    * Protobuf type {@code Protobuf.MessageRespawnMonster}
@@ -20799,17 +20817,27 @@ public final class Protocol {
             }
             case 8: {
               bitField0_ |= 0x00000001;
-              mapID_ = input.readInt32();
+              monsterID_ = input.readInt32();
               break;
             }
             case 16: {
               bitField0_ |= 0x00000002;
-              monsterID_ = input.readInt32();
+              monsterIndex_ = input.readInt32();
               break;
             }
             case 24: {
               bitField0_ |= 0x00000004;
-              monsterIndex_ = input.readInt32();
+              mapID_ = input.readInt32();
+              break;
+            }
+            case 33: {
+              bitField0_ |= 0x00000008;
+              x_ = input.readDouble();
+              break;
+            }
+            case 41: {
+              bitField0_ |= 0x00000010;
+              y_ = input.readDouble();
               break;
             }
           }
@@ -20852,55 +20880,87 @@ public final class Protocol {
     }
 
     private int bitField0_;
-    public static final int MAPID_FIELD_NUMBER = 1;
-    private int mapID_;
+    public static final int MONSTERID_FIELD_NUMBER = 1;
+    private int monsterID_;
     /**
-     * <code>required int32 mapID = 1;</code>
+     * <code>required int32 monsterID = 1;</code>
      */
-    public boolean hasMapID() {
+    public boolean hasMonsterID() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required int32 mapID = 1;</code>
-     */
-    public int getMapID() {
-      return mapID_;
-    }
-
-    public static final int MONSTERID_FIELD_NUMBER = 2;
-    private int monsterID_;
-    /**
-     * <code>required int32 monsterID = 2;</code>
-     */
-    public boolean hasMonsterID() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>required int32 monsterID = 2;</code>
+     * <code>required int32 monsterID = 1;</code>
      */
     public int getMonsterID() {
       return monsterID_;
     }
 
-    public static final int MONSTERINDEX_FIELD_NUMBER = 3;
+    public static final int MONSTERINDEX_FIELD_NUMBER = 2;
     private int monsterIndex_;
     /**
-     * <code>required int32 monsterIndex = 3;</code>
+     * <code>required int32 monsterIndex = 2;</code>
      */
     public boolean hasMonsterIndex() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required int32 monsterIndex = 3;</code>
+     * <code>required int32 monsterIndex = 2;</code>
      */
     public int getMonsterIndex() {
       return monsterIndex_;
     }
 
+    public static final int MAPID_FIELD_NUMBER = 3;
+    private int mapID_;
+    /**
+     * <code>required int32 mapID = 3;</code>
+     */
+    public boolean hasMapID() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required int32 mapID = 3;</code>
+     */
+    public int getMapID() {
+      return mapID_;
+    }
+
+    public static final int X_FIELD_NUMBER = 4;
+    private double x_;
+    /**
+     * <code>required double x = 4;</code>
+     */
+    public boolean hasX() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required double x = 4;</code>
+     */
+    public double getX() {
+      return x_;
+    }
+
+    public static final int Y_FIELD_NUMBER = 5;
+    private double y_;
+    /**
+     * <code>required double y = 5;</code>
+     */
+    public boolean hasY() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required double y = 5;</code>
+     */
+    public double getY() {
+      return y_;
+    }
+
     private void initFields() {
-      mapID_ = 0;
       monsterID_ = 0;
       monsterIndex_ = 0;
+      mapID_ = 0;
+      x_ = 0D;
+      y_ = 0D;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -20908,15 +20968,23 @@ public final class Protocol {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasMapID()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       if (!hasMonsterID()) {
         memoizedIsInitialized = 0;
         return false;
       }
       if (!hasMonsterIndex()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMapID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasX()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasY()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -20928,13 +20996,19 @@ public final class Protocol {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, mapID_);
+        output.writeInt32(1, monsterID_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, monsterID_);
+        output.writeInt32(2, monsterIndex_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt32(3, monsterIndex_);
+        output.writeInt32(3, mapID_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeDouble(4, x_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeDouble(5, y_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -20947,15 +21021,23 @@ public final class Protocol {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, mapID_);
+          .computeInt32Size(1, monsterID_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, monsterID_);
+          .computeInt32Size(2, monsterIndex_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, monsterIndex_);
+          .computeInt32Size(3, mapID_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(4, x_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(5, y_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -21074,12 +21156,16 @@ public final class Protocol {
 
       public Builder clear() {
         super.clear();
-        mapID_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000001);
         monsterID_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         monsterIndex_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        mapID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
+        x_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        y_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -21111,15 +21197,23 @@ public final class Protocol {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.mapID_ = mapID_;
+        result.monsterID_ = monsterID_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.monsterID_ = monsterID_;
+        result.monsterIndex_ = monsterIndex_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.monsterIndex_ = monsterIndex_;
+        result.mapID_ = mapID_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.x_ = x_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.y_ = y_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -21136,29 +21230,43 @@ public final class Protocol {
 
       public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageRespawnMonster other) {
         if (other == com.rpg.framework.database.Protocol.MessageRespawnMonster.getDefaultInstance()) return this;
-        if (other.hasMapID()) {
-          setMapID(other.getMapID());
-        }
         if (other.hasMonsterID()) {
           setMonsterID(other.getMonsterID());
         }
         if (other.hasMonsterIndex()) {
           setMonsterIndex(other.getMonsterIndex());
         }
+        if (other.hasMapID()) {
+          setMapID(other.getMapID());
+        }
+        if (other.hasX()) {
+          setX(other.getX());
+        }
+        if (other.hasY()) {
+          setY(other.getY());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasMapID()) {
-          
-          return false;
-        }
         if (!hasMonsterID()) {
           
           return false;
         }
         if (!hasMonsterIndex()) {
+          
+          return false;
+        }
+        if (!hasMapID()) {
+          
+          return false;
+        }
+        if (!hasX()) {
+          
+          return false;
+        }
+        if (!hasY()) {
           
           return false;
         }
@@ -21184,65 +21292,33 @@ public final class Protocol {
       }
       private int bitField0_;
 
-      private int mapID_ ;
+      private int monsterID_ ;
       /**
-       * <code>required int32 mapID = 1;</code>
+       * <code>required int32 monsterID = 1;</code>
        */
-      public boolean hasMapID() {
+      public boolean hasMonsterID() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required int32 mapID = 1;</code>
-       */
-      public int getMapID() {
-        return mapID_;
-      }
-      /**
-       * <code>required int32 mapID = 1;</code>
-       */
-      public Builder setMapID(int value) {
-        bitField0_ |= 0x00000001;
-        mapID_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required int32 mapID = 1;</code>
-       */
-      public Builder clearMapID() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        mapID_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private int monsterID_ ;
-      /**
-       * <code>required int32 monsterID = 2;</code>
-       */
-      public boolean hasMonsterID() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>required int32 monsterID = 2;</code>
+       * <code>required int32 monsterID = 1;</code>
        */
       public int getMonsterID() {
         return monsterID_;
       }
       /**
-       * <code>required int32 monsterID = 2;</code>
+       * <code>required int32 monsterID = 1;</code>
        */
       public Builder setMonsterID(int value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000001;
         monsterID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 monsterID = 2;</code>
+       * <code>required int32 monsterID = 1;</code>
        */
       public Builder clearMonsterID() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         monsterID_ = 0;
         onChanged();
         return this;
@@ -21250,32 +21326,128 @@ public final class Protocol {
 
       private int monsterIndex_ ;
       /**
-       * <code>required int32 monsterIndex = 3;</code>
+       * <code>required int32 monsterIndex = 2;</code>
        */
       public boolean hasMonsterIndex() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required int32 monsterIndex = 3;</code>
+       * <code>required int32 monsterIndex = 2;</code>
        */
       public int getMonsterIndex() {
         return monsterIndex_;
       }
       /**
-       * <code>required int32 monsterIndex = 3;</code>
+       * <code>required int32 monsterIndex = 2;</code>
        */
       public Builder setMonsterIndex(int value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000002;
         monsterIndex_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 monsterIndex = 3;</code>
+       * <code>required int32 monsterIndex = 2;</code>
        */
       public Builder clearMonsterIndex() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000002);
         monsterIndex_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int mapID_ ;
+      /**
+       * <code>required int32 mapID = 3;</code>
+       */
+      public boolean hasMapID() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required int32 mapID = 3;</code>
+       */
+      public int getMapID() {
+        return mapID_;
+      }
+      /**
+       * <code>required int32 mapID = 3;</code>
+       */
+      public Builder setMapID(int value) {
+        bitField0_ |= 0x00000004;
+        mapID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 mapID = 3;</code>
+       */
+      public Builder clearMapID() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        mapID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private double x_ ;
+      /**
+       * <code>required double x = 4;</code>
+       */
+      public boolean hasX() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required double x = 4;</code>
+       */
+      public double getX() {
+        return x_;
+      }
+      /**
+       * <code>required double x = 4;</code>
+       */
+      public Builder setX(double value) {
+        bitField0_ |= 0x00000008;
+        x_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required double x = 4;</code>
+       */
+      public Builder clearX() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        x_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double y_ ;
+      /**
+       * <code>required double y = 5;</code>
+       */
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>required double y = 5;</code>
+       */
+      public double getY() {
+        return y_;
+      }
+      /**
+       * <code>required double y = 5;</code>
+       */
+      public Builder setY(double value) {
+        bitField0_ |= 0x00000010;
+        y_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required double y = 5;</code>
+       */
+      public Builder clearY() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        y_ = 0D;
         onChanged();
         return this;
       }
@@ -27248,49 +27420,58 @@ public final class Protocol {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>required int32 mapID = 1;</code>
+     */
+    boolean hasMapID();
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    int getMapID();
+
+    /**
+     * <code>repeated .Protobuf.User users = 2;</code>
      */
     java.util.List<com.rpg.framework.database.Protocol.User> 
         getUsersList();
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>repeated .Protobuf.User users = 2;</code>
      */
     com.rpg.framework.database.Protocol.User getUsers(int index);
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>repeated .Protobuf.User users = 2;</code>
      */
     int getUsersCount();
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>repeated .Protobuf.User users = 2;</code>
      */
     java.util.List<? extends com.rpg.framework.database.Protocol.UserOrBuilder> 
         getUsersOrBuilderList();
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>repeated .Protobuf.User users = 2;</code>
      */
     com.rpg.framework.database.Protocol.UserOrBuilder getUsersOrBuilder(
         int index);
 
     /**
-     * <code>repeated .Protobuf.Monster monsters = 2;</code>
+     * <code>repeated .Protobuf.Monster monsters = 3;</code>
      */
     java.util.List<com.rpg.framework.database.Protocol.Monster> 
         getMonstersList();
     /**
-     * <code>repeated .Protobuf.Monster monsters = 2;</code>
+     * <code>repeated .Protobuf.Monster monsters = 3;</code>
      */
     com.rpg.framework.database.Protocol.Monster getMonsters(int index);
     /**
-     * <code>repeated .Protobuf.Monster monsters = 2;</code>
+     * <code>repeated .Protobuf.Monster monsters = 3;</code>
      */
     int getMonstersCount();
     /**
-     * <code>repeated .Protobuf.Monster monsters = 2;</code>
+     * <code>repeated .Protobuf.Monster monsters = 3;</code>
      */
     java.util.List<? extends com.rpg.framework.database.Protocol.MonsterOrBuilder> 
         getMonstersOrBuilderList();
     /**
-     * <code>repeated .Protobuf.Monster monsters = 2;</code>
+     * <code>repeated .Protobuf.Monster monsters = 3;</code>
      */
     com.rpg.framework.database.Protocol.MonsterOrBuilder getMonstersOrBuilder(
         int index);
@@ -27347,18 +27528,23 @@ public final class Protocol {
               }
               break;
             }
-            case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                users_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.User>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              users_.add(input.readMessage(com.rpg.framework.database.Protocol.User.PARSER, extensionRegistry));
+            case 8: {
+              bitField0_ |= 0x00000001;
+              mapID_ = input.readInt32();
               break;
             }
             case 18: {
               if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-                monsters_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.Monster>();
+                users_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.User>();
                 mutable_bitField0_ |= 0x00000002;
+              }
+              users_.add(input.readMessage(com.rpg.framework.database.Protocol.User.PARSER, extensionRegistry));
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+                monsters_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.Monster>();
+                mutable_bitField0_ |= 0x00000004;
               }
               monsters_.add(input.readMessage(com.rpg.framework.database.Protocol.Monster.PARSER, extensionRegistry));
               break;
@@ -27371,10 +27557,10 @@ public final class Protocol {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
           users_ = java.util.Collections.unmodifiableList(users_);
         }
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
           monsters_ = java.util.Collections.unmodifiableList(monsters_);
         }
         this.unknownFields = unknownFields.build();
@@ -27408,70 +27594,86 @@ public final class Protocol {
       return PARSER;
     }
 
-    public static final int USERS_FIELD_NUMBER = 1;
+    private int bitField0_;
+    public static final int MAPID_FIELD_NUMBER = 1;
+    private int mapID_;
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    public boolean hasMapID() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 mapID = 1;</code>
+     */
+    public int getMapID() {
+      return mapID_;
+    }
+
+    public static final int USERS_FIELD_NUMBER = 2;
     private java.util.List<com.rpg.framework.database.Protocol.User> users_;
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>repeated .Protobuf.User users = 2;</code>
      */
     public java.util.List<com.rpg.framework.database.Protocol.User> getUsersList() {
       return users_;
     }
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>repeated .Protobuf.User users = 2;</code>
      */
     public java.util.List<? extends com.rpg.framework.database.Protocol.UserOrBuilder> 
         getUsersOrBuilderList() {
       return users_;
     }
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>repeated .Protobuf.User users = 2;</code>
      */
     public int getUsersCount() {
       return users_.size();
     }
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>repeated .Protobuf.User users = 2;</code>
      */
     public com.rpg.framework.database.Protocol.User getUsers(int index) {
       return users_.get(index);
     }
     /**
-     * <code>repeated .Protobuf.User users = 1;</code>
+     * <code>repeated .Protobuf.User users = 2;</code>
      */
     public com.rpg.framework.database.Protocol.UserOrBuilder getUsersOrBuilder(
         int index) {
       return users_.get(index);
     }
 
-    public static final int MONSTERS_FIELD_NUMBER = 2;
+    public static final int MONSTERS_FIELD_NUMBER = 3;
     private java.util.List<com.rpg.framework.database.Protocol.Monster> monsters_;
     /**
-     * <code>repeated .Protobuf.Monster monsters = 2;</code>
+     * <code>repeated .Protobuf.Monster monsters = 3;</code>
      */
     public java.util.List<com.rpg.framework.database.Protocol.Monster> getMonstersList() {
       return monsters_;
     }
     /**
-     * <code>repeated .Protobuf.Monster monsters = 2;</code>
+     * <code>repeated .Protobuf.Monster monsters = 3;</code>
      */
     public java.util.List<? extends com.rpg.framework.database.Protocol.MonsterOrBuilder> 
         getMonstersOrBuilderList() {
       return monsters_;
     }
     /**
-     * <code>repeated .Protobuf.Monster monsters = 2;</code>
+     * <code>repeated .Protobuf.Monster monsters = 3;</code>
      */
     public int getMonstersCount() {
       return monsters_.size();
     }
     /**
-     * <code>repeated .Protobuf.Monster monsters = 2;</code>
+     * <code>repeated .Protobuf.Monster monsters = 3;</code>
      */
     public com.rpg.framework.database.Protocol.Monster getMonsters(int index) {
       return monsters_.get(index);
     }
     /**
-     * <code>repeated .Protobuf.Monster monsters = 2;</code>
+     * <code>repeated .Protobuf.Monster monsters = 3;</code>
      */
     public com.rpg.framework.database.Protocol.MonsterOrBuilder getMonstersOrBuilder(
         int index) {
@@ -27479,6 +27681,7 @@ public final class Protocol {
     }
 
     private void initFields() {
+      mapID_ = 0;
       users_ = java.util.Collections.emptyList();
       monsters_ = java.util.Collections.emptyList();
     }
@@ -27488,6 +27691,10 @@ public final class Protocol {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
+      if (!hasMapID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       for (int i = 0; i < getUsersCount(); i++) {
         if (!getUsers(i).isInitialized()) {
           memoizedIsInitialized = 0;
@@ -27507,11 +27714,14 @@ public final class Protocol {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, mapID_);
+      }
       for (int i = 0; i < users_.size(); i++) {
-        output.writeMessage(1, users_.get(i));
+        output.writeMessage(2, users_.get(i));
       }
       for (int i = 0; i < monsters_.size(); i++) {
-        output.writeMessage(2, monsters_.get(i));
+        output.writeMessage(3, monsters_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -27522,13 +27732,17 @@ public final class Protocol {
       if (size != -1) return size;
 
       size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, mapID_);
+      }
       for (int i = 0; i < users_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, users_.get(i));
+          .computeMessageSize(2, users_.get(i));
       }
       for (int i = 0; i < monsters_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, monsters_.get(i));
+          .computeMessageSize(3, monsters_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -27649,15 +27863,17 @@ public final class Protocol {
 
       public Builder clear() {
         super.clear();
+        mapID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
         if (usersBuilder_ == null) {
           users_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
+          bitField0_ = (bitField0_ & ~0x00000002);
         } else {
           usersBuilder_.clear();
         }
         if (monstersBuilder_ == null) {
           monsters_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000004);
         } else {
           monstersBuilder_.clear();
         }
@@ -27688,24 +27904,30 @@ public final class Protocol {
       public com.rpg.framework.database.Protocol.ResponseChangeMap buildPartial() {
         com.rpg.framework.database.Protocol.ResponseChangeMap result = new com.rpg.framework.database.Protocol.ResponseChangeMap(this);
         int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.mapID_ = mapID_;
         if (usersBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
             users_ = java.util.Collections.unmodifiableList(users_);
-            bitField0_ = (bitField0_ & ~0x00000001);
+            bitField0_ = (bitField0_ & ~0x00000002);
           }
           result.users_ = users_;
         } else {
           result.users_ = usersBuilder_.build();
         }
         if (monstersBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
             monsters_ = java.util.Collections.unmodifiableList(monsters_);
-            bitField0_ = (bitField0_ & ~0x00000002);
+            bitField0_ = (bitField0_ & ~0x00000004);
           }
           result.monsters_ = monsters_;
         } else {
           result.monsters_ = monstersBuilder_.build();
         }
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -27721,11 +27943,14 @@ public final class Protocol {
 
       public Builder mergeFrom(com.rpg.framework.database.Protocol.ResponseChangeMap other) {
         if (other == com.rpg.framework.database.Protocol.ResponseChangeMap.getDefaultInstance()) return this;
+        if (other.hasMapID()) {
+          setMapID(other.getMapID());
+        }
         if (usersBuilder_ == null) {
           if (!other.users_.isEmpty()) {
             if (users_.isEmpty()) {
               users_ = other.users_;
-              bitField0_ = (bitField0_ & ~0x00000001);
+              bitField0_ = (bitField0_ & ~0x00000002);
             } else {
               ensureUsersIsMutable();
               users_.addAll(other.users_);
@@ -27738,7 +27963,7 @@ public final class Protocol {
               usersBuilder_.dispose();
               usersBuilder_ = null;
               users_ = other.users_;
-              bitField0_ = (bitField0_ & ~0x00000001);
+              bitField0_ = (bitField0_ & ~0x00000002);
               usersBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getUsersFieldBuilder() : null;
@@ -27751,7 +27976,7 @@ public final class Protocol {
           if (!other.monsters_.isEmpty()) {
             if (monsters_.isEmpty()) {
               monsters_ = other.monsters_;
-              bitField0_ = (bitField0_ & ~0x00000002);
+              bitField0_ = (bitField0_ & ~0x00000004);
             } else {
               ensureMonstersIsMutable();
               monsters_.addAll(other.monsters_);
@@ -27764,7 +27989,7 @@ public final class Protocol {
               monstersBuilder_.dispose();
               monstersBuilder_ = null;
               monsters_ = other.monsters_;
-              bitField0_ = (bitField0_ & ~0x00000002);
+              bitField0_ = (bitField0_ & ~0x00000004);
               monstersBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getMonstersFieldBuilder() : null;
@@ -27778,6 +28003,10 @@ public final class Protocol {
       }
 
       public final boolean isInitialized() {
+        if (!hasMapID()) {
+          
+          return false;
+        }
         for (int i = 0; i < getUsersCount(); i++) {
           if (!getUsers(i).isInitialized()) {
             
@@ -27812,12 +28041,44 @@ public final class Protocol {
       }
       private int bitField0_;
 
+      private int mapID_ ;
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public boolean hasMapID() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public int getMapID() {
+        return mapID_;
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public Builder setMapID(int value) {
+        bitField0_ |= 0x00000001;
+        mapID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 mapID = 1;</code>
+       */
+      public Builder clearMapID() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        mapID_ = 0;
+        onChanged();
+        return this;
+      }
+
       private java.util.List<com.rpg.framework.database.Protocol.User> users_ =
         java.util.Collections.emptyList();
       private void ensureUsersIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
           users_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.User>(users_);
-          bitField0_ |= 0x00000001;
+          bitField0_ |= 0x00000002;
          }
       }
 
@@ -27825,7 +28086,7 @@ public final class Protocol {
           com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder> usersBuilder_;
 
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public java.util.List<com.rpg.framework.database.Protocol.User> getUsersList() {
         if (usersBuilder_ == null) {
@@ -27835,7 +28096,7 @@ public final class Protocol {
         }
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public int getUsersCount() {
         if (usersBuilder_ == null) {
@@ -27845,7 +28106,7 @@ public final class Protocol {
         }
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public com.rpg.framework.database.Protocol.User getUsers(int index) {
         if (usersBuilder_ == null) {
@@ -27855,7 +28116,7 @@ public final class Protocol {
         }
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public Builder setUsers(
           int index, com.rpg.framework.database.Protocol.User value) {
@@ -27872,7 +28133,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public Builder setUsers(
           int index, com.rpg.framework.database.Protocol.User.Builder builderForValue) {
@@ -27886,7 +28147,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public Builder addUsers(com.rpg.framework.database.Protocol.User value) {
         if (usersBuilder_ == null) {
@@ -27902,7 +28163,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public Builder addUsers(
           int index, com.rpg.framework.database.Protocol.User value) {
@@ -27919,7 +28180,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public Builder addUsers(
           com.rpg.framework.database.Protocol.User.Builder builderForValue) {
@@ -27933,7 +28194,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public Builder addUsers(
           int index, com.rpg.framework.database.Protocol.User.Builder builderForValue) {
@@ -27947,7 +28208,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public Builder addAllUsers(
           java.lang.Iterable<? extends com.rpg.framework.database.Protocol.User> values) {
@@ -27962,12 +28223,12 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public Builder clearUsers() {
         if (usersBuilder_ == null) {
           users_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
+          bitField0_ = (bitField0_ & ~0x00000002);
           onChanged();
         } else {
           usersBuilder_.clear();
@@ -27975,7 +28236,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public Builder removeUsers(int index) {
         if (usersBuilder_ == null) {
@@ -27988,14 +28249,14 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public com.rpg.framework.database.Protocol.User.Builder getUsersBuilder(
           int index) {
         return getUsersFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public com.rpg.framework.database.Protocol.UserOrBuilder getUsersOrBuilder(
           int index) {
@@ -28005,7 +28266,7 @@ public final class Protocol {
         }
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public java.util.List<? extends com.rpg.framework.database.Protocol.UserOrBuilder> 
            getUsersOrBuilderList() {
@@ -28016,14 +28277,14 @@ public final class Protocol {
         }
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public com.rpg.framework.database.Protocol.User.Builder addUsersBuilder() {
         return getUsersFieldBuilder().addBuilder(
             com.rpg.framework.database.Protocol.User.getDefaultInstance());
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public com.rpg.framework.database.Protocol.User.Builder addUsersBuilder(
           int index) {
@@ -28031,7 +28292,7 @@ public final class Protocol {
             index, com.rpg.framework.database.Protocol.User.getDefaultInstance());
       }
       /**
-       * <code>repeated .Protobuf.User users = 1;</code>
+       * <code>repeated .Protobuf.User users = 2;</code>
        */
       public java.util.List<com.rpg.framework.database.Protocol.User.Builder> 
            getUsersBuilderList() {
@@ -28044,7 +28305,7 @@ public final class Protocol {
           usersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.rpg.framework.database.Protocol.User, com.rpg.framework.database.Protocol.User.Builder, com.rpg.framework.database.Protocol.UserOrBuilder>(
                   users_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000002) == 0x00000002),
                   getParentForChildren(),
                   isClean());
           users_ = null;
@@ -28055,9 +28316,9 @@ public final class Protocol {
       private java.util.List<com.rpg.framework.database.Protocol.Monster> monsters_ =
         java.util.Collections.emptyList();
       private void ensureMonstersIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
           monsters_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.Monster>(monsters_);
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000004;
          }
       }
 
@@ -28065,7 +28326,7 @@ public final class Protocol {
           com.rpg.framework.database.Protocol.Monster, com.rpg.framework.database.Protocol.Monster.Builder, com.rpg.framework.database.Protocol.MonsterOrBuilder> monstersBuilder_;
 
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public java.util.List<com.rpg.framework.database.Protocol.Monster> getMonstersList() {
         if (monstersBuilder_ == null) {
@@ -28075,7 +28336,7 @@ public final class Protocol {
         }
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public int getMonstersCount() {
         if (monstersBuilder_ == null) {
@@ -28085,7 +28346,7 @@ public final class Protocol {
         }
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public com.rpg.framework.database.Protocol.Monster getMonsters(int index) {
         if (monstersBuilder_ == null) {
@@ -28095,7 +28356,7 @@ public final class Protocol {
         }
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public Builder setMonsters(
           int index, com.rpg.framework.database.Protocol.Monster value) {
@@ -28112,7 +28373,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public Builder setMonsters(
           int index, com.rpg.framework.database.Protocol.Monster.Builder builderForValue) {
@@ -28126,7 +28387,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public Builder addMonsters(com.rpg.framework.database.Protocol.Monster value) {
         if (monstersBuilder_ == null) {
@@ -28142,7 +28403,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public Builder addMonsters(
           int index, com.rpg.framework.database.Protocol.Monster value) {
@@ -28159,7 +28420,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public Builder addMonsters(
           com.rpg.framework.database.Protocol.Monster.Builder builderForValue) {
@@ -28173,7 +28434,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public Builder addMonsters(
           int index, com.rpg.framework.database.Protocol.Monster.Builder builderForValue) {
@@ -28187,7 +28448,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public Builder addAllMonsters(
           java.lang.Iterable<? extends com.rpg.framework.database.Protocol.Monster> values) {
@@ -28202,12 +28463,12 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public Builder clearMonsters() {
         if (monstersBuilder_ == null) {
           monsters_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000004);
           onChanged();
         } else {
           monstersBuilder_.clear();
@@ -28215,7 +28476,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public Builder removeMonsters(int index) {
         if (monstersBuilder_ == null) {
@@ -28228,14 +28489,14 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public com.rpg.framework.database.Protocol.Monster.Builder getMonstersBuilder(
           int index) {
         return getMonstersFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public com.rpg.framework.database.Protocol.MonsterOrBuilder getMonstersOrBuilder(
           int index) {
@@ -28245,7 +28506,7 @@ public final class Protocol {
         }
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public java.util.List<? extends com.rpg.framework.database.Protocol.MonsterOrBuilder> 
            getMonstersOrBuilderList() {
@@ -28256,14 +28517,14 @@ public final class Protocol {
         }
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public com.rpg.framework.database.Protocol.Monster.Builder addMonstersBuilder() {
         return getMonstersFieldBuilder().addBuilder(
             com.rpg.framework.database.Protocol.Monster.getDefaultInstance());
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public com.rpg.framework.database.Protocol.Monster.Builder addMonstersBuilder(
           int index) {
@@ -28271,7 +28532,7 @@ public final class Protocol {
             index, com.rpg.framework.database.Protocol.Monster.getDefaultInstance());
       }
       /**
-       * <code>repeated .Protobuf.Monster monsters = 2;</code>
+       * <code>repeated .Protobuf.Monster monsters = 3;</code>
        */
       public java.util.List<com.rpg.framework.database.Protocol.Monster.Builder> 
            getMonstersBuilderList() {
@@ -28284,7 +28545,7 @@ public final class Protocol {
           monstersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.rpg.framework.database.Protocol.Monster, com.rpg.framework.database.Protocol.Monster.Builder, com.rpg.framework.database.Protocol.MonsterOrBuilder>(
                   monsters_,
-                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  ((bitField0_ & 0x00000004) == 0x00000004),
                   getParentForChildren(),
                   isClean());
           monsters_ = null;
@@ -29550,57 +29811,58 @@ public final class Protocol {
       "\n\005curMP\030\t \002(\005\022\016\n\006damage\030\n \002(\005\022\017\n\007defense" +
       "\030\013 \002(\005\022\r\n\005speed\030\014 \002(\005\"L\n\022MessageKillMons",
       "ter\022\r\n\005mapID\030\001 \002(\005\022\021\n\tmonsterID\030\002 \002(\005\022\024\n" +
-      "\014monsterIndex\030\003 \002(\005\"O\n\025MessageRespawnMon" +
-      "ster\022\r\n\005mapID\030\001 \002(\005\022\021\n\tmonsterID\030\002 \002(\005\022\024" +
-      "\n\014monsterIndex\030\003 \002(\005\"\317\001\n\016MessageNewUser\022" +
-      "\n\n\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030" +
-      "\003 \002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002" +
-      "(\001\022\r\n\005maxHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxM" +
-      "P\030\t \002(\005\022\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017" +
-      "\n\007defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"\037\n\021Messag" +
-      "eDeleteUser\022\n\n\002id\030\001 \002(\005\"q\n\014MonsterState\022",
-      "\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\021\n\tPositionX\030" +
-      "\004 \002(\001\022\021\n\tPositionY\030\005 \002(\001\022\r\n\005State\030\006 \002(\005\022" +
-      "\021\n\tDirection\030\007 \002(\005\"P\n\031MessageUpdateMonst" +
-      "erState\022\r\n\005MapID\030\001 \002(\005\022$\n\004Data\030\002 \003(\0132\026.P" +
-      "rotobuf.MonsterState\";\n\rActionCommand\022\n\n" +
-      "\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\017\n\007Command\030\003 \002(" +
-      "\005\"F\n\035MessageUpdateMonsterByCommand\022%\n\004Da" +
-      "ta\030\001 \003(\0132\027.Protobuf.ActionCommand\"J\n\035Mes" +
-      "sageUpdateMonsterCollision\022\n\n\002ID\030\001 \002(\005\022\r" +
-      "\n\005Index\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"<\n\020Request",
-      "ChangeMap\022\016\n\006userID\030\001 \002(\005\022\014\n\004from\030\002 \002(\005\022" +
-      "\n\n\002to\030\003 \002(\005\"W\n\021ResponseChangeMap\022\035\n\005user" +
-      "s\030\001 \003(\0132\016.Protobuf.User\022#\n\010monsters\030\002 \003(" +
-      "\0132\021.Protobuf.Monster\"G\n\032MessageUpdateUse" +
-      "rCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n" +
-      "\006UserID\030\003 \002(\005\"7\n&MessageRequestUserUpdat" +
-      "eMapInformation\022\r\n\005mapID\030\001 \002(\005*\262\006\n\013Messa" +
-      "geType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPONE_LOG" +
-      "IN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESPONE_RE" +
-      "GISTER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020\004\022\031\n\025R",
-      "ESPONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_CREATE" +
-      "_CHARACTER\020\006\022\034\n\030RESPONE_CREATE_CHARACTER" +
-      "\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESPONE_ST" +
-      "ART_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSITION\020\n\022" +
-      "\033\n\027RESPONE_UPDATE_POSITION\020\013\022\025\n\021REQUEST_" +
-      "GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022\031\n\025R" +
-      "EQUEST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE_UPDAT" +
-      "E_ACTION\020\017\022\031\n\025REQUEST_GET_PROTOTYPE\020\020\022\032\n" +
-      "\026RESPONSE_GET_PROTOTYPE\020\021\022\026\n\022REQUEST_CHA" +
-      "NGE_MAP\020\022\022\027\n\023RESPONSE_CHANGE_MAP\020\023\022\030\n\024ME",
-      "SSAGE_KILL_MONSTER\020\024\022\033\n\027MESSAGE_RESPAWN_" +
-      "MONSTER\020\025\022 \n\034MESSAGE_UPDATE_MONSTER_STAT" +
-      "E\020\026\022%\n!MESSAGE_UPDATE_MONSTER_BY_COMMAND" +
-      "\020\027\022$\n MESSAGE_UPDATE_MONSTER_COLLISION\020\030" +
-      "\022\024\n\020MESSAGE_NEW_USER\020\031\022\027\n\023MESSAGE_DELETE" +
-      "_USER\020\032\022!\n\035MESSAGE_UPDATE_USER_COLLISION" +
-      "\020\033\022/\n+MESSAGE_REQUEST_USER_UPDATE_MAP_IN" +
-      "FORMATION\020\034*/\n\014ResponseCode\022\013\n\007SUCCESS\020\001" +
-      "\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rITEM" +
-      "_TYPE_USE\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017IT",
-      "EM_TYPE_EQUIP\020\002B\036\n\032com.rpg.framework.dat" +
-      "abaseH\001"
+      "\014monsterIndex\030\003 \002(\005\"e\n\025MessageRespawnMon" +
+      "ster\022\021\n\tmonsterID\030\001 \002(\005\022\024\n\014monsterIndex\030" +
+      "\002 \002(\005\022\r\n\005mapID\030\003 \002(\005\022\t\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002" +
+      "(\001\"\317\001\n\016MessageNewUser\022\n\n\002id\030\001 \002(\005\022\022\n\nocc" +
+      "upation\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\r\n\005mapID\030\004 \002" +
+      "(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001\022\r\n\005maxHP\030\007 \002(\005\022" +
+      "\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030\t \002(\005\022\r\n\005curMP\030\n" +
+      " \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007defense\030\014 \002(\005\022\r\n" +
+      "\005speed\030\r \002(\005\"\037\n\021MessageDeleteUser\022\n\n\002id\030",
+      "\001 \002(\005\"q\n\014MonsterState\022\n\n\002ID\030\001 \002(\005\022\r\n\005Ind" +
+      "ex\030\002 \002(\005\022\021\n\tPositionX\030\004 \002(\001\022\021\n\tPositionY" +
+      "\030\005 \002(\001\022\r\n\005State\030\006 \002(\005\022\021\n\tDirection\030\007 \002(\005" +
+      "\"P\n\031MessageUpdateMonsterState\022\r\n\005MapID\030\001" +
+      " \002(\005\022$\n\004Data\030\002 \003(\0132\026.Protobuf.MonsterSta" +
+      "te\";\n\rActionCommand\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index" +
+      "\030\002 \002(\005\022\017\n\007Command\030\003 \002(\005\"F\n\035MessageUpdate" +
+      "MonsterByCommand\022%\n\004Data\030\001 \003(\0132\027.Protobu" +
+      "f.ActionCommand\"J\n\035MessageUpdateMonsterC" +
+      "ollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006U",
+      "serID\030\003 \002(\005\"<\n\020RequestChangeMap\022\016\n\006userI" +
+      "D\030\001 \002(\005\022\014\n\004from\030\002 \002(\005\022\n\n\002to\030\003 \002(\005\"f\n\021Res" +
+      "ponseChangeMap\022\r\n\005mapID\030\001 \002(\005\022\035\n\005users\030\002" +
+      " \003(\0132\016.Protobuf.User\022#\n\010monsters\030\003 \003(\0132\021" +
+      ".Protobuf.Monster\"G\n\032MessageUpdateUserCo" +
+      "llision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006Us" +
+      "erID\030\003 \002(\005\"7\n&MessageRequestUserUpdateMa" +
+      "pInformation\022\r\n\005mapID\030\001 \002(\005*\262\006\n\013MessageT" +
+      "ype\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPONE_LOGIN\020" +
+      "\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESPONE_REGIS",
+      "TER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020\004\022\031\n\025RESP" +
+      "ONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_CREATE_CH" +
+      "ARACTER\020\006\022\034\n\030RESPONE_CREATE_CHARACTER\020\007\022" +
+      "\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESPONE_START" +
+      "_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSITION\020\n\022\033\n\027" +
+      "RESPONE_UPDATE_POSITION\020\013\022\025\n\021REQUEST_GET" +
+      "_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022\031\n\025REQU" +
+      "EST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE_UPDATE_A" +
+      "CTION\020\017\022\031\n\025REQUEST_GET_PROTOTYPE\020\020\022\032\n\026RE" +
+      "SPONSE_GET_PROTOTYPE\020\021\022\026\n\022REQUEST_CHANGE",
+      "_MAP\020\022\022\027\n\023RESPONSE_CHANGE_MAP\020\023\022\030\n\024MESSA" +
+      "GE_KILL_MONSTER\020\024\022\033\n\027MESSAGE_RESPAWN_MON" +
+      "STER\020\025\022 \n\034MESSAGE_UPDATE_MONSTER_STATE\020\026" +
+      "\022%\n!MESSAGE_UPDATE_MONSTER_BY_COMMAND\020\027\022" +
+      "$\n MESSAGE_UPDATE_MONSTER_COLLISION\020\030\022\024\n" +
+      "\020MESSAGE_NEW_USER\020\031\022\027\n\023MESSAGE_DELETE_US" +
+      "ER\020\032\022!\n\035MESSAGE_UPDATE_USER_COLLISION\020\033\022" +
+      "/\n+MESSAGE_REQUEST_USER_UPDATE_MAP_INFOR" +
+      "MATION\020\034*/\n\014ResponseCode\022\013\n\007SUCCESS\020\001\022\010\n" +
+      "\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rITEM_TY",
+      "PE_USE\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017ITEM_" +
+      "TYPE_EQUIP\020\002B\036\n\032com.rpg.framework.databa" +
+      "seH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -29781,7 +30043,7 @@ public final class Protocol {
     internal_static_Protobuf_MessageRespawnMonster_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageRespawnMonster_descriptor,
-        new java.lang.String[] { "MapID", "MonsterID", "MonsterIndex", });
+        new java.lang.String[] { "MonsterID", "MonsterIndex", "MapID", "X", "Y", });
     internal_static_Protobuf_MessageNewUser_descriptor =
       getDescriptor().getMessageTypes().get(28);
     internal_static_Protobuf_MessageNewUser_fieldAccessorTable = new
@@ -29835,7 +30097,7 @@ public final class Protocol {
     internal_static_Protobuf_ResponseChangeMap_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_ResponseChangeMap_descriptor,
-        new java.lang.String[] { "Users", "Monsters", });
+        new java.lang.String[] { "MapID", "Users", "Monsters", });
     internal_static_Protobuf_MessageUpdateUserCollision_descriptor =
       getDescriptor().getMessageTypes().get(37);
     internal_static_Protobuf_MessageUpdateUserCollision_fieldAccessorTable = new

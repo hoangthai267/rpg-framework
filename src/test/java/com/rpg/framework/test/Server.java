@@ -412,7 +412,7 @@ public class Server extends com.rpg.framework.core.Server {
 		Protocol.ResponseUpdatePosition.Builder builder = Protocol.ResponseUpdatePosition.newBuilder();
 		builder.setResult(Protocol.ResponseCode.SUCCESS);
 		
-		sendMessageTo(clientID, Protocol.MessageType.RESPONE_UPDATE_POSITION_VALUE, builder.build().toByteArray());
+//		sendMessageTo(clientID, Protocol.MessageType.RESPONE_UPDATE_POSITION_VALUE, builder.build().toByteArray());
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage() + "handleRequestUpdatePosition userID :" + request.getUserID());
 		}
@@ -573,6 +573,8 @@ public class Server extends com.rpg.framework.core.Server {
 					);
 		}
 		MapManager.getInstance().changeMap(request.getUserID(), request.getFrom(), request.getTo());
+		
+		builder.setMapID(request.getTo());
 		
 		sendMessageTo(clientID, Protocol.MessageType.RESPONSE_CHANGE_MAP_VALUE, builder.build().toByteArray());
 	}
