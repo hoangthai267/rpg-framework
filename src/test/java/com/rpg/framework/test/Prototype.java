@@ -133,63 +133,28 @@ public class Prototype {
 	
 	public void addPrototypeMap() {
 		JsonArray mapArray = JsonArray.create();
+		int index = 1;
 		for(int i = 0; i < 3; i++) {
-			mapArray.add(JsonObject.create()
+			JsonObject map = JsonObject.create();
+			mapArray.add(map
 					.put("id", i)
 					.put("width", 200 * i)
-					.put("height", 300 *i)
-					.put("monsters", JsonArray.create()
-							.add(JsonObject.create()
+					.put("height", 300 *i));
+			System.out.println(Config.MAP1_SNAIL.length);
+			JsonArray monsters = JsonArray.create();
+			for (int j = 0; j < Config.MAP1_SNAIL.length - 2; j += 2) {
+				monsters.add(JsonObject.create()
 									.put("id", 1)
-									.put("index", 1 + 3 * i)
-									.put("x", 5.0 * i)
-									.put("y", 0.0))
-							.add(JsonObject.create()
-									.put("id", 1)
-									.put("index", 2 + 3 * i)
-									.put("x", 5.0 * i)
-									.put("y", 0.0))
-							.add(JsonObject.create()
-									.put("id", 1)
-									.put("index", 3 + 3 * i)
-									.put("x", 5.0 * i)
-									.put("y", 0.0)))
-					.put("items", JsonArray.create()
-							.add(JsonObject.create()
-									.put("id", 1)
-									.put("x", 0.0)
-									.put("y", 0.0))
-							.add(JsonObject.create()
-									.put("id", 2)
-									.put("x", 0.0)
-									.put("y", 0.0))
-							.add(JsonObject.create()
-									.put("id", 3)
-									.put("x", 0.0)
-									.put("y", 0.0)))
-					.put("portals", JsonArray.create()
-							.add(JsonObject.create()
-									.put("id", 1 + i)
-									.put("x", 0.0)
-									.put("y", 0.0)
-									.put("destination", 1))
-							.add(JsonObject.create()
-									.put("id", 2 + i)
-									.put("x", 0.0)
-									.put("y", 0.0)
-									.put("destination", 2))
-							.add(JsonObject.create()
-									.put("id", 3 + i)
-									.put("x", 0.0)
-									.put("y", 0.0)
-									.put("destination", 3)))
-					);
+									.put("index", index++)
+									.put("x", Config.MAP1_SNAIL[j])
+									.put("y", Config.MAP1_SNAIL[j + 1]));
+			}	
+			map.put("monsters", monsters);
 		}
 				
 		
 		JsonObject maps = JsonObject.create()
-				.put("normalMaps", mapArray)
-				.put("hiddenMaps", mapArray);
+				.put("normalMaps", mapArray);
 		
 		couchbase.set("Prototype_Maps", maps);				
 	}

@@ -582,7 +582,8 @@ public class Server extends com.rpg.framework.core.Server {
 	public void handleMessageUpdateUserCollision(Protocol.MessageUpdateUserCollision message) {
 		User user = UserManager.getInstance().getIdentifiedUser(message.getUserID());
 		Monster monster = MonsterManager.getInstance().getMonsterInList(message.getIndex());
-		
+		if(monster == null)
+			return;
 		int subHP = user.getCurHP() - monster.getDamage();
 		System.out.println(subHP);
 		user.setCurHP(subHP);

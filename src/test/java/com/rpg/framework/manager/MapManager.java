@@ -50,28 +50,28 @@ public class MapManager {
 				map.addMonstersPrototype(monsterIndex, entity);
 			}
 			
-			JsonArray items = object.getArray("items");
-			for(int j = 0; j < items.size(); j++) {
-				JsonObject item = items.getObject(j);
-				int itemID = item.getInt("id");
-				int itemPositionX = item.getInt("x");
-				int itemPositionY = item.getInt("y");
-				
-				
-				
-				
-//				map.addItem(itemID, new MapObject(itemID, itemPositionX, itemPositionY));
-			}
-			
-			JsonArray portals = object.getArray("portals");
-			for(int j = 0; j < portals.size(); j++) {
-				JsonObject portal = portals.getObject(j);
-				int portalID = portal.getInt("id");
-				int portalPositionX = portal.getInt("x");
-				int portalPositionY = portal.getInt("y");
-				
-//				map.addPortal(portalID, new MapObject(portalID, portalPositionX, portalPositionY));
-			}
+//			JsonArray items = object.getArray("items");
+//			for(int j = 0; j < items.size(); j++) {
+//				JsonObject item = items.getObject(j);
+//				int itemID = item.getInt("id");
+//				int itemPositionX = item.getInt("x");
+//				int itemPositionY = item.getInt("y");
+//				
+//				
+//				
+//				
+////				map.addItem(itemID, new MapObject(itemID, itemPositionX, itemPositionY));
+//			}
+//			
+//			JsonArray portals = object.getArray("portals");
+//			for(int j = 0; j < portals.size(); j++) {
+//				JsonObject portal = portals.getObject(j);
+//				int portalID = portal.getInt("id");
+//				int portalPositionX = portal.getInt("x");
+//				int portalPositionY = portal.getInt("y");
+//				
+////				map.addPortal(portalID, new MapObject(portalID, portalPositionX, portalPositionY));
+//			}
 			
 			map.initalize();
 			

@@ -114,6 +114,8 @@ public class MonsterManager {
 		Random rad = new Random();
 		for (Integer id : monstersList) {
 			Monster entity = this.monstersList.get(id.intValue());
+			if(entity == null)
+				continue;
 			int command = Math.abs(rad.nextInt() % 3);
 			
 			builder.addData(Protocol.ActionCommand.newBuilder()
