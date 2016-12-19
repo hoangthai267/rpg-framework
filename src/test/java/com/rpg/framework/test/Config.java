@@ -67,7 +67,7 @@ public class Config {
 			};
 	
 	public final static double MAP1_SNAIL[] = new double[] {
-			-2.38, -2.21
+			-2.38, -2.21,
 			-0.24, -2.21,
 			2.58, -2.21,
 			7.53, -2.21,

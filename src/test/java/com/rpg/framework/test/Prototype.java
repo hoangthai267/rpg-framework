@@ -142,7 +142,7 @@ public class Prototype {
 					.put("height", 300 *i));
 			System.out.println(Config.MAP1_SNAIL.length);
 			JsonArray monsters = JsonArray.create();
-			for (int j = 0; j < Config.MAP1_SNAIL.length - 2; j += 2) {
+			for (int j = 0; j < Config.MAP1_SNAIL.length; j += 2) {
 				monsters.add(JsonObject.create()
 									.put("id", 1)
 									.put("index", index++)
