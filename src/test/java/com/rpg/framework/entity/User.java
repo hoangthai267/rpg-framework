@@ -1,5 +1,8 @@
 package com.rpg.framework.entity;
 
+import com.rpg.framework.database.Protocol;
+import com.rpg.framework.manager.MessageManager;
+
 public class User {
 	private int	id;
 	private int connectionID;
@@ -21,13 +24,54 @@ public class User {
 	private int		curMP;
 	private int		maxMP;
 	
+	private boolean	respawn;
+	
 	public User() {
 		id = -1;
 		connectionID = -1;
+		respawn = false;
 	}
 	
 	public void update(double detla) {
+		if(respawn) {
+			respawn = false;
+			
+			curHP = maxHP;
+			curMP = maxMP;
+			positionX = 0.0;
+			positionY = 0.0;
 		
+			MessageManager.getInstance().sendMessage(
+					connectionID, 
+					Protocol.MessageType.MESSAGE_RESPAWN_USER_VALUE, 
+					Protocol.MessageRespawnUser.newBuilder()
+					.setId(id)
+					.setOccupation(occupation)
+					.setName(name)
+					
+					.setMapID(mapID)
+					.setX(positionX)
+					.setY(positionY)
+					
+					.setMaxHP(maxHP)
+					.setCurHP(curHP)
+					.setMaxMP(maxMP)
+					.setCurMP(curMP)
+					
+					.setDamage(damage)
+					.setDefense(defense)
+					.setSpeed(speed)
+					.build().toByteArray());
+		}
+
+		if(curHP <= 0) {
+			respawn = true;
+			
+			MessageManager.getInstance().sendMessage(
+					connectionID, 
+					Protocol.MessageType.MESSAGE_KILL_USER_VALUE, 
+					Protocol.MessageKillUser.newBuilder().setId(id).build().toByteArray());
+		}		
 	}
 
 	public int getId() {

@@ -129,6 +129,14 @@ public final class Protocol {
      * <code>MESSAGE_REQUEST_USER_UPDATE_MAP_INFORMATION = 28;</code>
      */
     MESSAGE_REQUEST_USER_UPDATE_MAP_INFORMATION(28, 28),
+    /**
+     * <code>MESSAGE_KILL_USER = 29;</code>
+     */
+    MESSAGE_KILL_USER(29, 29),
+    /**
+     * <code>MESSAGE_RESPAWN_USER = 30;</code>
+     */
+    MESSAGE_RESPAWN_USER(30, 30),
     ;
 
     /**
@@ -247,6 +255,14 @@ public final class Protocol {
      * <code>MESSAGE_REQUEST_USER_UPDATE_MAP_INFORMATION = 28;</code>
      */
     public static final int MESSAGE_REQUEST_USER_UPDATE_MAP_INFORMATION_VALUE = 28;
+    /**
+     * <code>MESSAGE_KILL_USER = 29;</code>
+     */
+    public static final int MESSAGE_KILL_USER_VALUE = 29;
+    /**
+     * <code>MESSAGE_RESPAWN_USER = 30;</code>
+     */
+    public static final int MESSAGE_RESPAWN_USER_VALUE = 30;
 
 
     public final int getNumber() { return value; }
@@ -282,6 +298,8 @@ public final class Protocol {
         case 26: return MESSAGE_DELETE_USER;
         case 27: return MESSAGE_UPDATE_USER_COLLISION;
         case 28: return MESSAGE_REQUEST_USER_UPDATE_MAP_INFORMATION;
+        case 29: return MESSAGE_KILL_USER;
+        case 30: return MESSAGE_RESPAWN_USER;
         default: return null;
       }
     }
@@ -23384,6 +23402,1927 @@ public final class Protocol {
     // @@protoc_insertion_point(class_scope:Protobuf.MessageDeleteUser)
   }
 
+  public interface MessageKillUserOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageKillUser)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    boolean hasId();
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    int getId();
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageKillUser}
+   */
+  public static final class MessageKillUser extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageKillUser)
+      MessageKillUserOrBuilder {
+    // Use MessageKillUser.newBuilder() to construct.
+    private MessageKillUser(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageKillUser(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageKillUser defaultInstance;
+    public static MessageKillUser getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageKillUser getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageKillUser(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageKillUser_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageKillUser_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageKillUser.class, com.rpg.framework.database.Protocol.MessageKillUser.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageKillUser> PARSER =
+        new com.google.protobuf.AbstractParser<MessageKillUser>() {
+      public MessageKillUser parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageKillUser(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageKillUser> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    public int getId() {
+      return id_;
+    }
+
+    private void initFields() {
+      id_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, id_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, id_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageKillUser parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillUser parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillUser parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillUser parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillUser parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillUser parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillUser parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillUser parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillUser parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageKillUser parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageKillUser prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageKillUser}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageKillUser)
+        com.rpg.framework.database.Protocol.MessageKillUserOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageKillUser_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageKillUser_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageKillUser.class, com.rpg.framework.database.Protocol.MessageKillUser.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageKillUser.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageKillUser_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageKillUser getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageKillUser.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageKillUser build() {
+        com.rpg.framework.database.Protocol.MessageKillUser result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageKillUser buildPartial() {
+        com.rpg.framework.database.Protocol.MessageKillUser result = new com.rpg.framework.database.Protocol.MessageKillUser(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.id_ = id_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageKillUser) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageKillUser)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageKillUser other) {
+        if (other == com.rpg.framework.database.Protocol.MessageKillUser.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasId()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageKillUser parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageKillUser) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int id_ ;
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public int getId() {
+        return id_;
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageKillUser)
+    }
+
+    static {
+      defaultInstance = new MessageKillUser(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageKillUser)
+  }
+
+  public interface MessageRespawnUserOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageRespawnUser)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    boolean hasId();
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    int getId();
+
+    /**
+     * <code>required int32 occupation = 2;</code>
+     */
+    boolean hasOccupation();
+    /**
+     * <code>required int32 occupation = 2;</code>
+     */
+    int getOccupation();
+
+    /**
+     * <code>required string name = 3;</code>
+     */
+    boolean hasName();
+    /**
+     * <code>required string name = 3;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>required string name = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>required int32 mapID = 4;</code>
+     */
+    boolean hasMapID();
+    /**
+     * <code>required int32 mapID = 4;</code>
+     */
+    int getMapID();
+
+    /**
+     * <code>required double x = 5;</code>
+     */
+    boolean hasX();
+    /**
+     * <code>required double x = 5;</code>
+     */
+    double getX();
+
+    /**
+     * <code>required double y = 6;</code>
+     */
+    boolean hasY();
+    /**
+     * <code>required double y = 6;</code>
+     */
+    double getY();
+
+    /**
+     * <code>required int32 maxHP = 7;</code>
+     */
+    boolean hasMaxHP();
+    /**
+     * <code>required int32 maxHP = 7;</code>
+     */
+    int getMaxHP();
+
+    /**
+     * <code>required int32 curHP = 8;</code>
+     */
+    boolean hasCurHP();
+    /**
+     * <code>required int32 curHP = 8;</code>
+     */
+    int getCurHP();
+
+    /**
+     * <code>required int32 maxMP = 9;</code>
+     */
+    boolean hasMaxMP();
+    /**
+     * <code>required int32 maxMP = 9;</code>
+     */
+    int getMaxMP();
+
+    /**
+     * <code>required int32 curMP = 10;</code>
+     */
+    boolean hasCurMP();
+    /**
+     * <code>required int32 curMP = 10;</code>
+     */
+    int getCurMP();
+
+    /**
+     * <code>required int32 damage = 11;</code>
+     */
+    boolean hasDamage();
+    /**
+     * <code>required int32 damage = 11;</code>
+     */
+    int getDamage();
+
+    /**
+     * <code>required int32 defense = 12;</code>
+     */
+    boolean hasDefense();
+    /**
+     * <code>required int32 defense = 12;</code>
+     */
+    int getDefense();
+
+    /**
+     * <code>required int32 speed = 13;</code>
+     */
+    boolean hasSpeed();
+    /**
+     * <code>required int32 speed = 13;</code>
+     */
+    int getSpeed();
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageRespawnUser}
+   */
+  public static final class MessageRespawnUser extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageRespawnUser)
+      MessageRespawnUserOrBuilder {
+    // Use MessageRespawnUser.newBuilder() to construct.
+    private MessageRespawnUser(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageRespawnUser(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageRespawnUser defaultInstance;
+    public static MessageRespawnUser getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageRespawnUser getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageRespawnUser(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              occupation_ = input.readInt32();
+              break;
+            }
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
+              name_ = bs;
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              mapID_ = input.readInt32();
+              break;
+            }
+            case 41: {
+              bitField0_ |= 0x00000010;
+              x_ = input.readDouble();
+              break;
+            }
+            case 49: {
+              bitField0_ |= 0x00000020;
+              y_ = input.readDouble();
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000040;
+              maxHP_ = input.readInt32();
+              break;
+            }
+            case 64: {
+              bitField0_ |= 0x00000080;
+              curHP_ = input.readInt32();
+              break;
+            }
+            case 72: {
+              bitField0_ |= 0x00000100;
+              maxMP_ = input.readInt32();
+              break;
+            }
+            case 80: {
+              bitField0_ |= 0x00000200;
+              curMP_ = input.readInt32();
+              break;
+            }
+            case 88: {
+              bitField0_ |= 0x00000400;
+              damage_ = input.readInt32();
+              break;
+            }
+            case 96: {
+              bitField0_ |= 0x00000800;
+              defense_ = input.readInt32();
+              break;
+            }
+            case 104: {
+              bitField0_ |= 0x00001000;
+              speed_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRespawnUser_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRespawnUser_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageRespawnUser.class, com.rpg.framework.database.Protocol.MessageRespawnUser.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageRespawnUser> PARSER =
+        new com.google.protobuf.AbstractParser<MessageRespawnUser>() {
+      public MessageRespawnUser parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageRespawnUser(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageRespawnUser> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    public int getId() {
+      return id_;
+    }
+
+    public static final int OCCUPATION_FIELD_NUMBER = 2;
+    private int occupation_;
+    /**
+     * <code>required int32 occupation = 2;</code>
+     */
+    public boolean hasOccupation() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 occupation = 2;</code>
+     */
+    public int getOccupation() {
+      return occupation_;
+    }
+
+    public static final int NAME_FIELD_NUMBER = 3;
+    private java.lang.Object name_;
+    /**
+     * <code>required string name = 3;</code>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required string name = 3;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string name = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MAPID_FIELD_NUMBER = 4;
+    private int mapID_;
+    /**
+     * <code>required int32 mapID = 4;</code>
+     */
+    public boolean hasMapID() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required int32 mapID = 4;</code>
+     */
+    public int getMapID() {
+      return mapID_;
+    }
+
+    public static final int X_FIELD_NUMBER = 5;
+    private double x_;
+    /**
+     * <code>required double x = 5;</code>
+     */
+    public boolean hasX() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required double x = 5;</code>
+     */
+    public double getX() {
+      return x_;
+    }
+
+    public static final int Y_FIELD_NUMBER = 6;
+    private double y_;
+    /**
+     * <code>required double y = 6;</code>
+     */
+    public boolean hasY() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>required double y = 6;</code>
+     */
+    public double getY() {
+      return y_;
+    }
+
+    public static final int MAXHP_FIELD_NUMBER = 7;
+    private int maxHP_;
+    /**
+     * <code>required int32 maxHP = 7;</code>
+     */
+    public boolean hasMaxHP() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>required int32 maxHP = 7;</code>
+     */
+    public int getMaxHP() {
+      return maxHP_;
+    }
+
+    public static final int CURHP_FIELD_NUMBER = 8;
+    private int curHP_;
+    /**
+     * <code>required int32 curHP = 8;</code>
+     */
+    public boolean hasCurHP() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    /**
+     * <code>required int32 curHP = 8;</code>
+     */
+    public int getCurHP() {
+      return curHP_;
+    }
+
+    public static final int MAXMP_FIELD_NUMBER = 9;
+    private int maxMP_;
+    /**
+     * <code>required int32 maxMP = 9;</code>
+     */
+    public boolean hasMaxMP() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    /**
+     * <code>required int32 maxMP = 9;</code>
+     */
+    public int getMaxMP() {
+      return maxMP_;
+    }
+
+    public static final int CURMP_FIELD_NUMBER = 10;
+    private int curMP_;
+    /**
+     * <code>required int32 curMP = 10;</code>
+     */
+    public boolean hasCurMP() {
+      return ((bitField0_ & 0x00000200) == 0x00000200);
+    }
+    /**
+     * <code>required int32 curMP = 10;</code>
+     */
+    public int getCurMP() {
+      return curMP_;
+    }
+
+    public static final int DAMAGE_FIELD_NUMBER = 11;
+    private int damage_;
+    /**
+     * <code>required int32 damage = 11;</code>
+     */
+    public boolean hasDamage() {
+      return ((bitField0_ & 0x00000400) == 0x00000400);
+    }
+    /**
+     * <code>required int32 damage = 11;</code>
+     */
+    public int getDamage() {
+      return damage_;
+    }
+
+    public static final int DEFENSE_FIELD_NUMBER = 12;
+    private int defense_;
+    /**
+     * <code>required int32 defense = 12;</code>
+     */
+    public boolean hasDefense() {
+      return ((bitField0_ & 0x00000800) == 0x00000800);
+    }
+    /**
+     * <code>required int32 defense = 12;</code>
+     */
+    public int getDefense() {
+      return defense_;
+    }
+
+    public static final int SPEED_FIELD_NUMBER = 13;
+    private int speed_;
+    /**
+     * <code>required int32 speed = 13;</code>
+     */
+    public boolean hasSpeed() {
+      return ((bitField0_ & 0x00001000) == 0x00001000);
+    }
+    /**
+     * <code>required int32 speed = 13;</code>
+     */
+    public int getSpeed() {
+      return speed_;
+    }
+
+    private void initFields() {
+      id_ = 0;
+      occupation_ = 0;
+      name_ = "";
+      mapID_ = 0;
+      x_ = 0D;
+      y_ = 0D;
+      maxHP_ = 0;
+      curHP_ = 0;
+      maxMP_ = 0;
+      curMP_ = 0;
+      damage_ = 0;
+      defense_ = 0;
+      speed_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasOccupation()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMapID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasX()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasY()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMaxHP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCurHP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMaxMP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCurMP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasDamage()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasDefense()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSpeed()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, occupation_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, mapID_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeDouble(5, x_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeDouble(6, y_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeInt32(7, maxHP_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeInt32(8, curHP_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeInt32(9, maxMP_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeInt32(10, curMP_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        output.writeInt32(11, damage_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        output.writeInt32(12, defense_);
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        output.writeInt32(13, speed_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, occupation_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, mapID_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(5, x_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(6, y_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(7, maxHP_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(8, curHP_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(9, maxMP_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(10, curMP_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(11, damage_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(12, defense_);
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(13, speed_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageRespawnUser parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnUser parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnUser parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnUser parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnUser parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnUser parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnUser parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnUser parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnUser parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRespawnUser parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageRespawnUser prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageRespawnUser}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageRespawnUser)
+        com.rpg.framework.database.Protocol.MessageRespawnUserOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRespawnUser_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRespawnUser_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageRespawnUser.class, com.rpg.framework.database.Protocol.MessageRespawnUser.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageRespawnUser.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        occupation_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        name_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        mapID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        x_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        y_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        maxHP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        curHP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000080);
+        maxMP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        curMP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000200);
+        damage_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000400);
+        defense_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000800);
+        speed_ = 0;
+        bitField0_ = (bitField0_ & ~0x00001000);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRespawnUser_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageRespawnUser getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageRespawnUser.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageRespawnUser build() {
+        com.rpg.framework.database.Protocol.MessageRespawnUser result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageRespawnUser buildPartial() {
+        com.rpg.framework.database.Protocol.MessageRespawnUser result = new com.rpg.framework.database.Protocol.MessageRespawnUser(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.occupation_ = occupation_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.name_ = name_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.mapID_ = mapID_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.x_ = x_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.y_ = y_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.maxHP_ = maxHP_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.curHP_ = curHP_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.maxMP_ = maxMP_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
+        }
+        result.curMP_ = curMP_;
+        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
+          to_bitField0_ |= 0x00000400;
+        }
+        result.damage_ = damage_;
+        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
+          to_bitField0_ |= 0x00000800;
+        }
+        result.defense_ = defense_;
+        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
+          to_bitField0_ |= 0x00001000;
+        }
+        result.speed_ = speed_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageRespawnUser) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageRespawnUser)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageRespawnUser other) {
+        if (other == com.rpg.framework.database.Protocol.MessageRespawnUser.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        if (other.hasOccupation()) {
+          setOccupation(other.getOccupation());
+        }
+        if (other.hasName()) {
+          bitField0_ |= 0x00000004;
+          name_ = other.name_;
+          onChanged();
+        }
+        if (other.hasMapID()) {
+          setMapID(other.getMapID());
+        }
+        if (other.hasX()) {
+          setX(other.getX());
+        }
+        if (other.hasY()) {
+          setY(other.getY());
+        }
+        if (other.hasMaxHP()) {
+          setMaxHP(other.getMaxHP());
+        }
+        if (other.hasCurHP()) {
+          setCurHP(other.getCurHP());
+        }
+        if (other.hasMaxMP()) {
+          setMaxMP(other.getMaxMP());
+        }
+        if (other.hasCurMP()) {
+          setCurMP(other.getCurMP());
+        }
+        if (other.hasDamage()) {
+          setDamage(other.getDamage());
+        }
+        if (other.hasDefense()) {
+          setDefense(other.getDefense());
+        }
+        if (other.hasSpeed()) {
+          setSpeed(other.getSpeed());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasId()) {
+          
+          return false;
+        }
+        if (!hasOccupation()) {
+          
+          return false;
+        }
+        if (!hasName()) {
+          
+          return false;
+        }
+        if (!hasMapID()) {
+          
+          return false;
+        }
+        if (!hasX()) {
+          
+          return false;
+        }
+        if (!hasY()) {
+          
+          return false;
+        }
+        if (!hasMaxHP()) {
+          
+          return false;
+        }
+        if (!hasCurHP()) {
+          
+          return false;
+        }
+        if (!hasMaxMP()) {
+          
+          return false;
+        }
+        if (!hasCurMP()) {
+          
+          return false;
+        }
+        if (!hasDamage()) {
+          
+          return false;
+        }
+        if (!hasDefense()) {
+          
+          return false;
+        }
+        if (!hasSpeed()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageRespawnUser parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageRespawnUser) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int id_ ;
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public int getId() {
+        return id_;
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int occupation_ ;
+      /**
+       * <code>required int32 occupation = 2;</code>
+       */
+      public boolean hasOccupation() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 occupation = 2;</code>
+       */
+      public int getOccupation() {
+        return occupation_;
+      }
+      /**
+       * <code>required int32 occupation = 2;</code>
+       */
+      public Builder setOccupation(int value) {
+        bitField0_ |= 0x00000002;
+        occupation_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 occupation = 2;</code>
+       */
+      public Builder clearOccupation() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        occupation_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>required string name = 3;</code>
+       */
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required string name = 3;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            name_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string name = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string name = 3;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 3;</code>
+       */
+      public Builder clearName() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 3;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int mapID_ ;
+      /**
+       * <code>required int32 mapID = 4;</code>
+       */
+      public boolean hasMapID() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required int32 mapID = 4;</code>
+       */
+      public int getMapID() {
+        return mapID_;
+      }
+      /**
+       * <code>required int32 mapID = 4;</code>
+       */
+      public Builder setMapID(int value) {
+        bitField0_ |= 0x00000008;
+        mapID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 mapID = 4;</code>
+       */
+      public Builder clearMapID() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        mapID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private double x_ ;
+      /**
+       * <code>required double x = 5;</code>
+       */
+      public boolean hasX() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>required double x = 5;</code>
+       */
+      public double getX() {
+        return x_;
+      }
+      /**
+       * <code>required double x = 5;</code>
+       */
+      public Builder setX(double value) {
+        bitField0_ |= 0x00000010;
+        x_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required double x = 5;</code>
+       */
+      public Builder clearX() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        x_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double y_ ;
+      /**
+       * <code>required double y = 6;</code>
+       */
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>required double y = 6;</code>
+       */
+      public double getY() {
+        return y_;
+      }
+      /**
+       * <code>required double y = 6;</code>
+       */
+      public Builder setY(double value) {
+        bitField0_ |= 0x00000020;
+        y_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required double y = 6;</code>
+       */
+      public Builder clearY() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        y_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private int maxHP_ ;
+      /**
+       * <code>required int32 maxHP = 7;</code>
+       */
+      public boolean hasMaxHP() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <code>required int32 maxHP = 7;</code>
+       */
+      public int getMaxHP() {
+        return maxHP_;
+      }
+      /**
+       * <code>required int32 maxHP = 7;</code>
+       */
+      public Builder setMaxHP(int value) {
+        bitField0_ |= 0x00000040;
+        maxHP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 maxHP = 7;</code>
+       */
+      public Builder clearMaxHP() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        maxHP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int curHP_ ;
+      /**
+       * <code>required int32 curHP = 8;</code>
+       */
+      public boolean hasCurHP() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      /**
+       * <code>required int32 curHP = 8;</code>
+       */
+      public int getCurHP() {
+        return curHP_;
+      }
+      /**
+       * <code>required int32 curHP = 8;</code>
+       */
+      public Builder setCurHP(int value) {
+        bitField0_ |= 0x00000080;
+        curHP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 curHP = 8;</code>
+       */
+      public Builder clearCurHP() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        curHP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int maxMP_ ;
+      /**
+       * <code>required int32 maxMP = 9;</code>
+       */
+      public boolean hasMaxMP() {
+        return ((bitField0_ & 0x00000100) == 0x00000100);
+      }
+      /**
+       * <code>required int32 maxMP = 9;</code>
+       */
+      public int getMaxMP() {
+        return maxMP_;
+      }
+      /**
+       * <code>required int32 maxMP = 9;</code>
+       */
+      public Builder setMaxMP(int value) {
+        bitField0_ |= 0x00000100;
+        maxMP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 maxMP = 9;</code>
+       */
+      public Builder clearMaxMP() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        maxMP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int curMP_ ;
+      /**
+       * <code>required int32 curMP = 10;</code>
+       */
+      public boolean hasCurMP() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      /**
+       * <code>required int32 curMP = 10;</code>
+       */
+      public int getCurMP() {
+        return curMP_;
+      }
+      /**
+       * <code>required int32 curMP = 10;</code>
+       */
+      public Builder setCurMP(int value) {
+        bitField0_ |= 0x00000200;
+        curMP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 curMP = 10;</code>
+       */
+      public Builder clearCurMP() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        curMP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int damage_ ;
+      /**
+       * <code>required int32 damage = 11;</code>
+       */
+      public boolean hasDamage() {
+        return ((bitField0_ & 0x00000400) == 0x00000400);
+      }
+      /**
+       * <code>required int32 damage = 11;</code>
+       */
+      public int getDamage() {
+        return damage_;
+      }
+      /**
+       * <code>required int32 damage = 11;</code>
+       */
+      public Builder setDamage(int value) {
+        bitField0_ |= 0x00000400;
+        damage_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 damage = 11;</code>
+       */
+      public Builder clearDamage() {
+        bitField0_ = (bitField0_ & ~0x00000400);
+        damage_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int defense_ ;
+      /**
+       * <code>required int32 defense = 12;</code>
+       */
+      public boolean hasDefense() {
+        return ((bitField0_ & 0x00000800) == 0x00000800);
+      }
+      /**
+       * <code>required int32 defense = 12;</code>
+       */
+      public int getDefense() {
+        return defense_;
+      }
+      /**
+       * <code>required int32 defense = 12;</code>
+       */
+      public Builder setDefense(int value) {
+        bitField0_ |= 0x00000800;
+        defense_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 defense = 12;</code>
+       */
+      public Builder clearDefense() {
+        bitField0_ = (bitField0_ & ~0x00000800);
+        defense_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int speed_ ;
+      /**
+       * <code>required int32 speed = 13;</code>
+       */
+      public boolean hasSpeed() {
+        return ((bitField0_ & 0x00001000) == 0x00001000);
+      }
+      /**
+       * <code>required int32 speed = 13;</code>
+       */
+      public int getSpeed() {
+        return speed_;
+      }
+      /**
+       * <code>required int32 speed = 13;</code>
+       */
+      public Builder setSpeed(int value) {
+        bitField0_ |= 0x00001000;
+        speed_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 speed = 13;</code>
+       */
+      public Builder clearSpeed() {
+        bitField0_ = (bitField0_ & ~0x00001000);
+        speed_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageRespawnUser)
+    }
+
+    static {
+      defaultInstance = new MessageRespawnUser(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageRespawnUser)
+  }
+
   public interface MonsterStateOrBuilder extends
       // @@protoc_insertion_point(interface_extends:Protobuf.MonsterState)
       com.google.protobuf.MessageOrBuilder {
@@ -29697,6 +31636,16 @@ public final class Protocol {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_Protobuf_MessageDeleteUser_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageKillUser_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageKillUser_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageRespawnUser_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageRespawnUser_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Protobuf_MonsterState_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -29820,49 +31769,56 @@ public final class Protocol {
       "\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030\t \002(\005\022\r\n\005curMP\030\n" +
       " \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007defense\030\014 \002(\005\022\r\n" +
       "\005speed\030\r \002(\005\"\037\n\021MessageDeleteUser\022\n\n\002id\030",
-      "\001 \002(\005\"q\n\014MonsterState\022\n\n\002ID\030\001 \002(\005\022\r\n\005Ind" +
-      "ex\030\002 \002(\005\022\021\n\tPositionX\030\004 \002(\001\022\021\n\tPositionY" +
-      "\030\005 \002(\001\022\r\n\005State\030\006 \002(\005\022\021\n\tDirection\030\007 \002(\005" +
-      "\"P\n\031MessageUpdateMonsterState\022\r\n\005MapID\030\001" +
-      " \002(\005\022$\n\004Data\030\002 \003(\0132\026.Protobuf.MonsterSta" +
-      "te\";\n\rActionCommand\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index" +
-      "\030\002 \002(\005\022\017\n\007Command\030\003 \002(\005\"F\n\035MessageUpdate" +
-      "MonsterByCommand\022%\n\004Data\030\001 \003(\0132\027.Protobu" +
-      "f.ActionCommand\"J\n\035MessageUpdateMonsterC" +
-      "ollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006U",
-      "serID\030\003 \002(\005\"<\n\020RequestChangeMap\022\016\n\006userI" +
-      "D\030\001 \002(\005\022\014\n\004from\030\002 \002(\005\022\n\n\002to\030\003 \002(\005\"f\n\021Res" +
-      "ponseChangeMap\022\r\n\005mapID\030\001 \002(\005\022\035\n\005users\030\002" +
-      " \003(\0132\016.Protobuf.User\022#\n\010monsters\030\003 \003(\0132\021" +
-      ".Protobuf.Monster\"G\n\032MessageUpdateUserCo" +
-      "llision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006Us" +
-      "erID\030\003 \002(\005\"7\n&MessageRequestUserUpdateMa" +
-      "pInformation\022\r\n\005mapID\030\001 \002(\005*\262\006\n\013MessageT" +
-      "ype\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPONE_LOGIN\020" +
-      "\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESPONE_REGIS",
-      "TER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020\004\022\031\n\025RESP" +
-      "ONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_CREATE_CH" +
-      "ARACTER\020\006\022\034\n\030RESPONE_CREATE_CHARACTER\020\007\022" +
-      "\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESPONE_START" +
-      "_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSITION\020\n\022\033\n\027" +
-      "RESPONE_UPDATE_POSITION\020\013\022\025\n\021REQUEST_GET" +
-      "_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022\031\n\025REQU" +
-      "EST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE_UPDATE_A" +
-      "CTION\020\017\022\031\n\025REQUEST_GET_PROTOTYPE\020\020\022\032\n\026RE" +
-      "SPONSE_GET_PROTOTYPE\020\021\022\026\n\022REQUEST_CHANGE",
-      "_MAP\020\022\022\027\n\023RESPONSE_CHANGE_MAP\020\023\022\030\n\024MESSA" +
-      "GE_KILL_MONSTER\020\024\022\033\n\027MESSAGE_RESPAWN_MON" +
-      "STER\020\025\022 \n\034MESSAGE_UPDATE_MONSTER_STATE\020\026" +
-      "\022%\n!MESSAGE_UPDATE_MONSTER_BY_COMMAND\020\027\022" +
-      "$\n MESSAGE_UPDATE_MONSTER_COLLISION\020\030\022\024\n" +
-      "\020MESSAGE_NEW_USER\020\031\022\027\n\023MESSAGE_DELETE_US" +
-      "ER\020\032\022!\n\035MESSAGE_UPDATE_USER_COLLISION\020\033\022" +
-      "/\n+MESSAGE_REQUEST_USER_UPDATE_MAP_INFOR" +
-      "MATION\020\034*/\n\014ResponseCode\022\013\n\007SUCCESS\020\001\022\010\n" +
-      "\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rITEM_TY",
-      "PE_USE\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017ITEM_" +
-      "TYPE_EQUIP\020\002B\036\n\032com.rpg.framework.databa" +
-      "seH\001"
+      "\001 \002(\005\"\035\n\017MessageKillUser\022\n\n\002id\030\001 \002(\005\"\323\001\n" +
+      "\022MessageRespawnUser\022\n\n\002id\030\001 \002(\005\022\022\n\noccup" +
+      "ation\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\r\n\005mapID\030\004 \002(\005" +
+      "\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001\022\r\n\005maxHP\030\007 \002(\005\022\r\n" +
+      "\005curHP\030\010 \002(\005\022\r\n\005maxMP\030\t \002(\005\022\r\n\005curMP\030\n \002" +
+      "(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007defense\030\014 \002(\005\022\r\n\005s" +
+      "peed\030\r \002(\005\"q\n\014MonsterState\022\n\n\002ID\030\001 \002(\005\022\r" +
+      "\n\005Index\030\002 \002(\005\022\021\n\tPositionX\030\004 \002(\001\022\021\n\tPosi" +
+      "tionY\030\005 \002(\001\022\r\n\005State\030\006 \002(\005\022\021\n\tDirection\030" +
+      "\007 \002(\005\"P\n\031MessageUpdateMonsterState\022\r\n\005Ma",
+      "pID\030\001 \002(\005\022$\n\004Data\030\002 \003(\0132\026.Protobuf.Monst" +
+      "erState\";\n\rActionCommand\022\n\n\002ID\030\001 \002(\005\022\r\n\005" +
+      "Index\030\002 \002(\005\022\017\n\007Command\030\003 \002(\005\"F\n\035MessageU" +
+      "pdateMonsterByCommand\022%\n\004Data\030\001 \003(\0132\027.Pr" +
+      "otobuf.ActionCommand\"J\n\035MessageUpdateMon" +
+      "sterCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005" +
+      "\022\016\n\006UserID\030\003 \002(\005\"<\n\020RequestChangeMap\022\016\n\006" +
+      "userID\030\001 \002(\005\022\014\n\004from\030\002 \002(\005\022\n\n\002to\030\003 \002(\005\"f" +
+      "\n\021ResponseChangeMap\022\r\n\005mapID\030\001 \002(\005\022\035\n\005us" +
+      "ers\030\002 \003(\0132\016.Protobuf.User\022#\n\010monsters\030\003 ",
+      "\003(\0132\021.Protobuf.Monster\"G\n\032MessageUpdateU" +
+      "serCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022" +
+      "\016\n\006UserID\030\003 \002(\005\"7\n&MessageRequestUserUpd" +
+      "ateMapInformation\022\r\n\005mapID\030\001 \002(\005*\343\006\n\013Mes" +
+      "sageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPONE_L" +
+      "OGIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESPONE_" +
+      "REGISTER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020\004\022\031\n" +
+      "\025RESPONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_CREA" +
+      "TE_CHARACTER\020\006\022\034\n\030RESPONE_CREATE_CHARACT" +
+      "ER\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESPONE_",
+      "START_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSITION\020" +
+      "\n\022\033\n\027RESPONE_UPDATE_POSITION\020\013\022\025\n\021REQUES" +
+      "T_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022\031\n" +
+      "\025REQUEST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE_UPD" +
+      "ATE_ACTION\020\017\022\031\n\025REQUEST_GET_PROTOTYPE\020\020\022" +
+      "\032\n\026RESPONSE_GET_PROTOTYPE\020\021\022\026\n\022REQUEST_C" +
+      "HANGE_MAP\020\022\022\027\n\023RESPONSE_CHANGE_MAP\020\023\022\030\n\024" +
+      "MESSAGE_KILL_MONSTER\020\024\022\033\n\027MESSAGE_RESPAW" +
+      "N_MONSTER\020\025\022 \n\034MESSAGE_UPDATE_MONSTER_ST" +
+      "ATE\020\026\022%\n!MESSAGE_UPDATE_MONSTER_BY_COMMA",
+      "ND\020\027\022$\n MESSAGE_UPDATE_MONSTER_COLLISION" +
+      "\020\030\022\024\n\020MESSAGE_NEW_USER\020\031\022\027\n\023MESSAGE_DELE" +
+      "TE_USER\020\032\022!\n\035MESSAGE_UPDATE_USER_COLLISI" +
+      "ON\020\033\022/\n+MESSAGE_REQUEST_USER_UPDATE_MAP_" +
+      "INFORMATION\020\034\022\025\n\021MESSAGE_KILL_USER\020\035\022\030\n\024" +
+      "MESSAGE_RESPAWN_USER\020\036*/\n\014ResponseCode\022\013" +
+      "\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemT" +
+      "ype\022\021\n\rITEM_TYPE_USE\020\000\022\025\n\021ITEM_TYPE_COLL" +
+      "ECT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020\002B\036\n\032com.rpg.fr" +
+      "amework.databaseH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -30056,56 +32012,68 @@ public final class Protocol {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageDeleteUser_descriptor,
         new java.lang.String[] { "Id", });
-    internal_static_Protobuf_MonsterState_descriptor =
+    internal_static_Protobuf_MessageKillUser_descriptor =
       getDescriptor().getMessageTypes().get(30);
+    internal_static_Protobuf_MessageKillUser_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageKillUser_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_Protobuf_MessageRespawnUser_descriptor =
+      getDescriptor().getMessageTypes().get(31);
+    internal_static_Protobuf_MessageRespawnUser_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageRespawnUser_descriptor,
+        new java.lang.String[] { "Id", "Occupation", "Name", "MapID", "X", "Y", "MaxHP", "CurHP", "MaxMP", "CurMP", "Damage", "Defense", "Speed", });
+    internal_static_Protobuf_MonsterState_descriptor =
+      getDescriptor().getMessageTypes().get(32);
     internal_static_Protobuf_MonsterState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MonsterState_descriptor,
         new java.lang.String[] { "ID", "Index", "PositionX", "PositionY", "State", "Direction", });
     internal_static_Protobuf_MessageUpdateMonsterState_descriptor =
-      getDescriptor().getMessageTypes().get(31);
+      getDescriptor().getMessageTypes().get(33);
     internal_static_Protobuf_MessageUpdateMonsterState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageUpdateMonsterState_descriptor,
         new java.lang.String[] { "MapID", "Data", });
     internal_static_Protobuf_ActionCommand_descriptor =
-      getDescriptor().getMessageTypes().get(32);
+      getDescriptor().getMessageTypes().get(34);
     internal_static_Protobuf_ActionCommand_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_ActionCommand_descriptor,
         new java.lang.String[] { "ID", "Index", "Command", });
     internal_static_Protobuf_MessageUpdateMonsterByCommand_descriptor =
-      getDescriptor().getMessageTypes().get(33);
+      getDescriptor().getMessageTypes().get(35);
     internal_static_Protobuf_MessageUpdateMonsterByCommand_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageUpdateMonsterByCommand_descriptor,
         new java.lang.String[] { "Data", });
     internal_static_Protobuf_MessageUpdateMonsterCollision_descriptor =
-      getDescriptor().getMessageTypes().get(34);
+      getDescriptor().getMessageTypes().get(36);
     internal_static_Protobuf_MessageUpdateMonsterCollision_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageUpdateMonsterCollision_descriptor,
         new java.lang.String[] { "ID", "Index", "UserID", });
     internal_static_Protobuf_RequestChangeMap_descriptor =
-      getDescriptor().getMessageTypes().get(35);
+      getDescriptor().getMessageTypes().get(37);
     internal_static_Protobuf_RequestChangeMap_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_RequestChangeMap_descriptor,
         new java.lang.String[] { "UserID", "From", "To", });
     internal_static_Protobuf_ResponseChangeMap_descriptor =
-      getDescriptor().getMessageTypes().get(36);
+      getDescriptor().getMessageTypes().get(38);
     internal_static_Protobuf_ResponseChangeMap_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_ResponseChangeMap_descriptor,
         new java.lang.String[] { "MapID", "Users", "Monsters", });
     internal_static_Protobuf_MessageUpdateUserCollision_descriptor =
-      getDescriptor().getMessageTypes().get(37);
+      getDescriptor().getMessageTypes().get(39);
     internal_static_Protobuf_MessageUpdateUserCollision_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageUpdateUserCollision_descriptor,
         new java.lang.String[] { "ID", "Index", "UserID", });
     internal_static_Protobuf_MessageRequestUserUpdateMapInformation_descriptor =
-      getDescriptor().getMessageTypes().get(38);
+      getDescriptor().getMessageTypes().get(40);
     internal_static_Protobuf_MessageRequestUserUpdateMapInformation_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageRequestUserUpdateMapInformation_descriptor,
