@@ -36,7 +36,7 @@ public class Database {
 			e.printStackTrace();
 		} finally {
 
-		}
+		}		
 	}
 
 	public Database(String coucbase, String memcached) {

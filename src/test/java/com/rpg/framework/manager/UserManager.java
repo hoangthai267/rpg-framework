@@ -77,7 +77,6 @@ public class UserManager {
 	}
 	
 	public void addIdentifiedUser(int connectionID, int userID) {
-//		System.out.println("UserManager.addIdentifiedUser() connectionID:" + connectionID + " userID: " + userID);
 		User identified = anonymousUsers.remove(connectionID);
 		
 		JsonObject userPosition = dataManager.get("User_" + userID + "_Position");
@@ -113,7 +112,6 @@ public class UserManager {
 	}
 	
 	public boolean removeAnonymousUser(int connectionID) {
-		System.out.println("UserManager.removeAnonymousUser(): " + connectionID);
 		return anonymousUsers.remove(connectionID) != null;
 	}
 	
@@ -123,7 +121,6 @@ public class UserManager {
 		while (iterator.hasNext()) {
 			User user = iterator.next();
 			if (connectionID == user.getConnectionID()) {
-//				System.out.println("UserManager.removeIdentifiedUser() connectionID: " + connectionID + " userID: " + user.getId());
 				JsonObject userObject = DataManager.getInstance().get("User_" + user.getId());
 				userObject.put("hasLogin", false);
 				DataManager.getInstance().set("User_" + user.getId(), userObject);

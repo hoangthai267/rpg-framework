@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import com.rpg.framework.core.Debugger;
 import com.rpg.framework.entity.Message;
 
 public class MessageManager {
@@ -64,7 +65,7 @@ public class MessageManager {
 	}
 	
 	public void print() {
-		System.out.println("messagesPerSecond: " + messagesPerSecond);
+		Debugger.Writeln("messagesPerSecond: " + messagesPerSecond);
 		messagesPerSecond 		= 0;
 	}
 	
