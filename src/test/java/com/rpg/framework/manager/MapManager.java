@@ -145,5 +145,9 @@ public class MapManager {
 	public boolean getUpdatedUser(int mapID, int userID) {
 		return mapList.get(mapID).getUpdatedUser(userID);		
 	}
+
+	public void killMonster(Monster monster) {
+		mapList.get(monster.getMapID()).killMonster(monster);		
+	}
 	
 }

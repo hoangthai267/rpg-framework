@@ -137,6 +137,10 @@ public final class Protocol {
      * <code>MESSAGE_RESPAWN_USER = 30;</code>
      */
     MESSAGE_RESPAWN_USER(30, 30),
+    /**
+     * <code>MESSAGE_UP_LEVEL_USER = 31;</code>
+     */
+    MESSAGE_UP_LEVEL_USER(31, 31),
     ;
 
     /**
@@ -263,6 +267,10 @@ public final class Protocol {
      * <code>MESSAGE_RESPAWN_USER = 30;</code>
      */
     public static final int MESSAGE_RESPAWN_USER_VALUE = 30;
+    /**
+     * <code>MESSAGE_UP_LEVEL_USER = 31;</code>
+     */
+    public static final int MESSAGE_UP_LEVEL_USER_VALUE = 31;
 
 
     public final int getNumber() { return value; }
@@ -300,6 +308,7 @@ public final class Protocol {
         case 28: return MESSAGE_REQUEST_USER_UPDATE_MAP_INFORMATION;
         case 29: return MESSAGE_KILL_USER;
         case 30: return MESSAGE_RESPAWN_USER;
+        case 31: return MESSAGE_UP_LEVEL_USER;
         default: return null;
       }
     }
@@ -20185,6 +20194,15 @@ public final class Protocol {
      * <code>required int32 monsterIndex = 3;</code>
      */
     int getMonsterIndex();
+
+    /**
+     * <code>optional int32 bonusExp = 4;</code>
+     */
+    boolean hasBonusExp();
+    /**
+     * <code>optional int32 bonusExp = 4;</code>
+     */
+    int getBonusExp();
   }
   /**
    * Protobuf type {@code Protobuf.MessageKillMonster}
@@ -20251,6 +20269,11 @@ public final class Protocol {
             case 24: {
               bitField0_ |= 0x00000004;
               monsterIndex_ = input.readInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              bonusExp_ = input.readInt32();
               break;
             }
           }
@@ -20338,10 +20361,26 @@ public final class Protocol {
       return monsterIndex_;
     }
 
+    public static final int BONUSEXP_FIELD_NUMBER = 4;
+    private int bonusExp_;
+    /**
+     * <code>optional int32 bonusExp = 4;</code>
+     */
+    public boolean hasBonusExp() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional int32 bonusExp = 4;</code>
+     */
+    public int getBonusExp() {
+      return bonusExp_;
+    }
+
     private void initFields() {
       mapID_ = 0;
       monsterID_ = 0;
       monsterIndex_ = 0;
+      bonusExp_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -20377,6 +20416,9 @@ public final class Protocol {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeInt32(3, monsterIndex_);
       }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, bonusExp_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -20397,6 +20439,10 @@ public final class Protocol {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, monsterIndex_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, bonusExp_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -20521,6 +20567,8 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000002);
         monsterIndex_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
+        bonusExp_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -20561,6 +20609,10 @@ public final class Protocol {
           to_bitField0_ |= 0x00000004;
         }
         result.monsterIndex_ = monsterIndex_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.bonusExp_ = bonusExp_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -20585,6 +20637,9 @@ public final class Protocol {
         }
         if (other.hasMonsterIndex()) {
           setMonsterIndex(other.getMonsterIndex());
+        }
+        if (other.hasBonusExp()) {
+          setBonusExp(other.getBonusExp());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -20717,6 +20772,38 @@ public final class Protocol {
       public Builder clearMonsterIndex() {
         bitField0_ = (bitField0_ & ~0x00000004);
         monsterIndex_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int bonusExp_ ;
+      /**
+       * <code>optional int32 bonusExp = 4;</code>
+       */
+      public boolean hasBonusExp() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional int32 bonusExp = 4;</code>
+       */
+      public int getBonusExp() {
+        return bonusExp_;
+      }
+      /**
+       * <code>optional int32 bonusExp = 4;</code>
+       */
+      public Builder setBonusExp(int value) {
+        bitField0_ |= 0x00000008;
+        bonusExp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 bonusExp = 4;</code>
+       */
+      public Builder clearBonusExp() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        bonusExp_ = 0;
         onChanged();
         return this;
       }
@@ -31758,67 +31845,68 @@ public final class Protocol {
       "mapID\030\003 \002(\005\022\t\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\022\r\n\005max" +
       "HP\030\006 \002(\005\022\r\n\005curHP\030\007 \002(\005\022\r\n\005maxMP\030\010 \002(\005\022\r" +
       "\n\005curMP\030\t \002(\005\022\016\n\006damage\030\n \002(\005\022\017\n\007defense" +
-      "\030\013 \002(\005\022\r\n\005speed\030\014 \002(\005\"L\n\022MessageKillMons",
+      "\030\013 \002(\005\022\r\n\005speed\030\014 \002(\005\"^\n\022MessageKillMons",
       "ter\022\r\n\005mapID\030\001 \002(\005\022\021\n\tmonsterID\030\002 \002(\005\022\024\n" +
-      "\014monsterIndex\030\003 \002(\005\"e\n\025MessageRespawnMon" +
-      "ster\022\021\n\tmonsterID\030\001 \002(\005\022\024\n\014monsterIndex\030" +
-      "\002 \002(\005\022\r\n\005mapID\030\003 \002(\005\022\t\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002" +
-      "(\001\"\317\001\n\016MessageNewUser\022\n\n\002id\030\001 \002(\005\022\022\n\nocc" +
-      "upation\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\r\n\005mapID\030\004 \002" +
-      "(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001\022\r\n\005maxHP\030\007 \002(\005\022" +
-      "\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030\t \002(\005\022\r\n\005curMP\030\n" +
-      " \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007defense\030\014 \002(\005\022\r\n" +
-      "\005speed\030\r \002(\005\"\037\n\021MessageDeleteUser\022\n\n\002id\030",
-      "\001 \002(\005\"\035\n\017MessageKillUser\022\n\n\002id\030\001 \002(\005\"\323\001\n" +
-      "\022MessageRespawnUser\022\n\n\002id\030\001 \002(\005\022\022\n\noccup" +
-      "ation\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\r\n\005mapID\030\004 \002(\005" +
-      "\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001\022\r\n\005maxHP\030\007 \002(\005\022\r\n" +
-      "\005curHP\030\010 \002(\005\022\r\n\005maxMP\030\t \002(\005\022\r\n\005curMP\030\n \002" +
-      "(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007defense\030\014 \002(\005\022\r\n\005s" +
-      "peed\030\r \002(\005\"q\n\014MonsterState\022\n\n\002ID\030\001 \002(\005\022\r" +
-      "\n\005Index\030\002 \002(\005\022\021\n\tPositionX\030\004 \002(\001\022\021\n\tPosi" +
-      "tionY\030\005 \002(\001\022\r\n\005State\030\006 \002(\005\022\021\n\tDirection\030" +
-      "\007 \002(\005\"P\n\031MessageUpdateMonsterState\022\r\n\005Ma",
-      "pID\030\001 \002(\005\022$\n\004Data\030\002 \003(\0132\026.Protobuf.Monst" +
-      "erState\";\n\rActionCommand\022\n\n\002ID\030\001 \002(\005\022\r\n\005" +
-      "Index\030\002 \002(\005\022\017\n\007Command\030\003 \002(\005\"F\n\035MessageU" +
-      "pdateMonsterByCommand\022%\n\004Data\030\001 \003(\0132\027.Pr" +
-      "otobuf.ActionCommand\"J\n\035MessageUpdateMon" +
-      "sterCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005" +
-      "\022\016\n\006UserID\030\003 \002(\005\"<\n\020RequestChangeMap\022\016\n\006" +
-      "userID\030\001 \002(\005\022\014\n\004from\030\002 \002(\005\022\n\n\002to\030\003 \002(\005\"f" +
-      "\n\021ResponseChangeMap\022\r\n\005mapID\030\001 \002(\005\022\035\n\005us" +
-      "ers\030\002 \003(\0132\016.Protobuf.User\022#\n\010monsters\030\003 ",
-      "\003(\0132\021.Protobuf.Monster\"G\n\032MessageUpdateU" +
-      "serCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022" +
-      "\016\n\006UserID\030\003 \002(\005\"7\n&MessageRequestUserUpd" +
-      "ateMapInformation\022\r\n\005mapID\030\001 \002(\005*\343\006\n\013Mes" +
-      "sageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPONE_L" +
-      "OGIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESPONE_" +
-      "REGISTER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020\004\022\031\n" +
-      "\025RESPONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_CREA" +
-      "TE_CHARACTER\020\006\022\034\n\030RESPONE_CREATE_CHARACT" +
-      "ER\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESPONE_",
-      "START_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSITION\020" +
-      "\n\022\033\n\027RESPONE_UPDATE_POSITION\020\013\022\025\n\021REQUES" +
-      "T_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022\031\n" +
-      "\025REQUEST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE_UPD" +
-      "ATE_ACTION\020\017\022\031\n\025REQUEST_GET_PROTOTYPE\020\020\022" +
-      "\032\n\026RESPONSE_GET_PROTOTYPE\020\021\022\026\n\022REQUEST_C" +
-      "HANGE_MAP\020\022\022\027\n\023RESPONSE_CHANGE_MAP\020\023\022\030\n\024" +
-      "MESSAGE_KILL_MONSTER\020\024\022\033\n\027MESSAGE_RESPAW" +
-      "N_MONSTER\020\025\022 \n\034MESSAGE_UPDATE_MONSTER_ST" +
-      "ATE\020\026\022%\n!MESSAGE_UPDATE_MONSTER_BY_COMMA",
-      "ND\020\027\022$\n MESSAGE_UPDATE_MONSTER_COLLISION" +
-      "\020\030\022\024\n\020MESSAGE_NEW_USER\020\031\022\027\n\023MESSAGE_DELE" +
-      "TE_USER\020\032\022!\n\035MESSAGE_UPDATE_USER_COLLISI" +
-      "ON\020\033\022/\n+MESSAGE_REQUEST_USER_UPDATE_MAP_" +
-      "INFORMATION\020\034\022\025\n\021MESSAGE_KILL_USER\020\035\022\030\n\024" +
-      "MESSAGE_RESPAWN_USER\020\036*/\n\014ResponseCode\022\013" +
-      "\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemT" +
-      "ype\022\021\n\rITEM_TYPE_USE\020\000\022\025\n\021ITEM_TYPE_COLL" +
-      "ECT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020\002B\036\n\032com.rpg.fr" +
-      "amework.databaseH\001"
+      "\014monsterIndex\030\003 \002(\005\022\020\n\010bonusExp\030\004 \001(\005\"e\n" +
+      "\025MessageRespawnMonster\022\021\n\tmonsterID\030\001 \002(" +
+      "\005\022\024\n\014monsterIndex\030\002 \002(\005\022\r\n\005mapID\030\003 \002(\005\022\t" +
+      "\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\"\317\001\n\016MessageNewUser\022" +
+      "\n\n\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030" +
+      "\003 \002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002" +
+      "(\001\022\r\n\005maxHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxM" +
+      "P\030\t \002(\005\022\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017" +
+      "\n\007defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"\037\n\021Messag",
+      "eDeleteUser\022\n\n\002id\030\001 \002(\005\"\035\n\017MessageKillUs" +
+      "er\022\n\n\002id\030\001 \002(\005\"\323\001\n\022MessageRespawnUser\022\n\n" +
+      "\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030\003 " +
+      "\002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001" +
+      "\022\r\n\005maxHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030" +
+      "\t \002(\005\022\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007" +
+      "defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"q\n\014MonsterS" +
+      "tate\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\021\n\tPosit" +
+      "ionX\030\004 \002(\001\022\021\n\tPositionY\030\005 \002(\001\022\r\n\005State\030\006" +
+      " \002(\005\022\021\n\tDirection\030\007 \002(\005\"P\n\031MessageUpdate",
+      "MonsterState\022\r\n\005MapID\030\001 \002(\005\022$\n\004Data\030\002 \003(" +
+      "\0132\026.Protobuf.MonsterState\";\n\rActionComma" +
+      "nd\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\017\n\007Command" +
+      "\030\003 \002(\005\"F\n\035MessageUpdateMonsterByCommand\022" +
+      "%\n\004Data\030\001 \003(\0132\027.Protobuf.ActionCommand\"J" +
+      "\n\035MessageUpdateMonsterCollision\022\n\n\002ID\030\001 " +
+      "\002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"<\n\020Re" +
+      "questChangeMap\022\016\n\006userID\030\001 \002(\005\022\014\n\004from\030\002" +
+      " \002(\005\022\n\n\002to\030\003 \002(\005\"f\n\021ResponseChangeMap\022\r\n" +
+      "\005mapID\030\001 \002(\005\022\035\n\005users\030\002 \003(\0132\016.Protobuf.U",
+      "ser\022#\n\010monsters\030\003 \003(\0132\021.Protobuf.Monster" +
+      "\"G\n\032MessageUpdateUserCollision\022\n\n\002ID\030\001 \002" +
+      "(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"7\n&Mes" +
+      "sageRequestUserUpdateMapInformation\022\r\n\005m" +
+      "apID\030\001 \002(\005*\376\006\n\013MessageType\022\021\n\rREQUEST_LO" +
+      "GIN\020\000\022\021\n\rRESPONE_LOGIN\020\001\022\024\n\020REQUEST_REGI" +
+      "STER\020\002\022\024\n\020RESPONE_REGISTER\020\003\022\031\n\025REQUEST_" +
+      "GET_CHARACTER\020\004\022\031\n\025RESPONE_GET_CHARACTER" +
+      "\020\005\022\034\n\030REQUEST_CREATE_CHARACTER\020\006\022\034\n\030RESP" +
+      "ONE_CREATE_CHARACTER\020\007\022\026\n\022REQUEST_START_",
+      "GAME\020\010\022\026\n\022RESPONE_START_GAME\020\t\022\033\n\027REQUES" +
+      "T_UPDATE_POSITION\020\n\022\033\n\027RESPONE_UPDATE_PO" +
+      "SITION\020\013\022\025\n\021REQUEST_GET_ITEMS\020\014\022\026\n\022RESPO" +
+      "NSE_GET_ITEMS\020\r\022\031\n\025REQUEST_UPDATE_ACTION" +
+      "\020\016\022\032\n\026RESPONSE_UPDATE_ACTION\020\017\022\031\n\025REQUES" +
+      "T_GET_PROTOTYPE\020\020\022\032\n\026RESPONSE_GET_PROTOT" +
+      "YPE\020\021\022\026\n\022REQUEST_CHANGE_MAP\020\022\022\027\n\023RESPONS" +
+      "E_CHANGE_MAP\020\023\022\030\n\024MESSAGE_KILL_MONSTER\020\024" +
+      "\022\033\n\027MESSAGE_RESPAWN_MONSTER\020\025\022 \n\034MESSAGE" +
+      "_UPDATE_MONSTER_STATE\020\026\022%\n!MESSAGE_UPDAT",
+      "E_MONSTER_BY_COMMAND\020\027\022$\n MESSAGE_UPDATE" +
+      "_MONSTER_COLLISION\020\030\022\024\n\020MESSAGE_NEW_USER" +
+      "\020\031\022\027\n\023MESSAGE_DELETE_USER\020\032\022!\n\035MESSAGE_U" +
+      "PDATE_USER_COLLISION\020\033\022/\n+MESSAGE_REQUES" +
+      "T_USER_UPDATE_MAP_INFORMATION\020\034\022\025\n\021MESSA" +
+      "GE_KILL_USER\020\035\022\030\n\024MESSAGE_RESPAWN_USER\020\036" +
+      "\022\031\n\025MESSAGE_UP_LEVEL_USER\020\037*/\n\014ResponseC" +
+      "ode\022\013\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010" +
+      "ItemType\022\021\n\rITEM_TYPE_USE\020\000\022\025\n\021ITEM_TYPE" +
+      "_COLLECT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020\002B\036\n\032com.r",
+      "pg.framework.databaseH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -31993,7 +32081,7 @@ public final class Protocol {
     internal_static_Protobuf_MessageKillMonster_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageKillMonster_descriptor,
-        new java.lang.String[] { "MapID", "MonsterID", "MonsterIndex", });
+        new java.lang.String[] { "MapID", "MonsterID", "MonsterIndex", "BonusExp", });
     internal_static_Protobuf_MessageRespawnMonster_descriptor =
       getDescriptor().getMessageTypes().get(27);
     internal_static_Protobuf_MessageRespawnMonster_fieldAccessorTable = new

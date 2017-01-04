@@ -204,6 +204,23 @@ public class Map {
 					.toByteArray()
 				);
 	}
+	
+	public void killMonster(Monster monster) {
+		monstersList.remove(monster.getIndex());
+		for (Integer id : userList) {
+			MessageManager.getInstance().sendMessage(
+					UserManager.getInstance().getIdentifiedUser(id.intValue()).getConnectionID(), 
+					Protocol.MessageType.MESSAGE_KILL_MONSTER_VALUE, 
+					Protocol.MessageKillMonster.newBuilder()
+						.setMapID(this.id)
+						.setMonsterID(monster.getId())
+						.setMonsterIndex(monster.getIndex())
+						.setBonusExp(monster.getExp(id.intValue()))
+						.build()
+						.toByteArray()
+					);
+		}
+	}
 
 	public void sendMessageUpdateMonsterState(byte[] byteArray) {
 		for (Integer integer : userList) {
