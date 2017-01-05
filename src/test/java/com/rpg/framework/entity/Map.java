@@ -206,7 +206,7 @@ public class Map {
 	}
 	
 	public void killMonster(Monster monster) {
-		monstersList.remove(monster.getIndex());
+		monstersList.remove((Integer)monster.getIndex());
 		for (Integer id : userList) {
 			MessageManager.getInstance().sendMessage(
 					UserManager.getInstance().getIdentifiedUser(id.intValue()).getConnectionID(), 
