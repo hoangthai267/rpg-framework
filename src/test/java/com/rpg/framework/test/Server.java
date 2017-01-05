@@ -284,7 +284,7 @@ public class Server extends com.rpg.framework.core.Server {
 					.setMapID(position.getInt("mapID")).setX(position.getDouble("x")).setY(position.getDouble("y"))
 
 					.setMaxHP(status.getInt("maxHP")).setCurHP(status.getInt("curHP")).setMaxMP(status.getInt("maxMP"))
-					.setCurMP(status.getInt("curMP")).build();
+					.setCurMP(status.getInt("curMP")).setMaxEXP(status.getInt("maxEXP")).setCurEXP(status.getInt("curEXP")).build();
 
 			sendMessageTo(clientID, Protocol.MessageType.RESPONE_GET_CHARACTER_VALUE, reponse.toByteArray());
 		} catch (Exception ex) {
@@ -311,7 +311,7 @@ public class Server extends com.rpg.framework.core.Server {
 
 				JsonObject status = JsonObject.create().put("maxHP", Config.CHARACTER_HP)
 						.put("curHP", Config.CHARACTER_HP).put("maxMP", Config.CHARACTER_MP)
-						.put("curMP", Config.CHARACTER_MP);
+						.put("curMP", Config.CHARACTER_MP).put("curEXP", 0).put("maxEXP", Config.CHARACTER_EXP);
 
 				JsonObject items = JsonObject.create().put("items", JsonArray.create().add(0).add(1));
 

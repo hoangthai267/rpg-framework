@@ -3896,6 +3896,24 @@ public final class Protocol {
      * <code>required int32 curMP = 17;</code>
      */
     int getCurMP();
+
+    /**
+     * <code>required int32 maxEXP = 18;</code>
+     */
+    boolean hasMaxEXP();
+    /**
+     * <code>required int32 maxEXP = 18;</code>
+     */
+    int getMaxEXP();
+
+    /**
+     * <code>required int32 curEXP = 19;</code>
+     */
+    boolean hasCurEXP();
+    /**
+     * <code>required int32 curEXP = 19;</code>
+     */
+    int getCurEXP();
   }
   /**
    * Protobuf type {@code Protobuf.ResponseGetCharacter}
@@ -4033,6 +4051,16 @@ public final class Protocol {
             case 136: {
               bitField0_ |= 0x00010000;
               curMP_ = input.readInt32();
+              break;
+            }
+            case 144: {
+              bitField0_ |= 0x00020000;
+              maxEXP_ = input.readInt32();
+              break;
+            }
+            case 152: {
+              bitField0_ |= 0x00040000;
+              curEXP_ = input.readInt32();
               break;
             }
           }
@@ -4393,6 +4421,36 @@ public final class Protocol {
       return curMP_;
     }
 
+    public static final int MAXEXP_FIELD_NUMBER = 18;
+    private int maxEXP_;
+    /**
+     * <code>required int32 maxEXP = 18;</code>
+     */
+    public boolean hasMaxEXP() {
+      return ((bitField0_ & 0x00020000) == 0x00020000);
+    }
+    /**
+     * <code>required int32 maxEXP = 18;</code>
+     */
+    public int getMaxEXP() {
+      return maxEXP_;
+    }
+
+    public static final int CUREXP_FIELD_NUMBER = 19;
+    private int curEXP_;
+    /**
+     * <code>required int32 curEXP = 19;</code>
+     */
+    public boolean hasCurEXP() {
+      return ((bitField0_ & 0x00040000) == 0x00040000);
+    }
+    /**
+     * <code>required int32 curEXP = 19;</code>
+     */
+    public int getCurEXP() {
+      return curEXP_;
+    }
+
     private void initFields() {
       name_ = "";
       gender_ = 0;
@@ -4411,6 +4469,8 @@ public final class Protocol {
       curHP_ = 0;
       maxMP_ = 0;
       curMP_ = 0;
+      maxEXP_ = 0;
+      curEXP_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -4486,6 +4546,14 @@ public final class Protocol {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasMaxEXP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCurEXP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -4543,6 +4611,12 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00010000) == 0x00010000)) {
         output.writeInt32(17, curMP_);
+      }
+      if (((bitField0_ & 0x00020000) == 0x00020000)) {
+        output.writeInt32(18, maxEXP_);
+      }
+      if (((bitField0_ & 0x00040000) == 0x00040000)) {
+        output.writeInt32(19, curEXP_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -4620,6 +4694,14 @@ public final class Protocol {
       if (((bitField0_ & 0x00010000) == 0x00010000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(17, curMP_);
+      }
+      if (((bitField0_ & 0x00020000) == 0x00020000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(18, maxEXP_);
+      }
+      if (((bitField0_ & 0x00040000) == 0x00040000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(19, curEXP_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -4772,6 +4854,10 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00008000);
         curMP_ = 0;
         bitField0_ = (bitField0_ & ~0x00010000);
+        maxEXP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00020000);
+        curEXP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00040000);
         return this;
       }
 
@@ -4868,6 +4954,14 @@ public final class Protocol {
           to_bitField0_ |= 0x00010000;
         }
         result.curMP_ = curMP_;
+        if (((from_bitField0_ & 0x00020000) == 0x00020000)) {
+          to_bitField0_ |= 0x00020000;
+        }
+        result.maxEXP_ = maxEXP_;
+        if (((from_bitField0_ & 0x00040000) == 0x00040000)) {
+          to_bitField0_ |= 0x00040000;
+        }
+        result.curEXP_ = curEXP_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4936,6 +5030,12 @@ public final class Protocol {
         }
         if (other.hasCurMP()) {
           setCurMP(other.getCurMP());
+        }
+        if (other.hasMaxEXP()) {
+          setMaxEXP(other.getMaxEXP());
+        }
+        if (other.hasCurEXP()) {
+          setCurEXP(other.getCurEXP());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -5007,6 +5107,14 @@ public final class Protocol {
           return false;
         }
         if (!hasCurMP()) {
+          
+          return false;
+        }
+        if (!hasMaxEXP()) {
+          
+          return false;
+        }
+        if (!hasCurEXP()) {
           
           return false;
         }
@@ -5688,6 +5796,70 @@ public final class Protocol {
       public Builder clearCurMP() {
         bitField0_ = (bitField0_ & ~0x00010000);
         curMP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int maxEXP_ ;
+      /**
+       * <code>required int32 maxEXP = 18;</code>
+       */
+      public boolean hasMaxEXP() {
+        return ((bitField0_ & 0x00020000) == 0x00020000);
+      }
+      /**
+       * <code>required int32 maxEXP = 18;</code>
+       */
+      public int getMaxEXP() {
+        return maxEXP_;
+      }
+      /**
+       * <code>required int32 maxEXP = 18;</code>
+       */
+      public Builder setMaxEXP(int value) {
+        bitField0_ |= 0x00020000;
+        maxEXP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 maxEXP = 18;</code>
+       */
+      public Builder clearMaxEXP() {
+        bitField0_ = (bitField0_ & ~0x00020000);
+        maxEXP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int curEXP_ ;
+      /**
+       * <code>required int32 curEXP = 19;</code>
+       */
+      public boolean hasCurEXP() {
+        return ((bitField0_ & 0x00040000) == 0x00040000);
+      }
+      /**
+       * <code>required int32 curEXP = 19;</code>
+       */
+      public int getCurEXP() {
+        return curEXP_;
+      }
+      /**
+       * <code>required int32 curEXP = 19;</code>
+       */
+      public Builder setCurEXP(int value) {
+        bitField0_ |= 0x00040000;
+        curEXP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 curEXP = 19;</code>
+       */
+      public Builder clearCurEXP() {
+        bitField0_ = (bitField0_ & ~0x00040000);
+        curEXP_ = 0;
         onChanged();
         return this;
       }
@@ -31572,6 +31744,1185 @@ public final class Protocol {
     // @@protoc_insertion_point(class_scope:Protobuf.MessageRequestUserUpdateMapInformation)
   }
 
+  public interface MessageUpLevelUserOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageUpLevelUser)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 level = 1;</code>
+     */
+    boolean hasLevel();
+    /**
+     * <code>required int32 level = 1;</code>
+     */
+    int getLevel();
+
+    /**
+     * <code>required int32 curEXP = 2;</code>
+     */
+    boolean hasCurEXP();
+    /**
+     * <code>required int32 curEXP = 2;</code>
+     */
+    int getCurEXP();
+
+    /**
+     * <code>required int32 maxEXP = 3;</code>
+     */
+    boolean hasMaxEXP();
+    /**
+     * <code>required int32 maxEXP = 3;</code>
+     */
+    int getMaxEXP();
+
+    /**
+     * <code>required int32 curHP = 4;</code>
+     */
+    boolean hasCurHP();
+    /**
+     * <code>required int32 curHP = 4;</code>
+     */
+    int getCurHP();
+
+    /**
+     * <code>required int32 maxHP = 5;</code>
+     */
+    boolean hasMaxHP();
+    /**
+     * <code>required int32 maxHP = 5;</code>
+     */
+    int getMaxHP();
+
+    /**
+     * <code>required int32 curMP = 6;</code>
+     */
+    boolean hasCurMP();
+    /**
+     * <code>required int32 curMP = 6;</code>
+     */
+    int getCurMP();
+
+    /**
+     * <code>required int32 maxMP = 7;</code>
+     */
+    boolean hasMaxMP();
+    /**
+     * <code>required int32 maxMP = 7;</code>
+     */
+    int getMaxMP();
+
+    /**
+     * <code>required int32 damage = 8;</code>
+     */
+    boolean hasDamage();
+    /**
+     * <code>required int32 damage = 8;</code>
+     */
+    int getDamage();
+
+    /**
+     * <code>required int32 defense = 9;</code>
+     */
+    boolean hasDefense();
+    /**
+     * <code>required int32 defense = 9;</code>
+     */
+    int getDefense();
+
+    /**
+     * <code>required int32 speed = 10;</code>
+     */
+    boolean hasSpeed();
+    /**
+     * <code>required int32 speed = 10;</code>
+     */
+    int getSpeed();
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageUpLevelUser}
+   */
+  public static final class MessageUpLevelUser extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageUpLevelUser)
+      MessageUpLevelUserOrBuilder {
+    // Use MessageUpLevelUser.newBuilder() to construct.
+    private MessageUpLevelUser(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageUpLevelUser(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageUpLevelUser defaultInstance;
+    public static MessageUpLevelUser getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageUpLevelUser getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageUpLevelUser(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              level_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              curEXP_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              maxEXP_ = input.readInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              curHP_ = input.readInt32();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              maxHP_ = input.readInt32();
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000020;
+              curMP_ = input.readInt32();
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000040;
+              maxMP_ = input.readInt32();
+              break;
+            }
+            case 64: {
+              bitField0_ |= 0x00000080;
+              damage_ = input.readInt32();
+              break;
+            }
+            case 72: {
+              bitField0_ |= 0x00000100;
+              defense_ = input.readInt32();
+              break;
+            }
+            case 80: {
+              bitField0_ |= 0x00000200;
+              speed_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageUpLevelUser_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageUpLevelUser_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageUpLevelUser.class, com.rpg.framework.database.Protocol.MessageUpLevelUser.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageUpLevelUser> PARSER =
+        new com.google.protobuf.AbstractParser<MessageUpLevelUser>() {
+      public MessageUpLevelUser parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageUpLevelUser(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageUpLevelUser> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int LEVEL_FIELD_NUMBER = 1;
+    private int level_;
+    /**
+     * <code>required int32 level = 1;</code>
+     */
+    public boolean hasLevel() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 level = 1;</code>
+     */
+    public int getLevel() {
+      return level_;
+    }
+
+    public static final int CUREXP_FIELD_NUMBER = 2;
+    private int curEXP_;
+    /**
+     * <code>required int32 curEXP = 2;</code>
+     */
+    public boolean hasCurEXP() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 curEXP = 2;</code>
+     */
+    public int getCurEXP() {
+      return curEXP_;
+    }
+
+    public static final int MAXEXP_FIELD_NUMBER = 3;
+    private int maxEXP_;
+    /**
+     * <code>required int32 maxEXP = 3;</code>
+     */
+    public boolean hasMaxEXP() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required int32 maxEXP = 3;</code>
+     */
+    public int getMaxEXP() {
+      return maxEXP_;
+    }
+
+    public static final int CURHP_FIELD_NUMBER = 4;
+    private int curHP_;
+    /**
+     * <code>required int32 curHP = 4;</code>
+     */
+    public boolean hasCurHP() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required int32 curHP = 4;</code>
+     */
+    public int getCurHP() {
+      return curHP_;
+    }
+
+    public static final int MAXHP_FIELD_NUMBER = 5;
+    private int maxHP_;
+    /**
+     * <code>required int32 maxHP = 5;</code>
+     */
+    public boolean hasMaxHP() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required int32 maxHP = 5;</code>
+     */
+    public int getMaxHP() {
+      return maxHP_;
+    }
+
+    public static final int CURMP_FIELD_NUMBER = 6;
+    private int curMP_;
+    /**
+     * <code>required int32 curMP = 6;</code>
+     */
+    public boolean hasCurMP() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>required int32 curMP = 6;</code>
+     */
+    public int getCurMP() {
+      return curMP_;
+    }
+
+    public static final int MAXMP_FIELD_NUMBER = 7;
+    private int maxMP_;
+    /**
+     * <code>required int32 maxMP = 7;</code>
+     */
+    public boolean hasMaxMP() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>required int32 maxMP = 7;</code>
+     */
+    public int getMaxMP() {
+      return maxMP_;
+    }
+
+    public static final int DAMAGE_FIELD_NUMBER = 8;
+    private int damage_;
+    /**
+     * <code>required int32 damage = 8;</code>
+     */
+    public boolean hasDamage() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    /**
+     * <code>required int32 damage = 8;</code>
+     */
+    public int getDamage() {
+      return damage_;
+    }
+
+    public static final int DEFENSE_FIELD_NUMBER = 9;
+    private int defense_;
+    /**
+     * <code>required int32 defense = 9;</code>
+     */
+    public boolean hasDefense() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    /**
+     * <code>required int32 defense = 9;</code>
+     */
+    public int getDefense() {
+      return defense_;
+    }
+
+    public static final int SPEED_FIELD_NUMBER = 10;
+    private int speed_;
+    /**
+     * <code>required int32 speed = 10;</code>
+     */
+    public boolean hasSpeed() {
+      return ((bitField0_ & 0x00000200) == 0x00000200);
+    }
+    /**
+     * <code>required int32 speed = 10;</code>
+     */
+    public int getSpeed() {
+      return speed_;
+    }
+
+    private void initFields() {
+      level_ = 0;
+      curEXP_ = 0;
+      maxEXP_ = 0;
+      curHP_ = 0;
+      maxHP_ = 0;
+      curMP_ = 0;
+      maxMP_ = 0;
+      damage_ = 0;
+      defense_ = 0;
+      speed_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasLevel()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCurEXP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMaxEXP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCurHP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMaxHP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCurMP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMaxMP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasDamage()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasDefense()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSpeed()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, level_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, curEXP_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, maxEXP_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, curHP_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt32(5, maxHP_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeInt32(6, curMP_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeInt32(7, maxMP_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeInt32(8, damage_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeInt32(9, defense_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeInt32(10, speed_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, level_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, curEXP_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, maxEXP_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, curHP_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, maxHP_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, curMP_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(7, maxMP_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(8, damage_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(9, defense_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(10, speed_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageUpLevelUser parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpLevelUser parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpLevelUser parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpLevelUser parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpLevelUser parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpLevelUser parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpLevelUser parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpLevelUser parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpLevelUser parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpLevelUser parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageUpLevelUser prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageUpLevelUser}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageUpLevelUser)
+        com.rpg.framework.database.Protocol.MessageUpLevelUserOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageUpLevelUser_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageUpLevelUser_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageUpLevelUser.class, com.rpg.framework.database.Protocol.MessageUpLevelUser.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageUpLevelUser.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        level_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        curEXP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        maxEXP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        curHP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        maxHP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        curMP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        maxMP_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        damage_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000080);
+        defense_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        speed_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000200);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageUpLevelUser_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageUpLevelUser getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageUpLevelUser.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageUpLevelUser build() {
+        com.rpg.framework.database.Protocol.MessageUpLevelUser result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageUpLevelUser buildPartial() {
+        com.rpg.framework.database.Protocol.MessageUpLevelUser result = new com.rpg.framework.database.Protocol.MessageUpLevelUser(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.level_ = level_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.curEXP_ = curEXP_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.maxEXP_ = maxEXP_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.curHP_ = curHP_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.maxHP_ = maxHP_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.curMP_ = curMP_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.maxMP_ = maxMP_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.damage_ = damage_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.defense_ = defense_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
+        }
+        result.speed_ = speed_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageUpLevelUser) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageUpLevelUser)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageUpLevelUser other) {
+        if (other == com.rpg.framework.database.Protocol.MessageUpLevelUser.getDefaultInstance()) return this;
+        if (other.hasLevel()) {
+          setLevel(other.getLevel());
+        }
+        if (other.hasCurEXP()) {
+          setCurEXP(other.getCurEXP());
+        }
+        if (other.hasMaxEXP()) {
+          setMaxEXP(other.getMaxEXP());
+        }
+        if (other.hasCurHP()) {
+          setCurHP(other.getCurHP());
+        }
+        if (other.hasMaxHP()) {
+          setMaxHP(other.getMaxHP());
+        }
+        if (other.hasCurMP()) {
+          setCurMP(other.getCurMP());
+        }
+        if (other.hasMaxMP()) {
+          setMaxMP(other.getMaxMP());
+        }
+        if (other.hasDamage()) {
+          setDamage(other.getDamage());
+        }
+        if (other.hasDefense()) {
+          setDefense(other.getDefense());
+        }
+        if (other.hasSpeed()) {
+          setSpeed(other.getSpeed());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasLevel()) {
+          
+          return false;
+        }
+        if (!hasCurEXP()) {
+          
+          return false;
+        }
+        if (!hasMaxEXP()) {
+          
+          return false;
+        }
+        if (!hasCurHP()) {
+          
+          return false;
+        }
+        if (!hasMaxHP()) {
+          
+          return false;
+        }
+        if (!hasCurMP()) {
+          
+          return false;
+        }
+        if (!hasMaxMP()) {
+          
+          return false;
+        }
+        if (!hasDamage()) {
+          
+          return false;
+        }
+        if (!hasDefense()) {
+          
+          return false;
+        }
+        if (!hasSpeed()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageUpLevelUser parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageUpLevelUser) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int level_ ;
+      /**
+       * <code>required int32 level = 1;</code>
+       */
+      public boolean hasLevel() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 level = 1;</code>
+       */
+      public int getLevel() {
+        return level_;
+      }
+      /**
+       * <code>required int32 level = 1;</code>
+       */
+      public Builder setLevel(int value) {
+        bitField0_ |= 0x00000001;
+        level_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 level = 1;</code>
+       */
+      public Builder clearLevel() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        level_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int curEXP_ ;
+      /**
+       * <code>required int32 curEXP = 2;</code>
+       */
+      public boolean hasCurEXP() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 curEXP = 2;</code>
+       */
+      public int getCurEXP() {
+        return curEXP_;
+      }
+      /**
+       * <code>required int32 curEXP = 2;</code>
+       */
+      public Builder setCurEXP(int value) {
+        bitField0_ |= 0x00000002;
+        curEXP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 curEXP = 2;</code>
+       */
+      public Builder clearCurEXP() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        curEXP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int maxEXP_ ;
+      /**
+       * <code>required int32 maxEXP = 3;</code>
+       */
+      public boolean hasMaxEXP() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required int32 maxEXP = 3;</code>
+       */
+      public int getMaxEXP() {
+        return maxEXP_;
+      }
+      /**
+       * <code>required int32 maxEXP = 3;</code>
+       */
+      public Builder setMaxEXP(int value) {
+        bitField0_ |= 0x00000004;
+        maxEXP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 maxEXP = 3;</code>
+       */
+      public Builder clearMaxEXP() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        maxEXP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int curHP_ ;
+      /**
+       * <code>required int32 curHP = 4;</code>
+       */
+      public boolean hasCurHP() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required int32 curHP = 4;</code>
+       */
+      public int getCurHP() {
+        return curHP_;
+      }
+      /**
+       * <code>required int32 curHP = 4;</code>
+       */
+      public Builder setCurHP(int value) {
+        bitField0_ |= 0x00000008;
+        curHP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 curHP = 4;</code>
+       */
+      public Builder clearCurHP() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        curHP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int maxHP_ ;
+      /**
+       * <code>required int32 maxHP = 5;</code>
+       */
+      public boolean hasMaxHP() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>required int32 maxHP = 5;</code>
+       */
+      public int getMaxHP() {
+        return maxHP_;
+      }
+      /**
+       * <code>required int32 maxHP = 5;</code>
+       */
+      public Builder setMaxHP(int value) {
+        bitField0_ |= 0x00000010;
+        maxHP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 maxHP = 5;</code>
+       */
+      public Builder clearMaxHP() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        maxHP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int curMP_ ;
+      /**
+       * <code>required int32 curMP = 6;</code>
+       */
+      public boolean hasCurMP() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>required int32 curMP = 6;</code>
+       */
+      public int getCurMP() {
+        return curMP_;
+      }
+      /**
+       * <code>required int32 curMP = 6;</code>
+       */
+      public Builder setCurMP(int value) {
+        bitField0_ |= 0x00000020;
+        curMP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 curMP = 6;</code>
+       */
+      public Builder clearCurMP() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        curMP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int maxMP_ ;
+      /**
+       * <code>required int32 maxMP = 7;</code>
+       */
+      public boolean hasMaxMP() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <code>required int32 maxMP = 7;</code>
+       */
+      public int getMaxMP() {
+        return maxMP_;
+      }
+      /**
+       * <code>required int32 maxMP = 7;</code>
+       */
+      public Builder setMaxMP(int value) {
+        bitField0_ |= 0x00000040;
+        maxMP_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 maxMP = 7;</code>
+       */
+      public Builder clearMaxMP() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        maxMP_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int damage_ ;
+      /**
+       * <code>required int32 damage = 8;</code>
+       */
+      public boolean hasDamage() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      /**
+       * <code>required int32 damage = 8;</code>
+       */
+      public int getDamage() {
+        return damage_;
+      }
+      /**
+       * <code>required int32 damage = 8;</code>
+       */
+      public Builder setDamage(int value) {
+        bitField0_ |= 0x00000080;
+        damage_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 damage = 8;</code>
+       */
+      public Builder clearDamage() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        damage_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int defense_ ;
+      /**
+       * <code>required int32 defense = 9;</code>
+       */
+      public boolean hasDefense() {
+        return ((bitField0_ & 0x00000100) == 0x00000100);
+      }
+      /**
+       * <code>required int32 defense = 9;</code>
+       */
+      public int getDefense() {
+        return defense_;
+      }
+      /**
+       * <code>required int32 defense = 9;</code>
+       */
+      public Builder setDefense(int value) {
+        bitField0_ |= 0x00000100;
+        defense_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 defense = 9;</code>
+       */
+      public Builder clearDefense() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        defense_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int speed_ ;
+      /**
+       * <code>required int32 speed = 10;</code>
+       */
+      public boolean hasSpeed() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      /**
+       * <code>required int32 speed = 10;</code>
+       */
+      public int getSpeed() {
+        return speed_;
+      }
+      /**
+       * <code>required int32 speed = 10;</code>
+       */
+      public Builder setSpeed(int value) {
+        bitField0_ |= 0x00000200;
+        speed_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 speed = 10;</code>
+       */
+      public Builder clearSpeed() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        speed_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageUpLevelUser)
+    }
+
+    static {
+      defaultInstance = new MessageUpLevelUser(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageUpLevelUser)
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Protobuf_RequestLogin_descriptor;
   private static
@@ -31777,6 +33128,11 @@ public final class Protocol {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_Protobuf_MessageRequestUserUpdateMapInformation_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageUpLevelUser_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageUpLevelUser_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -31795,118 +33151,123 @@ public final class Protocol {
       "\022\020\n\010username\030\001 \002(\t\022\020\n\010password\030\002 \002(\t\"K\n\020" +
       "ResponseRegister\022&\n\006result\030\001 \002(\0162\026.Proto" +
       "buf.ResponseCode\022\017\n\007message\030\002 \001(\t\"%\n\023Req" +
-      "uestGetCharacter\022\016\n\006userID\030\001 \002(\005\"\226\002\n\024Res",
+      "uestGetCharacter\022\016\n\006userID\030\001 \002(\005\"\266\002\n\024Res",
       "ponseGetCharacter\022\014\n\004name\030\001 \002(\t\022\016\n\006gende" +
       "r\030\002 \002(\005\022\022\n\noccupation\030\003 \002(\005\022\r\n\005level\030\004 \002" +
       "(\005\022\020\n\010strength\030\005 \002(\005\022\r\n\005magic\030\006 \002(\005\022\017\n\007d" +
       "efense\030\007 \002(\005\022\r\n\005speed\030\010 \002(\005\022\014\n\004dame\030\t \002(" +
       "\005\022\r\n\005armor\030\n \002(\005\022\r\n\005mapID\030\013 \002(\005\022\t\n\001x\030\014 \002" +
       "(\001\022\t\n\001y\030\r \002(\001\022\r\n\005maxHP\030\016 \002(\005\022\r\n\005curHP\030\017 " +
-      "\002(\005\022\r\n\005maxMP\030\020 \002(\005\022\r\n\005curMP\030\021 \002(\005\"J\n\026Req" +
-      "uestCreateCharacter\022\016\n\006userID\030\001 \002(\005\022\014\n\004n" +
-      "ame\030\002 \002(\t\022\022\n\noccupation\030\003 \002(\005\"R\n\027Respons" +
-      "eCreateCharacter\022&\n\006result\030\001 \002(\0162\026.Proto",
-      "buf.ResponseCode\022\017\n\007message\030\002 \001(\t\"\"\n\020Req" +
-      "uestStartGame\022\016\n\006userID\030\001 \002(\005\"W\n\021Respons" +
-      "eStartGame\022\035\n\005users\030\001 \003(\0132\016.Protobuf.Use" +
-      "r\022#\n\010monsters\030\002 \003(\0132\021.Protobuf.Monster\"[" +
-      "\n\025RequestUpdatePosition\022\016\n\006userID\030\001 \002(\005\022" +
-      "\r\n\005mapID\030\002 \002(\005\022\t\n\001x\030\003 \002(\001\022\t\n\001y\030\004 \002(\001\022\r\n\005" +
-      "state\030\005 \002(\005\"Q\n\026ResponseUpdatePosition\022&\n" +
-      "\006result\030\001 \002(\0162\026.Protobuf.ResponseCode\022\017\n" +
-      "\007message\030\002 \001(\t\"!\n\017RequestGetItems\022\016\n\006Use" +
-      "rID\030\001 \002(\005\"I\n\020ResponseGetItems\022&\n\006Result\030",
-      "\001 \002(\0162\026.Protobuf.ResponseCode\022\r\n\005Items\030\002" +
-      " \003(\005\"~\n\017CharacterAction\022\r\n\005mapID\030\001 \002(\005\022\t" +
-      "\n\001x\030\002 \002(\001\022\t\n\001y\030\003 \002(\001\022\r\n\005State\030\004 \001(\005\022\025\n\rA" +
-      "ctionCommand\030\005 \001(\005\022\014\n\004Type\030\006 \001(\005\022\022\n\nTime" +
-      "Record\030\007 \001(\002\"Q\n\023RequestUpdateAction\022\016\n\006u" +
-      "serID\030\001 \002(\005\022*\n\007actions\030\003 \003(\0132\031.Protobuf." +
-      "CharacterAction\"R\n\024ResponseUpdateAction\022" +
-      "\016\n\006userID\030\001 \002(\005\022*\n\007actions\030\003 \003(\0132\031.Proto" +
-      "buf.CharacterAction\"6\n\004Item\022 \n\004type\030\001 \002(" +
-      "\0162\022.Protobuf.ItemType\022\014\n\004data\030\002 \002(\014\"\230\001\n\003",
-      "Use\022\n\n\002ID\030\001 \002(\005\022\017\n\007HPValue\030\002 \002(\005\022\017\n\007MPVa" +
-      "lue\030\003 \002(\005\022\020\n\010Duration\030\004 \002(\005\022\023\n\013HPPerSeco" +
-      "nd\030\005 \002(\005\022\023\n\013MPPerSecond\030\006 \002(\005\022\020\n\010BonusEx" +
-      "p\030\007 \002(\002\022\025\n\rBonusItemDrop\030\010 \002(\002\"#\n\007Collec" +
-      "t\022\n\n\002ID\030\001 \002(\005\022\014\n\004Type\030\002 \002(\005\"K\n\005Equip\022\n\n\002" +
-      "ID\030\001 \002(\005\022\014\n\004Type\030\002 \002(\005\022(\n\nBonusStats\030\003 \002" +
-      "(\0132\024.Protobuf.BonusStats\"5\n\nBonusStats\022\017" +
-      "\n\007BonusHP\030\001 \001(\005\022\026\n\016BonusPercentHP\030\002 \001(\002\"" +
-      "\025\n\023RequestGetPrototype\"5\n\024ResponseGetPro" +
-      "totype\022\035\n\005items\030\001 \003(\0132\016.Protobuf.Item\"\305\001",
-      "\n\004User\022\n\n\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014" +
-      "\n\004name\030\003 \002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t" +
-      "\n\001y\030\006 \002(\001\022\r\n\005maxHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022" +
-      "\r\n\005maxMP\030\t \002(\005\022\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030" +
-      "\013 \002(\005\022\017\n\007defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"\265\001" +
-      "\n\007Monster\022\n\n\002id\030\001 \002(\005\022\r\n\005index\030\002 \002(\005\022\r\n\005" +
-      "mapID\030\003 \002(\005\022\t\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\022\r\n\005max" +
-      "HP\030\006 \002(\005\022\r\n\005curHP\030\007 \002(\005\022\r\n\005maxMP\030\010 \002(\005\022\r" +
-      "\n\005curMP\030\t \002(\005\022\016\n\006damage\030\n \002(\005\022\017\n\007defense" +
-      "\030\013 \002(\005\022\r\n\005speed\030\014 \002(\005\"^\n\022MessageKillMons",
-      "ter\022\r\n\005mapID\030\001 \002(\005\022\021\n\tmonsterID\030\002 \002(\005\022\024\n" +
-      "\014monsterIndex\030\003 \002(\005\022\020\n\010bonusExp\030\004 \001(\005\"e\n" +
-      "\025MessageRespawnMonster\022\021\n\tmonsterID\030\001 \002(" +
-      "\005\022\024\n\014monsterIndex\030\002 \002(\005\022\r\n\005mapID\030\003 \002(\005\022\t" +
-      "\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\"\317\001\n\016MessageNewUser\022" +
-      "\n\n\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030" +
-      "\003 \002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002" +
-      "(\001\022\r\n\005maxHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxM" +
-      "P\030\t \002(\005\022\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017" +
-      "\n\007defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"\037\n\021Messag",
-      "eDeleteUser\022\n\n\002id\030\001 \002(\005\"\035\n\017MessageKillUs" +
-      "er\022\n\n\002id\030\001 \002(\005\"\323\001\n\022MessageRespawnUser\022\n\n" +
-      "\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030\003 " +
-      "\002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001" +
-      "\022\r\n\005maxHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030" +
-      "\t \002(\005\022\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007" +
-      "defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"q\n\014MonsterS" +
-      "tate\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\021\n\tPosit" +
-      "ionX\030\004 \002(\001\022\021\n\tPositionY\030\005 \002(\001\022\r\n\005State\030\006" +
-      " \002(\005\022\021\n\tDirection\030\007 \002(\005\"P\n\031MessageUpdate",
-      "MonsterState\022\r\n\005MapID\030\001 \002(\005\022$\n\004Data\030\002 \003(" +
-      "\0132\026.Protobuf.MonsterState\";\n\rActionComma" +
-      "nd\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\017\n\007Command" +
-      "\030\003 \002(\005\"F\n\035MessageUpdateMonsterByCommand\022" +
-      "%\n\004Data\030\001 \003(\0132\027.Protobuf.ActionCommand\"J" +
-      "\n\035MessageUpdateMonsterCollision\022\n\n\002ID\030\001 " +
-      "\002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"<\n\020Re" +
-      "questChangeMap\022\016\n\006userID\030\001 \002(\005\022\014\n\004from\030\002" +
-      " \002(\005\022\n\n\002to\030\003 \002(\005\"f\n\021ResponseChangeMap\022\r\n" +
-      "\005mapID\030\001 \002(\005\022\035\n\005users\030\002 \003(\0132\016.Protobuf.U",
-      "ser\022#\n\010monsters\030\003 \003(\0132\021.Protobuf.Monster" +
-      "\"G\n\032MessageUpdateUserCollision\022\n\n\002ID\030\001 \002" +
-      "(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"7\n&Mes" +
-      "sageRequestUserUpdateMapInformation\022\r\n\005m" +
-      "apID\030\001 \002(\005*\376\006\n\013MessageType\022\021\n\rREQUEST_LO" +
-      "GIN\020\000\022\021\n\rRESPONE_LOGIN\020\001\022\024\n\020REQUEST_REGI" +
-      "STER\020\002\022\024\n\020RESPONE_REGISTER\020\003\022\031\n\025REQUEST_" +
-      "GET_CHARACTER\020\004\022\031\n\025RESPONE_GET_CHARACTER" +
-      "\020\005\022\034\n\030REQUEST_CREATE_CHARACTER\020\006\022\034\n\030RESP" +
-      "ONE_CREATE_CHARACTER\020\007\022\026\n\022REQUEST_START_",
-      "GAME\020\010\022\026\n\022RESPONE_START_GAME\020\t\022\033\n\027REQUES" +
-      "T_UPDATE_POSITION\020\n\022\033\n\027RESPONE_UPDATE_PO" +
-      "SITION\020\013\022\025\n\021REQUEST_GET_ITEMS\020\014\022\026\n\022RESPO" +
-      "NSE_GET_ITEMS\020\r\022\031\n\025REQUEST_UPDATE_ACTION" +
-      "\020\016\022\032\n\026RESPONSE_UPDATE_ACTION\020\017\022\031\n\025REQUES" +
-      "T_GET_PROTOTYPE\020\020\022\032\n\026RESPONSE_GET_PROTOT" +
-      "YPE\020\021\022\026\n\022REQUEST_CHANGE_MAP\020\022\022\027\n\023RESPONS" +
-      "E_CHANGE_MAP\020\023\022\030\n\024MESSAGE_KILL_MONSTER\020\024" +
-      "\022\033\n\027MESSAGE_RESPAWN_MONSTER\020\025\022 \n\034MESSAGE" +
-      "_UPDATE_MONSTER_STATE\020\026\022%\n!MESSAGE_UPDAT",
-      "E_MONSTER_BY_COMMAND\020\027\022$\n MESSAGE_UPDATE" +
-      "_MONSTER_COLLISION\020\030\022\024\n\020MESSAGE_NEW_USER" +
-      "\020\031\022\027\n\023MESSAGE_DELETE_USER\020\032\022!\n\035MESSAGE_U" +
-      "PDATE_USER_COLLISION\020\033\022/\n+MESSAGE_REQUES" +
-      "T_USER_UPDATE_MAP_INFORMATION\020\034\022\025\n\021MESSA" +
-      "GE_KILL_USER\020\035\022\030\n\024MESSAGE_RESPAWN_USER\020\036" +
-      "\022\031\n\025MESSAGE_UP_LEVEL_USER\020\037*/\n\014ResponseC" +
-      "ode\022\013\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010" +
-      "ItemType\022\021\n\rITEM_TYPE_USE\020\000\022\025\n\021ITEM_TYPE" +
-      "_COLLECT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020\002B\036\n\032com.r",
-      "pg.framework.databaseH\001"
+      "\002(\005\022\r\n\005maxMP\030\020 \002(\005\022\r\n\005curMP\030\021 \002(\005\022\016\n\006max" +
+      "EXP\030\022 \002(\005\022\016\n\006curEXP\030\023 \002(\005\"J\n\026RequestCrea" +
+      "teCharacter\022\016\n\006userID\030\001 \002(\005\022\014\n\004name\030\002 \002(" +
+      "\t\022\022\n\noccupation\030\003 \002(\005\"R\n\027ResponseCreateC",
+      "haracter\022&\n\006result\030\001 \002(\0162\026.Protobuf.Resp" +
+      "onseCode\022\017\n\007message\030\002 \001(\t\"\"\n\020RequestStar" +
+      "tGame\022\016\n\006userID\030\001 \002(\005\"W\n\021ResponseStartGa" +
+      "me\022\035\n\005users\030\001 \003(\0132\016.Protobuf.User\022#\n\010mon" +
+      "sters\030\002 \003(\0132\021.Protobuf.Monster\"[\n\025Reques" +
+      "tUpdatePosition\022\016\n\006userID\030\001 \002(\005\022\r\n\005mapID" +
+      "\030\002 \002(\005\022\t\n\001x\030\003 \002(\001\022\t\n\001y\030\004 \002(\001\022\r\n\005state\030\005 " +
+      "\002(\005\"Q\n\026ResponseUpdatePosition\022&\n\006result\030" +
+      "\001 \002(\0162\026.Protobuf.ResponseCode\022\017\n\007message" +
+      "\030\002 \001(\t\"!\n\017RequestGetItems\022\016\n\006UserID\030\001 \002(",
+      "\005\"I\n\020ResponseGetItems\022&\n\006Result\030\001 \002(\0162\026." +
+      "Protobuf.ResponseCode\022\r\n\005Items\030\002 \003(\005\"~\n\017" +
+      "CharacterAction\022\r\n\005mapID\030\001 \002(\005\022\t\n\001x\030\002 \002(" +
+      "\001\022\t\n\001y\030\003 \002(\001\022\r\n\005State\030\004 \001(\005\022\025\n\rActionCom" +
+      "mand\030\005 \001(\005\022\014\n\004Type\030\006 \001(\005\022\022\n\nTimeRecord\030\007" +
+      " \001(\002\"Q\n\023RequestUpdateAction\022\016\n\006userID\030\001 " +
+      "\002(\005\022*\n\007actions\030\003 \003(\0132\031.Protobuf.Characte" +
+      "rAction\"R\n\024ResponseUpdateAction\022\016\n\006userI" +
+      "D\030\001 \002(\005\022*\n\007actions\030\003 \003(\0132\031.Protobuf.Char" +
+      "acterAction\"6\n\004Item\022 \n\004type\030\001 \002(\0162\022.Prot",
+      "obuf.ItemType\022\014\n\004data\030\002 \002(\014\"\230\001\n\003Use\022\n\n\002I" +
+      "D\030\001 \002(\005\022\017\n\007HPValue\030\002 \002(\005\022\017\n\007MPValue\030\003 \002(" +
+      "\005\022\020\n\010Duration\030\004 \002(\005\022\023\n\013HPPerSecond\030\005 \002(\005" +
+      "\022\023\n\013MPPerSecond\030\006 \002(\005\022\020\n\010BonusExp\030\007 \002(\002\022" +
+      "\025\n\rBonusItemDrop\030\010 \002(\002\"#\n\007Collect\022\n\n\002ID\030" +
+      "\001 \002(\005\022\014\n\004Type\030\002 \002(\005\"K\n\005Equip\022\n\n\002ID\030\001 \002(\005" +
+      "\022\014\n\004Type\030\002 \002(\005\022(\n\nBonusStats\030\003 \002(\0132\024.Pro" +
+      "tobuf.BonusStats\"5\n\nBonusStats\022\017\n\007BonusH" +
+      "P\030\001 \001(\005\022\026\n\016BonusPercentHP\030\002 \001(\002\"\025\n\023Reque" +
+      "stGetPrototype\"5\n\024ResponseGetPrototype\022\035",
+      "\n\005items\030\001 \003(\0132\016.Protobuf.Item\"\305\001\n\004User\022\n" +
+      "\n\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030\003" +
+      " \002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(" +
+      "\001\022\r\n\005maxHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP" +
+      "\030\t \002(\005\022\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n" +
+      "\007defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"\265\001\n\007Monste" +
+      "r\022\n\n\002id\030\001 \002(\005\022\r\n\005index\030\002 \002(\005\022\r\n\005mapID\030\003 " +
+      "\002(\005\022\t\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\022\r\n\005maxHP\030\006 \002(\005" +
+      "\022\r\n\005curHP\030\007 \002(\005\022\r\n\005maxMP\030\010 \002(\005\022\r\n\005curMP\030" +
+      "\t \002(\005\022\016\n\006damage\030\n \002(\005\022\017\n\007defense\030\013 \002(\005\022\r",
+      "\n\005speed\030\014 \002(\005\"^\n\022MessageKillMonster\022\r\n\005m" +
+      "apID\030\001 \002(\005\022\021\n\tmonsterID\030\002 \002(\005\022\024\n\014monster" +
+      "Index\030\003 \002(\005\022\020\n\010bonusExp\030\004 \001(\005\"e\n\025Message" +
+      "RespawnMonster\022\021\n\tmonsterID\030\001 \002(\005\022\024\n\014mon" +
+      "sterIndex\030\002 \002(\005\022\r\n\005mapID\030\003 \002(\005\022\t\n\001x\030\004 \002(" +
+      "\001\022\t\n\001y\030\005 \002(\001\"\317\001\n\016MessageNewUser\022\n\n\002id\030\001 " +
+      "\002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\r\n" +
+      "\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001\022\r\n\005ma" +
+      "xHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030\t \002(\005\022" +
+      "\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007defens",
+      "e\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"\037\n\021MessageDeleteU" +
+      "ser\022\n\n\002id\030\001 \002(\005\"\035\n\017MessageKillUser\022\n\n\002id" +
+      "\030\001 \002(\005\"\323\001\n\022MessageRespawnUser\022\n\n\002id\030\001 \002(" +
+      "\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\r\n\005m" +
+      "apID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001\022\r\n\005maxH" +
+      "P\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030\t \002(\005\022\r\n" +
+      "\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007defense\030" +
+      "\014 \002(\005\022\r\n\005speed\030\r \002(\005\"q\n\014MonsterState\022\n\n\002" +
+      "ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\021\n\tPositionX\030\004 \002" +
+      "(\001\022\021\n\tPositionY\030\005 \002(\001\022\r\n\005State\030\006 \002(\005\022\021\n\t",
+      "Direction\030\007 \002(\005\"P\n\031MessageUpdateMonsterS" +
+      "tate\022\r\n\005MapID\030\001 \002(\005\022$\n\004Data\030\002 \003(\0132\026.Prot" +
+      "obuf.MonsterState\";\n\rActionCommand\022\n\n\002ID" +
+      "\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\017\n\007Command\030\003 \002(\005\"F" +
+      "\n\035MessageUpdateMonsterByCommand\022%\n\004Data\030" +
+      "\001 \003(\0132\027.Protobuf.ActionCommand\"J\n\035Messag" +
+      "eUpdateMonsterCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005I" +
+      "ndex\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"<\n\020RequestCha" +
+      "ngeMap\022\016\n\006userID\030\001 \002(\005\022\014\n\004from\030\002 \002(\005\022\n\n\002" +
+      "to\030\003 \002(\005\"f\n\021ResponseChangeMap\022\r\n\005mapID\030\001",
+      " \002(\005\022\035\n\005users\030\002 \003(\0132\016.Protobuf.User\022#\n\010m" +
+      "onsters\030\003 \003(\0132\021.Protobuf.Monster\"G\n\032Mess" +
+      "ageUpdateUserCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005In" +
+      "dex\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"7\n&MessageRequ" +
+      "estUserUpdateMapInformation\022\r\n\005mapID\030\001 \002" +
+      "(\005\"\257\001\n\022MessageUpLevelUser\022\r\n\005level\030\001 \002(\005" +
+      "\022\016\n\006curEXP\030\002 \002(\005\022\016\n\006maxEXP\030\003 \002(\005\022\r\n\005curH" +
+      "P\030\004 \002(\005\022\r\n\005maxHP\030\005 \002(\005\022\r\n\005curMP\030\006 \002(\005\022\r\n" +
+      "\005maxMP\030\007 \002(\005\022\016\n\006damage\030\010 \002(\005\022\017\n\007defense\030" +
+      "\t \002(\005\022\r\n\005speed\030\n \002(\005*\376\006\n\013MessageType\022\021\n\r",
+      "REQUEST_LOGIN\020\000\022\021\n\rRESPONE_LOGIN\020\001\022\024\n\020RE" +
+      "QUEST_REGISTER\020\002\022\024\n\020RESPONE_REGISTER\020\003\022\031" +
+      "\n\025REQUEST_GET_CHARACTER\020\004\022\031\n\025RESPONE_GET" +
+      "_CHARACTER\020\005\022\034\n\030REQUEST_CREATE_CHARACTER" +
+      "\020\006\022\034\n\030RESPONE_CREATE_CHARACTER\020\007\022\026\n\022REQU" +
+      "EST_START_GAME\020\010\022\026\n\022RESPONE_START_GAME\020\t" +
+      "\022\033\n\027REQUEST_UPDATE_POSITION\020\n\022\033\n\027RESPONE" +
+      "_UPDATE_POSITION\020\013\022\025\n\021REQUEST_GET_ITEMS\020" +
+      "\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022\031\n\025REQUEST_UPD" +
+      "ATE_ACTION\020\016\022\032\n\026RESPONSE_UPDATE_ACTION\020\017",
+      "\022\031\n\025REQUEST_GET_PROTOTYPE\020\020\022\032\n\026RESPONSE_" +
+      "GET_PROTOTYPE\020\021\022\026\n\022REQUEST_CHANGE_MAP\020\022\022" +
+      "\027\n\023RESPONSE_CHANGE_MAP\020\023\022\030\n\024MESSAGE_KILL" +
+      "_MONSTER\020\024\022\033\n\027MESSAGE_RESPAWN_MONSTER\020\025\022" +
+      " \n\034MESSAGE_UPDATE_MONSTER_STATE\020\026\022%\n!MES" +
+      "SAGE_UPDATE_MONSTER_BY_COMMAND\020\027\022$\n MESS" +
+      "AGE_UPDATE_MONSTER_COLLISION\020\030\022\024\n\020MESSAG" +
+      "E_NEW_USER\020\031\022\027\n\023MESSAGE_DELETE_USER\020\032\022!\n" +
+      "\035MESSAGE_UPDATE_USER_COLLISION\020\033\022/\n+MESS" +
+      "AGE_REQUEST_USER_UPDATE_MAP_INFORMATION\020",
+      "\034\022\025\n\021MESSAGE_KILL_USER\020\035\022\030\n\024MESSAGE_RESP" +
+      "AWN_USER\020\036\022\031\n\025MESSAGE_UP_LEVEL_USER\020\037*/\n" +
+      "\014ResponseCode\022\013\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004" +
+      "IDLE\020\003*I\n\010ItemType\022\021\n\rITEM_TYPE_USE\020\000\022\025\n" +
+      "\021ITEM_TYPE_COLLECT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020" +
+      "\002B\036\n\032com.rpg.framework.databaseH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -31955,7 +33316,7 @@ public final class Protocol {
     internal_static_Protobuf_ResponseGetCharacter_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_ResponseGetCharacter_descriptor,
-        new java.lang.String[] { "Name", "Gender", "Occupation", "Level", "Strength", "Magic", "Defense", "Speed", "Dame", "Armor", "MapID", "X", "Y", "MaxHP", "CurHP", "MaxMP", "CurMP", });
+        new java.lang.String[] { "Name", "Gender", "Occupation", "Level", "Strength", "Magic", "Defense", "Speed", "Dame", "Armor", "MapID", "X", "Y", "MaxHP", "CurHP", "MaxMP", "CurMP", "MaxEXP", "CurEXP", });
     internal_static_Protobuf_RequestCreateCharacter_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_Protobuf_RequestCreateCharacter_fieldAccessorTable = new
@@ -32166,6 +33527,12 @@ public final class Protocol {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageRequestUserUpdateMapInformation_descriptor,
         new java.lang.String[] { "MapID", });
+    internal_static_Protobuf_MessageUpLevelUser_descriptor =
+      getDescriptor().getMessageTypes().get(41);
+    internal_static_Protobuf_MessageUpLevelUser_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageUpLevelUser_descriptor,
+        new java.lang.String[] { "Level", "CurEXP", "MaxEXP", "CurHP", "MaxHP", "CurMP", "MaxMP", "Damage", "Defense", "Speed", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

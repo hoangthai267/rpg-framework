@@ -208,17 +208,21 @@ public class Map {
 	public void killMonster(Monster monster) {
 		monstersList.remove((Integer)monster.getIndex());
 		for (Integer id : userList) {
+			User user = UserManager.getInstance().getIdentifiedUser(id.intValue());
+			int exp = monster.getExp(id.intValue());
 			MessageManager.getInstance().sendMessage(
-					UserManager.getInstance().getIdentifiedUser(id.intValue()).getConnectionID(), 
+					user.getConnectionID(), 
 					Protocol.MessageType.MESSAGE_KILL_MONSTER_VALUE, 
 					Protocol.MessageKillMonster.newBuilder()
 						.setMapID(this.id)
 						.setMonsterID(monster.getId())
 						.setMonsterIndex(monster.getIndex())
-						.setBonusExp(monster.getExp(id.intValue()))
+						.setBonusExp(exp)
 						.build()
 						.toByteArray()
 					);
+			
+			user.gainExp(exp);
 		}
 	}
 

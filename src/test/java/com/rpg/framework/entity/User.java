@@ -26,6 +26,10 @@ public class User {
 	
 	private boolean	respawn;
 	
+	private int curEXP;
+	private int maxEXP;
+	private int level;
+	
 	public User() {
 		id = -1;
 		connectionID = -1;
@@ -202,9 +206,64 @@ public class User {
 		this.maxMP = maxMP;
 	}
 
+	public int getCurEXP() {
+		return curEXP;
+	}
+
+	public void setCurEXP(int curEXP) {
+		this.curEXP = curEXP;
+	}
+
+	public int getMaxEXP() {
+		return maxEXP;
+	}
+
+	public void setMaxEXP(int maxEXP) {
+		this.maxEXP = maxEXP;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 	public void setPosition(int mapID, double x, double y) {
 		this.mapID = mapID;
 		this.positionX = x;
 		this.positionY = y;		
+	}
+
+	public void gainExp(int exp) {
+		curEXP += exp;
+		if(curEXP > maxEXP) {
+			level += 1;
+			
+			curEXP = 0;
+			maxEXP = maxEXP * 2;
+			
+			setMaxHP(maxHP + 10);
+			setCurHP(maxHP);
+			setMaxMP(maxMP + 10);
+			setCurMP(maxMP);
+			
+			setDamage(damage + 10);
+			setDefense(defense + 10);
+			setSpeed(speed);
+			
+			MessageManager.getInstance().sendMessage(connectionID, Protocol.MessageType.MESSAGE_UP_LEVEL_USER_VALUE, Protocol.MessageUpLevelUser.newBuilder()
+					.setLevel(level)
+					.setCurEXP(curEXP)
+					.setMaxEXP(maxEXP)
+					.setCurHP(curHP)
+					.setMaxHP(maxHP)
+					.setCurMP(curMP)
+					.setMaxMP(maxMP)
+					.setDamage(damage)
+					.setDefense(defense)
+					.build().toByteArray());
+		}
 	}
 }

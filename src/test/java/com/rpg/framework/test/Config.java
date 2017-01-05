@@ -7,6 +7,7 @@ public class Config {
 	public final static int CHARACTER_NUMBER_OF_ATTACK 	= 3;
 	public final static int CHARACTER_HP		 		= 100;
 	public final static int CHARACTER_MP		 		= 100;
+	public final static int CHARACTER_EXP				= 100;
 	
 	// Change the number of monster type to get more.
 	public final static int NUMBER_OF_MONSTER_TYPE 		= 3;

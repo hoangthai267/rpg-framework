@@ -95,8 +95,10 @@ public class UserManager {
 		
 		identified.setCurHP(userStatus.getInt("curHP"));
 		identified.setCurMP(userStatus.getInt("curMP"));
+		identified.setCurEXP(userStats.getInt("curEXP"));
 		identified.setMaxHP(userStatus.getInt("maxHP"));
 		identified.setMaxMP(userStatus.getInt("maxMP"));
+		identified.setMaxMP(userStatus.getInt("maxEXP"));
 		
 		identified.setId(userID);
 		
