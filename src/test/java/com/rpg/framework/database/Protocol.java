@@ -32348,15 +32348,6 @@ public final class Protocol {
      * <code>required int32 defense = 9;</code>
      */
     int getDefense();
-
-    /**
-     * <code>required int32 speed = 10;</code>
-     */
-    boolean hasSpeed();
-    /**
-     * <code>required int32 speed = 10;</code>
-     */
-    int getSpeed();
   }
   /**
    * Protobuf type {@code Protobuf.MessageUpLevelUser}
@@ -32453,11 +32444,6 @@ public final class Protocol {
             case 72: {
               bitField0_ |= 0x00000100;
               defense_ = input.readInt32();
-              break;
-            }
-            case 80: {
-              bitField0_ |= 0x00000200;
-              speed_ = input.readInt32();
               break;
             }
           }
@@ -32635,21 +32621,6 @@ public final class Protocol {
       return defense_;
     }
 
-    public static final int SPEED_FIELD_NUMBER = 10;
-    private int speed_;
-    /**
-     * <code>required int32 speed = 10;</code>
-     */
-    public boolean hasSpeed() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
-    }
-    /**
-     * <code>required int32 speed = 10;</code>
-     */
-    public int getSpeed() {
-      return speed_;
-    }
-
     private void initFields() {
       level_ = 0;
       curEXP_ = 0;
@@ -32660,7 +32631,6 @@ public final class Protocol {
       maxMP_ = 0;
       damage_ = 0;
       defense_ = 0;
-      speed_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -32704,10 +32674,6 @@ public final class Protocol {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasSpeed()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -32741,9 +32707,6 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         output.writeInt32(9, defense_);
-      }
-      if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        output.writeInt32(10, speed_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -32789,10 +32752,6 @@ public final class Protocol {
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(9, defense_);
-      }
-      if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(10, speed_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -32929,8 +32888,6 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000080);
         defense_ = 0;
         bitField0_ = (bitField0_ & ~0x00000100);
-        speed_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000200);
         return this;
       }
 
@@ -32995,10 +32952,6 @@ public final class Protocol {
           to_bitField0_ |= 0x00000100;
         }
         result.defense_ = defense_;
-        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
-          to_bitField0_ |= 0x00000200;
-        }
-        result.speed_ = speed_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -33042,9 +32995,6 @@ public final class Protocol {
         if (other.hasDefense()) {
           setDefense(other.getDefense());
         }
-        if (other.hasSpeed()) {
-          setSpeed(other.getSpeed());
-        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -33083,10 +33033,6 @@ public final class Protocol {
           return false;
         }
         if (!hasDefense()) {
-          
-          return false;
-        }
-        if (!hasSpeed()) {
           
           return false;
         }
@@ -33396,38 +33342,6 @@ public final class Protocol {
       public Builder clearDefense() {
         bitField0_ = (bitField0_ & ~0x00000100);
         defense_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private int speed_ ;
-      /**
-       * <code>required int32 speed = 10;</code>
-       */
-      public boolean hasSpeed() {
-        return ((bitField0_ & 0x00000200) == 0x00000200);
-      }
-      /**
-       * <code>required int32 speed = 10;</code>
-       */
-      public int getSpeed() {
-        return speed_;
-      }
-      /**
-       * <code>required int32 speed = 10;</code>
-       */
-      public Builder setSpeed(int value) {
-        bitField0_ |= 0x00000200;
-        speed_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required int32 speed = 10;</code>
-       */
-      public Builder clearSpeed() {
-        bitField0_ = (bitField0_ & ~0x00000200);
-        speed_ = 0;
         onChanged();
         return this;
       }
@@ -36581,49 +36495,48 @@ public final class Protocol {
       "\003 \003(\0132\021.Protobuf.Monster\"G\n\032MessageUpdat" +
       "eUserCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(" +
       "\005\022\016\n\006UserID\030\003 \002(\005\"7\n&MessageRequestUserU" +
-      "pdateMapInformation\022\r\n\005mapID\030\001 \002(\005\"\257\001\n\022M" +
+      "pdateMapInformation\022\r\n\005mapID\030\001 \002(\005\"\240\001\n\022M" +
       "essageUpLevelUser\022\r\n\005level\030\001 \002(\005\022\016\n\006curE" +
       "XP\030\002 \002(\005\022\016\n\006maxEXP\030\003 \002(\005\022\r\n\005curHP\030\004 \002(\005\022" +
       "\r\n\005maxHP\030\005 \002(\005\022\r\n\005curMP\030\006 \002(\005\022\r\n\005maxMP\030\007" +
-      " \002(\005\022\016\n\006damage\030\010 \002(\005\022\017\n\007defense\030\t \002(\005\022\r\n",
-      "\005speed\030\n \002(\005\"4\n\021MessageBeginQuest\022\016\n\006use" +
-      "rID\030\001 \002(\005\022\017\n\007questID\030\002 \002(\005\"T\n\022MessageUpd" +
-      "ateQuest\022\016\n\006userID\030\001 \002(\005\022\017\n\007questID\030\002 \002(" +
-      "\005\022\014\n\004step\030\003 \002(\005\022\017\n\007percent\030\004 \002(\001\"2\n\017Mess" +
-      "ageEndQuest\022\016\n\006userID\030\001 \002(\005\022\017\n\007questID\030\002" +
-      " \002(\005\"8\n\023MessageRewardsQuest\022\017\n\007questID\030\001" +
-      " \002(\005\022\020\n\010bonusExp\030\002 \002(\005\"A\n\005Quest\022\n\n\002ID\030\001 " +
-      "\002(\005\022\014\n\004Step\030\002 \002(\005\022\017\n\007Percent\030\003 \002(\001\022\r\n\005St" +
-      "ate\030\004 \002(\005*\343\007\n\013MessageType\022\021\n\rREQUEST_LOG" +
-      "IN\020\000\022\021\n\rRESPONE_LOGIN\020\001\022\024\n\020REQUEST_REGIS",
-      "TER\020\002\022\024\n\020RESPONE_REGISTER\020\003\022\031\n\025REQUEST_G" +
-      "ET_CHARACTER\020\004\022\031\n\025RESPONE_GET_CHARACTER\020" +
-      "\005\022\034\n\030REQUEST_CREATE_CHARACTER\020\006\022\034\n\030RESPO" +
-      "NE_CREATE_CHARACTER\020\007\022\026\n\022REQUEST_START_G" +
-      "AME\020\010\022\026\n\022RESPONE_START_GAME\020\t\022\033\n\027REQUEST" +
-      "_UPDATE_POSITION\020\n\022\033\n\027RESPONE_UPDATE_POS" +
-      "ITION\020\013\022\025\n\021REQUEST_GET_ITEMS\020\014\022\026\n\022RESPON" +
-      "SE_GET_ITEMS\020\r\022\031\n\025REQUEST_UPDATE_ACTION\020" +
-      "\016\022\032\n\026RESPONSE_UPDATE_ACTION\020\017\022\031\n\025REQUEST" +
-      "_GET_PROTOTYPE\020\020\022\032\n\026RESPONSE_GET_PROTOTY",
-      "PE\020\021\022\026\n\022REQUEST_CHANGE_MAP\020\022\022\027\n\023RESPONSE" +
-      "_CHANGE_MAP\020\023\022\030\n\024MESSAGE_KILL_MONSTER\020\024\022" +
-      "\033\n\027MESSAGE_RESPAWN_MONSTER\020\025\022 \n\034MESSAGE_" +
-      "UPDATE_MONSTER_STATE\020\026\022%\n!MESSAGE_UPDATE" +
-      "_MONSTER_BY_COMMAND\020\027\022$\n MESSAGE_UPDATE_" +
-      "MONSTER_COLLISION\020\030\022\024\n\020MESSAGE_NEW_USER\020" +
-      "\031\022\027\n\023MESSAGE_DELETE_USER\020\032\022!\n\035MESSAGE_UP" +
-      "DATE_USER_COLLISION\020\033\022/\n+MESSAGE_REQUEST" +
-      "_USER_UPDATE_MAP_INFORMATION\020\034\022\025\n\021MESSAG" +
-      "E_KILL_USER\020\035\022\030\n\024MESSAGE_RESPAWN_USER\020\036\022",
-      "\031\n\025MESSAGE_UP_LEVEL_USER\020\037\022\027\n\023MESSAGE_BE" +
-      "GIN_QUEST\020 \022\030\n\024MESSAGE_UPDATE_QUEST\020!\022\025\n" +
-      "\021MESSAGE_END_QUEST\020\"\022\031\n\025MESSAGE_REWARDS_" +
-      "QUEST\020#*/\n\014ResponseCode\022\013\n\007SUCCESS\020\001\022\010\n\004" +
-      "FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rITEM_TYP" +
-      "E_USE\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017ITEM_T" +
-      "YPE_EQUIP\020\002B\036\n\032com.rpg.framework.databas" +
-      "eH\001"
+      " \002(\005\022\016\n\006damage\030\010 \002(\005\022\017\n\007defense\030\t \002(\005\"4\n",
+      "\021MessageBeginQuest\022\016\n\006userID\030\001 \002(\005\022\017\n\007qu" +
+      "estID\030\002 \002(\005\"T\n\022MessageUpdateQuest\022\016\n\006use" +
+      "rID\030\001 \002(\005\022\017\n\007questID\030\002 \002(\005\022\014\n\004step\030\003 \002(\005" +
+      "\022\017\n\007percent\030\004 \002(\001\"2\n\017MessageEndQuest\022\016\n\006" +
+      "userID\030\001 \002(\005\022\017\n\007questID\030\002 \002(\005\"8\n\023Message" +
+      "RewardsQuest\022\017\n\007questID\030\001 \002(\005\022\020\n\010bonusEx" +
+      "p\030\002 \002(\005\"A\n\005Quest\022\n\n\002ID\030\001 \002(\005\022\014\n\004Step\030\002 \002" +
+      "(\005\022\017\n\007Percent\030\003 \002(\001\022\r\n\005State\030\004 \002(\005*\343\007\n\013M" +
+      "essageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPONE" +
+      "_LOGIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESPON",
+      "E_REGISTER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020\004\022" +
+      "\031\n\025RESPONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_CR" +
+      "EATE_CHARACTER\020\006\022\034\n\030RESPONE_CREATE_CHARA" +
+      "CTER\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESPON" +
+      "E_START_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSITIO" +
+      "N\020\n\022\033\n\027RESPONE_UPDATE_POSITION\020\013\022\025\n\021REQU" +
+      "EST_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022" +
+      "\031\n\025REQUEST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE_U" +
+      "PDATE_ACTION\020\017\022\031\n\025REQUEST_GET_PROTOTYPE\020" +
+      "\020\022\032\n\026RESPONSE_GET_PROTOTYPE\020\021\022\026\n\022REQUEST",
+      "_CHANGE_MAP\020\022\022\027\n\023RESPONSE_CHANGE_MAP\020\023\022\030" +
+      "\n\024MESSAGE_KILL_MONSTER\020\024\022\033\n\027MESSAGE_RESP" +
+      "AWN_MONSTER\020\025\022 \n\034MESSAGE_UPDATE_MONSTER_" +
+      "STATE\020\026\022%\n!MESSAGE_UPDATE_MONSTER_BY_COM" +
+      "MAND\020\027\022$\n MESSAGE_UPDATE_MONSTER_COLLISI" +
+      "ON\020\030\022\024\n\020MESSAGE_NEW_USER\020\031\022\027\n\023MESSAGE_DE" +
+      "LETE_USER\020\032\022!\n\035MESSAGE_UPDATE_USER_COLLI" +
+      "SION\020\033\022/\n+MESSAGE_REQUEST_USER_UPDATE_MA" +
+      "P_INFORMATION\020\034\022\025\n\021MESSAGE_KILL_USER\020\035\022\030" +
+      "\n\024MESSAGE_RESPAWN_USER\020\036\022\031\n\025MESSAGE_UP_L",
+      "EVEL_USER\020\037\022\027\n\023MESSAGE_BEGIN_QUEST\020 \022\030\n\024" +
+      "MESSAGE_UPDATE_QUEST\020!\022\025\n\021MESSAGE_END_QU" +
+      "EST\020\"\022\031\n\025MESSAGE_REWARDS_QUEST\020#*/\n\014Resp" +
+      "onseCode\022\013\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020" +
+      "\003*I\n\010ItemType\022\021\n\rITEM_TYPE_USE\020\000\022\025\n\021ITEM" +
+      "_TYPE_COLLECT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020\002B\036\n\032" +
+      "com.rpg.framework.databaseH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -36888,7 +36801,7 @@ public final class Protocol {
     internal_static_Protobuf_MessageUpLevelUser_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageUpLevelUser_descriptor,
-        new java.lang.String[] { "Level", "CurEXP", "MaxEXP", "CurHP", "MaxHP", "CurMP", "MaxMP", "Damage", "Defense", "Speed", });
+        new java.lang.String[] { "Level", "CurEXP", "MaxEXP", "CurHP", "MaxHP", "CurMP", "MaxMP", "Damage", "Defense", });
     internal_static_Protobuf_MessageBeginQuest_descriptor =
       getDescriptor().getMessageTypes().get(42);
     internal_static_Protobuf_MessageBeginQuest_fieldAccessorTable = new
