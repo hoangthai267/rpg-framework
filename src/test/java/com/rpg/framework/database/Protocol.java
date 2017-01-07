@@ -33880,13 +33880,17 @@ public final class Protocol {
     int getStep();
 
     /**
-     * <code>required double percent = 4;</code>
+     * <code>repeated int32 Progress = 4;</code>
      */
-    boolean hasPercent();
+    java.util.List<java.lang.Integer> getProgressList();
     /**
-     * <code>required double percent = 4;</code>
+     * <code>repeated int32 Progress = 4;</code>
      */
-    double getPercent();
+    int getProgressCount();
+    /**
+     * <code>repeated int32 Progress = 4;</code>
+     */
+    int getProgress(int index);
   }
   /**
    * Protobuf type {@code Protobuf.MessageUpdateQuest}
@@ -33955,9 +33959,25 @@ public final class Protocol {
               step_ = input.readInt32();
               break;
             }
-            case 33: {
-              bitField0_ |= 0x00000008;
-              percent_ = input.readDouble();
+            case 32: {
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                progress_ = new java.util.ArrayList<java.lang.Integer>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              progress_.add(input.readInt32());
+              break;
+            }
+            case 34: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008) && input.getBytesUntilLimit() > 0) {
+                progress_ = new java.util.ArrayList<java.lang.Integer>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                progress_.add(input.readInt32());
+              }
+              input.popLimit(limit);
               break;
             }
           }
@@ -33968,6 +33988,9 @@ public final class Protocol {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+          progress_ = java.util.Collections.unmodifiableList(progress_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -34045,26 +34068,33 @@ public final class Protocol {
       return step_;
     }
 
-    public static final int PERCENT_FIELD_NUMBER = 4;
-    private double percent_;
+    public static final int PROGRESS_FIELD_NUMBER = 4;
+    private java.util.List<java.lang.Integer> progress_;
     /**
-     * <code>required double percent = 4;</code>
+     * <code>repeated int32 Progress = 4;</code>
      */
-    public boolean hasPercent() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+    public java.util.List<java.lang.Integer>
+        getProgressList() {
+      return progress_;
     }
     /**
-     * <code>required double percent = 4;</code>
+     * <code>repeated int32 Progress = 4;</code>
      */
-    public double getPercent() {
-      return percent_;
+    public int getProgressCount() {
+      return progress_.size();
+    }
+    /**
+     * <code>repeated int32 Progress = 4;</code>
+     */
+    public int getProgress(int index) {
+      return progress_.get(index);
     }
 
     private void initFields() {
       userID_ = 0;
       questID_ = 0;
       step_ = 0;
-      percent_ = 0D;
+      progress_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -34084,10 +34114,6 @@ public final class Protocol {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasPercent()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -34104,8 +34130,8 @@ public final class Protocol {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeInt32(3, step_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeDouble(4, percent_);
+      for (int i = 0; i < progress_.size(); i++) {
+        output.writeInt32(4, progress_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -34128,9 +34154,14 @@ public final class Protocol {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, step_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(4, percent_);
+      {
+        int dataSize = 0;
+        for (int i = 0; i < progress_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(progress_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getProgressList().size();
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -34255,7 +34286,7 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000002);
         step_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
-        percent_ = 0D;
+        progress_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
@@ -34297,10 +34328,11 @@ public final class Protocol {
           to_bitField0_ |= 0x00000004;
         }
         result.step_ = step_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          progress_ = java.util.Collections.unmodifiableList(progress_);
+          bitField0_ = (bitField0_ & ~0x00000008);
         }
-        result.percent_ = percent_;
+        result.progress_ = progress_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -34326,8 +34358,15 @@ public final class Protocol {
         if (other.hasStep()) {
           setStep(other.getStep());
         }
-        if (other.hasPercent()) {
-          setPercent(other.getPercent());
+        if (!other.progress_.isEmpty()) {
+          if (progress_.isEmpty()) {
+            progress_ = other.progress_;
+            bitField0_ = (bitField0_ & ~0x00000008);
+          } else {
+            ensureProgressIsMutable();
+            progress_.addAll(other.progress_);
+          }
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -34343,10 +34382,6 @@ public final class Protocol {
           return false;
         }
         if (!hasStep()) {
-          
-          return false;
-        }
-        if (!hasPercent()) {
           
           return false;
         }
@@ -34468,34 +34503,68 @@ public final class Protocol {
         return this;
       }
 
-      private double percent_ ;
-      /**
-       * <code>required double percent = 4;</code>
-       */
-      public boolean hasPercent() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+      private java.util.List<java.lang.Integer> progress_ = java.util.Collections.emptyList();
+      private void ensureProgressIsMutable() {
+        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+          progress_ = new java.util.ArrayList<java.lang.Integer>(progress_);
+          bitField0_ |= 0x00000008;
+         }
       }
       /**
-       * <code>required double percent = 4;</code>
+       * <code>repeated int32 Progress = 4;</code>
        */
-      public double getPercent() {
-        return percent_;
+      public java.util.List<java.lang.Integer>
+          getProgressList() {
+        return java.util.Collections.unmodifiableList(progress_);
       }
       /**
-       * <code>required double percent = 4;</code>
+       * <code>repeated int32 Progress = 4;</code>
        */
-      public Builder setPercent(double value) {
-        bitField0_ |= 0x00000008;
-        percent_ = value;
+      public int getProgressCount() {
+        return progress_.size();
+      }
+      /**
+       * <code>repeated int32 Progress = 4;</code>
+       */
+      public int getProgress(int index) {
+        return progress_.get(index);
+      }
+      /**
+       * <code>repeated int32 Progress = 4;</code>
+       */
+      public Builder setProgress(
+          int index, int value) {
+        ensureProgressIsMutable();
+        progress_.set(index, value);
         onChanged();
         return this;
       }
       /**
-       * <code>required double percent = 4;</code>
+       * <code>repeated int32 Progress = 4;</code>
        */
-      public Builder clearPercent() {
+      public Builder addProgress(int value) {
+        ensureProgressIsMutable();
+        progress_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 Progress = 4;</code>
+       */
+      public Builder addAllProgress(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureProgressIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, progress_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 Progress = 4;</code>
+       */
+      public Builder clearProgress() {
+        progress_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000008);
-        percent_ = 0D;
         onChanged();
         return this;
       }
@@ -35516,13 +35585,17 @@ public final class Protocol {
     int getStep();
 
     /**
-     * <code>required double Percent = 3;</code>
+     * <code>repeated int32 Progress = 3;</code>
      */
-    boolean hasPercent();
+    java.util.List<java.lang.Integer> getProgressList();
     /**
-     * <code>required double Percent = 3;</code>
+     * <code>repeated int32 Progress = 3;</code>
      */
-    double getPercent();
+    int getProgressCount();
+    /**
+     * <code>repeated int32 Progress = 3;</code>
+     */
+    int getProgress(int index);
 
     /**
      * <code>required int32 State = 4;</code>
@@ -35595,13 +35668,29 @@ public final class Protocol {
               step_ = input.readInt32();
               break;
             }
-            case 25: {
-              bitField0_ |= 0x00000004;
-              percent_ = input.readDouble();
+            case 24: {
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+                progress_ = new java.util.ArrayList<java.lang.Integer>();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              progress_.add(input.readInt32());
+              break;
+            }
+            case 26: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004) && input.getBytesUntilLimit() > 0) {
+                progress_ = new java.util.ArrayList<java.lang.Integer>();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                progress_.add(input.readInt32());
+              }
+              input.popLimit(limit);
               break;
             }
             case 32: {
-              bitField0_ |= 0x00000008;
+              bitField0_ |= 0x00000004;
               state_ = input.readInt32();
               break;
             }
@@ -35613,6 +35702,9 @@ public final class Protocol {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+          progress_ = java.util.Collections.unmodifiableList(progress_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -35675,19 +35767,26 @@ public final class Protocol {
       return step_;
     }
 
-    public static final int PERCENT_FIELD_NUMBER = 3;
-    private double percent_;
+    public static final int PROGRESS_FIELD_NUMBER = 3;
+    private java.util.List<java.lang.Integer> progress_;
     /**
-     * <code>required double Percent = 3;</code>
+     * <code>repeated int32 Progress = 3;</code>
      */
-    public boolean hasPercent() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+    public java.util.List<java.lang.Integer>
+        getProgressList() {
+      return progress_;
     }
     /**
-     * <code>required double Percent = 3;</code>
+     * <code>repeated int32 Progress = 3;</code>
      */
-    public double getPercent() {
-      return percent_;
+    public int getProgressCount() {
+      return progress_.size();
+    }
+    /**
+     * <code>repeated int32 Progress = 3;</code>
+     */
+    public int getProgress(int index) {
+      return progress_.get(index);
     }
 
     public static final int STATE_FIELD_NUMBER = 4;
@@ -35696,7 +35795,7 @@ public final class Protocol {
      * <code>required int32 State = 4;</code>
      */
     public boolean hasState() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
      * <code>required int32 State = 4;</code>
@@ -35708,7 +35807,7 @@ public final class Protocol {
     private void initFields() {
       iD_ = 0;
       step_ = 0;
-      percent_ = 0D;
+      progress_ = java.util.Collections.emptyList();
       state_ = 0;
     }
     private byte memoizedIsInitialized = -1;
@@ -35722,10 +35821,6 @@ public final class Protocol {
         return false;
       }
       if (!hasStep()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPercent()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -35746,10 +35841,10 @@ public final class Protocol {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeInt32(2, step_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeDouble(3, percent_);
+      for (int i = 0; i < progress_.size(); i++) {
+        output.writeInt32(3, progress_.get(i));
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeInt32(4, state_);
       }
       getUnknownFields().writeTo(output);
@@ -35769,11 +35864,16 @@ public final class Protocol {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, step_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(3, percent_);
+      {
+        int dataSize = 0;
+        for (int i = 0; i < progress_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(progress_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getProgressList().size();
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(4, state_);
       }
@@ -35898,7 +35998,7 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000001);
         step_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        percent_ = 0D;
+        progress_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000004);
         state_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -35938,12 +36038,13 @@ public final class Protocol {
           to_bitField0_ |= 0x00000002;
         }
         result.step_ = step_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          progress_ = java.util.Collections.unmodifiableList(progress_);
+          bitField0_ = (bitField0_ & ~0x00000004);
         }
-        result.percent_ = percent_;
+        result.progress_ = progress_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
+          to_bitField0_ |= 0x00000004;
         }
         result.state_ = state_;
         result.bitField0_ = to_bitField0_;
@@ -35968,8 +36069,15 @@ public final class Protocol {
         if (other.hasStep()) {
           setStep(other.getStep());
         }
-        if (other.hasPercent()) {
-          setPercent(other.getPercent());
+        if (!other.progress_.isEmpty()) {
+          if (progress_.isEmpty()) {
+            progress_ = other.progress_;
+            bitField0_ = (bitField0_ & ~0x00000004);
+          } else {
+            ensureProgressIsMutable();
+            progress_.addAll(other.progress_);
+          }
+          onChanged();
         }
         if (other.hasState()) {
           setState(other.getState());
@@ -35984,10 +36092,6 @@ public final class Protocol {
           return false;
         }
         if (!hasStep()) {
-          
-          return false;
-        }
-        if (!hasPercent()) {
           
           return false;
         }
@@ -36081,34 +36185,68 @@ public final class Protocol {
         return this;
       }
 
-      private double percent_ ;
-      /**
-       * <code>required double Percent = 3;</code>
-       */
-      public boolean hasPercent() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+      private java.util.List<java.lang.Integer> progress_ = java.util.Collections.emptyList();
+      private void ensureProgressIsMutable() {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+          progress_ = new java.util.ArrayList<java.lang.Integer>(progress_);
+          bitField0_ |= 0x00000004;
+         }
       }
       /**
-       * <code>required double Percent = 3;</code>
+       * <code>repeated int32 Progress = 3;</code>
        */
-      public double getPercent() {
-        return percent_;
+      public java.util.List<java.lang.Integer>
+          getProgressList() {
+        return java.util.Collections.unmodifiableList(progress_);
       }
       /**
-       * <code>required double Percent = 3;</code>
+       * <code>repeated int32 Progress = 3;</code>
        */
-      public Builder setPercent(double value) {
-        bitField0_ |= 0x00000004;
-        percent_ = value;
+      public int getProgressCount() {
+        return progress_.size();
+      }
+      /**
+       * <code>repeated int32 Progress = 3;</code>
+       */
+      public int getProgress(int index) {
+        return progress_.get(index);
+      }
+      /**
+       * <code>repeated int32 Progress = 3;</code>
+       */
+      public Builder setProgress(
+          int index, int value) {
+        ensureProgressIsMutable();
+        progress_.set(index, value);
         onChanged();
         return this;
       }
       /**
-       * <code>required double Percent = 3;</code>
+       * <code>repeated int32 Progress = 3;</code>
        */
-      public Builder clearPercent() {
+      public Builder addProgress(int value) {
+        ensureProgressIsMutable();
+        progress_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 Progress = 3;</code>
+       */
+      public Builder addAllProgress(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureProgressIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, progress_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 Progress = 3;</code>
+       */
+      public Builder clearProgress() {
+        progress_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000004);
-        percent_ = 0D;
         onChanged();
         return this;
       }
@@ -36501,42 +36639,42 @@ public final class Protocol {
       "\r\n\005maxHP\030\005 \002(\005\022\r\n\005curMP\030\006 \002(\005\022\r\n\005maxMP\030\007" +
       " \002(\005\022\016\n\006damage\030\010 \002(\005\022\017\n\007defense\030\t \002(\005\"4\n",
       "\021MessageBeginQuest\022\016\n\006userID\030\001 \002(\005\022\017\n\007qu" +
-      "estID\030\002 \002(\005\"T\n\022MessageUpdateQuest\022\016\n\006use" +
+      "estID\030\002 \002(\005\"U\n\022MessageUpdateQuest\022\016\n\006use" +
       "rID\030\001 \002(\005\022\017\n\007questID\030\002 \002(\005\022\014\n\004step\030\003 \002(\005" +
-      "\022\017\n\007percent\030\004 \002(\001\"2\n\017MessageEndQuest\022\016\n\006" +
-      "userID\030\001 \002(\005\022\017\n\007questID\030\002 \002(\005\"8\n\023Message" +
-      "RewardsQuest\022\017\n\007questID\030\001 \002(\005\022\020\n\010bonusEx" +
-      "p\030\002 \002(\005\"A\n\005Quest\022\n\n\002ID\030\001 \002(\005\022\014\n\004Step\030\002 \002" +
-      "(\005\022\017\n\007Percent\030\003 \002(\001\022\r\n\005State\030\004 \002(\005*\343\007\n\013M" +
-      "essageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPONE" +
-      "_LOGIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESPON",
-      "E_REGISTER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020\004\022" +
-      "\031\n\025RESPONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_CR" +
-      "EATE_CHARACTER\020\006\022\034\n\030RESPONE_CREATE_CHARA" +
-      "CTER\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESPON" +
-      "E_START_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSITIO" +
-      "N\020\n\022\033\n\027RESPONE_UPDATE_POSITION\020\013\022\025\n\021REQU" +
-      "EST_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022" +
-      "\031\n\025REQUEST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE_U" +
-      "PDATE_ACTION\020\017\022\031\n\025REQUEST_GET_PROTOTYPE\020" +
-      "\020\022\032\n\026RESPONSE_GET_PROTOTYPE\020\021\022\026\n\022REQUEST",
-      "_CHANGE_MAP\020\022\022\027\n\023RESPONSE_CHANGE_MAP\020\023\022\030" +
-      "\n\024MESSAGE_KILL_MONSTER\020\024\022\033\n\027MESSAGE_RESP" +
-      "AWN_MONSTER\020\025\022 \n\034MESSAGE_UPDATE_MONSTER_" +
-      "STATE\020\026\022%\n!MESSAGE_UPDATE_MONSTER_BY_COM" +
-      "MAND\020\027\022$\n MESSAGE_UPDATE_MONSTER_COLLISI" +
-      "ON\020\030\022\024\n\020MESSAGE_NEW_USER\020\031\022\027\n\023MESSAGE_DE" +
-      "LETE_USER\020\032\022!\n\035MESSAGE_UPDATE_USER_COLLI" +
-      "SION\020\033\022/\n+MESSAGE_REQUEST_USER_UPDATE_MA" +
-      "P_INFORMATION\020\034\022\025\n\021MESSAGE_KILL_USER\020\035\022\030" +
-      "\n\024MESSAGE_RESPAWN_USER\020\036\022\031\n\025MESSAGE_UP_L",
-      "EVEL_USER\020\037\022\027\n\023MESSAGE_BEGIN_QUEST\020 \022\030\n\024" +
-      "MESSAGE_UPDATE_QUEST\020!\022\025\n\021MESSAGE_END_QU" +
-      "EST\020\"\022\031\n\025MESSAGE_REWARDS_QUEST\020#*/\n\014Resp" +
-      "onseCode\022\013\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020" +
-      "\003*I\n\010ItemType\022\021\n\rITEM_TYPE_USE\020\000\022\025\n\021ITEM" +
-      "_TYPE_COLLECT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020\002B\036\n\032" +
-      "com.rpg.framework.databaseH\001"
+      "\022\020\n\010Progress\030\004 \003(\005\"2\n\017MessageEndQuest\022\016\n" +
+      "\006userID\030\001 \002(\005\022\017\n\007questID\030\002 \002(\005\"8\n\023Messag" +
+      "eRewardsQuest\022\017\n\007questID\030\001 \002(\005\022\020\n\010bonusE" +
+      "xp\030\002 \002(\005\"B\n\005Quest\022\n\n\002ID\030\001 \002(\005\022\014\n\004Step\030\002 " +
+      "\002(\005\022\020\n\010Progress\030\003 \003(\005\022\r\n\005State\030\004 \002(\005*\343\007\n" +
+      "\013MessageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPO" +
+      "NE_LOGIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESP",
+      "ONE_REGISTER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020" +
+      "\004\022\031\n\025RESPONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_" +
+      "CREATE_CHARACTER\020\006\022\034\n\030RESPONE_CREATE_CHA" +
+      "RACTER\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESP" +
+      "ONE_START_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSIT" +
+      "ION\020\n\022\033\n\027RESPONE_UPDATE_POSITION\020\013\022\025\n\021RE" +
+      "QUEST_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020" +
+      "\r\022\031\n\025REQUEST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE" +
+      "_UPDATE_ACTION\020\017\022\031\n\025REQUEST_GET_PROTOTYP" +
+      "E\020\020\022\032\n\026RESPONSE_GET_PROTOTYPE\020\021\022\026\n\022REQUE",
+      "ST_CHANGE_MAP\020\022\022\027\n\023RESPONSE_CHANGE_MAP\020\023" +
+      "\022\030\n\024MESSAGE_KILL_MONSTER\020\024\022\033\n\027MESSAGE_RE" +
+      "SPAWN_MONSTER\020\025\022 \n\034MESSAGE_UPDATE_MONSTE" +
+      "R_STATE\020\026\022%\n!MESSAGE_UPDATE_MONSTER_BY_C" +
+      "OMMAND\020\027\022$\n MESSAGE_UPDATE_MONSTER_COLLI" +
+      "SION\020\030\022\024\n\020MESSAGE_NEW_USER\020\031\022\027\n\023MESSAGE_" +
+      "DELETE_USER\020\032\022!\n\035MESSAGE_UPDATE_USER_COL" +
+      "LISION\020\033\022/\n+MESSAGE_REQUEST_USER_UPDATE_" +
+      "MAP_INFORMATION\020\034\022\025\n\021MESSAGE_KILL_USER\020\035" +
+      "\022\030\n\024MESSAGE_RESPAWN_USER\020\036\022\031\n\025MESSAGE_UP",
+      "_LEVEL_USER\020\037\022\027\n\023MESSAGE_BEGIN_QUEST\020 \022\030" +
+      "\n\024MESSAGE_UPDATE_QUEST\020!\022\025\n\021MESSAGE_END_" +
+      "QUEST\020\"\022\031\n\025MESSAGE_REWARDS_QUEST\020#*/\n\014Re" +
+      "sponseCode\022\013\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDL" +
+      "E\020\003*I\n\010ItemType\022\021\n\rITEM_TYPE_USE\020\000\022\025\n\021IT" +
+      "EM_TYPE_COLLECT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020\002B\036" +
+      "\n\032com.rpg.framework.databaseH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -36813,7 +36951,7 @@ public final class Protocol {
     internal_static_Protobuf_MessageUpdateQuest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageUpdateQuest_descriptor,
-        new java.lang.String[] { "UserID", "QuestID", "Step", "Percent", });
+        new java.lang.String[] { "UserID", "QuestID", "Step", "Progress", });
     internal_static_Protobuf_MessageEndQuest_descriptor =
       getDescriptor().getMessageTypes().get(44);
     internal_static_Protobuf_MessageEndQuest_fieldAccessorTable = new
@@ -36831,7 +36969,7 @@ public final class Protocol {
     internal_static_Protobuf_Quest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_Quest_descriptor,
-        new java.lang.String[] { "ID", "Step", "Percent", "State", });
+        new java.lang.String[] { "ID", "Step", "Progress", "State", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

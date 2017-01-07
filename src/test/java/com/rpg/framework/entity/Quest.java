@@ -1,5 +1,8 @@
 package com.rpg.framework.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Quest {
 	public enum QuestState {
 		AVAILABLE, IN_PROCESS, COMPLETED
@@ -9,6 +12,7 @@ public class Quest {
 	private int step;
 	private double percent;
 	private int state;
+	private List<Integer> Progress;
 
 	public Quest() {
 		ID = -1;
@@ -47,5 +51,22 @@ public class Quest {
 
 	public void setState(int state) {
 		this.state = state;
+	}
+
+	public List<Integer> getProgress() {
+		return Progress;
+	}
+
+	public void setProgress(List<Integer> progress) {
+		Progress = progress;
+	}
+
+	public void setProgressList(List<Object> list) {
+		Progress = new ArrayList();
+		for (Object object : list) {
+			Integer value = (Integer) object;
+			Progress.add(value.intValue());
+		}
+		
 	}
 }

@@ -107,8 +107,8 @@ public class UserManager {
 			Quest q = new Quest();
 			JsonObject obj = quests.getObject(list.getString(i));
 			q.setID(obj.getInt("ID"));
-			q.setStep(obj.getInt("Step"));
-			q.setPercent(obj.getDouble("Percent"));
+			q.setStep(obj.getInt("Step"));			
+			q.setProgressList(obj.getArray("Progress").toList());
 			q.setState(obj.getInt("State"));
 			
 			identified.addQuest(q.getID(), q);

@@ -333,7 +333,7 @@ public class Client extends com.rpg.framework.core.Client {
 			System.out.println("Client.responseStartGame(): " + userName);		
 			
 			sendMessageBeginQuest();
-//			sendMessageUpdateQuest();
+			sendMessageUpdateQuest();
 //			sendMessageEndQuest();
 	}
 
@@ -393,7 +393,8 @@ public class Client extends com.rpg.framework.core.Client {
 				.setQuestID(1)
 				.setUserID(userID)
 				.setStep(10)
-				.setPercent(50)
+				.addProgress(1)
+				.addProgress(2)
 				.build();
 		
 		sendMessage(Protocol.MessageType.MESSAGE_UPDATE_QUEST_VALUE, quest.toByteArray());	

@@ -272,8 +272,11 @@ public class User {
 		}
 	}
 
-	public void addQuest(int questID, Quest quest) {
+	public boolean addQuest(int questID, Quest quest) {
+		if(questList.containsKey(questID))
+			return false;
 		questList.put(questID, quest);
+		return true;
 	}
 	
 	public Quest getQuest(int questID) {
