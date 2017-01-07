@@ -6,8 +6,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.couchbase.client.java.document.json.JsonArray;
 import com.couchbase.client.java.document.json.JsonObject;
 import com.rpg.framework.database.Protocol;
+import com.rpg.framework.entity.Quest;
 import com.rpg.framework.entity.User;
 
 public class UserManager {
@@ -27,8 +29,7 @@ public class UserManager {
 		return true;
 	}
 	
-	public void release() {
-		
+	public void release() {		
 	}
 	
 	public void update(double delta) {
@@ -82,6 +83,7 @@ public class UserManager {
 		JsonObject userPosition = dataManager.get("User_" + userID + "_Position");
 		JsonObject userStats = dataManager.get("User_" + userID + "_Stats");
 		JsonObject userStatus = dataManager.get("User_" + userID + "_Status");
+		JsonObject quests = dataManager.get("User_" + userID + "_Quests");
 		
 		identified.setMapID(userPosition.getInt("mapID"));
 		identified.setPositionX(userPosition.getDouble("x"));
@@ -95,10 +97,22 @@ public class UserManager {
 		
 		identified.setCurHP(userStatus.getInt("curHP"));
 		identified.setCurMP(userStatus.getInt("curMP"));
-		identified.setCurEXP(userStats.getInt("curEXP"));
+		identified.setCurEXP(userStatus.getInt("curEXP"));
 		identified.setMaxHP(userStatus.getInt("maxHP"));
 		identified.setMaxMP(userStatus.getInt("maxMP"));
 		identified.setMaxMP(userStatus.getInt("maxEXP"));
+		
+		JsonArray list = quests.getArray("list");
+		for (int i = 0; i < list.size(); i++) {
+			Quest q = new Quest();
+			JsonObject obj = quests.getObject(list.getString(i));
+			q.setID(obj.getInt("ID"));
+			q.setStep(obj.getInt("Step"));
+			q.setPercent(obj.getDouble("Percent"));
+			q.setState(obj.getInt("State"));
+			
+			identified.addQuest(q.getID(), q);
+		}
 		
 		identified.setId(userID);
 		

@@ -141,6 +141,22 @@ public final class Protocol {
      * <code>MESSAGE_UP_LEVEL_USER = 31;</code>
      */
     MESSAGE_UP_LEVEL_USER(31, 31),
+    /**
+     * <code>MESSAGE_BEGIN_QUEST = 32;</code>
+     */
+    MESSAGE_BEGIN_QUEST(32, 32),
+    /**
+     * <code>MESSAGE_UPDATE_QUEST = 33;</code>
+     */
+    MESSAGE_UPDATE_QUEST(33, 33),
+    /**
+     * <code>MESSAGE_END_QUEST = 34;</code>
+     */
+    MESSAGE_END_QUEST(34, 34),
+    /**
+     * <code>MESSAGE_REWARDS_QUEST = 35;</code>
+     */
+    MESSAGE_REWARDS_QUEST(35, 35),
     ;
 
     /**
@@ -271,6 +287,22 @@ public final class Protocol {
      * <code>MESSAGE_UP_LEVEL_USER = 31;</code>
      */
     public static final int MESSAGE_UP_LEVEL_USER_VALUE = 31;
+    /**
+     * <code>MESSAGE_BEGIN_QUEST = 32;</code>
+     */
+    public static final int MESSAGE_BEGIN_QUEST_VALUE = 32;
+    /**
+     * <code>MESSAGE_UPDATE_QUEST = 33;</code>
+     */
+    public static final int MESSAGE_UPDATE_QUEST_VALUE = 33;
+    /**
+     * <code>MESSAGE_END_QUEST = 34;</code>
+     */
+    public static final int MESSAGE_END_QUEST_VALUE = 34;
+    /**
+     * <code>MESSAGE_REWARDS_QUEST = 35;</code>
+     */
+    public static final int MESSAGE_REWARDS_QUEST_VALUE = 35;
 
 
     public final int getNumber() { return value; }
@@ -309,6 +341,10 @@ public final class Protocol {
         case 29: return MESSAGE_KILL_USER;
         case 30: return MESSAGE_RESPAWN_USER;
         case 31: return MESSAGE_UP_LEVEL_USER;
+        case 32: return MESSAGE_BEGIN_QUEST;
+        case 33: return MESSAGE_UPDATE_QUEST;
+        case 34: return MESSAGE_END_QUEST;
+        case 35: return MESSAGE_REWARDS_QUEST;
         default: return null;
       }
     }
@@ -3914,6 +3950,50 @@ public final class Protocol {
      * <code>required int32 curEXP = 19;</code>
      */
     int getCurEXP();
+
+    /**
+     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     *
+     * <pre>
+     *quest
+     * </pre>
+     */
+    java.util.List<com.rpg.framework.database.Protocol.Quest> 
+        getQuestList();
+    /**
+     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     *
+     * <pre>
+     *quest
+     * </pre>
+     */
+    com.rpg.framework.database.Protocol.Quest getQuest(int index);
+    /**
+     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     *
+     * <pre>
+     *quest
+     * </pre>
+     */
+    int getQuestCount();
+    /**
+     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     *
+     * <pre>
+     *quest
+     * </pre>
+     */
+    java.util.List<? extends com.rpg.framework.database.Protocol.QuestOrBuilder> 
+        getQuestOrBuilderList();
+    /**
+     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     *
+     * <pre>
+     *quest
+     * </pre>
+     */
+    com.rpg.framework.database.Protocol.QuestOrBuilder getQuestOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code Protobuf.ResponseGetCharacter}
@@ -4063,6 +4143,14 @@ public final class Protocol {
               curEXP_ = input.readInt32();
               break;
             }
+            case 162: {
+              if (!((mutable_bitField0_ & 0x00080000) == 0x00080000)) {
+                quest_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.Quest>();
+                mutable_bitField0_ |= 0x00080000;
+              }
+              quest_.add(input.readMessage(com.rpg.framework.database.Protocol.Quest.PARSER, extensionRegistry));
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -4071,6 +4159,9 @@ public final class Protocol {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00080000) == 0x00080000)) {
+          quest_ = java.util.Collections.unmodifiableList(quest_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -4451,6 +4542,61 @@ public final class Protocol {
       return curEXP_;
     }
 
+    public static final int QUEST_FIELD_NUMBER = 20;
+    private java.util.List<com.rpg.framework.database.Protocol.Quest> quest_;
+    /**
+     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     *
+     * <pre>
+     *quest
+     * </pre>
+     */
+    public java.util.List<com.rpg.framework.database.Protocol.Quest> getQuestList() {
+      return quest_;
+    }
+    /**
+     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     *
+     * <pre>
+     *quest
+     * </pre>
+     */
+    public java.util.List<? extends com.rpg.framework.database.Protocol.QuestOrBuilder> 
+        getQuestOrBuilderList() {
+      return quest_;
+    }
+    /**
+     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     *
+     * <pre>
+     *quest
+     * </pre>
+     */
+    public int getQuestCount() {
+      return quest_.size();
+    }
+    /**
+     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     *
+     * <pre>
+     *quest
+     * </pre>
+     */
+    public com.rpg.framework.database.Protocol.Quest getQuest(int index) {
+      return quest_.get(index);
+    }
+    /**
+     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     *
+     * <pre>
+     *quest
+     * </pre>
+     */
+    public com.rpg.framework.database.Protocol.QuestOrBuilder getQuestOrBuilder(
+        int index) {
+      return quest_.get(index);
+    }
+
     private void initFields() {
       name_ = "";
       gender_ = 0;
@@ -4471,6 +4617,7 @@ public final class Protocol {
       curMP_ = 0;
       maxEXP_ = 0;
       curEXP_ = 0;
+      quest_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -4554,6 +4701,12 @@ public final class Protocol {
         memoizedIsInitialized = 0;
         return false;
       }
+      for (int i = 0; i < getQuestCount(); i++) {
+        if (!getQuest(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -4617,6 +4770,9 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00040000) == 0x00040000)) {
         output.writeInt32(19, curEXP_);
+      }
+      for (int i = 0; i < quest_.size(); i++) {
+        output.writeMessage(20, quest_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -4702,6 +4858,10 @@ public final class Protocol {
       if (((bitField0_ & 0x00040000) == 0x00040000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(19, curEXP_);
+      }
+      for (int i = 0; i < quest_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(20, quest_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -4812,6 +4972,7 @@ public final class Protocol {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getQuestFieldBuilder();
         }
       }
       private static Builder create() {
@@ -4858,6 +5019,12 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00020000);
         curEXP_ = 0;
         bitField0_ = (bitField0_ & ~0x00040000);
+        if (questBuilder_ == null) {
+          quest_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00080000);
+        } else {
+          questBuilder_.clear();
+        }
         return this;
       }
 
@@ -4962,6 +5129,15 @@ public final class Protocol {
           to_bitField0_ |= 0x00040000;
         }
         result.curEXP_ = curEXP_;
+        if (questBuilder_ == null) {
+          if (((bitField0_ & 0x00080000) == 0x00080000)) {
+            quest_ = java.util.Collections.unmodifiableList(quest_);
+            bitField0_ = (bitField0_ & ~0x00080000);
+          }
+          result.quest_ = quest_;
+        } else {
+          result.quest_ = questBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -5036,6 +5212,32 @@ public final class Protocol {
         }
         if (other.hasCurEXP()) {
           setCurEXP(other.getCurEXP());
+        }
+        if (questBuilder_ == null) {
+          if (!other.quest_.isEmpty()) {
+            if (quest_.isEmpty()) {
+              quest_ = other.quest_;
+              bitField0_ = (bitField0_ & ~0x00080000);
+            } else {
+              ensureQuestIsMutable();
+              quest_.addAll(other.quest_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.quest_.isEmpty()) {
+            if (questBuilder_.isEmpty()) {
+              questBuilder_.dispose();
+              questBuilder_ = null;
+              quest_ = other.quest_;
+              bitField0_ = (bitField0_ & ~0x00080000);
+              questBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getQuestFieldBuilder() : null;
+            } else {
+              questBuilder_.addAllMessages(other.quest_);
+            }
+          }
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -5117,6 +5319,12 @@ public final class Protocol {
         if (!hasCurEXP()) {
           
           return false;
+        }
+        for (int i = 0; i < getQuestCount(); i++) {
+          if (!getQuest(i).isInitialized()) {
+            
+            return false;
+          }
         }
         return true;
       }
@@ -5862,6 +6070,318 @@ public final class Protocol {
         curEXP_ = 0;
         onChanged();
         return this;
+      }
+
+      private java.util.List<com.rpg.framework.database.Protocol.Quest> quest_ =
+        java.util.Collections.emptyList();
+      private void ensureQuestIsMutable() {
+        if (!((bitField0_ & 0x00080000) == 0x00080000)) {
+          quest_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.Quest>(quest_);
+          bitField0_ |= 0x00080000;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.rpg.framework.database.Protocol.Quest, com.rpg.framework.database.Protocol.Quest.Builder, com.rpg.framework.database.Protocol.QuestOrBuilder> questBuilder_;
+
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public java.util.List<com.rpg.framework.database.Protocol.Quest> getQuestList() {
+        if (questBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(quest_);
+        } else {
+          return questBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public int getQuestCount() {
+        if (questBuilder_ == null) {
+          return quest_.size();
+        } else {
+          return questBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public com.rpg.framework.database.Protocol.Quest getQuest(int index) {
+        if (questBuilder_ == null) {
+          return quest_.get(index);
+        } else {
+          return questBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public Builder setQuest(
+          int index, com.rpg.framework.database.Protocol.Quest value) {
+        if (questBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureQuestIsMutable();
+          quest_.set(index, value);
+          onChanged();
+        } else {
+          questBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public Builder setQuest(
+          int index, com.rpg.framework.database.Protocol.Quest.Builder builderForValue) {
+        if (questBuilder_ == null) {
+          ensureQuestIsMutable();
+          quest_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          questBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public Builder addQuest(com.rpg.framework.database.Protocol.Quest value) {
+        if (questBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureQuestIsMutable();
+          quest_.add(value);
+          onChanged();
+        } else {
+          questBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public Builder addQuest(
+          int index, com.rpg.framework.database.Protocol.Quest value) {
+        if (questBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureQuestIsMutable();
+          quest_.add(index, value);
+          onChanged();
+        } else {
+          questBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public Builder addQuest(
+          com.rpg.framework.database.Protocol.Quest.Builder builderForValue) {
+        if (questBuilder_ == null) {
+          ensureQuestIsMutable();
+          quest_.add(builderForValue.build());
+          onChanged();
+        } else {
+          questBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public Builder addQuest(
+          int index, com.rpg.framework.database.Protocol.Quest.Builder builderForValue) {
+        if (questBuilder_ == null) {
+          ensureQuestIsMutable();
+          quest_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          questBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public Builder addAllQuest(
+          java.lang.Iterable<? extends com.rpg.framework.database.Protocol.Quest> values) {
+        if (questBuilder_ == null) {
+          ensureQuestIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, quest_);
+          onChanged();
+        } else {
+          questBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public Builder clearQuest() {
+        if (questBuilder_ == null) {
+          quest_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00080000);
+          onChanged();
+        } else {
+          questBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public Builder removeQuest(int index) {
+        if (questBuilder_ == null) {
+          ensureQuestIsMutable();
+          quest_.remove(index);
+          onChanged();
+        } else {
+          questBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public com.rpg.framework.database.Protocol.Quest.Builder getQuestBuilder(
+          int index) {
+        return getQuestFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public com.rpg.framework.database.Protocol.QuestOrBuilder getQuestOrBuilder(
+          int index) {
+        if (questBuilder_ == null) {
+          return quest_.get(index);  } else {
+          return questBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public java.util.List<? extends com.rpg.framework.database.Protocol.QuestOrBuilder> 
+           getQuestOrBuilderList() {
+        if (questBuilder_ != null) {
+          return questBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(quest_);
+        }
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public com.rpg.framework.database.Protocol.Quest.Builder addQuestBuilder() {
+        return getQuestFieldBuilder().addBuilder(
+            com.rpg.framework.database.Protocol.Quest.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public com.rpg.framework.database.Protocol.Quest.Builder addQuestBuilder(
+          int index) {
+        return getQuestFieldBuilder().addBuilder(
+            index, com.rpg.framework.database.Protocol.Quest.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       *
+       * <pre>
+       *quest
+       * </pre>
+       */
+      public java.util.List<com.rpg.framework.database.Protocol.Quest.Builder> 
+           getQuestBuilderList() {
+        return getQuestFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.rpg.framework.database.Protocol.Quest, com.rpg.framework.database.Protocol.Quest.Builder, com.rpg.framework.database.Protocol.QuestOrBuilder> 
+          getQuestFieldBuilder() {
+        if (questBuilder_ == null) {
+          questBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.rpg.framework.database.Protocol.Quest, com.rpg.framework.database.Protocol.Quest.Builder, com.rpg.framework.database.Protocol.QuestOrBuilder>(
+                  quest_,
+                  ((bitField0_ & 0x00080000) == 0x00080000),
+                  getParentForChildren(),
+                  isClean());
+          quest_ = null;
+        }
+        return questBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:Protobuf.ResponseGetCharacter)
@@ -32923,6 +33443,2805 @@ public final class Protocol {
     // @@protoc_insertion_point(class_scope:Protobuf.MessageUpLevelUser)
   }
 
+  public interface MessageBeginQuestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageBeginQuest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    boolean hasUserID();
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    int getUserID();
+
+    /**
+     * <code>required int32 questID = 2;</code>
+     */
+    boolean hasQuestID();
+    /**
+     * <code>required int32 questID = 2;</code>
+     */
+    int getQuestID();
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageBeginQuest}
+   */
+  public static final class MessageBeginQuest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageBeginQuest)
+      MessageBeginQuestOrBuilder {
+    // Use MessageBeginQuest.newBuilder() to construct.
+    private MessageBeginQuest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageBeginQuest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageBeginQuest defaultInstance;
+    public static MessageBeginQuest getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageBeginQuest getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageBeginQuest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userID_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              questID_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageBeginQuest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageBeginQuest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageBeginQuest.class, com.rpg.framework.database.Protocol.MessageBeginQuest.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageBeginQuest> PARSER =
+        new com.google.protobuf.AbstractParser<MessageBeginQuest>() {
+      public MessageBeginQuest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageBeginQuest(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageBeginQuest> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int USERID_FIELD_NUMBER = 1;
+    private int userID_;
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    public boolean hasUserID() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    public int getUserID() {
+      return userID_;
+    }
+
+    public static final int QUESTID_FIELD_NUMBER = 2;
+    private int questID_;
+    /**
+     * <code>required int32 questID = 2;</code>
+     */
+    public boolean hasQuestID() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 questID = 2;</code>
+     */
+    public int getQuestID() {
+      return questID_;
+    }
+
+    private void initFields() {
+      userID_ = 0;
+      questID_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasUserID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasQuestID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, userID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, questID_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, userID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, questID_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageBeginQuest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageBeginQuest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageBeginQuest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageBeginQuest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageBeginQuest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageBeginQuest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageBeginQuest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageBeginQuest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageBeginQuest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageBeginQuest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageBeginQuest prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageBeginQuest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageBeginQuest)
+        com.rpg.framework.database.Protocol.MessageBeginQuestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageBeginQuest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageBeginQuest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageBeginQuest.class, com.rpg.framework.database.Protocol.MessageBeginQuest.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageBeginQuest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        userID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        questID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageBeginQuest_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageBeginQuest getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageBeginQuest.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageBeginQuest build() {
+        com.rpg.framework.database.Protocol.MessageBeginQuest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageBeginQuest buildPartial() {
+        com.rpg.framework.database.Protocol.MessageBeginQuest result = new com.rpg.framework.database.Protocol.MessageBeginQuest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.userID_ = userID_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.questID_ = questID_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageBeginQuest) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageBeginQuest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageBeginQuest other) {
+        if (other == com.rpg.framework.database.Protocol.MessageBeginQuest.getDefaultInstance()) return this;
+        if (other.hasUserID()) {
+          setUserID(other.getUserID());
+        }
+        if (other.hasQuestID()) {
+          setQuestID(other.getQuestID());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasUserID()) {
+          
+          return false;
+        }
+        if (!hasQuestID()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageBeginQuest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageBeginQuest) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int userID_ ;
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public boolean hasUserID() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public int getUserID() {
+        return userID_;
+      }
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public Builder setUserID(int value) {
+        bitField0_ |= 0x00000001;
+        userID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public Builder clearUserID() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int questID_ ;
+      /**
+       * <code>required int32 questID = 2;</code>
+       */
+      public boolean hasQuestID() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 questID = 2;</code>
+       */
+      public int getQuestID() {
+        return questID_;
+      }
+      /**
+       * <code>required int32 questID = 2;</code>
+       */
+      public Builder setQuestID(int value) {
+        bitField0_ |= 0x00000002;
+        questID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 questID = 2;</code>
+       */
+      public Builder clearQuestID() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        questID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageBeginQuest)
+    }
+
+    static {
+      defaultInstance = new MessageBeginQuest(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageBeginQuest)
+  }
+
+  public interface MessageUpdateQuestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageUpdateQuest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    boolean hasUserID();
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    int getUserID();
+
+    /**
+     * <code>required int32 questID = 2;</code>
+     */
+    boolean hasQuestID();
+    /**
+     * <code>required int32 questID = 2;</code>
+     */
+    int getQuestID();
+
+    /**
+     * <code>required int32 step = 3;</code>
+     */
+    boolean hasStep();
+    /**
+     * <code>required int32 step = 3;</code>
+     */
+    int getStep();
+
+    /**
+     * <code>required double percent = 4;</code>
+     */
+    boolean hasPercent();
+    /**
+     * <code>required double percent = 4;</code>
+     */
+    double getPercent();
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageUpdateQuest}
+   */
+  public static final class MessageUpdateQuest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageUpdateQuest)
+      MessageUpdateQuestOrBuilder {
+    // Use MessageUpdateQuest.newBuilder() to construct.
+    private MessageUpdateQuest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageUpdateQuest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageUpdateQuest defaultInstance;
+    public static MessageUpdateQuest getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageUpdateQuest getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageUpdateQuest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userID_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              questID_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              step_ = input.readInt32();
+              break;
+            }
+            case 33: {
+              bitField0_ |= 0x00000008;
+              percent_ = input.readDouble();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageUpdateQuest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageUpdateQuest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageUpdateQuest.class, com.rpg.framework.database.Protocol.MessageUpdateQuest.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageUpdateQuest> PARSER =
+        new com.google.protobuf.AbstractParser<MessageUpdateQuest>() {
+      public MessageUpdateQuest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageUpdateQuest(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageUpdateQuest> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int USERID_FIELD_NUMBER = 1;
+    private int userID_;
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    public boolean hasUserID() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    public int getUserID() {
+      return userID_;
+    }
+
+    public static final int QUESTID_FIELD_NUMBER = 2;
+    private int questID_;
+    /**
+     * <code>required int32 questID = 2;</code>
+     */
+    public boolean hasQuestID() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 questID = 2;</code>
+     */
+    public int getQuestID() {
+      return questID_;
+    }
+
+    public static final int STEP_FIELD_NUMBER = 3;
+    private int step_;
+    /**
+     * <code>required int32 step = 3;</code>
+     */
+    public boolean hasStep() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required int32 step = 3;</code>
+     */
+    public int getStep() {
+      return step_;
+    }
+
+    public static final int PERCENT_FIELD_NUMBER = 4;
+    private double percent_;
+    /**
+     * <code>required double percent = 4;</code>
+     */
+    public boolean hasPercent() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required double percent = 4;</code>
+     */
+    public double getPercent() {
+      return percent_;
+    }
+
+    private void initFields() {
+      userID_ = 0;
+      questID_ = 0;
+      step_ = 0;
+      percent_ = 0D;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasUserID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasQuestID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStep()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPercent()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, userID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, questID_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, step_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeDouble(4, percent_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, userID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, questID_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, step_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(4, percent_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageUpdateQuest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateQuest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateQuest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateQuest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateQuest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateQuest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateQuest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateQuest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateQuest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageUpdateQuest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageUpdateQuest prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageUpdateQuest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageUpdateQuest)
+        com.rpg.framework.database.Protocol.MessageUpdateQuestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageUpdateQuest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageUpdateQuest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageUpdateQuest.class, com.rpg.framework.database.Protocol.MessageUpdateQuest.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageUpdateQuest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        userID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        questID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        step_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        percent_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageUpdateQuest_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageUpdateQuest getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageUpdateQuest.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageUpdateQuest build() {
+        com.rpg.framework.database.Protocol.MessageUpdateQuest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageUpdateQuest buildPartial() {
+        com.rpg.framework.database.Protocol.MessageUpdateQuest result = new com.rpg.framework.database.Protocol.MessageUpdateQuest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.userID_ = userID_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.questID_ = questID_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.step_ = step_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.percent_ = percent_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageUpdateQuest) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageUpdateQuest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageUpdateQuest other) {
+        if (other == com.rpg.framework.database.Protocol.MessageUpdateQuest.getDefaultInstance()) return this;
+        if (other.hasUserID()) {
+          setUserID(other.getUserID());
+        }
+        if (other.hasQuestID()) {
+          setQuestID(other.getQuestID());
+        }
+        if (other.hasStep()) {
+          setStep(other.getStep());
+        }
+        if (other.hasPercent()) {
+          setPercent(other.getPercent());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasUserID()) {
+          
+          return false;
+        }
+        if (!hasQuestID()) {
+          
+          return false;
+        }
+        if (!hasStep()) {
+          
+          return false;
+        }
+        if (!hasPercent()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageUpdateQuest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageUpdateQuest) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int userID_ ;
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public boolean hasUserID() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public int getUserID() {
+        return userID_;
+      }
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public Builder setUserID(int value) {
+        bitField0_ |= 0x00000001;
+        userID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public Builder clearUserID() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int questID_ ;
+      /**
+       * <code>required int32 questID = 2;</code>
+       */
+      public boolean hasQuestID() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 questID = 2;</code>
+       */
+      public int getQuestID() {
+        return questID_;
+      }
+      /**
+       * <code>required int32 questID = 2;</code>
+       */
+      public Builder setQuestID(int value) {
+        bitField0_ |= 0x00000002;
+        questID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 questID = 2;</code>
+       */
+      public Builder clearQuestID() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        questID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int step_ ;
+      /**
+       * <code>required int32 step = 3;</code>
+       */
+      public boolean hasStep() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required int32 step = 3;</code>
+       */
+      public int getStep() {
+        return step_;
+      }
+      /**
+       * <code>required int32 step = 3;</code>
+       */
+      public Builder setStep(int value) {
+        bitField0_ |= 0x00000004;
+        step_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 step = 3;</code>
+       */
+      public Builder clearStep() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        step_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private double percent_ ;
+      /**
+       * <code>required double percent = 4;</code>
+       */
+      public boolean hasPercent() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required double percent = 4;</code>
+       */
+      public double getPercent() {
+        return percent_;
+      }
+      /**
+       * <code>required double percent = 4;</code>
+       */
+      public Builder setPercent(double value) {
+        bitField0_ |= 0x00000008;
+        percent_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required double percent = 4;</code>
+       */
+      public Builder clearPercent() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        percent_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageUpdateQuest)
+    }
+
+    static {
+      defaultInstance = new MessageUpdateQuest(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageUpdateQuest)
+  }
+
+  public interface MessageEndQuestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageEndQuest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    boolean hasUserID();
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    int getUserID();
+
+    /**
+     * <code>required int32 questID = 2;</code>
+     */
+    boolean hasQuestID();
+    /**
+     * <code>required int32 questID = 2;</code>
+     */
+    int getQuestID();
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageEndQuest}
+   */
+  public static final class MessageEndQuest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageEndQuest)
+      MessageEndQuestOrBuilder {
+    // Use MessageEndQuest.newBuilder() to construct.
+    private MessageEndQuest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageEndQuest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageEndQuest defaultInstance;
+    public static MessageEndQuest getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageEndQuest getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageEndQuest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userID_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              questID_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageEndQuest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageEndQuest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageEndQuest.class, com.rpg.framework.database.Protocol.MessageEndQuest.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageEndQuest> PARSER =
+        new com.google.protobuf.AbstractParser<MessageEndQuest>() {
+      public MessageEndQuest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageEndQuest(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageEndQuest> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int USERID_FIELD_NUMBER = 1;
+    private int userID_;
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    public boolean hasUserID() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    public int getUserID() {
+      return userID_;
+    }
+
+    public static final int QUESTID_FIELD_NUMBER = 2;
+    private int questID_;
+    /**
+     * <code>required int32 questID = 2;</code>
+     */
+    public boolean hasQuestID() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 questID = 2;</code>
+     */
+    public int getQuestID() {
+      return questID_;
+    }
+
+    private void initFields() {
+      userID_ = 0;
+      questID_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasUserID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasQuestID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, userID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, questID_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, userID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, questID_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageEndQuest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageEndQuest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageEndQuest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageEndQuest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageEndQuest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageEndQuest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageEndQuest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageEndQuest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageEndQuest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageEndQuest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageEndQuest prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageEndQuest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageEndQuest)
+        com.rpg.framework.database.Protocol.MessageEndQuestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageEndQuest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageEndQuest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageEndQuest.class, com.rpg.framework.database.Protocol.MessageEndQuest.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageEndQuest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        userID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        questID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageEndQuest_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageEndQuest getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageEndQuest.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageEndQuest build() {
+        com.rpg.framework.database.Protocol.MessageEndQuest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageEndQuest buildPartial() {
+        com.rpg.framework.database.Protocol.MessageEndQuest result = new com.rpg.framework.database.Protocol.MessageEndQuest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.userID_ = userID_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.questID_ = questID_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageEndQuest) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageEndQuest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageEndQuest other) {
+        if (other == com.rpg.framework.database.Protocol.MessageEndQuest.getDefaultInstance()) return this;
+        if (other.hasUserID()) {
+          setUserID(other.getUserID());
+        }
+        if (other.hasQuestID()) {
+          setQuestID(other.getQuestID());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasUserID()) {
+          
+          return false;
+        }
+        if (!hasQuestID()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageEndQuest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageEndQuest) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int userID_ ;
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public boolean hasUserID() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public int getUserID() {
+        return userID_;
+      }
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public Builder setUserID(int value) {
+        bitField0_ |= 0x00000001;
+        userID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public Builder clearUserID() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int questID_ ;
+      /**
+       * <code>required int32 questID = 2;</code>
+       */
+      public boolean hasQuestID() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 questID = 2;</code>
+       */
+      public int getQuestID() {
+        return questID_;
+      }
+      /**
+       * <code>required int32 questID = 2;</code>
+       */
+      public Builder setQuestID(int value) {
+        bitField0_ |= 0x00000002;
+        questID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 questID = 2;</code>
+       */
+      public Builder clearQuestID() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        questID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageEndQuest)
+    }
+
+    static {
+      defaultInstance = new MessageEndQuest(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageEndQuest)
+  }
+
+  public interface MessageRewardsQuestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageRewardsQuest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 questID = 1;</code>
+     */
+    boolean hasQuestID();
+    /**
+     * <code>required int32 questID = 1;</code>
+     */
+    int getQuestID();
+
+    /**
+     * <code>required int32 bonusExp = 2;</code>
+     */
+    boolean hasBonusExp();
+    /**
+     * <code>required int32 bonusExp = 2;</code>
+     */
+    int getBonusExp();
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageRewardsQuest}
+   */
+  public static final class MessageRewardsQuest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageRewardsQuest)
+      MessageRewardsQuestOrBuilder {
+    // Use MessageRewardsQuest.newBuilder() to construct.
+    private MessageRewardsQuest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageRewardsQuest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageRewardsQuest defaultInstance;
+    public static MessageRewardsQuest getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageRewardsQuest getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageRewardsQuest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              questID_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              bonusExp_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRewardsQuest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRewardsQuest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageRewardsQuest.class, com.rpg.framework.database.Protocol.MessageRewardsQuest.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageRewardsQuest> PARSER =
+        new com.google.protobuf.AbstractParser<MessageRewardsQuest>() {
+      public MessageRewardsQuest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageRewardsQuest(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageRewardsQuest> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int QUESTID_FIELD_NUMBER = 1;
+    private int questID_;
+    /**
+     * <code>required int32 questID = 1;</code>
+     */
+    public boolean hasQuestID() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 questID = 1;</code>
+     */
+    public int getQuestID() {
+      return questID_;
+    }
+
+    public static final int BONUSEXP_FIELD_NUMBER = 2;
+    private int bonusExp_;
+    /**
+     * <code>required int32 bonusExp = 2;</code>
+     */
+    public boolean hasBonusExp() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 bonusExp = 2;</code>
+     */
+    public int getBonusExp() {
+      return bonusExp_;
+    }
+
+    private void initFields() {
+      questID_ = 0;
+      bonusExp_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasQuestID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasBonusExp()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, questID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, bonusExp_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, questID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, bonusExp_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageRewardsQuest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRewardsQuest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRewardsQuest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRewardsQuest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRewardsQuest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRewardsQuest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRewardsQuest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRewardsQuest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRewardsQuest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRewardsQuest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageRewardsQuest prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageRewardsQuest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageRewardsQuest)
+        com.rpg.framework.database.Protocol.MessageRewardsQuestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRewardsQuest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRewardsQuest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageRewardsQuest.class, com.rpg.framework.database.Protocol.MessageRewardsQuest.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageRewardsQuest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        questID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        bonusExp_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRewardsQuest_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageRewardsQuest getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageRewardsQuest.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageRewardsQuest build() {
+        com.rpg.framework.database.Protocol.MessageRewardsQuest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageRewardsQuest buildPartial() {
+        com.rpg.framework.database.Protocol.MessageRewardsQuest result = new com.rpg.framework.database.Protocol.MessageRewardsQuest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.questID_ = questID_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.bonusExp_ = bonusExp_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageRewardsQuest) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageRewardsQuest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageRewardsQuest other) {
+        if (other == com.rpg.framework.database.Protocol.MessageRewardsQuest.getDefaultInstance()) return this;
+        if (other.hasQuestID()) {
+          setQuestID(other.getQuestID());
+        }
+        if (other.hasBonusExp()) {
+          setBonusExp(other.getBonusExp());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasQuestID()) {
+          
+          return false;
+        }
+        if (!hasBonusExp()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageRewardsQuest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageRewardsQuest) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int questID_ ;
+      /**
+       * <code>required int32 questID = 1;</code>
+       */
+      public boolean hasQuestID() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 questID = 1;</code>
+       */
+      public int getQuestID() {
+        return questID_;
+      }
+      /**
+       * <code>required int32 questID = 1;</code>
+       */
+      public Builder setQuestID(int value) {
+        bitField0_ |= 0x00000001;
+        questID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 questID = 1;</code>
+       */
+      public Builder clearQuestID() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        questID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int bonusExp_ ;
+      /**
+       * <code>required int32 bonusExp = 2;</code>
+       */
+      public boolean hasBonusExp() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 bonusExp = 2;</code>
+       */
+      public int getBonusExp() {
+        return bonusExp_;
+      }
+      /**
+       * <code>required int32 bonusExp = 2;</code>
+       */
+      public Builder setBonusExp(int value) {
+        bitField0_ |= 0x00000002;
+        bonusExp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 bonusExp = 2;</code>
+       */
+      public Builder clearBonusExp() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        bonusExp_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageRewardsQuest)
+    }
+
+    static {
+      defaultInstance = new MessageRewardsQuest(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageRewardsQuest)
+  }
+
+  public interface QuestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.Quest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 ID = 1;</code>
+     */
+    boolean hasID();
+    /**
+     * <code>required int32 ID = 1;</code>
+     */
+    int getID();
+
+    /**
+     * <code>required int32 Step = 2;</code>
+     */
+    boolean hasStep();
+    /**
+     * <code>required int32 Step = 2;</code>
+     */
+    int getStep();
+
+    /**
+     * <code>required double Percent = 3;</code>
+     */
+    boolean hasPercent();
+    /**
+     * <code>required double Percent = 3;</code>
+     */
+    double getPercent();
+
+    /**
+     * <code>required int32 State = 4;</code>
+     */
+    boolean hasState();
+    /**
+     * <code>required int32 State = 4;</code>
+     */
+    int getState();
+  }
+  /**
+   * Protobuf type {@code Protobuf.Quest}
+   */
+  public static final class Quest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.Quest)
+      QuestOrBuilder {
+    // Use Quest.newBuilder() to construct.
+    private Quest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private Quest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final Quest defaultInstance;
+    public static Quest getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public Quest getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Quest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              iD_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              step_ = input.readInt32();
+              break;
+            }
+            case 25: {
+              bitField0_ |= 0x00000004;
+              percent_ = input.readDouble();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              state_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_Quest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_Quest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.Quest.class, com.rpg.framework.database.Protocol.Quest.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<Quest> PARSER =
+        new com.google.protobuf.AbstractParser<Quest>() {
+      public Quest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Quest(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Quest> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int iD_;
+    /**
+     * <code>required int32 ID = 1;</code>
+     */
+    public boolean hasID() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 ID = 1;</code>
+     */
+    public int getID() {
+      return iD_;
+    }
+
+    public static final int STEP_FIELD_NUMBER = 2;
+    private int step_;
+    /**
+     * <code>required int32 Step = 2;</code>
+     */
+    public boolean hasStep() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 Step = 2;</code>
+     */
+    public int getStep() {
+      return step_;
+    }
+
+    public static final int PERCENT_FIELD_NUMBER = 3;
+    private double percent_;
+    /**
+     * <code>required double Percent = 3;</code>
+     */
+    public boolean hasPercent() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required double Percent = 3;</code>
+     */
+    public double getPercent() {
+      return percent_;
+    }
+
+    public static final int STATE_FIELD_NUMBER = 4;
+    private int state_;
+    /**
+     * <code>required int32 State = 4;</code>
+     */
+    public boolean hasState() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required int32 State = 4;</code>
+     */
+    public int getState() {
+      return state_;
+    }
+
+    private void initFields() {
+      iD_ = 0;
+      step_ = 0;
+      percent_ = 0D;
+      state_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStep()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPercent()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasState()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, iD_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, step_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeDouble(3, percent_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, state_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, iD_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, step_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(3, percent_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, state_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.Quest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.Quest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Quest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.Quest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Quest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.Quest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Quest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.Quest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.Quest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.Quest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.Quest prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.Quest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.Quest)
+        com.rpg.framework.database.Protocol.QuestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_Quest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_Quest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.Quest.class, com.rpg.framework.database.Protocol.Quest.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.Quest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        iD_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        step_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        percent_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        state_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_Quest_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.Quest getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.Quest.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.Quest build() {
+        com.rpg.framework.database.Protocol.Quest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.Quest buildPartial() {
+        com.rpg.framework.database.Protocol.Quest result = new com.rpg.framework.database.Protocol.Quest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.iD_ = iD_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.step_ = step_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.percent_ = percent_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.state_ = state_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.Quest) {
+          return mergeFrom((com.rpg.framework.database.Protocol.Quest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.Quest other) {
+        if (other == com.rpg.framework.database.Protocol.Quest.getDefaultInstance()) return this;
+        if (other.hasID()) {
+          setID(other.getID());
+        }
+        if (other.hasStep()) {
+          setStep(other.getStep());
+        }
+        if (other.hasPercent()) {
+          setPercent(other.getPercent());
+        }
+        if (other.hasState()) {
+          setState(other.getState());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasID()) {
+          
+          return false;
+        }
+        if (!hasStep()) {
+          
+          return false;
+        }
+        if (!hasPercent()) {
+          
+          return false;
+        }
+        if (!hasState()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.Quest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.Quest) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int iD_ ;
+      /**
+       * <code>required int32 ID = 1;</code>
+       */
+      public boolean hasID() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 ID = 1;</code>
+       */
+      public int getID() {
+        return iD_;
+      }
+      /**
+       * <code>required int32 ID = 1;</code>
+       */
+      public Builder setID(int value) {
+        bitField0_ |= 0x00000001;
+        iD_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 ID = 1;</code>
+       */
+      public Builder clearID() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        iD_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int step_ ;
+      /**
+       * <code>required int32 Step = 2;</code>
+       */
+      public boolean hasStep() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 Step = 2;</code>
+       */
+      public int getStep() {
+        return step_;
+      }
+      /**
+       * <code>required int32 Step = 2;</code>
+       */
+      public Builder setStep(int value) {
+        bitField0_ |= 0x00000002;
+        step_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 Step = 2;</code>
+       */
+      public Builder clearStep() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        step_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private double percent_ ;
+      /**
+       * <code>required double Percent = 3;</code>
+       */
+      public boolean hasPercent() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required double Percent = 3;</code>
+       */
+      public double getPercent() {
+        return percent_;
+      }
+      /**
+       * <code>required double Percent = 3;</code>
+       */
+      public Builder setPercent(double value) {
+        bitField0_ |= 0x00000004;
+        percent_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required double Percent = 3;</code>
+       */
+      public Builder clearPercent() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        percent_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private int state_ ;
+      /**
+       * <code>required int32 State = 4;</code>
+       */
+      public boolean hasState() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required int32 State = 4;</code>
+       */
+      public int getState() {
+        return state_;
+      }
+      /**
+       * <code>required int32 State = 4;</code>
+       */
+      public Builder setState(int value) {
+        bitField0_ |= 0x00000008;
+        state_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 State = 4;</code>
+       */
+      public Builder clearState() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        state_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.Quest)
+    }
+
+    static {
+      defaultInstance = new Quest(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.Quest)
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Protobuf_RequestLogin_descriptor;
   private static
@@ -33133,6 +36452,31 @@ public final class Protocol {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_Protobuf_MessageUpLevelUser_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageBeginQuest_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageBeginQuest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageUpdateQuest_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageUpdateQuest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageEndQuest_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageEndQuest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageRewardsQuest_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageRewardsQuest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_Quest_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_Quest_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -33151,7 +36495,7 @@ public final class Protocol {
       "\022\020\n\010username\030\001 \002(\t\022\020\n\010password\030\002 \002(\t\"K\n\020" +
       "ResponseRegister\022&\n\006result\030\001 \002(\0162\026.Proto" +
       "buf.ResponseCode\022\017\n\007message\030\002 \001(\t\"%\n\023Req" +
-      "uestGetCharacter\022\016\n\006userID\030\001 \002(\005\"\266\002\n\024Res",
+      "uestGetCharacter\022\016\n\006userID\030\001 \002(\005\"\326\002\n\024Res",
       "ponseGetCharacter\022\014\n\004name\030\001 \002(\t\022\016\n\006gende" +
       "r\030\002 \002(\005\022\022\n\noccupation\030\003 \002(\005\022\r\n\005level\030\004 \002" +
       "(\005\022\020\n\010strength\030\005 \002(\005\022\r\n\005magic\030\006 \002(\005\022\017\n\007d" +
@@ -33159,115 +36503,127 @@ public final class Protocol {
       "\005\022\r\n\005armor\030\n \002(\005\022\r\n\005mapID\030\013 \002(\005\022\t\n\001x\030\014 \002" +
       "(\001\022\t\n\001y\030\r \002(\001\022\r\n\005maxHP\030\016 \002(\005\022\r\n\005curHP\030\017 " +
       "\002(\005\022\r\n\005maxMP\030\020 \002(\005\022\r\n\005curMP\030\021 \002(\005\022\016\n\006max" +
-      "EXP\030\022 \002(\005\022\016\n\006curEXP\030\023 \002(\005\"J\n\026RequestCrea" +
-      "teCharacter\022\016\n\006userID\030\001 \002(\005\022\014\n\004name\030\002 \002(" +
-      "\t\022\022\n\noccupation\030\003 \002(\005\"R\n\027ResponseCreateC",
-      "haracter\022&\n\006result\030\001 \002(\0162\026.Protobuf.Resp" +
-      "onseCode\022\017\n\007message\030\002 \001(\t\"\"\n\020RequestStar" +
-      "tGame\022\016\n\006userID\030\001 \002(\005\"W\n\021ResponseStartGa" +
-      "me\022\035\n\005users\030\001 \003(\0132\016.Protobuf.User\022#\n\010mon" +
-      "sters\030\002 \003(\0132\021.Protobuf.Monster\"[\n\025Reques" +
-      "tUpdatePosition\022\016\n\006userID\030\001 \002(\005\022\r\n\005mapID" +
-      "\030\002 \002(\005\022\t\n\001x\030\003 \002(\001\022\t\n\001y\030\004 \002(\001\022\r\n\005state\030\005 " +
-      "\002(\005\"Q\n\026ResponseUpdatePosition\022&\n\006result\030" +
-      "\001 \002(\0162\026.Protobuf.ResponseCode\022\017\n\007message" +
-      "\030\002 \001(\t\"!\n\017RequestGetItems\022\016\n\006UserID\030\001 \002(",
-      "\005\"I\n\020ResponseGetItems\022&\n\006Result\030\001 \002(\0162\026." +
-      "Protobuf.ResponseCode\022\r\n\005Items\030\002 \003(\005\"~\n\017" +
-      "CharacterAction\022\r\n\005mapID\030\001 \002(\005\022\t\n\001x\030\002 \002(" +
-      "\001\022\t\n\001y\030\003 \002(\001\022\r\n\005State\030\004 \001(\005\022\025\n\rActionCom" +
-      "mand\030\005 \001(\005\022\014\n\004Type\030\006 \001(\005\022\022\n\nTimeRecord\030\007" +
-      " \001(\002\"Q\n\023RequestUpdateAction\022\016\n\006userID\030\001 " +
-      "\002(\005\022*\n\007actions\030\003 \003(\0132\031.Protobuf.Characte" +
-      "rAction\"R\n\024ResponseUpdateAction\022\016\n\006userI" +
-      "D\030\001 \002(\005\022*\n\007actions\030\003 \003(\0132\031.Protobuf.Char" +
-      "acterAction\"6\n\004Item\022 \n\004type\030\001 \002(\0162\022.Prot",
-      "obuf.ItemType\022\014\n\004data\030\002 \002(\014\"\230\001\n\003Use\022\n\n\002I" +
-      "D\030\001 \002(\005\022\017\n\007HPValue\030\002 \002(\005\022\017\n\007MPValue\030\003 \002(" +
-      "\005\022\020\n\010Duration\030\004 \002(\005\022\023\n\013HPPerSecond\030\005 \002(\005" +
-      "\022\023\n\013MPPerSecond\030\006 \002(\005\022\020\n\010BonusExp\030\007 \002(\002\022" +
-      "\025\n\rBonusItemDrop\030\010 \002(\002\"#\n\007Collect\022\n\n\002ID\030" +
-      "\001 \002(\005\022\014\n\004Type\030\002 \002(\005\"K\n\005Equip\022\n\n\002ID\030\001 \002(\005" +
-      "\022\014\n\004Type\030\002 \002(\005\022(\n\nBonusStats\030\003 \002(\0132\024.Pro" +
-      "tobuf.BonusStats\"5\n\nBonusStats\022\017\n\007BonusH" +
-      "P\030\001 \001(\005\022\026\n\016BonusPercentHP\030\002 \001(\002\"\025\n\023Reque" +
-      "stGetPrototype\"5\n\024ResponseGetPrototype\022\035",
-      "\n\005items\030\001 \003(\0132\016.Protobuf.Item\"\305\001\n\004User\022\n" +
-      "\n\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030\003" +
-      " \002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(" +
-      "\001\022\r\n\005maxHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP" +
-      "\030\t \002(\005\022\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n" +
-      "\007defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"\265\001\n\007Monste" +
-      "r\022\n\n\002id\030\001 \002(\005\022\r\n\005index\030\002 \002(\005\022\r\n\005mapID\030\003 " +
-      "\002(\005\022\t\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\022\r\n\005maxHP\030\006 \002(\005" +
-      "\022\r\n\005curHP\030\007 \002(\005\022\r\n\005maxMP\030\010 \002(\005\022\r\n\005curMP\030" +
-      "\t \002(\005\022\016\n\006damage\030\n \002(\005\022\017\n\007defense\030\013 \002(\005\022\r",
-      "\n\005speed\030\014 \002(\005\"^\n\022MessageKillMonster\022\r\n\005m" +
-      "apID\030\001 \002(\005\022\021\n\tmonsterID\030\002 \002(\005\022\024\n\014monster" +
-      "Index\030\003 \002(\005\022\020\n\010bonusExp\030\004 \001(\005\"e\n\025Message" +
-      "RespawnMonster\022\021\n\tmonsterID\030\001 \002(\005\022\024\n\014mon" +
-      "sterIndex\030\002 \002(\005\022\r\n\005mapID\030\003 \002(\005\022\t\n\001x\030\004 \002(" +
-      "\001\022\t\n\001y\030\005 \002(\001\"\317\001\n\016MessageNewUser\022\n\n\002id\030\001 " +
-      "\002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\r\n" +
-      "\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001\022\r\n\005ma" +
-      "xHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030\t \002(\005\022" +
-      "\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007defens",
-      "e\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"\037\n\021MessageDeleteU" +
-      "ser\022\n\n\002id\030\001 \002(\005\"\035\n\017MessageKillUser\022\n\n\002id" +
-      "\030\001 \002(\005\"\323\001\n\022MessageRespawnUser\022\n\n\002id\030\001 \002(" +
-      "\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\r\n\005m" +
-      "apID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001\022\r\n\005maxH" +
-      "P\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030\t \002(\005\022\r\n" +
-      "\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007defense\030" +
-      "\014 \002(\005\022\r\n\005speed\030\r \002(\005\"q\n\014MonsterState\022\n\n\002" +
-      "ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\021\n\tPositionX\030\004 \002" +
-      "(\001\022\021\n\tPositionY\030\005 \002(\001\022\r\n\005State\030\006 \002(\005\022\021\n\t",
-      "Direction\030\007 \002(\005\"P\n\031MessageUpdateMonsterS" +
-      "tate\022\r\n\005MapID\030\001 \002(\005\022$\n\004Data\030\002 \003(\0132\026.Prot" +
-      "obuf.MonsterState\";\n\rActionCommand\022\n\n\002ID" +
-      "\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\017\n\007Command\030\003 \002(\005\"F" +
-      "\n\035MessageUpdateMonsterByCommand\022%\n\004Data\030" +
-      "\001 \003(\0132\027.Protobuf.ActionCommand\"J\n\035Messag" +
-      "eUpdateMonsterCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005I" +
-      "ndex\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"<\n\020RequestCha" +
-      "ngeMap\022\016\n\006userID\030\001 \002(\005\022\014\n\004from\030\002 \002(\005\022\n\n\002" +
-      "to\030\003 \002(\005\"f\n\021ResponseChangeMap\022\r\n\005mapID\030\001",
-      " \002(\005\022\035\n\005users\030\002 \003(\0132\016.Protobuf.User\022#\n\010m" +
-      "onsters\030\003 \003(\0132\021.Protobuf.Monster\"G\n\032Mess" +
-      "ageUpdateUserCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005In" +
-      "dex\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"7\n&MessageRequ" +
-      "estUserUpdateMapInformation\022\r\n\005mapID\030\001 \002" +
-      "(\005\"\257\001\n\022MessageUpLevelUser\022\r\n\005level\030\001 \002(\005" +
-      "\022\016\n\006curEXP\030\002 \002(\005\022\016\n\006maxEXP\030\003 \002(\005\022\r\n\005curH" +
-      "P\030\004 \002(\005\022\r\n\005maxHP\030\005 \002(\005\022\r\n\005curMP\030\006 \002(\005\022\r\n" +
-      "\005maxMP\030\007 \002(\005\022\016\n\006damage\030\010 \002(\005\022\017\n\007defense\030" +
-      "\t \002(\005\022\r\n\005speed\030\n \002(\005*\376\006\n\013MessageType\022\021\n\r",
-      "REQUEST_LOGIN\020\000\022\021\n\rRESPONE_LOGIN\020\001\022\024\n\020RE" +
-      "QUEST_REGISTER\020\002\022\024\n\020RESPONE_REGISTER\020\003\022\031" +
-      "\n\025REQUEST_GET_CHARACTER\020\004\022\031\n\025RESPONE_GET" +
-      "_CHARACTER\020\005\022\034\n\030REQUEST_CREATE_CHARACTER" +
-      "\020\006\022\034\n\030RESPONE_CREATE_CHARACTER\020\007\022\026\n\022REQU" +
-      "EST_START_GAME\020\010\022\026\n\022RESPONE_START_GAME\020\t" +
-      "\022\033\n\027REQUEST_UPDATE_POSITION\020\n\022\033\n\027RESPONE" +
-      "_UPDATE_POSITION\020\013\022\025\n\021REQUEST_GET_ITEMS\020" +
-      "\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022\031\n\025REQUEST_UPD" +
-      "ATE_ACTION\020\016\022\032\n\026RESPONSE_UPDATE_ACTION\020\017",
-      "\022\031\n\025REQUEST_GET_PROTOTYPE\020\020\022\032\n\026RESPONSE_" +
-      "GET_PROTOTYPE\020\021\022\026\n\022REQUEST_CHANGE_MAP\020\022\022" +
-      "\027\n\023RESPONSE_CHANGE_MAP\020\023\022\030\n\024MESSAGE_KILL" +
-      "_MONSTER\020\024\022\033\n\027MESSAGE_RESPAWN_MONSTER\020\025\022" +
-      " \n\034MESSAGE_UPDATE_MONSTER_STATE\020\026\022%\n!MES" +
-      "SAGE_UPDATE_MONSTER_BY_COMMAND\020\027\022$\n MESS" +
-      "AGE_UPDATE_MONSTER_COLLISION\020\030\022\024\n\020MESSAG" +
-      "E_NEW_USER\020\031\022\027\n\023MESSAGE_DELETE_USER\020\032\022!\n" +
-      "\035MESSAGE_UPDATE_USER_COLLISION\020\033\022/\n+MESS" +
-      "AGE_REQUEST_USER_UPDATE_MAP_INFORMATION\020",
-      "\034\022\025\n\021MESSAGE_KILL_USER\020\035\022\030\n\024MESSAGE_RESP" +
-      "AWN_USER\020\036\022\031\n\025MESSAGE_UP_LEVEL_USER\020\037*/\n" +
-      "\014ResponseCode\022\013\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004" +
-      "IDLE\020\003*I\n\010ItemType\022\021\n\rITEM_TYPE_USE\020\000\022\025\n" +
-      "\021ITEM_TYPE_COLLECT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020" +
-      "\002B\036\n\032com.rpg.framework.databaseH\001"
+      "EXP\030\022 \002(\005\022\016\n\006curEXP\030\023 \002(\005\022\036\n\005quest\030\024 \003(\013" +
+      "2\017.Protobuf.Quest\"J\n\026RequestCreateCharac" +
+      "ter\022\016\n\006userID\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\022\n\nocc",
+      "upation\030\003 \002(\005\"R\n\027ResponseCreateCharacter" +
+      "\022&\n\006result\030\001 \002(\0162\026.Protobuf.ResponseCode" +
+      "\022\017\n\007message\030\002 \001(\t\"\"\n\020RequestStartGame\022\016\n" +
+      "\006userID\030\001 \002(\005\"W\n\021ResponseStartGame\022\035\n\005us" +
+      "ers\030\001 \003(\0132\016.Protobuf.User\022#\n\010monsters\030\002 " +
+      "\003(\0132\021.Protobuf.Monster\"[\n\025RequestUpdateP" +
+      "osition\022\016\n\006userID\030\001 \002(\005\022\r\n\005mapID\030\002 \002(\005\022\t" +
+      "\n\001x\030\003 \002(\001\022\t\n\001y\030\004 \002(\001\022\r\n\005state\030\005 \002(\005\"Q\n\026R" +
+      "esponseUpdatePosition\022&\n\006result\030\001 \002(\0162\026." +
+      "Protobuf.ResponseCode\022\017\n\007message\030\002 \001(\t\"!",
+      "\n\017RequestGetItems\022\016\n\006UserID\030\001 \002(\005\"I\n\020Res" +
+      "ponseGetItems\022&\n\006Result\030\001 \002(\0162\026.Protobuf" +
+      ".ResponseCode\022\r\n\005Items\030\002 \003(\005\"~\n\017Characte" +
+      "rAction\022\r\n\005mapID\030\001 \002(\005\022\t\n\001x\030\002 \002(\001\022\t\n\001y\030\003" +
+      " \002(\001\022\r\n\005State\030\004 \001(\005\022\025\n\rActionCommand\030\005 \001" +
+      "(\005\022\014\n\004Type\030\006 \001(\005\022\022\n\nTimeRecord\030\007 \001(\002\"Q\n\023" +
+      "RequestUpdateAction\022\016\n\006userID\030\001 \002(\005\022*\n\007a" +
+      "ctions\030\003 \003(\0132\031.Protobuf.CharacterAction\"" +
+      "R\n\024ResponseUpdateAction\022\016\n\006userID\030\001 \002(\005\022" +
+      "*\n\007actions\030\003 \003(\0132\031.Protobuf.CharacterAct",
+      "ion\"6\n\004Item\022 \n\004type\030\001 \002(\0162\022.Protobuf.Ite" +
+      "mType\022\014\n\004data\030\002 \002(\014\"\230\001\n\003Use\022\n\n\002ID\030\001 \002(\005\022" +
+      "\017\n\007HPValue\030\002 \002(\005\022\017\n\007MPValue\030\003 \002(\005\022\020\n\010Dur" +
+      "ation\030\004 \002(\005\022\023\n\013HPPerSecond\030\005 \002(\005\022\023\n\013MPPe" +
+      "rSecond\030\006 \002(\005\022\020\n\010BonusExp\030\007 \002(\002\022\025\n\rBonus" +
+      "ItemDrop\030\010 \002(\002\"#\n\007Collect\022\n\n\002ID\030\001 \002(\005\022\014\n" +
+      "\004Type\030\002 \002(\005\"K\n\005Equip\022\n\n\002ID\030\001 \002(\005\022\014\n\004Type" +
+      "\030\002 \002(\005\022(\n\nBonusStats\030\003 \002(\0132\024.Protobuf.Bo" +
+      "nusStats\"5\n\nBonusStats\022\017\n\007BonusHP\030\001 \001(\005\022" +
+      "\026\n\016BonusPercentHP\030\002 \001(\002\"\025\n\023RequestGetPro",
+      "totype\"5\n\024ResponseGetPrototype\022\035\n\005items\030" +
+      "\001 \003(\0132\016.Protobuf.Item\"\305\001\n\004User\022\n\n\002id\030\001 \002" +
+      "(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\r\n\005" +
+      "mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001\022\r\n\005max" +
+      "HP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030\t \002(\005\022\r" +
+      "\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007defense" +
+      "\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"\265\001\n\007Monster\022\n\n\002id\030" +
+      "\001 \002(\005\022\r\n\005index\030\002 \002(\005\022\r\n\005mapID\030\003 \002(\005\022\t\n\001x" +
+      "\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\022\r\n\005maxHP\030\006 \002(\005\022\r\n\005curH" +
+      "P\030\007 \002(\005\022\r\n\005maxMP\030\010 \002(\005\022\r\n\005curMP\030\t \002(\005\022\016\n",
+      "\006damage\030\n \002(\005\022\017\n\007defense\030\013 \002(\005\022\r\n\005speed\030" +
+      "\014 \002(\005\"^\n\022MessageKillMonster\022\r\n\005mapID\030\001 \002" +
+      "(\005\022\021\n\tmonsterID\030\002 \002(\005\022\024\n\014monsterIndex\030\003 " +
+      "\002(\005\022\020\n\010bonusExp\030\004 \001(\005\"e\n\025MessageRespawnM" +
+      "onster\022\021\n\tmonsterID\030\001 \002(\005\022\024\n\014monsterInde" +
+      "x\030\002 \002(\005\022\r\n\005mapID\030\003 \002(\005\022\t\n\001x\030\004 \002(\001\022\t\n\001y\030\005" +
+      " \002(\001\"\317\001\n\016MessageNewUser\022\n\n\002id\030\001 \002(\005\022\022\n\no" +
+      "ccupation\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\r\n\005mapID\030\004" +
+      " \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001\022\r\n\005maxHP\030\007 \002(" +
+      "\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030\t \002(\005\022\r\n\005curMP",
+      "\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007defense\030\014 \002(\005\022" +
+      "\r\n\005speed\030\r \002(\005\"\037\n\021MessageDeleteUser\022\n\n\002i" +
+      "d\030\001 \002(\005\"\035\n\017MessageKillUser\022\n\n\002id\030\001 \002(\005\"\323" +
+      "\001\n\022MessageRespawnUser\022\n\n\002id\030\001 \002(\005\022\022\n\nocc" +
+      "upation\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\r\n\005mapID\030\004 \002" +
+      "(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001\022\r\n\005maxHP\030\007 \002(\005\022" +
+      "\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030\t \002(\005\022\r\n\005curMP\030\n" +
+      " \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007defense\030\014 \002(\005\022\r\n" +
+      "\005speed\030\r \002(\005\"q\n\014MonsterState\022\n\n\002ID\030\001 \002(\005" +
+      "\022\r\n\005Index\030\002 \002(\005\022\021\n\tPositionX\030\004 \002(\001\022\021\n\tPo",
+      "sitionY\030\005 \002(\001\022\r\n\005State\030\006 \002(\005\022\021\n\tDirectio" +
+      "n\030\007 \002(\005\"P\n\031MessageUpdateMonsterState\022\r\n\005" +
+      "MapID\030\001 \002(\005\022$\n\004Data\030\002 \003(\0132\026.Protobuf.Mon" +
+      "sterState\";\n\rActionCommand\022\n\n\002ID\030\001 \002(\005\022\r" +
+      "\n\005Index\030\002 \002(\005\022\017\n\007Command\030\003 \002(\005\"F\n\035Messag" +
+      "eUpdateMonsterByCommand\022%\n\004Data\030\001 \003(\0132\027." +
+      "Protobuf.ActionCommand\"J\n\035MessageUpdateM" +
+      "onsterCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002" +
+      "(\005\022\016\n\006UserID\030\003 \002(\005\"<\n\020RequestChangeMap\022\016" +
+      "\n\006userID\030\001 \002(\005\022\014\n\004from\030\002 \002(\005\022\n\n\002to\030\003 \002(\005",
+      "\"f\n\021ResponseChangeMap\022\r\n\005mapID\030\001 \002(\005\022\035\n\005" +
+      "users\030\002 \003(\0132\016.Protobuf.User\022#\n\010monsters\030" +
+      "\003 \003(\0132\021.Protobuf.Monster\"G\n\032MessageUpdat" +
+      "eUserCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(" +
+      "\005\022\016\n\006UserID\030\003 \002(\005\"7\n&MessageRequestUserU" +
+      "pdateMapInformation\022\r\n\005mapID\030\001 \002(\005\"\257\001\n\022M" +
+      "essageUpLevelUser\022\r\n\005level\030\001 \002(\005\022\016\n\006curE" +
+      "XP\030\002 \002(\005\022\016\n\006maxEXP\030\003 \002(\005\022\r\n\005curHP\030\004 \002(\005\022" +
+      "\r\n\005maxHP\030\005 \002(\005\022\r\n\005curMP\030\006 \002(\005\022\r\n\005maxMP\030\007" +
+      " \002(\005\022\016\n\006damage\030\010 \002(\005\022\017\n\007defense\030\t \002(\005\022\r\n",
+      "\005speed\030\n \002(\005\"4\n\021MessageBeginQuest\022\016\n\006use" +
+      "rID\030\001 \002(\005\022\017\n\007questID\030\002 \002(\005\"T\n\022MessageUpd" +
+      "ateQuest\022\016\n\006userID\030\001 \002(\005\022\017\n\007questID\030\002 \002(" +
+      "\005\022\014\n\004step\030\003 \002(\005\022\017\n\007percent\030\004 \002(\001\"2\n\017Mess" +
+      "ageEndQuest\022\016\n\006userID\030\001 \002(\005\022\017\n\007questID\030\002" +
+      " \002(\005\"8\n\023MessageRewardsQuest\022\017\n\007questID\030\001" +
+      " \002(\005\022\020\n\010bonusExp\030\002 \002(\005\"A\n\005Quest\022\n\n\002ID\030\001 " +
+      "\002(\005\022\014\n\004Step\030\002 \002(\005\022\017\n\007Percent\030\003 \002(\001\022\r\n\005St" +
+      "ate\030\004 \002(\005*\343\007\n\013MessageType\022\021\n\rREQUEST_LOG" +
+      "IN\020\000\022\021\n\rRESPONE_LOGIN\020\001\022\024\n\020REQUEST_REGIS",
+      "TER\020\002\022\024\n\020RESPONE_REGISTER\020\003\022\031\n\025REQUEST_G" +
+      "ET_CHARACTER\020\004\022\031\n\025RESPONE_GET_CHARACTER\020" +
+      "\005\022\034\n\030REQUEST_CREATE_CHARACTER\020\006\022\034\n\030RESPO" +
+      "NE_CREATE_CHARACTER\020\007\022\026\n\022REQUEST_START_G" +
+      "AME\020\010\022\026\n\022RESPONE_START_GAME\020\t\022\033\n\027REQUEST" +
+      "_UPDATE_POSITION\020\n\022\033\n\027RESPONE_UPDATE_POS" +
+      "ITION\020\013\022\025\n\021REQUEST_GET_ITEMS\020\014\022\026\n\022RESPON" +
+      "SE_GET_ITEMS\020\r\022\031\n\025REQUEST_UPDATE_ACTION\020" +
+      "\016\022\032\n\026RESPONSE_UPDATE_ACTION\020\017\022\031\n\025REQUEST" +
+      "_GET_PROTOTYPE\020\020\022\032\n\026RESPONSE_GET_PROTOTY",
+      "PE\020\021\022\026\n\022REQUEST_CHANGE_MAP\020\022\022\027\n\023RESPONSE" +
+      "_CHANGE_MAP\020\023\022\030\n\024MESSAGE_KILL_MONSTER\020\024\022" +
+      "\033\n\027MESSAGE_RESPAWN_MONSTER\020\025\022 \n\034MESSAGE_" +
+      "UPDATE_MONSTER_STATE\020\026\022%\n!MESSAGE_UPDATE" +
+      "_MONSTER_BY_COMMAND\020\027\022$\n MESSAGE_UPDATE_" +
+      "MONSTER_COLLISION\020\030\022\024\n\020MESSAGE_NEW_USER\020" +
+      "\031\022\027\n\023MESSAGE_DELETE_USER\020\032\022!\n\035MESSAGE_UP" +
+      "DATE_USER_COLLISION\020\033\022/\n+MESSAGE_REQUEST" +
+      "_USER_UPDATE_MAP_INFORMATION\020\034\022\025\n\021MESSAG" +
+      "E_KILL_USER\020\035\022\030\n\024MESSAGE_RESPAWN_USER\020\036\022",
+      "\031\n\025MESSAGE_UP_LEVEL_USER\020\037\022\027\n\023MESSAGE_BE" +
+      "GIN_QUEST\020 \022\030\n\024MESSAGE_UPDATE_QUEST\020!\022\025\n" +
+      "\021MESSAGE_END_QUEST\020\"\022\031\n\025MESSAGE_REWARDS_" +
+      "QUEST\020#*/\n\014ResponseCode\022\013\n\007SUCCESS\020\001\022\010\n\004" +
+      "FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rITEM_TYP" +
+      "E_USE\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017ITEM_T" +
+      "YPE_EQUIP\020\002B\036\n\032com.rpg.framework.databas" +
+      "eH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -33316,7 +36672,7 @@ public final class Protocol {
     internal_static_Protobuf_ResponseGetCharacter_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_ResponseGetCharacter_descriptor,
-        new java.lang.String[] { "Name", "Gender", "Occupation", "Level", "Strength", "Magic", "Defense", "Speed", "Dame", "Armor", "MapID", "X", "Y", "MaxHP", "CurHP", "MaxMP", "CurMP", "MaxEXP", "CurEXP", });
+        new java.lang.String[] { "Name", "Gender", "Occupation", "Level", "Strength", "Magic", "Defense", "Speed", "Dame", "Armor", "MapID", "X", "Y", "MaxHP", "CurHP", "MaxMP", "CurMP", "MaxEXP", "CurEXP", "Quest", });
     internal_static_Protobuf_RequestCreateCharacter_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_Protobuf_RequestCreateCharacter_fieldAccessorTable = new
@@ -33533,6 +36889,36 @@ public final class Protocol {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageUpLevelUser_descriptor,
         new java.lang.String[] { "Level", "CurEXP", "MaxEXP", "CurHP", "MaxHP", "CurMP", "MaxMP", "Damage", "Defense", "Speed", });
+    internal_static_Protobuf_MessageBeginQuest_descriptor =
+      getDescriptor().getMessageTypes().get(42);
+    internal_static_Protobuf_MessageBeginQuest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageBeginQuest_descriptor,
+        new java.lang.String[] { "UserID", "QuestID", });
+    internal_static_Protobuf_MessageUpdateQuest_descriptor =
+      getDescriptor().getMessageTypes().get(43);
+    internal_static_Protobuf_MessageUpdateQuest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageUpdateQuest_descriptor,
+        new java.lang.String[] { "UserID", "QuestID", "Step", "Percent", });
+    internal_static_Protobuf_MessageEndQuest_descriptor =
+      getDescriptor().getMessageTypes().get(44);
+    internal_static_Protobuf_MessageEndQuest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageEndQuest_descriptor,
+        new java.lang.String[] { "UserID", "QuestID", });
+    internal_static_Protobuf_MessageRewardsQuest_descriptor =
+      getDescriptor().getMessageTypes().get(45);
+    internal_static_Protobuf_MessageRewardsQuest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageRewardsQuest_descriptor,
+        new java.lang.String[] { "QuestID", "BonusExp", });
+    internal_static_Protobuf_Quest_descriptor =
+      getDescriptor().getMessageTypes().get(46);
+    internal_static_Protobuf_Quest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_Quest_descriptor,
+        new java.lang.String[] { "ID", "Step", "Percent", "State", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

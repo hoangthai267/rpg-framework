@@ -1,5 +1,7 @@
 package com.rpg.framework.entity;
 
+import java.util.HashMap;
+
 import com.rpg.framework.database.Protocol;
 import com.rpg.framework.manager.MessageManager;
 
@@ -30,10 +32,13 @@ public class User {
 	private int maxEXP;
 	private int level;
 	
+	private HashMap<Integer, Quest> questList;
+	
 	public User() {
 		id = -1;
 		connectionID = -1;
 		respawn = false;
+		questList = new HashMap<Integer, Quest>();
 	}
 	
 	public void update(double detla) {
@@ -265,5 +270,17 @@ public class User {
 					.setDefense(defense)
 					.build().toByteArray());
 		}
+	}
+
+	public void addQuest(int questID, Quest quest) {
+		questList.put(questID, quest);
+	}
+	
+	public Quest getQuest(int questID) {
+		return questList.get((Integer)questID);
+	}
+	
+	public boolean removeQuest(int questID, Quest quest) {
+		return questList.remove((Integer)questID, quest);
 	}
 }

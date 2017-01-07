@@ -112,6 +112,10 @@ public class Client extends com.rpg.framework.core.Client {
 					System.out.println("MESSAGE_DELETE_USER_VALUE");
 					break;
 				}
+				case Protocol.MessageType.MESSAGE_REWARDS_QUEST_VALUE: {
+					receiveMessageRewardsQuest(Protocol.MessageRewardsQuest.parseFrom(data));
+					break;
+				}
 				default:
 					break;
 			}
@@ -313,6 +317,7 @@ public class Client extends com.rpg.framework.core.Client {
 			this.positionX 	= response.getX();
 			this.positionY 	= response.getY();
 			System.out.println(response);
+
 			sendRequestStartGame();
 	}
 
@@ -326,6 +331,10 @@ public class Client extends com.rpg.framework.core.Client {
 	public void responseStartGame(Protocol.ResponseStartGame response) {
 			this.state = State.RUN;
 			System.out.println("Client.responseStartGame(): " + userName);		
+			
+			sendMessageBeginQuest();
+//			sendMessageUpdateQuest();
+//			sendMessageEndQuest();
 	}
 
 	public void responseUpdatePosition(Protocol.ResponseUpdatePosition response) {
@@ -368,5 +377,38 @@ public class Client extends com.rpg.framework.core.Client {
 				break;
 			}
 		}
-	}	
+	}
+	
+	public void sendMessageBeginQuest() {
+		Protocol.MessageBeginQuest quest = Protocol.MessageBeginQuest.newBuilder()
+				.setQuestID(2)
+				.setUserID(userID)
+				.build();
+		
+		sendMessage(Protocol.MessageType.MESSAGE_BEGIN_QUEST_VALUE, quest.toByteArray());	
+	}
+	
+	public void sendMessageUpdateQuest() {
+		Protocol.MessageUpdateQuest quest = Protocol.MessageUpdateQuest.newBuilder()
+				.setQuestID(1)
+				.setUserID(userID)
+				.setStep(10)
+				.setPercent(50)
+				.build();
+		
+		sendMessage(Protocol.MessageType.MESSAGE_UPDATE_QUEST_VALUE, quest.toByteArray());	
+	}
+	
+	public void sendMessageEndQuest() {
+		Protocol.MessageEndQuest quest = Protocol.MessageEndQuest.newBuilder()
+				.setQuestID(1)
+				.setUserID(userID)
+				.build();
+		
+		sendMessage(Protocol.MessageType.MESSAGE_END_QUEST_VALUE, quest.toByteArray());	
+	}
+	
+	public void receiveMessageRewardsQuest(Protocol.MessageRewardsQuest message) {
+		System.out.println(message);
+	}
 }

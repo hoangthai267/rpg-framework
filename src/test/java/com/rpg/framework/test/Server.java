@@ -12,6 +12,7 @@ import com.rpg.framework.database.Protocol;
 import com.rpg.framework.database.Protocol.MessageUpdateMonsterState;
 import com.rpg.framework.entity.Message;
 import com.rpg.framework.entity.Monster;
+import com.rpg.framework.entity.Quest;
 import com.rpg.framework.entity.User;
 import com.rpg.framework.manager.DataManager;
 import com.rpg.framework.manager.MapManager;
@@ -173,6 +174,21 @@ public class Server extends com.rpg.framework.core.Server {
 				handleMessageUpdateMonsterCollision(Protocol.MessageUpdateMonsterCollision.parseFrom(data));
 				break;
 			}
+			
+			case Protocol.MessageType.MESSAGE_BEGIN_QUEST_VALUE: {
+				handleMessageBeginQuest(Protocol.MessageBeginQuest.parseFrom(data));
+				break;
+			}
+			
+			case Protocol.MessageType.MESSAGE_UPDATE_QUEST_VALUE: {
+				handleMessageUpdateQuest(Protocol.MessageUpdateQuest.parseFrom(data));
+				break;
+			}
+			
+			case Protocol.MessageType.MESSAGE_END_QUEST_VALUE: {
+				handleMessageEndQuest(Protocol.MessageEndQuest.parseFrom(data));
+				break;
+			}
 
 			default: {
 				break;
@@ -274,7 +290,8 @@ public class Server extends com.rpg.framework.core.Server {
 			JsonObject stats = DataManager.getInstance().get("User_" + request.getUserID() + "_Stats");
 			JsonObject position = DataManager.getInstance().get("User_" + request.getUserID() + "_Position");
 			JsonObject status = DataManager.getInstance().get("User_" + request.getUserID() + "_Status");
-			Protocol.ResponseGetCharacter reponse = Protocol.ResponseGetCharacter.newBuilder()
+			JsonObject quest = DataManager.getInstance().get("User_" + request.getUserID() + "_Quests");
+			Protocol.ResponseGetCharacter.Builder builder = Protocol.ResponseGetCharacter.newBuilder()
 					.setName(stats.getString("name")).setGender(stats.getInt("gender"))
 					.setOccupation(stats.getInt("occupation")).setLevel(stats.getInt("level"))
 					.setStrength(stats.getInt("strength")).setMagic(stats.getInt("magic"))
@@ -284,9 +301,20 @@ public class Server extends com.rpg.framework.core.Server {
 					.setMapID(position.getInt("mapID")).setX(position.getDouble("x")).setY(position.getDouble("y"))
 
 					.setMaxHP(status.getInt("maxHP")).setCurHP(status.getInt("curHP")).setMaxMP(status.getInt("maxMP"))
-					.setCurMP(status.getInt("curMP")).setMaxEXP(status.getInt("maxEXP")).setCurEXP(status.getInt("curEXP")).build();
+					.setCurMP(status.getInt("curMP")).setMaxEXP(status.getInt("maxEXP")).setCurEXP(status.getInt("curEXP"));
+			
+			JsonArray list = quest.getArray("list");
+			for(int i = 0; i < list.size(); i++) {
+				JsonObject obj = quest.getObject(list.getString(i));
+				builder.addQuest(Protocol.Quest.newBuilder()
+						.setID(obj.getInt("ID"))
+						.setStep(obj.getInt("Step"))
+						.setPercent(obj.getDouble("Percent"))
+						.setState(obj.getInt("State")));				
+			}
+			
 
-			sendMessageTo(clientID, Protocol.MessageType.RESPONE_GET_CHARACTER_VALUE, reponse.toByteArray());
+			sendMessageTo(clientID, Protocol.MessageType.RESPONE_GET_CHARACTER_VALUE, builder.build().toByteArray());
 		} catch (Exception ex) {
 			Debugger.WriteException(ex);
 		}
@@ -322,6 +350,8 @@ public class Server extends com.rpg.framework.core.Server {
 				DataManager.getInstance().set("User_" + request.getUserID() + "_Position", position);
 				DataManager.getInstance().set("User_" + request.getUserID() + "_Status", status);
 				DataManager.getInstance().set("User_" + request.getUserID() + "_Items", items);
+				DataManager.getInstance().set("User_" + request.getUserID() + "_Quests", JsonObject.create()
+						.put("list", JsonArray.create()));
 				// couchbase.set(request.getUserID() + "_Character", character);
 				UserManager.getInstance().addIdentifiedUser(clientID, request.getUserID());
 			}
@@ -594,5 +624,69 @@ public class Server extends com.rpg.framework.core.Server {
 		} catch (Exception ex) {
 			Debugger.WriteException(ex);
 		}
+	}
+	
+	public void handleMessageBeginQuest(Protocol.MessageBeginQuest message) {
+		Quest quest = new Quest();
+		quest.setID(message.getQuestID());
+		quest.setStep(1);
+		quest.setPercent(0.0);
+		quest.setState(1);
+		
+		User user = UserManager.getInstance().getIdentifiedUser(message.getUserID());
+		user.addQuest(message.getQuestID(), quest);
+		
+		
+		JsonObject data = JsonObject.create();
+		data.put("ID", quest.getID());
+		data.put("Step", quest.getStep());
+		data.put("Percent", quest.getPercent());
+		data.put("State", 1); // in - proccess
+		
+		JsonObject list = DataManager.getInstance().get("User_" + message.getUserID() + "_Quests");
+		list.put(String.valueOf(quest.getID()), data);
+		list.getArray("list").add(String.valueOf(quest.getID()));
+		DataManager.getInstance().set("User_" + message.getUserID() + "_Quests", list);
+	}
+	
+	public void handleMessageUpdateQuest(Protocol.MessageUpdateQuest message) {
+		User user = UserManager.getInstance().getIdentifiedUser(message.getUserID());
+		Quest quest = user.getQuest(message.getQuestID());
+		
+		quest.setStep(message.getStep());
+		quest.setPercent(message.getPercent());
+		
+		JsonObject data = JsonObject.create();
+		data.put("ID", quest.getID());
+		data.put("Step", quest.getStep());
+		data.put("Percent", quest.getPercent());
+		data.put("State", 1); // in - proccess
+		
+		JsonObject list = DataManager.getInstance().get("User_" + message.getUserID() + "_Quests");
+		list.put(String.valueOf(quest.getID()), data);
+		DataManager.getInstance().set("User_" + message.getUserID() + "_Quests", list);
+	}
+	
+	public void handleMessageEndQuest(Protocol.MessageEndQuest message) {
+		User user = UserManager.getInstance().getIdentifiedUser(message.getUserID());
+		Quest quest = user.getQuest(message.getQuestID());
+		
+		quest.setPercent(100.0);
+		quest.setState(2);
+		
+		JsonObject data = JsonObject.create();
+		data.put("ID", quest.getID());
+		data.put("Step", quest.getStep());
+		data.put("Percent", quest.getPercent());
+		data.put("State", 2); // completed
+		
+		JsonObject list = DataManager.getInstance().get("User_" + message.getUserID() + "_Quests");
+		list.put(String.valueOf(quest.getID()), data);
+		DataManager.getInstance().set("User_" + message.getUserID() + "_Quests", list);
+		
+		MessageManager.getInstance().sendMessage(user.getConnectionID(), Protocol.MessageType.MESSAGE_REWARDS_QUEST_VALUE, Protocol.MessageRewardsQuest.newBuilder()
+				.setQuestID(message.getQuestID())
+				.setBonusExp(100)
+				.build().toByteArray());
 	}
 }
