@@ -651,6 +651,12 @@ public class Server extends com.rpg.framework.core.Server {
 			list.put(String.valueOf(quest.getID()), data);
 			list.getArray("list").add(String.valueOf(quest.getID()));
 			DataManager.getInstance().set("User_" + message.getUserID() + "_Quests", list);
+			
+			MessageManager.getInstance().sendMessage(user.getConnectionID(), Protocol.MessageType.MESSAGE_INFORMATION_QUEST_VALUE, Protocol.MessageInformationQuest.newBuilder()
+					.setID(quest.getID())
+					.setStep(quest.getStep())
+					.setState(quest.getState())
+					.build().toByteArray());
 		}
 	}
 
