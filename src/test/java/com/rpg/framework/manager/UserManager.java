@@ -50,12 +50,14 @@ public class UserManager {
 		user.setDamage(userStats.getInt("dame"));
 		user.setDefense(userStats.getInt("defense"));
 		user.setSpeed(userStats.getInt("speed"));
+		user.setLevel(userStats.getInt("level"));
 		
 		user.setCurHP(userStatus.getInt("curHP"));
 		user.setCurMP(userStatus.getInt("curMP"));
+		user.setCurEXP(userStatus.getInt("curEXP"));
 		user.setMaxHP(userStatus.getInt("maxHP"));
 		user.setMaxMP(userStatus.getInt("maxMP"));
-		
+		user.setMaxEXP(userStatus.getInt("maxEXP"));
 		addUser(id, user);
 	}
 	
@@ -90,6 +92,7 @@ public class UserManager {
 		identified.setPositionY(userPosition.getDouble("y"));
 		
 		identified.setName(userStats.getString("name"));
+		identified.setLevel(userStats.getInt("level"));
 		identified.setOccupation(userStats.getInt("occupation"));
 		identified.setDamage(userStats.getInt("dame"));
 		identified.setDefense(userStats.getInt("defense"));
@@ -139,6 +142,7 @@ public class UserManager {
 			if (connectionID == user.getConnectionID()) {
 				JsonObject userObject = DataManager.getInstance().get("User_" + user.getId());
 				userObject.put("hasLogin", false);
+				user.saveData();
 				DataManager.getInstance().set("User_" + user.getId(), userObject);
 				MapManager.getInstance().exitMap(user.getId(), user.getMapID());				
 				identifiedUsers.remove(user.getId());			
