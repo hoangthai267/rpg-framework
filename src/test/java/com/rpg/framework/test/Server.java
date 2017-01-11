@@ -598,6 +598,7 @@ public class Server extends com.rpg.framework.core.Server {
 			int subHP = user.getCurHP() - monster.getDamage();
 			System.out.println(subHP);
 			user.setCurHP(subHP);
+			user.saveData();
 
 			List<Integer> list = MapManager.getInstance().getUserList(user.getMapID());
 			for (Integer id : list) {
