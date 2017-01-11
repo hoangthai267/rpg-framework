@@ -2,7 +2,9 @@ package com.rpg.framework.entity;
 
 import java.util.HashMap;
 
+import com.couchbase.client.java.document.json.JsonObject;
 import com.rpg.framework.database.Protocol;
+import com.rpg.framework.manager.DataManager;
 import com.rpg.framework.manager.MessageManager;
 
 public class User {
@@ -269,6 +271,29 @@ public class User {
 					.setDamage(damage)
 					.setDefense(defense)
 					.build().toByteArray());
+			
+			JsonObject position = DataManager.getInstance().get("User_" + id + "_Position");
+			position.put("mapID", mapID);
+			position.put("x", positionX);
+			position.put("y", positionY);
+			
+			JsonObject stats = DataManager.getInstance().get("User_" + id + "_Stats");
+			stats.put("level", level);
+			stats.put("dame", damage);
+			stats.put("defense", defense);
+			stats.put("speed", speed);
+			
+			JsonObject status = DataManager.getInstance().get("User_" + id + "_Status");
+			status.put("curHP", curHP);
+			status.put("maxHP", maxHP);
+			status.put("curMP", curMP);
+			status.put("maxMP", maxMP);
+			status.put("curEXP", curEXP);
+			status.put("maxEXP", maxEXP);
+			
+			DataManager.getInstance().set("User_" + id + "_Position", position);
+			DataManager.getInstance().set("User_" + id + "_Stats", stats);
+			DataManager.getInstance().set("User_" + id + "_Status", status);
 		}
 	}
 
