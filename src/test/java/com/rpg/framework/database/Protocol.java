@@ -161,6 +161,18 @@ public final class Protocol {
      * <code>MESSAGE_INFORMATION_QUEST = 36;</code>
      */
     MESSAGE_INFORMATION_QUEST(36, 36),
+    /**
+     * <code>MESSAGE_ADD_MONEY = 37;</code>
+     */
+    MESSAGE_ADD_MONEY(37, 37),
+    /**
+     * <code>MESSAGE_REMOVE_MONEY = 38;</code>
+     */
+    MESSAGE_REMOVE_MONEY(38, 38),
+    /**
+     * <code>MESSAGE_COLLECT_MONEY = 39;</code>
+     */
+    MESSAGE_COLLECT_MONEY(39, 39),
     ;
 
     /**
@@ -311,6 +323,18 @@ public final class Protocol {
      * <code>MESSAGE_INFORMATION_QUEST = 36;</code>
      */
     public static final int MESSAGE_INFORMATION_QUEST_VALUE = 36;
+    /**
+     * <code>MESSAGE_ADD_MONEY = 37;</code>
+     */
+    public static final int MESSAGE_ADD_MONEY_VALUE = 37;
+    /**
+     * <code>MESSAGE_REMOVE_MONEY = 38;</code>
+     */
+    public static final int MESSAGE_REMOVE_MONEY_VALUE = 38;
+    /**
+     * <code>MESSAGE_COLLECT_MONEY = 39;</code>
+     */
+    public static final int MESSAGE_COLLECT_MONEY_VALUE = 39;
 
 
     public final int getNumber() { return value; }
@@ -354,6 +378,9 @@ public final class Protocol {
         case 34: return MESSAGE_END_QUEST;
         case 35: return MESSAGE_REWARDS_QUEST;
         case 36: return MESSAGE_INFORMATION_QUEST;
+        case 37: return MESSAGE_ADD_MONEY;
+        case 38: return MESSAGE_REMOVE_MONEY;
+        case 39: return MESSAGE_COLLECT_MONEY;
         default: return null;
       }
     }
@@ -3961,7 +3988,16 @@ public final class Protocol {
     int getCurEXP();
 
     /**
-     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     * <code>required int32 money = 20;</code>
+     */
+    boolean hasMoney();
+    /**
+     * <code>required int32 money = 20;</code>
+     */
+    int getMoney();
+
+    /**
+     * <code>repeated .Protobuf.Quest quest = 21;</code>
      *
      * <pre>
      *quest
@@ -3970,7 +4006,7 @@ public final class Protocol {
     java.util.List<com.rpg.framework.database.Protocol.Quest> 
         getQuestList();
     /**
-     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     * <code>repeated .Protobuf.Quest quest = 21;</code>
      *
      * <pre>
      *quest
@@ -3978,7 +4014,7 @@ public final class Protocol {
      */
     com.rpg.framework.database.Protocol.Quest getQuest(int index);
     /**
-     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     * <code>repeated .Protobuf.Quest quest = 21;</code>
      *
      * <pre>
      *quest
@@ -3986,7 +4022,7 @@ public final class Protocol {
      */
     int getQuestCount();
     /**
-     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     * <code>repeated .Protobuf.Quest quest = 21;</code>
      *
      * <pre>
      *quest
@@ -3995,7 +4031,7 @@ public final class Protocol {
     java.util.List<? extends com.rpg.framework.database.Protocol.QuestOrBuilder> 
         getQuestOrBuilderList();
     /**
-     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     * <code>repeated .Protobuf.Quest quest = 21;</code>
      *
      * <pre>
      *quest
@@ -4152,10 +4188,15 @@ public final class Protocol {
               curEXP_ = input.readInt32();
               break;
             }
-            case 162: {
-              if (!((mutable_bitField0_ & 0x00080000) == 0x00080000)) {
+            case 160: {
+              bitField0_ |= 0x00080000;
+              money_ = input.readInt32();
+              break;
+            }
+            case 170: {
+              if (!((mutable_bitField0_ & 0x00100000) == 0x00100000)) {
                 quest_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.Quest>();
-                mutable_bitField0_ |= 0x00080000;
+                mutable_bitField0_ |= 0x00100000;
               }
               quest_.add(input.readMessage(com.rpg.framework.database.Protocol.Quest.PARSER, extensionRegistry));
               break;
@@ -4168,7 +4209,7 @@ public final class Protocol {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00080000) == 0x00080000)) {
+        if (((mutable_bitField0_ & 0x00100000) == 0x00100000)) {
           quest_ = java.util.Collections.unmodifiableList(quest_);
         }
         this.unknownFields = unknownFields.build();
@@ -4551,10 +4592,25 @@ public final class Protocol {
       return curEXP_;
     }
 
-    public static final int QUEST_FIELD_NUMBER = 20;
+    public static final int MONEY_FIELD_NUMBER = 20;
+    private int money_;
+    /**
+     * <code>required int32 money = 20;</code>
+     */
+    public boolean hasMoney() {
+      return ((bitField0_ & 0x00080000) == 0x00080000);
+    }
+    /**
+     * <code>required int32 money = 20;</code>
+     */
+    public int getMoney() {
+      return money_;
+    }
+
+    public static final int QUEST_FIELD_NUMBER = 21;
     private java.util.List<com.rpg.framework.database.Protocol.Quest> quest_;
     /**
-     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     * <code>repeated .Protobuf.Quest quest = 21;</code>
      *
      * <pre>
      *quest
@@ -4564,7 +4620,7 @@ public final class Protocol {
       return quest_;
     }
     /**
-     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     * <code>repeated .Protobuf.Quest quest = 21;</code>
      *
      * <pre>
      *quest
@@ -4575,7 +4631,7 @@ public final class Protocol {
       return quest_;
     }
     /**
-     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     * <code>repeated .Protobuf.Quest quest = 21;</code>
      *
      * <pre>
      *quest
@@ -4585,7 +4641,7 @@ public final class Protocol {
       return quest_.size();
     }
     /**
-     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     * <code>repeated .Protobuf.Quest quest = 21;</code>
      *
      * <pre>
      *quest
@@ -4595,7 +4651,7 @@ public final class Protocol {
       return quest_.get(index);
     }
     /**
-     * <code>repeated .Protobuf.Quest quest = 20;</code>
+     * <code>repeated .Protobuf.Quest quest = 21;</code>
      *
      * <pre>
      *quest
@@ -4626,6 +4682,7 @@ public final class Protocol {
       curMP_ = 0;
       maxEXP_ = 0;
       curEXP_ = 0;
+      money_ = 0;
       quest_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
@@ -4710,6 +4767,10 @@ public final class Protocol {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasMoney()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       for (int i = 0; i < getQuestCount(); i++) {
         if (!getQuest(i).isInitialized()) {
           memoizedIsInitialized = 0;
@@ -4780,8 +4841,11 @@ public final class Protocol {
       if (((bitField0_ & 0x00040000) == 0x00040000)) {
         output.writeInt32(19, curEXP_);
       }
+      if (((bitField0_ & 0x00080000) == 0x00080000)) {
+        output.writeInt32(20, money_);
+      }
       for (int i = 0; i < quest_.size(); i++) {
-        output.writeMessage(20, quest_.get(i));
+        output.writeMessage(21, quest_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -4868,9 +4932,13 @@ public final class Protocol {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(19, curEXP_);
       }
+      if (((bitField0_ & 0x00080000) == 0x00080000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(20, money_);
+      }
       for (int i = 0; i < quest_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(20, quest_.get(i));
+          .computeMessageSize(21, quest_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5028,9 +5096,11 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00020000);
         curEXP_ = 0;
         bitField0_ = (bitField0_ & ~0x00040000);
+        money_ = 0;
+        bitField0_ = (bitField0_ & ~0x00080000);
         if (questBuilder_ == null) {
           quest_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00080000);
+          bitField0_ = (bitField0_ & ~0x00100000);
         } else {
           questBuilder_.clear();
         }
@@ -5138,10 +5208,14 @@ public final class Protocol {
           to_bitField0_ |= 0x00040000;
         }
         result.curEXP_ = curEXP_;
+        if (((from_bitField0_ & 0x00080000) == 0x00080000)) {
+          to_bitField0_ |= 0x00080000;
+        }
+        result.money_ = money_;
         if (questBuilder_ == null) {
-          if (((bitField0_ & 0x00080000) == 0x00080000)) {
+          if (((bitField0_ & 0x00100000) == 0x00100000)) {
             quest_ = java.util.Collections.unmodifiableList(quest_);
-            bitField0_ = (bitField0_ & ~0x00080000);
+            bitField0_ = (bitField0_ & ~0x00100000);
           }
           result.quest_ = quest_;
         } else {
@@ -5222,11 +5296,14 @@ public final class Protocol {
         if (other.hasCurEXP()) {
           setCurEXP(other.getCurEXP());
         }
+        if (other.hasMoney()) {
+          setMoney(other.getMoney());
+        }
         if (questBuilder_ == null) {
           if (!other.quest_.isEmpty()) {
             if (quest_.isEmpty()) {
               quest_ = other.quest_;
-              bitField0_ = (bitField0_ & ~0x00080000);
+              bitField0_ = (bitField0_ & ~0x00100000);
             } else {
               ensureQuestIsMutable();
               quest_.addAll(other.quest_);
@@ -5239,7 +5316,7 @@ public final class Protocol {
               questBuilder_.dispose();
               questBuilder_ = null;
               quest_ = other.quest_;
-              bitField0_ = (bitField0_ & ~0x00080000);
+              bitField0_ = (bitField0_ & ~0x00100000);
               questBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getQuestFieldBuilder() : null;
@@ -5326,6 +5403,10 @@ public final class Protocol {
           return false;
         }
         if (!hasCurEXP()) {
+          
+          return false;
+        }
+        if (!hasMoney()) {
           
           return false;
         }
@@ -6081,12 +6162,44 @@ public final class Protocol {
         return this;
       }
 
+      private int money_ ;
+      /**
+       * <code>required int32 money = 20;</code>
+       */
+      public boolean hasMoney() {
+        return ((bitField0_ & 0x00080000) == 0x00080000);
+      }
+      /**
+       * <code>required int32 money = 20;</code>
+       */
+      public int getMoney() {
+        return money_;
+      }
+      /**
+       * <code>required int32 money = 20;</code>
+       */
+      public Builder setMoney(int value) {
+        bitField0_ |= 0x00080000;
+        money_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 money = 20;</code>
+       */
+      public Builder clearMoney() {
+        bitField0_ = (bitField0_ & ~0x00080000);
+        money_ = 0;
+        onChanged();
+        return this;
+      }
+
       private java.util.List<com.rpg.framework.database.Protocol.Quest> quest_ =
         java.util.Collections.emptyList();
       private void ensureQuestIsMutable() {
-        if (!((bitField0_ & 0x00080000) == 0x00080000)) {
+        if (!((bitField0_ & 0x00100000) == 0x00100000)) {
           quest_ = new java.util.ArrayList<com.rpg.framework.database.Protocol.Quest>(quest_);
-          bitField0_ |= 0x00080000;
+          bitField0_ |= 0x00100000;
          }
       }
 
@@ -6094,7 +6207,7 @@ public final class Protocol {
           com.rpg.framework.database.Protocol.Quest, com.rpg.framework.database.Protocol.Quest.Builder, com.rpg.framework.database.Protocol.QuestOrBuilder> questBuilder_;
 
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6108,7 +6221,7 @@ public final class Protocol {
         }
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6122,7 +6235,7 @@ public final class Protocol {
         }
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6136,7 +6249,7 @@ public final class Protocol {
         }
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6157,7 +6270,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6175,7 +6288,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6195,7 +6308,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6216,7 +6329,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6234,7 +6347,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6252,7 +6365,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6271,7 +6384,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6280,7 +6393,7 @@ public final class Protocol {
       public Builder clearQuest() {
         if (questBuilder_ == null) {
           quest_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00080000);
+          bitField0_ = (bitField0_ & ~0x00100000);
           onChanged();
         } else {
           questBuilder_.clear();
@@ -6288,7 +6401,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6305,7 +6418,7 @@ public final class Protocol {
         return this;
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6316,7 +6429,7 @@ public final class Protocol {
         return getQuestFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6330,7 +6443,7 @@ public final class Protocol {
         }
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6345,7 +6458,7 @@ public final class Protocol {
         }
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6356,7 +6469,7 @@ public final class Protocol {
             com.rpg.framework.database.Protocol.Quest.getDefaultInstance());
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6368,7 +6481,7 @@ public final class Protocol {
             index, com.rpg.framework.database.Protocol.Quest.getDefaultInstance());
       }
       /**
-       * <code>repeated .Protobuf.Quest quest = 20;</code>
+       * <code>repeated .Protobuf.Quest quest = 21;</code>
        *
        * <pre>
        *quest
@@ -6385,7 +6498,7 @@ public final class Protocol {
           questBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.rpg.framework.database.Protocol.Quest, com.rpg.framework.database.Protocol.Quest.Builder, com.rpg.framework.database.Protocol.QuestOrBuilder>(
                   quest_,
-                  ((bitField0_ & 0x00080000) == 0x00080000),
+                  ((bitField0_ & 0x00100000) == 0x00100000),
                   getParentForChildren(),
                   isClean());
           quest_ = null;
@@ -20904,6 +21017,24 @@ public final class Protocol {
      * <code>optional int32 bonusExp = 4;</code>
      */
     int getBonusExp();
+
+    /**
+     * <code>optional int32 bonusMoney = 5;</code>
+     */
+    boolean hasBonusMoney();
+    /**
+     * <code>optional int32 bonusMoney = 5;</code>
+     */
+    int getBonusMoney();
+
+    /**
+     * <code>optional int32 bonusMoneyID = 6;</code>
+     */
+    boolean hasBonusMoneyID();
+    /**
+     * <code>optional int32 bonusMoneyID = 6;</code>
+     */
+    int getBonusMoneyID();
   }
   /**
    * Protobuf type {@code Protobuf.MessageKillMonster}
@@ -20975,6 +21106,16 @@ public final class Protocol {
             case 32: {
               bitField0_ |= 0x00000008;
               bonusExp_ = input.readInt32();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              bonusMoney_ = input.readInt32();
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000020;
+              bonusMoneyID_ = input.readInt32();
               break;
             }
           }
@@ -21077,11 +21218,43 @@ public final class Protocol {
       return bonusExp_;
     }
 
+    public static final int BONUSMONEY_FIELD_NUMBER = 5;
+    private int bonusMoney_;
+    /**
+     * <code>optional int32 bonusMoney = 5;</code>
+     */
+    public boolean hasBonusMoney() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional int32 bonusMoney = 5;</code>
+     */
+    public int getBonusMoney() {
+      return bonusMoney_;
+    }
+
+    public static final int BONUSMONEYID_FIELD_NUMBER = 6;
+    private int bonusMoneyID_;
+    /**
+     * <code>optional int32 bonusMoneyID = 6;</code>
+     */
+    public boolean hasBonusMoneyID() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>optional int32 bonusMoneyID = 6;</code>
+     */
+    public int getBonusMoneyID() {
+      return bonusMoneyID_;
+    }
+
     private void initFields() {
       mapID_ = 0;
       monsterID_ = 0;
       monsterIndex_ = 0;
       bonusExp_ = 0;
+      bonusMoney_ = 0;
+      bonusMoneyID_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -21120,6 +21293,12 @@ public final class Protocol {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeInt32(4, bonusExp_);
       }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt32(5, bonusMoney_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeInt32(6, bonusMoneyID_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -21144,6 +21323,14 @@ public final class Protocol {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(4, bonusExp_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, bonusMoney_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, bonusMoneyID_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -21270,6 +21457,10 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000004);
         bonusExp_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
+        bonusMoney_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        bonusMoneyID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -21314,6 +21505,14 @@ public final class Protocol {
           to_bitField0_ |= 0x00000008;
         }
         result.bonusExp_ = bonusExp_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.bonusMoney_ = bonusMoney_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.bonusMoneyID_ = bonusMoneyID_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -21341,6 +21540,12 @@ public final class Protocol {
         }
         if (other.hasBonusExp()) {
           setBonusExp(other.getBonusExp());
+        }
+        if (other.hasBonusMoney()) {
+          setBonusMoney(other.getBonusMoney());
+        }
+        if (other.hasBonusMoneyID()) {
+          setBonusMoneyID(other.getBonusMoneyID());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -21505,6 +21710,70 @@ public final class Protocol {
       public Builder clearBonusExp() {
         bitField0_ = (bitField0_ & ~0x00000008);
         bonusExp_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int bonusMoney_ ;
+      /**
+       * <code>optional int32 bonusMoney = 5;</code>
+       */
+      public boolean hasBonusMoney() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>optional int32 bonusMoney = 5;</code>
+       */
+      public int getBonusMoney() {
+        return bonusMoney_;
+      }
+      /**
+       * <code>optional int32 bonusMoney = 5;</code>
+       */
+      public Builder setBonusMoney(int value) {
+        bitField0_ |= 0x00000010;
+        bonusMoney_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 bonusMoney = 5;</code>
+       */
+      public Builder clearBonusMoney() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        bonusMoney_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int bonusMoneyID_ ;
+      /**
+       * <code>optional int32 bonusMoneyID = 6;</code>
+       */
+      public boolean hasBonusMoneyID() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>optional int32 bonusMoneyID = 6;</code>
+       */
+      public int getBonusMoneyID() {
+        return bonusMoneyID_;
+      }
+      /**
+       * <code>optional int32 bonusMoneyID = 6;</code>
+       */
+      public Builder setBonusMoneyID(int value) {
+        bitField0_ |= 0x00000020;
+        bonusMoneyID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 bonusMoneyID = 6;</code>
+       */
+      public Builder clearBonusMoneyID() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        bonusMoneyID_ = 0;
         onChanged();
         return this;
       }
@@ -37035,6 +37304,1479 @@ public final class Protocol {
     // @@protoc_insertion_point(class_scope:Protobuf.MessageInformationQuest)
   }
 
+  public interface MessageAddMoneyOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageAddMoney)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 moneyID = 1;</code>
+     */
+    boolean hasMoneyID();
+    /**
+     * <code>required int32 moneyID = 1;</code>
+     */
+    int getMoneyID();
+
+    /**
+     * <code>required int32 moneyValue = 2;</code>
+     */
+    boolean hasMoneyValue();
+    /**
+     * <code>required int32 moneyValue = 2;</code>
+     */
+    int getMoneyValue();
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageAddMoney}
+   */
+  public static final class MessageAddMoney extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageAddMoney)
+      MessageAddMoneyOrBuilder {
+    // Use MessageAddMoney.newBuilder() to construct.
+    private MessageAddMoney(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageAddMoney(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageAddMoney defaultInstance;
+    public static MessageAddMoney getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageAddMoney getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageAddMoney(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              moneyID_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              moneyValue_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageAddMoney_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageAddMoney_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageAddMoney.class, com.rpg.framework.database.Protocol.MessageAddMoney.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageAddMoney> PARSER =
+        new com.google.protobuf.AbstractParser<MessageAddMoney>() {
+      public MessageAddMoney parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageAddMoney(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageAddMoney> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int MONEYID_FIELD_NUMBER = 1;
+    private int moneyID_;
+    /**
+     * <code>required int32 moneyID = 1;</code>
+     */
+    public boolean hasMoneyID() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 moneyID = 1;</code>
+     */
+    public int getMoneyID() {
+      return moneyID_;
+    }
+
+    public static final int MONEYVALUE_FIELD_NUMBER = 2;
+    private int moneyValue_;
+    /**
+     * <code>required int32 moneyValue = 2;</code>
+     */
+    public boolean hasMoneyValue() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 moneyValue = 2;</code>
+     */
+    public int getMoneyValue() {
+      return moneyValue_;
+    }
+
+    private void initFields() {
+      moneyID_ = 0;
+      moneyValue_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasMoneyID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMoneyValue()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, moneyID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, moneyValue_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, moneyID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, moneyValue_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageAddMoney parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageAddMoney parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageAddMoney parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageAddMoney parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageAddMoney parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageAddMoney parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageAddMoney parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageAddMoney parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageAddMoney parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageAddMoney parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageAddMoney prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageAddMoney}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageAddMoney)
+        com.rpg.framework.database.Protocol.MessageAddMoneyOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageAddMoney_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageAddMoney_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageAddMoney.class, com.rpg.framework.database.Protocol.MessageAddMoney.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageAddMoney.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        moneyID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        moneyValue_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageAddMoney_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageAddMoney getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageAddMoney.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageAddMoney build() {
+        com.rpg.framework.database.Protocol.MessageAddMoney result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageAddMoney buildPartial() {
+        com.rpg.framework.database.Protocol.MessageAddMoney result = new com.rpg.framework.database.Protocol.MessageAddMoney(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.moneyID_ = moneyID_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.moneyValue_ = moneyValue_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageAddMoney) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageAddMoney)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageAddMoney other) {
+        if (other == com.rpg.framework.database.Protocol.MessageAddMoney.getDefaultInstance()) return this;
+        if (other.hasMoneyID()) {
+          setMoneyID(other.getMoneyID());
+        }
+        if (other.hasMoneyValue()) {
+          setMoneyValue(other.getMoneyValue());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasMoneyID()) {
+          
+          return false;
+        }
+        if (!hasMoneyValue()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageAddMoney parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageAddMoney) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int moneyID_ ;
+      /**
+       * <code>required int32 moneyID = 1;</code>
+       */
+      public boolean hasMoneyID() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 moneyID = 1;</code>
+       */
+      public int getMoneyID() {
+        return moneyID_;
+      }
+      /**
+       * <code>required int32 moneyID = 1;</code>
+       */
+      public Builder setMoneyID(int value) {
+        bitField0_ |= 0x00000001;
+        moneyID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 moneyID = 1;</code>
+       */
+      public Builder clearMoneyID() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        moneyID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int moneyValue_ ;
+      /**
+       * <code>required int32 moneyValue = 2;</code>
+       */
+      public boolean hasMoneyValue() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 moneyValue = 2;</code>
+       */
+      public int getMoneyValue() {
+        return moneyValue_;
+      }
+      /**
+       * <code>required int32 moneyValue = 2;</code>
+       */
+      public Builder setMoneyValue(int value) {
+        bitField0_ |= 0x00000002;
+        moneyValue_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 moneyValue = 2;</code>
+       */
+      public Builder clearMoneyValue() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        moneyValue_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageAddMoney)
+    }
+
+    static {
+      defaultInstance = new MessageAddMoney(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageAddMoney)
+  }
+
+  public interface MessageCollectMoneyOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageCollectMoney)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    boolean hasUserID();
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    int getUserID();
+
+    /**
+     * <code>required int32 moneyID = 2;</code>
+     */
+    boolean hasMoneyID();
+    /**
+     * <code>required int32 moneyID = 2;</code>
+     */
+    int getMoneyID();
+
+    /**
+     * <code>required int32 moneyValue = 3;</code>
+     */
+    boolean hasMoneyValue();
+    /**
+     * <code>required int32 moneyValue = 3;</code>
+     */
+    int getMoneyValue();
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageCollectMoney}
+   */
+  public static final class MessageCollectMoney extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageCollectMoney)
+      MessageCollectMoneyOrBuilder {
+    // Use MessageCollectMoney.newBuilder() to construct.
+    private MessageCollectMoney(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageCollectMoney(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageCollectMoney defaultInstance;
+    public static MessageCollectMoney getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageCollectMoney getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageCollectMoney(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userID_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              moneyID_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              moneyValue_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageCollectMoney_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageCollectMoney_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageCollectMoney.class, com.rpg.framework.database.Protocol.MessageCollectMoney.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageCollectMoney> PARSER =
+        new com.google.protobuf.AbstractParser<MessageCollectMoney>() {
+      public MessageCollectMoney parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageCollectMoney(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageCollectMoney> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int USERID_FIELD_NUMBER = 1;
+    private int userID_;
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    public boolean hasUserID() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 userID = 1;</code>
+     */
+    public int getUserID() {
+      return userID_;
+    }
+
+    public static final int MONEYID_FIELD_NUMBER = 2;
+    private int moneyID_;
+    /**
+     * <code>required int32 moneyID = 2;</code>
+     */
+    public boolean hasMoneyID() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 moneyID = 2;</code>
+     */
+    public int getMoneyID() {
+      return moneyID_;
+    }
+
+    public static final int MONEYVALUE_FIELD_NUMBER = 3;
+    private int moneyValue_;
+    /**
+     * <code>required int32 moneyValue = 3;</code>
+     */
+    public boolean hasMoneyValue() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required int32 moneyValue = 3;</code>
+     */
+    public int getMoneyValue() {
+      return moneyValue_;
+    }
+
+    private void initFields() {
+      userID_ = 0;
+      moneyID_ = 0;
+      moneyValue_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasUserID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMoneyID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMoneyValue()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, userID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, moneyID_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, moneyValue_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, userID_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, moneyID_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, moneyValue_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageCollectMoney parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageCollectMoney parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageCollectMoney parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageCollectMoney parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageCollectMoney parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageCollectMoney parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageCollectMoney parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageCollectMoney parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageCollectMoney parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageCollectMoney parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageCollectMoney prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageCollectMoney}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageCollectMoney)
+        com.rpg.framework.database.Protocol.MessageCollectMoneyOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageCollectMoney_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageCollectMoney_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageCollectMoney.class, com.rpg.framework.database.Protocol.MessageCollectMoney.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageCollectMoney.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        userID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        moneyID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        moneyValue_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageCollectMoney_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageCollectMoney getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageCollectMoney.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageCollectMoney build() {
+        com.rpg.framework.database.Protocol.MessageCollectMoney result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageCollectMoney buildPartial() {
+        com.rpg.framework.database.Protocol.MessageCollectMoney result = new com.rpg.framework.database.Protocol.MessageCollectMoney(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.userID_ = userID_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.moneyID_ = moneyID_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.moneyValue_ = moneyValue_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageCollectMoney) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageCollectMoney)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageCollectMoney other) {
+        if (other == com.rpg.framework.database.Protocol.MessageCollectMoney.getDefaultInstance()) return this;
+        if (other.hasUserID()) {
+          setUserID(other.getUserID());
+        }
+        if (other.hasMoneyID()) {
+          setMoneyID(other.getMoneyID());
+        }
+        if (other.hasMoneyValue()) {
+          setMoneyValue(other.getMoneyValue());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasUserID()) {
+          
+          return false;
+        }
+        if (!hasMoneyID()) {
+          
+          return false;
+        }
+        if (!hasMoneyValue()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageCollectMoney parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageCollectMoney) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int userID_ ;
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public boolean hasUserID() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public int getUserID() {
+        return userID_;
+      }
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public Builder setUserID(int value) {
+        bitField0_ |= 0x00000001;
+        userID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 userID = 1;</code>
+       */
+      public Builder clearUserID() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int moneyID_ ;
+      /**
+       * <code>required int32 moneyID = 2;</code>
+       */
+      public boolean hasMoneyID() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 moneyID = 2;</code>
+       */
+      public int getMoneyID() {
+        return moneyID_;
+      }
+      /**
+       * <code>required int32 moneyID = 2;</code>
+       */
+      public Builder setMoneyID(int value) {
+        bitField0_ |= 0x00000002;
+        moneyID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 moneyID = 2;</code>
+       */
+      public Builder clearMoneyID() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        moneyID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int moneyValue_ ;
+      /**
+       * <code>required int32 moneyValue = 3;</code>
+       */
+      public boolean hasMoneyValue() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required int32 moneyValue = 3;</code>
+       */
+      public int getMoneyValue() {
+        return moneyValue_;
+      }
+      /**
+       * <code>required int32 moneyValue = 3;</code>
+       */
+      public Builder setMoneyValue(int value) {
+        bitField0_ |= 0x00000004;
+        moneyValue_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 moneyValue = 3;</code>
+       */
+      public Builder clearMoneyValue() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        moneyValue_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageCollectMoney)
+    }
+
+    static {
+      defaultInstance = new MessageCollectMoney(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageCollectMoney)
+  }
+
+  public interface MessageRemoveMoneyOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Protobuf.MessageRemoveMoney)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 moneyID = 1;</code>
+     */
+    boolean hasMoneyID();
+    /**
+     * <code>required int32 moneyID = 1;</code>
+     */
+    int getMoneyID();
+  }
+  /**
+   * Protobuf type {@code Protobuf.MessageRemoveMoney}
+   */
+  public static final class MessageRemoveMoney extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:Protobuf.MessageRemoveMoney)
+      MessageRemoveMoneyOrBuilder {
+    // Use MessageRemoveMoney.newBuilder() to construct.
+    private MessageRemoveMoney(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessageRemoveMoney(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessageRemoveMoney defaultInstance;
+    public static MessageRemoveMoney getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessageRemoveMoney getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessageRemoveMoney(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              moneyID_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRemoveMoney_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRemoveMoney_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.rpg.framework.database.Protocol.MessageRemoveMoney.class, com.rpg.framework.database.Protocol.MessageRemoveMoney.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessageRemoveMoney> PARSER =
+        new com.google.protobuf.AbstractParser<MessageRemoveMoney>() {
+      public MessageRemoveMoney parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessageRemoveMoney(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessageRemoveMoney> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int MONEYID_FIELD_NUMBER = 1;
+    private int moneyID_;
+    /**
+     * <code>required int32 moneyID = 1;</code>
+     */
+    public boolean hasMoneyID() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 moneyID = 1;</code>
+     */
+    public int getMoneyID() {
+      return moneyID_;
+    }
+
+    private void initFields() {
+      moneyID_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasMoneyID()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, moneyID_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, moneyID_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.rpg.framework.database.Protocol.MessageRemoveMoney parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRemoveMoney parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRemoveMoney parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRemoveMoney parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRemoveMoney parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRemoveMoney parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRemoveMoney parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRemoveMoney parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRemoveMoney parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.rpg.framework.database.Protocol.MessageRemoveMoney parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.rpg.framework.database.Protocol.MessageRemoveMoney prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Protobuf.MessageRemoveMoney}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Protobuf.MessageRemoveMoney)
+        com.rpg.framework.database.Protocol.MessageRemoveMoneyOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRemoveMoney_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRemoveMoney_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.rpg.framework.database.Protocol.MessageRemoveMoney.class, com.rpg.framework.database.Protocol.MessageRemoveMoney.Builder.class);
+      }
+
+      // Construct using com.rpg.framework.database.Protocol.MessageRemoveMoney.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        moneyID_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.rpg.framework.database.Protocol.internal_static_Protobuf_MessageRemoveMoney_descriptor;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageRemoveMoney getDefaultInstanceForType() {
+        return com.rpg.framework.database.Protocol.MessageRemoveMoney.getDefaultInstance();
+      }
+
+      public com.rpg.framework.database.Protocol.MessageRemoveMoney build() {
+        com.rpg.framework.database.Protocol.MessageRemoveMoney result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.rpg.framework.database.Protocol.MessageRemoveMoney buildPartial() {
+        com.rpg.framework.database.Protocol.MessageRemoveMoney result = new com.rpg.framework.database.Protocol.MessageRemoveMoney(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.moneyID_ = moneyID_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.rpg.framework.database.Protocol.MessageRemoveMoney) {
+          return mergeFrom((com.rpg.framework.database.Protocol.MessageRemoveMoney)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.rpg.framework.database.Protocol.MessageRemoveMoney other) {
+        if (other == com.rpg.framework.database.Protocol.MessageRemoveMoney.getDefaultInstance()) return this;
+        if (other.hasMoneyID()) {
+          setMoneyID(other.getMoneyID());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasMoneyID()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.rpg.framework.database.Protocol.MessageRemoveMoney parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.rpg.framework.database.Protocol.MessageRemoveMoney) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int moneyID_ ;
+      /**
+       * <code>required int32 moneyID = 1;</code>
+       */
+      public boolean hasMoneyID() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 moneyID = 1;</code>
+       */
+      public int getMoneyID() {
+        return moneyID_;
+      }
+      /**
+       * <code>required int32 moneyID = 1;</code>
+       */
+      public Builder setMoneyID(int value) {
+        bitField0_ |= 0x00000001;
+        moneyID_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 moneyID = 1;</code>
+       */
+      public Builder clearMoneyID() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        moneyID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Protobuf.MessageRemoveMoney)
+    }
+
+    static {
+      defaultInstance = new MessageRemoveMoney(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Protobuf.MessageRemoveMoney)
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Protobuf_RequestLogin_descriptor;
   private static
@@ -37275,6 +39017,21 @@ public final class Protocol {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_Protobuf_MessageInformationQuest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageAddMoney_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageAddMoney_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageCollectMoney_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageCollectMoney_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Protobuf_MessageRemoveMoney_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Protobuf_MessageRemoveMoney_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -37293,7 +39050,7 @@ public final class Protocol {
       "\022\020\n\010username\030\001 \002(\t\022\020\n\010password\030\002 \002(\t\"K\n\020" +
       "ResponseRegister\022&\n\006result\030\001 \002(\0162\026.Proto" +
       "buf.ResponseCode\022\017\n\007message\030\002 \001(\t\"%\n\023Req" +
-      "uestGetCharacter\022\016\n\006userID\030\001 \002(\005\"\326\002\n\024Res",
+      "uestGetCharacter\022\016\n\006userID\030\001 \002(\005\"\345\002\n\024Res",
       "ponseGetCharacter\022\014\n\004name\030\001 \002(\t\022\016\n\006gende" +
       "r\030\002 \002(\005\022\022\n\noccupation\030\003 \002(\005\022\r\n\005level\030\004 \002" +
       "(\005\022\020\n\010strength\030\005 \002(\005\022\r\n\005magic\030\006 \002(\005\022\017\n\007d" +
@@ -37301,129 +39058,137 @@ public final class Protocol {
       "\005\022\r\n\005armor\030\n \002(\005\022\r\n\005mapID\030\013 \002(\005\022\t\n\001x\030\014 \002" +
       "(\001\022\t\n\001y\030\r \002(\001\022\r\n\005maxHP\030\016 \002(\005\022\r\n\005curHP\030\017 " +
       "\002(\005\022\r\n\005maxMP\030\020 \002(\005\022\r\n\005curMP\030\021 \002(\005\022\016\n\006max" +
-      "EXP\030\022 \002(\005\022\016\n\006curEXP\030\023 \002(\005\022\036\n\005quest\030\024 \003(\013" +
-      "2\017.Protobuf.Quest\"J\n\026RequestCreateCharac" +
-      "ter\022\016\n\006userID\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\022\n\nocc",
-      "upation\030\003 \002(\005\"R\n\027ResponseCreateCharacter" +
-      "\022&\n\006result\030\001 \002(\0162\026.Protobuf.ResponseCode" +
-      "\022\017\n\007message\030\002 \001(\t\"\"\n\020RequestStartGame\022\016\n" +
-      "\006userID\030\001 \002(\005\"W\n\021ResponseStartGame\022\035\n\005us" +
-      "ers\030\001 \003(\0132\016.Protobuf.User\022#\n\010monsters\030\002 " +
-      "\003(\0132\021.Protobuf.Monster\"[\n\025RequestUpdateP" +
-      "osition\022\016\n\006userID\030\001 \002(\005\022\r\n\005mapID\030\002 \002(\005\022\t" +
-      "\n\001x\030\003 \002(\001\022\t\n\001y\030\004 \002(\001\022\r\n\005state\030\005 \002(\005\"Q\n\026R" +
-      "esponseUpdatePosition\022&\n\006result\030\001 \002(\0162\026." +
-      "Protobuf.ResponseCode\022\017\n\007message\030\002 \001(\t\"!",
-      "\n\017RequestGetItems\022\016\n\006UserID\030\001 \002(\005\"I\n\020Res" +
-      "ponseGetItems\022&\n\006Result\030\001 \002(\0162\026.Protobuf" +
-      ".ResponseCode\022\r\n\005Items\030\002 \003(\005\"~\n\017Characte" +
-      "rAction\022\r\n\005mapID\030\001 \002(\005\022\t\n\001x\030\002 \002(\001\022\t\n\001y\030\003" +
-      " \002(\001\022\r\n\005State\030\004 \001(\005\022\025\n\rActionCommand\030\005 \001" +
-      "(\005\022\014\n\004Type\030\006 \001(\005\022\022\n\nTimeRecord\030\007 \001(\002\"Q\n\023" +
-      "RequestUpdateAction\022\016\n\006userID\030\001 \002(\005\022*\n\007a" +
-      "ctions\030\003 \003(\0132\031.Protobuf.CharacterAction\"" +
-      "R\n\024ResponseUpdateAction\022\016\n\006userID\030\001 \002(\005\022" +
-      "*\n\007actions\030\003 \003(\0132\031.Protobuf.CharacterAct",
-      "ion\"6\n\004Item\022 \n\004type\030\001 \002(\0162\022.Protobuf.Ite" +
-      "mType\022\014\n\004data\030\002 \002(\014\"\230\001\n\003Use\022\n\n\002ID\030\001 \002(\005\022" +
-      "\017\n\007HPValue\030\002 \002(\005\022\017\n\007MPValue\030\003 \002(\005\022\020\n\010Dur" +
-      "ation\030\004 \002(\005\022\023\n\013HPPerSecond\030\005 \002(\005\022\023\n\013MPPe" +
-      "rSecond\030\006 \002(\005\022\020\n\010BonusExp\030\007 \002(\002\022\025\n\rBonus" +
-      "ItemDrop\030\010 \002(\002\"#\n\007Collect\022\n\n\002ID\030\001 \002(\005\022\014\n" +
-      "\004Type\030\002 \002(\005\"K\n\005Equip\022\n\n\002ID\030\001 \002(\005\022\014\n\004Type" +
-      "\030\002 \002(\005\022(\n\nBonusStats\030\003 \002(\0132\024.Protobuf.Bo" +
-      "nusStats\"5\n\nBonusStats\022\017\n\007BonusHP\030\001 \001(\005\022" +
-      "\026\n\016BonusPercentHP\030\002 \001(\002\"\025\n\023RequestGetPro",
-      "totype\"5\n\024ResponseGetPrototype\022\035\n\005items\030" +
-      "\001 \003(\0132\016.Protobuf.Item\"\305\001\n\004User\022\n\n\002id\030\001 \002" +
-      "(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\r\n\005" +
-      "mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001\022\r\n\005max" +
-      "HP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030\t \002(\005\022\r" +
-      "\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007defense" +
-      "\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"\265\001\n\007Monster\022\n\n\002id\030" +
-      "\001 \002(\005\022\r\n\005index\030\002 \002(\005\022\r\n\005mapID\030\003 \002(\005\022\t\n\001x" +
-      "\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\022\r\n\005maxHP\030\006 \002(\005\022\r\n\005curH" +
-      "P\030\007 \002(\005\022\r\n\005maxMP\030\010 \002(\005\022\r\n\005curMP\030\t \002(\005\022\016\n",
-      "\006damage\030\n \002(\005\022\017\n\007defense\030\013 \002(\005\022\r\n\005speed\030" +
-      "\014 \002(\005\"^\n\022MessageKillMonster\022\r\n\005mapID\030\001 \002" +
-      "(\005\022\021\n\tmonsterID\030\002 \002(\005\022\024\n\014monsterIndex\030\003 " +
-      "\002(\005\022\020\n\010bonusExp\030\004 \001(\005\"e\n\025MessageRespawnM" +
-      "onster\022\021\n\tmonsterID\030\001 \002(\005\022\024\n\014monsterInde" +
-      "x\030\002 \002(\005\022\r\n\005mapID\030\003 \002(\005\022\t\n\001x\030\004 \002(\001\022\t\n\001y\030\005" +
-      " \002(\001\"\317\001\n\016MessageNewUser\022\n\n\002id\030\001 \002(\005\022\022\n\no" +
-      "ccupation\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\r\n\005mapID\030\004" +
-      " \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001\022\r\n\005maxHP\030\007 \002(" +
-      "\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030\t \002(\005\022\r\n\005curMP",
-      "\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007defense\030\014 \002(\005\022" +
-      "\r\n\005speed\030\r \002(\005\"\037\n\021MessageDeleteUser\022\n\n\002i" +
-      "d\030\001 \002(\005\"\035\n\017MessageKillUser\022\n\n\002id\030\001 \002(\005\"\323" +
-      "\001\n\022MessageRespawnUser\022\n\n\002id\030\001 \002(\005\022\022\n\nocc" +
-      "upation\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\r\n\005mapID\030\004 \002" +
-      "(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001\022\r\n\005maxHP\030\007 \002(\005\022" +
-      "\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030\t \002(\005\022\r\n\005curMP\030\n" +
-      " \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007defense\030\014 \002(\005\022\r\n" +
-      "\005speed\030\r \002(\005\"q\n\014MonsterState\022\n\n\002ID\030\001 \002(\005" +
-      "\022\r\n\005Index\030\002 \002(\005\022\021\n\tPositionX\030\004 \002(\001\022\021\n\tPo",
-      "sitionY\030\005 \002(\001\022\r\n\005State\030\006 \002(\005\022\021\n\tDirectio" +
-      "n\030\007 \002(\005\"P\n\031MessageUpdateMonsterState\022\r\n\005" +
-      "MapID\030\001 \002(\005\022$\n\004Data\030\002 \003(\0132\026.Protobuf.Mon" +
-      "sterState\";\n\rActionCommand\022\n\n\002ID\030\001 \002(\005\022\r" +
-      "\n\005Index\030\002 \002(\005\022\017\n\007Command\030\003 \002(\005\"F\n\035Messag" +
-      "eUpdateMonsterByCommand\022%\n\004Data\030\001 \003(\0132\027." +
-      "Protobuf.ActionCommand\"J\n\035MessageUpdateM" +
-      "onsterCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002" +
-      "(\005\022\016\n\006UserID\030\003 \002(\005\"<\n\020RequestChangeMap\022\016" +
-      "\n\006userID\030\001 \002(\005\022\014\n\004from\030\002 \002(\005\022\n\n\002to\030\003 \002(\005",
-      "\"f\n\021ResponseChangeMap\022\r\n\005mapID\030\001 \002(\005\022\035\n\005" +
-      "users\030\002 \003(\0132\016.Protobuf.User\022#\n\010monsters\030" +
-      "\003 \003(\0132\021.Protobuf.Monster\"G\n\032MessageUpdat" +
-      "eUserCollision\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(" +
-      "\005\022\016\n\006UserID\030\003 \002(\005\"7\n&MessageRequestUserU" +
-      "pdateMapInformation\022\r\n\005mapID\030\001 \002(\005\"\240\001\n\022M" +
-      "essageUpLevelUser\022\r\n\005level\030\001 \002(\005\022\016\n\006curE" +
-      "XP\030\002 \002(\005\022\016\n\006maxEXP\030\003 \002(\005\022\r\n\005curHP\030\004 \002(\005\022" +
-      "\r\n\005maxHP\030\005 \002(\005\022\r\n\005curMP\030\006 \002(\005\022\r\n\005maxMP\030\007" +
-      " \002(\005\022\016\n\006damage\030\010 \002(\005\022\017\n\007defense\030\t \002(\005\"4\n",
-      "\021MessageBeginQuest\022\016\n\006userID\030\001 \002(\005\022\017\n\007qu" +
-      "estID\030\002 \002(\005\"U\n\022MessageUpdateQuest\022\016\n\006use" +
-      "rID\030\001 \002(\005\022\017\n\007questID\030\002 \002(\005\022\014\n\004step\030\003 \002(\005" +
-      "\022\020\n\010Progress\030\004 \003(\005\"2\n\017MessageEndQuest\022\016\n" +
-      "\006userID\030\001 \002(\005\022\017\n\007questID\030\002 \002(\005\"8\n\023Messag" +
-      "eRewardsQuest\022\017\n\007questID\030\001 \002(\005\022\020\n\010bonusE" +
-      "xp\030\002 \002(\005\"B\n\005Quest\022\n\n\002ID\030\001 \002(\005\022\014\n\004Step\030\002 " +
-      "\002(\005\022\020\n\010Progress\030\003 \003(\005\022\r\n\005State\030\004 \002(\005\"T\n\027" +
-      "MessageInformationQuest\022\n\n\002ID\030\001 \002(\005\022\014\n\004S" +
-      "tep\030\002 \002(\005\022\020\n\010Progress\030\003 \003(\005\022\r\n\005State\030\004 \002",
-      "(\005*\202\010\n\013MessageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n" +
-      "\rRESPONE_LOGIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024" +
-      "\n\020RESPONE_REGISTER\020\003\022\031\n\025REQUEST_GET_CHAR" +
-      "ACTER\020\004\022\031\n\025RESPONE_GET_CHARACTER\020\005\022\034\n\030RE" +
-      "QUEST_CREATE_CHARACTER\020\006\022\034\n\030RESPONE_CREA" +
-      "TE_CHARACTER\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026" +
-      "\n\022RESPONE_START_GAME\020\t\022\033\n\027REQUEST_UPDATE" +
-      "_POSITION\020\n\022\033\n\027RESPONE_UPDATE_POSITION\020\013" +
-      "\022\025\n\021REQUEST_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_" +
-      "ITEMS\020\r\022\031\n\025REQUEST_UPDATE_ACTION\020\016\022\032\n\026RE",
-      "SPONSE_UPDATE_ACTION\020\017\022\031\n\025REQUEST_GET_PR" +
-      "OTOTYPE\020\020\022\032\n\026RESPONSE_GET_PROTOTYPE\020\021\022\026\n" +
-      "\022REQUEST_CHANGE_MAP\020\022\022\027\n\023RESPONSE_CHANGE" +
-      "_MAP\020\023\022\030\n\024MESSAGE_KILL_MONSTER\020\024\022\033\n\027MESS" +
-      "AGE_RESPAWN_MONSTER\020\025\022 \n\034MESSAGE_UPDATE_" +
-      "MONSTER_STATE\020\026\022%\n!MESSAGE_UPDATE_MONSTE" +
-      "R_BY_COMMAND\020\027\022$\n MESSAGE_UPDATE_MONSTER" +
-      "_COLLISION\020\030\022\024\n\020MESSAGE_NEW_USER\020\031\022\027\n\023ME" +
-      "SSAGE_DELETE_USER\020\032\022!\n\035MESSAGE_UPDATE_US" +
-      "ER_COLLISION\020\033\022/\n+MESSAGE_REQUEST_USER_U",
-      "PDATE_MAP_INFORMATION\020\034\022\025\n\021MESSAGE_KILL_" +
-      "USER\020\035\022\030\n\024MESSAGE_RESPAWN_USER\020\036\022\031\n\025MESS" +
-      "AGE_UP_LEVEL_USER\020\037\022\027\n\023MESSAGE_BEGIN_QUE" +
-      "ST\020 \022\030\n\024MESSAGE_UPDATE_QUEST\020!\022\025\n\021MESSAG" +
-      "E_END_QUEST\020\"\022\031\n\025MESSAGE_REWARDS_QUEST\020#" +
-      "\022\035\n\031MESSAGE_INFORMATION_QUEST\020$*/\n\014Respo" +
-      "nseCode\022\013\n\007SUCCESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003" +
-      "*I\n\010ItemType\022\021\n\rITEM_TYPE_USE\020\000\022\025\n\021ITEM_" +
-      "TYPE_COLLECT\020\001\022\023\n\017ITEM_TYPE_EQUIP\020\002B\036\n\032c" +
-      "om.rpg.framework.databaseH\001"
+      "EXP\030\022 \002(\005\022\016\n\006curEXP\030\023 \002(\005\022\r\n\005money\030\024 \002(\005" +
+      "\022\036\n\005quest\030\025 \003(\0132\017.Protobuf.Quest\"J\n\026Requ" +
+      "estCreateCharacter\022\016\n\006userID\030\001 \002(\005\022\014\n\004na",
+      "me\030\002 \002(\t\022\022\n\noccupation\030\003 \002(\005\"R\n\027Response" +
+      "CreateCharacter\022&\n\006result\030\001 \002(\0162\026.Protob" +
+      "uf.ResponseCode\022\017\n\007message\030\002 \001(\t\"\"\n\020Requ" +
+      "estStartGame\022\016\n\006userID\030\001 \002(\005\"W\n\021Response" +
+      "StartGame\022\035\n\005users\030\001 \003(\0132\016.Protobuf.User" +
+      "\022#\n\010monsters\030\002 \003(\0132\021.Protobuf.Monster\"[\n" +
+      "\025RequestUpdatePosition\022\016\n\006userID\030\001 \002(\005\022\r" +
+      "\n\005mapID\030\002 \002(\005\022\t\n\001x\030\003 \002(\001\022\t\n\001y\030\004 \002(\001\022\r\n\005s" +
+      "tate\030\005 \002(\005\"Q\n\026ResponseUpdatePosition\022&\n\006" +
+      "result\030\001 \002(\0162\026.Protobuf.ResponseCode\022\017\n\007",
+      "message\030\002 \001(\t\"!\n\017RequestGetItems\022\016\n\006User" +
+      "ID\030\001 \002(\005\"I\n\020ResponseGetItems\022&\n\006Result\030\001" +
+      " \002(\0162\026.Protobuf.ResponseCode\022\r\n\005Items\030\002 " +
+      "\003(\005\"~\n\017CharacterAction\022\r\n\005mapID\030\001 \002(\005\022\t\n" +
+      "\001x\030\002 \002(\001\022\t\n\001y\030\003 \002(\001\022\r\n\005State\030\004 \001(\005\022\025\n\rAc" +
+      "tionCommand\030\005 \001(\005\022\014\n\004Type\030\006 \001(\005\022\022\n\nTimeR" +
+      "ecord\030\007 \001(\002\"Q\n\023RequestUpdateAction\022\016\n\006us" +
+      "erID\030\001 \002(\005\022*\n\007actions\030\003 \003(\0132\031.Protobuf.C" +
+      "haracterAction\"R\n\024ResponseUpdateAction\022\016" +
+      "\n\006userID\030\001 \002(\005\022*\n\007actions\030\003 \003(\0132\031.Protob",
+      "uf.CharacterAction\"6\n\004Item\022 \n\004type\030\001 \002(\016" +
+      "2\022.Protobuf.ItemType\022\014\n\004data\030\002 \002(\014\"\230\001\n\003U" +
+      "se\022\n\n\002ID\030\001 \002(\005\022\017\n\007HPValue\030\002 \002(\005\022\017\n\007MPVal" +
+      "ue\030\003 \002(\005\022\020\n\010Duration\030\004 \002(\005\022\023\n\013HPPerSecon" +
+      "d\030\005 \002(\005\022\023\n\013MPPerSecond\030\006 \002(\005\022\020\n\010BonusExp" +
+      "\030\007 \002(\002\022\025\n\rBonusItemDrop\030\010 \002(\002\"#\n\007Collect" +
+      "\022\n\n\002ID\030\001 \002(\005\022\014\n\004Type\030\002 \002(\005\"K\n\005Equip\022\n\n\002I" +
+      "D\030\001 \002(\005\022\014\n\004Type\030\002 \002(\005\022(\n\nBonusStats\030\003 \002(" +
+      "\0132\024.Protobuf.BonusStats\"5\n\nBonusStats\022\017\n" +
+      "\007BonusHP\030\001 \001(\005\022\026\n\016BonusPercentHP\030\002 \001(\002\"\025",
+      "\n\023RequestGetPrototype\"5\n\024ResponseGetProt" +
+      "otype\022\035\n\005items\030\001 \003(\0132\016.Protobuf.Item\"\305\001\n" +
+      "\004User\022\n\n\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n" +
+      "\004name\030\003 \002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n" +
+      "\001y\030\006 \002(\001\022\r\n\005maxHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r" +
+      "\n\005maxMP\030\t \002(\005\022\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013" +
+      " \002(\005\022\017\n\007defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"\265\001\n" +
+      "\007Monster\022\n\n\002id\030\001 \002(\005\022\r\n\005index\030\002 \002(\005\022\r\n\005m" +
+      "apID\030\003 \002(\005\022\t\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\022\r\n\005maxH" +
+      "P\030\006 \002(\005\022\r\n\005curHP\030\007 \002(\005\022\r\n\005maxMP\030\010 \002(\005\022\r\n",
+      "\005curMP\030\t \002(\005\022\016\n\006damage\030\n \002(\005\022\017\n\007defense\030" +
+      "\013 \002(\005\022\r\n\005speed\030\014 \002(\005\"\210\001\n\022MessageKillMons" +
+      "ter\022\r\n\005mapID\030\001 \002(\005\022\021\n\tmonsterID\030\002 \002(\005\022\024\n" +
+      "\014monsterIndex\030\003 \002(\005\022\020\n\010bonusExp\030\004 \001(\005\022\022\n" +
+      "\nbonusMoney\030\005 \001(\005\022\024\n\014bonusMoneyID\030\006 \001(\005\"" +
+      "e\n\025MessageRespawnMonster\022\021\n\tmonsterID\030\001 " +
+      "\002(\005\022\024\n\014monsterIndex\030\002 \002(\005\022\r\n\005mapID\030\003 \002(\005" +
+      "\022\t\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\"\317\001\n\016MessageNewUse" +
+      "r\022\n\n\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004nam" +
+      "e\030\003 \002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006",
+      " \002(\001\022\r\n\005maxHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005ma" +
+      "xMP\030\t \002(\005\022\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005" +
+      "\022\017\n\007defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"\037\n\021Mess" +
+      "ageDeleteUser\022\n\n\002id\030\001 \002(\005\"\035\n\017MessageKill" +
+      "User\022\n\n\002id\030\001 \002(\005\"\323\001\n\022MessageRespawnUser\022" +
+      "\n\n\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030" +
+      "\003 \002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002" +
+      "(\001\022\r\n\005maxHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxM" +
+      "P\030\t \002(\005\022\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017" +
+      "\n\007defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"q\n\014Monste",
+      "rState\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\021\n\tPos" +
+      "itionX\030\004 \002(\001\022\021\n\tPositionY\030\005 \002(\001\022\r\n\005State" +
+      "\030\006 \002(\005\022\021\n\tDirection\030\007 \002(\005\"P\n\031MessageUpda" +
+      "teMonsterState\022\r\n\005MapID\030\001 \002(\005\022$\n\004Data\030\002 " +
+      "\003(\0132\026.Protobuf.MonsterState\";\n\rActionCom" +
+      "mand\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\017\n\007Comma" +
+      "nd\030\003 \002(\005\"F\n\035MessageUpdateMonsterByComman" +
+      "d\022%\n\004Data\030\001 \003(\0132\027.Protobuf.ActionCommand" +
+      "\"J\n\035MessageUpdateMonsterCollision\022\n\n\002ID\030" +
+      "\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"<\n\020",
+      "RequestChangeMap\022\016\n\006userID\030\001 \002(\005\022\014\n\004from" +
+      "\030\002 \002(\005\022\n\n\002to\030\003 \002(\005\"f\n\021ResponseChangeMap\022" +
+      "\r\n\005mapID\030\001 \002(\005\022\035\n\005users\030\002 \003(\0132\016.Protobuf" +
+      ".User\022#\n\010monsters\030\003 \003(\0132\021.Protobuf.Monst" +
+      "er\"G\n\032MessageUpdateUserCollision\022\n\n\002ID\030\001" +
+      " \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"7\n&M" +
+      "essageRequestUserUpdateMapInformation\022\r\n" +
+      "\005mapID\030\001 \002(\005\"\240\001\n\022MessageUpLevelUser\022\r\n\005l" +
+      "evel\030\001 \002(\005\022\016\n\006curEXP\030\002 \002(\005\022\016\n\006maxEXP\030\003 \002" +
+      "(\005\022\r\n\005curHP\030\004 \002(\005\022\r\n\005maxHP\030\005 \002(\005\022\r\n\005curM",
+      "P\030\006 \002(\005\022\r\n\005maxMP\030\007 \002(\005\022\016\n\006damage\030\010 \002(\005\022\017" +
+      "\n\007defense\030\t \002(\005\"4\n\021MessageBeginQuest\022\016\n\006" +
+      "userID\030\001 \002(\005\022\017\n\007questID\030\002 \002(\005\"U\n\022Message" +
+      "UpdateQuest\022\016\n\006userID\030\001 \002(\005\022\017\n\007questID\030\002" +
+      " \002(\005\022\014\n\004step\030\003 \002(\005\022\020\n\010Progress\030\004 \003(\005\"2\n\017" +
+      "MessageEndQuest\022\016\n\006userID\030\001 \002(\005\022\017\n\007quest" +
+      "ID\030\002 \002(\005\"8\n\023MessageRewardsQuest\022\017\n\007quest" +
+      "ID\030\001 \002(\005\022\020\n\010bonusExp\030\002 \002(\005\"B\n\005Quest\022\n\n\002I" +
+      "D\030\001 \002(\005\022\014\n\004Step\030\002 \002(\005\022\020\n\010Progress\030\003 \003(\005\022" +
+      "\r\n\005State\030\004 \002(\005\"T\n\027MessageInformationQues",
+      "t\022\n\n\002ID\030\001 \002(\005\022\014\n\004Step\030\002 \002(\005\022\020\n\010Progress\030" +
+      "\003 \003(\005\022\r\n\005State\030\004 \002(\005\"6\n\017MessageAddMoney\022" +
+      "\017\n\007moneyID\030\001 \002(\005\022\022\n\nmoneyValue\030\002 \002(\005\"J\n\023" +
+      "MessageCollectMoney\022\016\n\006userID\030\001 \002(\005\022\017\n\007m" +
+      "oneyID\030\002 \002(\005\022\022\n\nmoneyValue\030\003 \002(\005\"%\n\022Mess" +
+      "ageRemoveMoney\022\017\n\007moneyID\030\001 \002(\005*\316\010\n\013Mess" +
+      "ageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPONE_LO" +
+      "GIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESPONE_R" +
+      "EGISTER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020\004\022\031\n\025" +
+      "RESPONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_CREAT",
+      "E_CHARACTER\020\006\022\034\n\030RESPONE_CREATE_CHARACTE" +
+      "R\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESPONE_S" +
+      "TART_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSITION\020\n" +
+      "\022\033\n\027RESPONE_UPDATE_POSITION\020\013\022\025\n\021REQUEST" +
+      "_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022\031\n\025" +
+      "REQUEST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE_UPDA" +
+      "TE_ACTION\020\017\022\031\n\025REQUEST_GET_PROTOTYPE\020\020\022\032" +
+      "\n\026RESPONSE_GET_PROTOTYPE\020\021\022\026\n\022REQUEST_CH" +
+      "ANGE_MAP\020\022\022\027\n\023RESPONSE_CHANGE_MAP\020\023\022\030\n\024M" +
+      "ESSAGE_KILL_MONSTER\020\024\022\033\n\027MESSAGE_RESPAWN",
+      "_MONSTER\020\025\022 \n\034MESSAGE_UPDATE_MONSTER_STA" +
+      "TE\020\026\022%\n!MESSAGE_UPDATE_MONSTER_BY_COMMAN" +
+      "D\020\027\022$\n MESSAGE_UPDATE_MONSTER_COLLISION\020" +
+      "\030\022\024\n\020MESSAGE_NEW_USER\020\031\022\027\n\023MESSAGE_DELET" +
+      "E_USER\020\032\022!\n\035MESSAGE_UPDATE_USER_COLLISIO" +
+      "N\020\033\022/\n+MESSAGE_REQUEST_USER_UPDATE_MAP_I" +
+      "NFORMATION\020\034\022\025\n\021MESSAGE_KILL_USER\020\035\022\030\n\024M" +
+      "ESSAGE_RESPAWN_USER\020\036\022\031\n\025MESSAGE_UP_LEVE" +
+      "L_USER\020\037\022\027\n\023MESSAGE_BEGIN_QUEST\020 \022\030\n\024MES" +
+      "SAGE_UPDATE_QUEST\020!\022\025\n\021MESSAGE_END_QUEST",
+      "\020\"\022\031\n\025MESSAGE_REWARDS_QUEST\020#\022\035\n\031MESSAGE" +
+      "_INFORMATION_QUEST\020$\022\025\n\021MESSAGE_ADD_MONE" +
+      "Y\020%\022\030\n\024MESSAGE_REMOVE_MONEY\020&\022\031\n\025MESSAGE" +
+      "_COLLECT_MONEY\020\'*/\n\014ResponseCode\022\013\n\007SUCC" +
+      "ESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n" +
+      "\rITEM_TYPE_USE\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022" +
+      "\023\n\017ITEM_TYPE_EQUIP\020\002B\036\n\032com.rpg.framewor" +
+      "k.databaseH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -37472,7 +39237,7 @@ public final class Protocol {
     internal_static_Protobuf_ResponseGetCharacter_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_ResponseGetCharacter_descriptor,
-        new java.lang.String[] { "Name", "Gender", "Occupation", "Level", "Strength", "Magic", "Defense", "Speed", "Dame", "Armor", "MapID", "X", "Y", "MaxHP", "CurHP", "MaxMP", "CurMP", "MaxEXP", "CurEXP", "Quest", });
+        new java.lang.String[] { "Name", "Gender", "Occupation", "Level", "Strength", "Magic", "Defense", "Speed", "Dame", "Armor", "MapID", "X", "Y", "MaxHP", "CurHP", "MaxMP", "CurMP", "MaxEXP", "CurEXP", "Money", "Quest", });
     internal_static_Protobuf_RequestCreateCharacter_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_Protobuf_RequestCreateCharacter_fieldAccessorTable = new
@@ -37598,7 +39363,7 @@ public final class Protocol {
     internal_static_Protobuf_MessageKillMonster_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageKillMonster_descriptor,
-        new java.lang.String[] { "MapID", "MonsterID", "MonsterIndex", "BonusExp", });
+        new java.lang.String[] { "MapID", "MonsterID", "MonsterIndex", "BonusExp", "BonusMoney", "BonusMoneyID", });
     internal_static_Protobuf_MessageRespawnMonster_descriptor =
       getDescriptor().getMessageTypes().get(27);
     internal_static_Protobuf_MessageRespawnMonster_fieldAccessorTable = new
@@ -37725,6 +39490,24 @@ public final class Protocol {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageInformationQuest_descriptor,
         new java.lang.String[] { "ID", "Step", "Progress", "State", });
+    internal_static_Protobuf_MessageAddMoney_descriptor =
+      getDescriptor().getMessageTypes().get(48);
+    internal_static_Protobuf_MessageAddMoney_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageAddMoney_descriptor,
+        new java.lang.String[] { "MoneyID", "MoneyValue", });
+    internal_static_Protobuf_MessageCollectMoney_descriptor =
+      getDescriptor().getMessageTypes().get(49);
+    internal_static_Protobuf_MessageCollectMoney_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageCollectMoney_descriptor,
+        new java.lang.String[] { "UserID", "MoneyID", "MoneyValue", });
+    internal_static_Protobuf_MessageRemoveMoney_descriptor =
+      getDescriptor().getMessageTypes().get(50);
+    internal_static_Protobuf_MessageRemoveMoney_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_Protobuf_MessageRemoveMoney_descriptor,
+        new java.lang.String[] { "MoneyID", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

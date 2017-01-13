@@ -104,6 +104,7 @@ public class UserManager {
 		identified.setMaxHP(userStatus.getInt("maxHP"));
 		identified.setMaxMP(userStatus.getInt("maxMP"));
 		identified.setMaxEXP(userStatus.getInt("maxEXP"));
+		identified.setMoney(userStatus.getInt("money"));
 		
 		JsonArray list = quests.getArray("list");
 		for (int i = 0; i < list.size(); i++) {

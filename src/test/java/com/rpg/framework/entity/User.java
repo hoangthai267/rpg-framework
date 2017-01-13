@@ -36,6 +36,8 @@ public class User {
 	
 	private HashMap<Integer, Quest> questList;
 	
+	private int money;
+	
 	public User() {
 		id = -1;
 		connectionID = -1;
@@ -331,9 +333,22 @@ public class User {
 		status.put("maxMP", maxMP);
 		status.put("curEXP", curEXP);
 		status.put("maxEXP", maxEXP);
+		status.put("money", money);
 		
 		DataManager.getInstance().set("User_" + id + "_Position", position);
 		DataManager.getInstance().set("User_" + id + "_Stats", stats);
 		DataManager.getInstance().set("User_" + id + "_Status", status);
+	}
+
+	public int getMoney() {
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
+	}
+	
+	public void addMoney(int money) {
+		this.money += money;
 	}
 }

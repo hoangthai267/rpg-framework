@@ -24,6 +24,7 @@ public class DataManager {
 	private Queue<String> keys;
 	private Map<String, JsonObject> data;
 	private double cachedTime;
+	private int moneyID;
 
 	private DataManager() {
 		database = new Database("Static", "Dynamic");
@@ -32,6 +33,7 @@ public class DataManager {
 		cachedTime = 0.0;
 
 		data = new HashMap<String, JsonObject>();
+		moneyID = 0;
 	}
 
 	public boolean initialize() {
@@ -101,6 +103,10 @@ public class DataManager {
 		} catch (Exception ex) {
 			Debugger.WriteException(ex);
 		}
+	}
+	
+	public int generateMoneyID() {
+		return moneyID++;
 	}
 
 	private static DataManager instance;

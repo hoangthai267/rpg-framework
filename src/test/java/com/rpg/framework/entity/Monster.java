@@ -232,5 +232,11 @@ public class Monster {
 		
 		return attackList.get(userID).intValue() * exp / maxHP;
 	}
+	
+	public int getMoney() {
+		double moneyRandom = Math.random() * 100;
+		System.out.println(moneyRandom);
+		return (int) moneyRandom + 1;
+	}
 
 }

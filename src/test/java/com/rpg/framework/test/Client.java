@@ -7,188 +7,189 @@ import com.rpg.framework.database.Protocol;
 import com.rpg.framework.manager.LogManager;
 
 public class Client extends com.rpg.framework.core.Client {
-	
+
 	private enum State {
-		START,
-		STOP,
-		WAIT,
-		RUN,
+		START, STOP, WAIT, RUN,
 	}
-	private State	state;
-	
-	private String 	userName;
-	private String 	password;
-	private int		userID;
-	
-	private int		mapID;
-	private double	positionX;
-	private double 	positionY;
+
+	private State state;
+
+	private String userName;
+	private String password;
+	private int userID;
+
+	private int mapID;
+	private double positionX;
+	private double positionY;
 
 	private List<Integer> items;
-	
+
 	public Client() {
-		this.state 		= State.START;
-		
-		this.userName 	= "admin";
-		this.password 	= "admin";
-		this.userID 	= -1;
-		
-		this.mapID		= -1;
-		this.positionX 	= 0.0;
-		this.positionY 	= 0.0;
+		this.state = State.START;
+
+		this.userName = "admin";
+		this.password = "admin";
+		this.userID = -1;
+
+		this.mapID = -1;
+		this.positionX = 0.0;
+		this.positionY = 0.0;
 	}
-	
+
 	public Client(String userName, String password) {
-		this.state 		= State.START;
-		
-		this.userName 	= userName;
-		this.password 	= password;
-		this.userID		= -1;
-		
-		this.mapID		= -1;
-		this.positionX 	= 0.0;
-		this.positionY 	= 0.0;
+		this.state = State.START;
+
+		this.userName = userName;
+		this.password = password;
+		this.userID = -1;
+
+		this.mapID = -1;
+		this.positionX = 0.0;
+		this.positionY = 0.0;
 	}
-	
+
 	@Override
 	public boolean initialize() {
-//		LogManager.enable();
+		// LogManager.enable();
 		LogManager.disable();
 		return super.initialize();
 	}
-	
+
 	@Override
 	public void receiveMessage(int commandID, byte[] data) {
 		try {
 			switch (commandID) {
-				case Protocol.MessageType.RESPONE_LOGIN_VALUE: {
-					responseLogin(Protocol.ResponseLogin.parseFrom(data));	
-					break;
-				}
-				case Protocol.MessageType.RESPONE_REGISTER_VALUE: {
-					responseRegister(Protocol.ResponseRegister.parseFrom(data));
-					break;
-				}
-				case Protocol.MessageType.RESPONE_GET_CHARACTER_VALUE: {
-					long cur = System.currentTimeMillis();
-					responseGetCharacter(Protocol.ResponseGetCharacter.parseFrom(data));
-					System.out.println("Delta: " + (System.currentTimeMillis() - cur));
-					break;
-				}
-				case Protocol.MessageType.RESPONE_CREATE_CHARACTER_VALUE: {
-					responseCreateCharacter(Protocol.ResponseCreateCharacter.parseFrom(data));
-					break;
-				}
-				case Protocol.MessageType.RESPONE_START_GAME_VALUE: {
-					responseStartGame(Protocol.ResponseStartGame.parseFrom(data));
-					break;
-				}
-				case Protocol.MessageType.RESPONE_UPDATE_POSITION_VALUE: {
-					responseUpdatePosition(Protocol.ResponseUpdatePosition.parseFrom(data));
-					break;
-				}
-				case Protocol.MessageType.RESPONSE_GET_ITEMS_VALUE: {
-					responseGetItems(Protocol.ResponseGetItems.parseFrom(data));
-					break;
-				}
-				case Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE: {
-					break;
-				}
-				case Protocol.MessageType.RESPONSE_GET_PROTOTYPE_VALUE: {
-					responseGetPrototype(Protocol.ResponseGetPrototype.parseFrom(data));
-					break;
-				}
-				case Protocol.MessageType.MESSAGE_KILL_MONSTER_VALUE: {
-					break;
-				}
-				case Protocol.MessageType.MESSAGE_RESPAWN_MONSTER_VALUE: {
-					break;
-				}
-				case Protocol.MessageType.MESSAGE_NEW_USER_VALUE: {
-					System.out.println("MESSAGE_NEW_USER_VALUE");
-					break;
-				}
-				case Protocol.MessageType.MESSAGE_DELETE_USER_VALUE: {
-					System.out.println("MESSAGE_DELETE_USER_VALUE");
-					break;
-				}
-				case Protocol.MessageType.MESSAGE_REWARDS_QUEST_VALUE: {
-					receiveMessageRewardsQuest(Protocol.MessageRewardsQuest.parseFrom(data));
-					break;
-				}
-				default:
-					break;
+			case Protocol.MessageType.RESPONE_LOGIN_VALUE: {
+				responseLogin(Protocol.ResponseLogin.parseFrom(data));
+				break;
 			}
-			
+			case Protocol.MessageType.RESPONE_REGISTER_VALUE: {
+				responseRegister(Protocol.ResponseRegister.parseFrom(data));
+				break;
+			}
+			case Protocol.MessageType.RESPONE_GET_CHARACTER_VALUE: {
+				long cur = System.currentTimeMillis();
+				responseGetCharacter(Protocol.ResponseGetCharacter.parseFrom(data));
+				System.out.println("Delta: " + (System.currentTimeMillis() - cur));
+				break;
+			}
+			case Protocol.MessageType.RESPONE_CREATE_CHARACTER_VALUE: {
+				responseCreateCharacter(Protocol.ResponseCreateCharacter.parseFrom(data));
+				break;
+			}
+			case Protocol.MessageType.RESPONE_START_GAME_VALUE: {
+				responseStartGame(Protocol.ResponseStartGame.parseFrom(data));
+				break;
+			}
+			case Protocol.MessageType.RESPONE_UPDATE_POSITION_VALUE: {
+				responseUpdatePosition(Protocol.ResponseUpdatePosition.parseFrom(data));
+				break;
+			}
+			case Protocol.MessageType.RESPONSE_GET_ITEMS_VALUE: {
+				responseGetItems(Protocol.ResponseGetItems.parseFrom(data));
+				break;
+			}
+			case Protocol.MessageType.RESPONSE_UPDATE_ACTION_VALUE: {
+				break;
+			}
+			case Protocol.MessageType.RESPONSE_GET_PROTOTYPE_VALUE: {
+				responseGetPrototype(Protocol.ResponseGetPrototype.parseFrom(data));
+				break;
+			}
+			case Protocol.MessageType.MESSAGE_KILL_MONSTER_VALUE: {
+				receiveMessageKillMonster(Protocol.MessageKillMonster.parseFrom(data));
+				break;
+			}
+			case Protocol.MessageType.MESSAGE_RESPAWN_MONSTER_VALUE: {
+				break;
+			}
+			case Protocol.MessageType.MESSAGE_NEW_USER_VALUE: {
+				System.out.println("MESSAGE_NEW_USER_VALUE");
+				break;
+			}
+			case Protocol.MessageType.MESSAGE_DELETE_USER_VALUE: {
+				System.out.println("MESSAGE_DELETE_USER_VALUE");
+				break;
+			}
+			case Protocol.MessageType.MESSAGE_REWARDS_QUEST_VALUE: {
+				receiveMessageRewardsQuest(Protocol.MessageRewardsQuest.parseFrom(data));
+				break;
+			}
+			case Protocol.MessageType.MESSAGE_REMOVE_MONEY_VALUE: {
+				System.out.println(Protocol.MessageRemoveMoney.parseFrom(data));
+			}
+			default:
+				break;
+			}
+
 		} catch (InvalidProtocolBufferException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void sendMessage(int commandID, byte[] data) {
 		super.sendMessage(commandID, data);
 	}
-	
+
 	@Override
-	public void start(String host, int port) {		
+	public void start(String host, int port) {
 		super.start(host, port);
 	}
-	
+
 	@Override
-	public void stop() {		
+	public void stop() {
 		super.stop();
 	}
-	
-	
+
 	@Override
 	public void update(double delta) {
 		super.update(delta);
-		
+
 		switch (state) {
-			case START: {			
-				sendRequestLogin();
-				sendRequestGetPrototype();
-				break;
-			}
-			
-			case RUN : {
-				sendRequestUpdateAction();
-				sendRequestUpdatePosition();
-				break;
-			}
-			
-			case STOP: {
-				stop();
-				break;
-			}
-			
-			case WAIT: {
-				break;
-			}
-	
-			default: {
-				break;
-			}
+		case START: {
+			sendRequestLogin();
+			sendRequestGetPrototype();
+			break;
 		}
-	}	
-	
-	@Override
-	public void updatePerSecond(double delta, int fps) {		
-//		System.out.println(userName + " : " + fps);
+
+		case RUN: {
+			sendRequestUpdateAction();
+			sendRequestUpdatePosition();
+			break;
+		}
+
+		case STOP: {
+			stop();
+			break;
+		}
+
+		case WAIT: {
+			break;
+		}
+
+		default: {
+			break;
+		}
+		}
 	}
-		
+
+	@Override
+	public void updatePerSecond(double delta, int fps) {
+		// System.out.println(userName + " : " + fps);
+	}
+
 	public void sendRequestLogin() {
 		LogManager.print("Client.sendRequestLogin()");
 		this.state = State.WAIT;
-		
+
 		Protocol.RequestLogin.Builder builder = Protocol.RequestLogin.newBuilder();
 		builder.setUsername(userName);
 		builder.setPassword(password);
 
 		sendMessage(Protocol.MessageType.REQUEST_LOGIN_VALUE, builder.build().toByteArray());
 	}
-	
+
 	public void sendRequestRegister() {
 		LogManager.print("Client.sendRequestRegister()");
 		this.state = State.WAIT;
@@ -210,7 +211,7 @@ public class Client extends com.rpg.framework.core.Client {
 	}
 
 	public void sendRequestCreateCharacter() {
-		LogManager.print("Client.sendRequestCreateCharacter()");		
+		LogManager.print("Client.sendRequestCreateCharacter()");
 		this.state = State.WAIT;
 		Protocol.RequestCreateCharacter.Builder builder = Protocol.RequestCreateCharacter.newBuilder();
 		builder.setUserID(userID);
@@ -230,63 +231,48 @@ public class Client extends com.rpg.framework.core.Client {
 
 	public void sendRequestUpdatePosition() {
 		LogManager.print("GameClient.sendRequestUpdatePosition()");
-		
+
 		Protocol.RequestUpdatePosition request = Protocol.RequestUpdatePosition.newBuilder().setUserID(userID)
 				.setMapID(mapID).setX(positionX).setY(positionY).setState(1).build();
-		
+
 		sendMessage(Protocol.MessageType.REQUEST_UPDATE_POSITION_VALUE, request.toByteArray());
 	}
 
 	public void sendRequestGetItems() {
 		LogManager.print("Client.sendRequestGetItems()");
-		Protocol.RequestGetItems request = Protocol.RequestGetItems.newBuilder()
-				.setUserID(userID).build();
-		
+		Protocol.RequestGetItems request = Protocol.RequestGetItems.newBuilder().setUserID(userID).build();
+
 		sendMessage(Protocol.MessageType.REQUEST_GET_ITEMS_VALUE, request.toByteArray());
 	}
-	
+
 	public void sendRequestUpdateAction() {
 		LogManager.print("Client.sendRequestUpdateAction()");
-		
+
 		Protocol.RequestUpdateAction.Builder builder = Protocol.RequestUpdateAction.newBuilder();
 		builder.setUserID(userID);
-		builder.addActions(Protocol.CharacterAction.newBuilder()
-				.setMapID(1)
-				.setX(0.0)
-				.setY(0.0)
-				.setState(10)
-				.setActionCommand(100)
-				.setType(10)
-				.setTimeRecord(100).build());
-		builder.addActions(Protocol.CharacterAction.newBuilder()
-				.setMapID(1)
-				.setX(0.0)
-				.setY(0.0)
-				.setState(20)
-				.setActionCommand(200)
-				.setType(100)
-				.setTimeRecord(200).build());
-		
-		
+		builder.addActions(Protocol.CharacterAction.newBuilder().setMapID(1).setX(0.0).setY(0.0).setState(10)
+				.setActionCommand(100).setType(10).setTimeRecord(100).build());
+		builder.addActions(Protocol.CharacterAction.newBuilder().setMapID(1).setX(0.0).setY(0.0).setState(20)
+				.setActionCommand(200).setType(100).setTimeRecord(200).build());
+
 		sendMessage(Protocol.MessageType.REQUEST_UPDATE_ACTION_VALUE, builder.build().toByteArray());
 	}
-	
+
 	public void sendRequestGetPrototype() {
 		LogManager.print("Client.sendRequestGetPrototype()");
-		
-		Protocol.RequestGetPrototype request = Protocol.RequestGetPrototype.newBuilder()
-				.build();
-		
-		sendMessage(Protocol.MessageType.REQUEST_GET_PROTOTYPE_VALUE, request.toByteArray());		
+
+		Protocol.RequestGetPrototype request = Protocol.RequestGetPrototype.newBuilder().build();
+
+		sendMessage(Protocol.MessageType.REQUEST_GET_PROTOTYPE_VALUE, request.toByteArray());
 	}
-	
+
 	public void responseLogin(Protocol.ResponseLogin response) {
 		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
 			this.userID = response.getUserID();
-			
+
 			LogManager.print("Login success " + userID);
 			System.out.println("Login success " + userName);
-			
+
 			if (response.getHasCharacter()) {
 				sendRequestGetCharacter();
 			} else {
@@ -299,7 +285,7 @@ public class Client extends com.rpg.framework.core.Client {
 				LogManager.print(response.getMessage());
 				this.state = State.STOP;
 			}
-			
+
 		}
 	}
 
@@ -312,47 +298,47 @@ public class Client extends com.rpg.framework.core.Client {
 		}
 	}
 
-	public void responseGetCharacter(Protocol.ResponseGetCharacter response) {		
-			this.mapID 		= response.getMapID();
-			this.positionX 	= response.getX();
-			this.positionY 	= response.getY();
-			System.out.println(response);
+	public void responseGetCharacter(Protocol.ResponseGetCharacter response) {
+		this.mapID = response.getMapID();
+		this.positionX = response.getX();
+		this.positionY = response.getY();
+		System.out.println(response);
 
-			sendRequestStartGame();
+		sendRequestStartGame();
 	}
 
 	public void responseCreateCharacter(Protocol.ResponseCreateCharacter response) {
 		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
-			
+
 			sendRequestGetCharacter();
 		}
 	}
 
 	public void responseStartGame(Protocol.ResponseStartGame response) {
-			this.state = State.RUN;
-			System.out.println("Client.responseStartGame(): " + userName);		
-			
-			sendMessageBeginQuest();
-			sendMessageUpdateQuest();
-//			sendMessageEndQuest();
+		this.state = State.RUN;
+		System.out.println("Client.responseStartGame(): " + userName);
+
+		sendMessageBeginQuest();
+		sendMessageUpdateQuest();
+		// sendMessageEndQuest();
 	}
 
 	public void responseUpdatePosition(Protocol.ResponseUpdatePosition response) {
 		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
-//			positionX = rand.nextDouble() * 100;
-//			positionY = rand.nextDouble() * 100;
+			// positionX = rand.nextDouble() * 100;
+			// positionY = rand.nextDouble() * 100;
 			positionX += 0.0005;
 		}
 	}
 
 	public void responseGetItems(Protocol.ResponseGetItems response) {
-		if(response.getResult() == Protocol.ResponseCode.SUCCESS) {
+		if (response.getResult() == Protocol.ResponseCode.SUCCESS) {
 			LogManager.print("Client.responseGetItems()");
 			this.items = response.getItemsList();
 			LogManager.print(items);
 		}
 	}
-	
+
 	public void responseGetPrototype(Protocol.ResponseGetPrototype response) throws InvalidProtocolBufferException {
 		List<Protocol.Item> items = response.getItemsList();
 
@@ -378,38 +364,38 @@ public class Client extends com.rpg.framework.core.Client {
 			}
 		}
 	}
-	
+
 	public void sendMessageBeginQuest() {
-		Protocol.MessageBeginQuest quest = Protocol.MessageBeginQuest.newBuilder()
-				.setQuestID(2)
-				.setUserID(userID)
+		Protocol.MessageBeginQuest quest = Protocol.MessageBeginQuest.newBuilder().setQuestID(2).setUserID(userID)
 				.build();
-		
-		sendMessage(Protocol.MessageType.MESSAGE_BEGIN_QUEST_VALUE, quest.toByteArray());	
+
+		sendMessage(Protocol.MessageType.MESSAGE_BEGIN_QUEST_VALUE, quest.toByteArray());
 	}
-	
+
 	public void sendMessageUpdateQuest() {
-		Protocol.MessageUpdateQuest quest = Protocol.MessageUpdateQuest.newBuilder()
-				.setQuestID(1)
-				.setUserID(userID)
-				.setStep(10)
-				.addProgress(1)
-				.addProgress(2)
-				.build();
-		
-		sendMessage(Protocol.MessageType.MESSAGE_UPDATE_QUEST_VALUE, quest.toByteArray());	
+		Protocol.MessageUpdateQuest quest = Protocol.MessageUpdateQuest.newBuilder().setQuestID(1).setUserID(userID)
+				.setStep(10).addProgress(1).addProgress(2).build();
+
+		sendMessage(Protocol.MessageType.MESSAGE_UPDATE_QUEST_VALUE, quest.toByteArray());
 	}
-	
+
 	public void sendMessageEndQuest() {
-		Protocol.MessageEndQuest quest = Protocol.MessageEndQuest.newBuilder()
-				.setQuestID(1)
-				.setUserID(userID)
-				.build();
-		
-		sendMessage(Protocol.MessageType.MESSAGE_END_QUEST_VALUE, quest.toByteArray());	
+		Protocol.MessageEndQuest quest = Protocol.MessageEndQuest.newBuilder().setQuestID(1).setUserID(userID).build();
+
+		sendMessage(Protocol.MessageType.MESSAGE_END_QUEST_VALUE, quest.toByteArray());
 	}
-	
+
 	public void receiveMessageRewardsQuest(Protocol.MessageRewardsQuest message) {
 		System.out.println(message);
+	}
+
+	public void receiveMessageKillMonster(Protocol.MessageKillMonster message) {
+		System.out.println(message);
+		sendMessageCollectMoney(message.getBonusMoneyID(), message.getBonusMoney());
+	}
+
+	public void sendMessageCollectMoney(int moneyID, int moneyValue) {
+		sendMessage(Protocol.MessageType.MESSAGE_COLLECT_MONEY_VALUE, Protocol.MessageCollectMoney.newBuilder()
+				.setUserID(userID).setMoneyValue(moneyValue).setMoneyID(moneyID).build().toByteArray());
 	}
 }

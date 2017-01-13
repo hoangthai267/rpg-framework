@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.rpg.framework.database.Protocol;
+import com.rpg.framework.manager.DataManager;
 import com.rpg.framework.manager.MessageManager;
 import com.rpg.framework.manager.MonsterManager;
 import com.rpg.framework.manager.UserManager;
@@ -218,6 +219,8 @@ public class Map {
 						.setMonsterID(monster.getId())
 						.setMonsterIndex(monster.getIndex())
 						.setBonusExp(exp)
+						.setBonusMoney(monster.getMoney())
+						.setBonusMoneyID(DataManager.getInstance().generateMoneyID())
 						.build()
 						.toByteArray()
 					);

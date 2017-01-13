@@ -189,6 +189,11 @@ public class Server extends com.rpg.framework.core.Server {
 				handleMessageEndQuest(Protocol.MessageEndQuest.parseFrom(data));
 				break;
 			}
+			
+			case Protocol.MessageType.MESSAGE_COLLECT_MONEY_VALUE: {
+				handleMessageCollectMoney(Protocol.MessageCollectMoney.parseFrom(data));
+				break;
+			}
 
 			default: {
 				break;
@@ -302,7 +307,7 @@ public class Server extends com.rpg.framework.core.Server {
 
 					.setMaxHP(status.getInt("maxHP")).setCurHP(status.getInt("curHP")).setMaxMP(status.getInt("maxMP"))
 					.setCurMP(status.getInt("curMP")).setMaxEXP(status.getInt("maxEXP"))
-					.setCurEXP(status.getInt("curEXP"));
+					.setCurEXP(status.getInt("curEXP")).setMoney(status.getInt("money"));
 
 			JsonArray list = quest.getArray("list");
 
@@ -344,7 +349,8 @@ public class Server extends com.rpg.framework.core.Server {
 
 				JsonObject status = JsonObject.create().put("maxHP", Config.CHARACTER_HP)
 						.put("curHP", Config.CHARACTER_HP).put("maxMP", Config.CHARACTER_MP)
-						.put("curMP", Config.CHARACTER_MP).put("curEXP", 0).put("maxEXP", Config.CHARACTER_EXP);
+						.put("curMP", Config.CHARACTER_MP).put("curEXP", 0).put("maxEXP", Config.CHARACTER_EXP)
+						.put("money", 0);
 
 				JsonObject items = JsonObject.create().put("items", JsonArray.create().add(0).add(1));
 
@@ -652,12 +658,11 @@ public class Server extends com.rpg.framework.core.Server {
 			list.put(String.valueOf(quest.getID()), data);
 			list.getArray("list").add(String.valueOf(quest.getID()));
 			DataManager.getInstance().set("User_" + message.getUserID() + "_Quests", list);
-			
-			MessageManager.getInstance().sendMessage(user.getConnectionID(), Protocol.MessageType.MESSAGE_INFORMATION_QUEST_VALUE, Protocol.MessageInformationQuest.newBuilder()
-					.setID(quest.getID())
-					.setStep(quest.getStep())
-					.setState(quest.getState())
-					.build().toByteArray());
+
+			MessageManager.getInstance().sendMessage(user.getConnectionID(),
+					Protocol.MessageType.MESSAGE_INFORMATION_QUEST_VALUE,
+					Protocol.MessageInformationQuest.newBuilder().setID(quest.getID()).setStep(quest.getStep())
+							.setState(quest.getState()).build().toByteArray());
 		}
 	}
 
@@ -699,5 +704,18 @@ public class Server extends com.rpg.framework.core.Server {
 		MessageManager.getInstance().sendMessage(user.getConnectionID(),
 				Protocol.MessageType.MESSAGE_REWARDS_QUEST_VALUE, Protocol.MessageRewardsQuest.newBuilder()
 						.setQuestID(message.getQuestID()).setBonusExp(100).build().toByteArray());
+	}
+
+	public void handleMessageCollectMoney(Protocol.MessageCollectMoney message) {
+		User user = UserManager.getInstance().getIdentifiedUser(message.getUserID());
+		user.addMoney(message.getMoneyValue());
+		user.saveData();
+
+		List<Integer> list = MapManager.getInstance().getUserList(user.getMapID());
+		for (Integer id : list) {
+			sendMessageTo(UserManager.getInstance().getIdentifiedUser(id).getConnectionID(),
+					Protocol.MessageType.MESSAGE_REMOVE_MONEY_VALUE,
+					Protocol.MessageRemoveMoney.newBuilder().setMoneyID(message.getMoneyID()).build().toByteArray());
+		}
 	}
 }
