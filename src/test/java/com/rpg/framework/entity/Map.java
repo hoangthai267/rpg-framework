@@ -221,6 +221,8 @@ public class Map {
 						.setBonusExp(exp)
 						.setBonusMoney(monster.getMoney())
 						.setBonusMoneyID(DataManager.getInstance().generateMoneyID())
+						.setPositionX(monster.getPositionX())
+						.setPositionY(monster.getPositionY())
 						.build()
 						.toByteArray()
 					);

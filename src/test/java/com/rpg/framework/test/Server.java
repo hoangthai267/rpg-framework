@@ -626,7 +626,9 @@ public class Server extends com.rpg.framework.core.Server {
 				return;
 
 			monster.attacked(user.getId(), user.getDamage());
-
+			monster.setPositionX(message.getPositionX());
+			monster.setPositionY(message.getPositionY());
+			
 			List<Integer> list = MapManager.getInstance().getUserList(user.getMapID());
 			for (Integer id : list) {
 				sendMessageTo(UserManager.getInstance().getIdentifiedUser(id).getConnectionID(),

@@ -21035,6 +21035,24 @@ public final class Protocol {
      * <code>optional int32 bonusMoneyID = 6;</code>
      */
     int getBonusMoneyID();
+
+    /**
+     * <code>optional double positionX = 7;</code>
+     */
+    boolean hasPositionX();
+    /**
+     * <code>optional double positionX = 7;</code>
+     */
+    double getPositionX();
+
+    /**
+     * <code>optional double positionY = 8;</code>
+     */
+    boolean hasPositionY();
+    /**
+     * <code>optional double positionY = 8;</code>
+     */
+    double getPositionY();
   }
   /**
    * Protobuf type {@code Protobuf.MessageKillMonster}
@@ -21116,6 +21134,16 @@ public final class Protocol {
             case 48: {
               bitField0_ |= 0x00000020;
               bonusMoneyID_ = input.readInt32();
+              break;
+            }
+            case 57: {
+              bitField0_ |= 0x00000040;
+              positionX_ = input.readDouble();
+              break;
+            }
+            case 65: {
+              bitField0_ |= 0x00000080;
+              positionY_ = input.readDouble();
               break;
             }
           }
@@ -21248,6 +21276,36 @@ public final class Protocol {
       return bonusMoneyID_;
     }
 
+    public static final int POSITIONX_FIELD_NUMBER = 7;
+    private double positionX_;
+    /**
+     * <code>optional double positionX = 7;</code>
+     */
+    public boolean hasPositionX() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>optional double positionX = 7;</code>
+     */
+    public double getPositionX() {
+      return positionX_;
+    }
+
+    public static final int POSITIONY_FIELD_NUMBER = 8;
+    private double positionY_;
+    /**
+     * <code>optional double positionY = 8;</code>
+     */
+    public boolean hasPositionY() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    /**
+     * <code>optional double positionY = 8;</code>
+     */
+    public double getPositionY() {
+      return positionY_;
+    }
+
     private void initFields() {
       mapID_ = 0;
       monsterID_ = 0;
@@ -21255,6 +21313,8 @@ public final class Protocol {
       bonusExp_ = 0;
       bonusMoney_ = 0;
       bonusMoneyID_ = 0;
+      positionX_ = 0D;
+      positionY_ = 0D;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -21299,6 +21359,12 @@ public final class Protocol {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         output.writeInt32(6, bonusMoneyID_);
       }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeDouble(7, positionX_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeDouble(8, positionY_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -21331,6 +21397,14 @@ public final class Protocol {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(6, bonusMoneyID_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(7, positionX_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(8, positionY_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -21461,6 +21535,10 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000010);
         bonusMoneyID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000020);
+        positionX_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        positionY_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
 
@@ -21513,6 +21591,14 @@ public final class Protocol {
           to_bitField0_ |= 0x00000020;
         }
         result.bonusMoneyID_ = bonusMoneyID_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.positionX_ = positionX_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.positionY_ = positionY_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -21546,6 +21632,12 @@ public final class Protocol {
         }
         if (other.hasBonusMoneyID()) {
           setBonusMoneyID(other.getBonusMoneyID());
+        }
+        if (other.hasPositionX()) {
+          setPositionX(other.getPositionX());
+        }
+        if (other.hasPositionY()) {
+          setPositionY(other.getPositionY());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -21774,6 +21866,70 @@ public final class Protocol {
       public Builder clearBonusMoneyID() {
         bitField0_ = (bitField0_ & ~0x00000020);
         bonusMoneyID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private double positionX_ ;
+      /**
+       * <code>optional double positionX = 7;</code>
+       */
+      public boolean hasPositionX() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <code>optional double positionX = 7;</code>
+       */
+      public double getPositionX() {
+        return positionX_;
+      }
+      /**
+       * <code>optional double positionX = 7;</code>
+       */
+      public Builder setPositionX(double value) {
+        bitField0_ |= 0x00000040;
+        positionX_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional double positionX = 7;</code>
+       */
+      public Builder clearPositionX() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        positionX_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double positionY_ ;
+      /**
+       * <code>optional double positionY = 8;</code>
+       */
+      public boolean hasPositionY() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      /**
+       * <code>optional double positionY = 8;</code>
+       */
+      public double getPositionY() {
+        return positionY_;
+      }
+      /**
+       * <code>optional double positionY = 8;</code>
+       */
+      public Builder setPositionY(double value) {
+        bitField0_ |= 0x00000080;
+        positionY_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional double positionY = 8;</code>
+       */
+      public Builder clearPositionY() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        positionY_ = 0D;
         onChanged();
         return this;
       }
@@ -29287,6 +29443,24 @@ public final class Protocol {
      * <code>required int32 UserID = 3;</code>
      */
     int getUserID();
+
+    /**
+     * <code>required double positionX = 4;</code>
+     */
+    boolean hasPositionX();
+    /**
+     * <code>required double positionX = 4;</code>
+     */
+    double getPositionX();
+
+    /**
+     * <code>required double positionY = 5;</code>
+     */
+    boolean hasPositionY();
+    /**
+     * <code>required double positionY = 5;</code>
+     */
+    double getPositionY();
   }
   /**
    * Protobuf type {@code Protobuf.MessageUpdateMonsterCollision}
@@ -29353,6 +29527,16 @@ public final class Protocol {
             case 24: {
               bitField0_ |= 0x00000004;
               userID_ = input.readInt32();
+              break;
+            }
+            case 33: {
+              bitField0_ |= 0x00000008;
+              positionX_ = input.readDouble();
+              break;
+            }
+            case 41: {
+              bitField0_ |= 0x00000010;
+              positionY_ = input.readDouble();
               break;
             }
           }
@@ -29440,10 +29624,42 @@ public final class Protocol {
       return userID_;
     }
 
+    public static final int POSITIONX_FIELD_NUMBER = 4;
+    private double positionX_;
+    /**
+     * <code>required double positionX = 4;</code>
+     */
+    public boolean hasPositionX() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required double positionX = 4;</code>
+     */
+    public double getPositionX() {
+      return positionX_;
+    }
+
+    public static final int POSITIONY_FIELD_NUMBER = 5;
+    private double positionY_;
+    /**
+     * <code>required double positionY = 5;</code>
+     */
+    public boolean hasPositionY() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required double positionY = 5;</code>
+     */
+    public double getPositionY() {
+      return positionY_;
+    }
+
     private void initFields() {
       iD_ = 0;
       index_ = 0;
       userID_ = 0;
+      positionX_ = 0D;
+      positionY_ = 0D;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -29463,6 +29679,14 @@ public final class Protocol {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasPositionX()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPositionY()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -29478,6 +29702,12 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeInt32(3, userID_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeDouble(4, positionX_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeDouble(5, positionY_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -29499,6 +29729,14 @@ public final class Protocol {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, userID_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(4, positionX_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(5, positionY_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -29623,6 +29861,10 @@ public final class Protocol {
         bitField0_ = (bitField0_ & ~0x00000002);
         userID_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
+        positionX_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        positionY_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -29663,6 +29905,14 @@ public final class Protocol {
           to_bitField0_ |= 0x00000004;
         }
         result.userID_ = userID_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.positionX_ = positionX_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.positionY_ = positionY_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -29688,6 +29938,12 @@ public final class Protocol {
         if (other.hasUserID()) {
           setUserID(other.getUserID());
         }
+        if (other.hasPositionX()) {
+          setPositionX(other.getPositionX());
+        }
+        if (other.hasPositionY()) {
+          setPositionY(other.getPositionY());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -29702,6 +29958,14 @@ public final class Protocol {
           return false;
         }
         if (!hasUserID()) {
+          
+          return false;
+        }
+        if (!hasPositionX()) {
+          
+          return false;
+        }
+        if (!hasPositionY()) {
           
           return false;
         }
@@ -29819,6 +30083,70 @@ public final class Protocol {
       public Builder clearUserID() {
         bitField0_ = (bitField0_ & ~0x00000004);
         userID_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private double positionX_ ;
+      /**
+       * <code>required double positionX = 4;</code>
+       */
+      public boolean hasPositionX() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required double positionX = 4;</code>
+       */
+      public double getPositionX() {
+        return positionX_;
+      }
+      /**
+       * <code>required double positionX = 4;</code>
+       */
+      public Builder setPositionX(double value) {
+        bitField0_ |= 0x00000008;
+        positionX_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required double positionX = 4;</code>
+       */
+      public Builder clearPositionX() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        positionX_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double positionY_ ;
+      /**
+       * <code>required double positionY = 5;</code>
+       */
+      public boolean hasPositionY() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>required double positionY = 5;</code>
+       */
+      public double getPositionY() {
+        return positionY_;
+      }
+      /**
+       * <code>required double positionY = 5;</code>
+       */
+      public Builder setPositionY(double value) {
+        bitField0_ |= 0x00000010;
+        positionY_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required double positionY = 5;</code>
+       */
+      public Builder clearPositionY() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        positionY_ = 0D;
         onChanged();
         return this;
       }
@@ -39102,93 +39430,95 @@ public final class Protocol {
       "apID\030\003 \002(\005\022\t\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\022\r\n\005maxH" +
       "P\030\006 \002(\005\022\r\n\005curHP\030\007 \002(\005\022\r\n\005maxMP\030\010 \002(\005\022\r\n",
       "\005curMP\030\t \002(\005\022\016\n\006damage\030\n \002(\005\022\017\n\007defense\030" +
-      "\013 \002(\005\022\r\n\005speed\030\014 \002(\005\"\210\001\n\022MessageKillMons" +
+      "\013 \002(\005\022\r\n\005speed\030\014 \002(\005\"\256\001\n\022MessageKillMons" +
       "ter\022\r\n\005mapID\030\001 \002(\005\022\021\n\tmonsterID\030\002 \002(\005\022\024\n" +
       "\014monsterIndex\030\003 \002(\005\022\020\n\010bonusExp\030\004 \001(\005\022\022\n" +
-      "\nbonusMoney\030\005 \001(\005\022\024\n\014bonusMoneyID\030\006 \001(\005\"" +
-      "e\n\025MessageRespawnMonster\022\021\n\tmonsterID\030\001 " +
-      "\002(\005\022\024\n\014monsterIndex\030\002 \002(\005\022\r\n\005mapID\030\003 \002(\005" +
-      "\022\t\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\"\317\001\n\016MessageNewUse" +
-      "r\022\n\n\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004nam" +
-      "e\030\003 \002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006",
-      " \002(\001\022\r\n\005maxHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005ma" +
-      "xMP\030\t \002(\005\022\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005" +
-      "\022\017\n\007defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"\037\n\021Mess" +
-      "ageDeleteUser\022\n\n\002id\030\001 \002(\005\"\035\n\017MessageKill" +
-      "User\022\n\n\002id\030\001 \002(\005\"\323\001\n\022MessageRespawnUser\022" +
-      "\n\n\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030" +
+      "\nbonusMoney\030\005 \001(\005\022\024\n\014bonusMoneyID\030\006 \001(\005\022" +
+      "\021\n\tpositionX\030\007 \001(\001\022\021\n\tpositionY\030\010 \001(\001\"e\n" +
+      "\025MessageRespawnMonster\022\021\n\tmonsterID\030\001 \002(" +
+      "\005\022\024\n\014monsterIndex\030\002 \002(\005\022\r\n\005mapID\030\003 \002(\005\022\t" +
+      "\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\"\317\001\n\016MessageNewUser\022" +
+      "\n\n\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030",
       "\003 \002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002" +
       "(\001\022\r\n\005maxHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxM" +
       "P\030\t \002(\005\022\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017" +
-      "\n\007defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"q\n\014Monste",
-      "rState\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\021\n\tPos" +
-      "itionX\030\004 \002(\001\022\021\n\tPositionY\030\005 \002(\001\022\r\n\005State" +
-      "\030\006 \002(\005\022\021\n\tDirection\030\007 \002(\005\"P\n\031MessageUpda" +
-      "teMonsterState\022\r\n\005MapID\030\001 \002(\005\022$\n\004Data\030\002 " +
-      "\003(\0132\026.Protobuf.MonsterState\";\n\rActionCom" +
-      "mand\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\017\n\007Comma" +
-      "nd\030\003 \002(\005\"F\n\035MessageUpdateMonsterByComman" +
-      "d\022%\n\004Data\030\001 \003(\0132\027.Protobuf.ActionCommand" +
-      "\"J\n\035MessageUpdateMonsterCollision\022\n\n\002ID\030" +
-      "\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"<\n\020",
-      "RequestChangeMap\022\016\n\006userID\030\001 \002(\005\022\014\n\004from" +
-      "\030\002 \002(\005\022\n\n\002to\030\003 \002(\005\"f\n\021ResponseChangeMap\022" +
-      "\r\n\005mapID\030\001 \002(\005\022\035\n\005users\030\002 \003(\0132\016.Protobuf" +
-      ".User\022#\n\010monsters\030\003 \003(\0132\021.Protobuf.Monst" +
-      "er\"G\n\032MessageUpdateUserCollision\022\n\n\002ID\030\001" +
-      " \002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"7\n&M" +
-      "essageRequestUserUpdateMapInformation\022\r\n" +
-      "\005mapID\030\001 \002(\005\"\240\001\n\022MessageUpLevelUser\022\r\n\005l" +
-      "evel\030\001 \002(\005\022\016\n\006curEXP\030\002 \002(\005\022\016\n\006maxEXP\030\003 \002" +
-      "(\005\022\r\n\005curHP\030\004 \002(\005\022\r\n\005maxHP\030\005 \002(\005\022\r\n\005curM",
-      "P\030\006 \002(\005\022\r\n\005maxMP\030\007 \002(\005\022\016\n\006damage\030\010 \002(\005\022\017" +
-      "\n\007defense\030\t \002(\005\"4\n\021MessageBeginQuest\022\016\n\006" +
-      "userID\030\001 \002(\005\022\017\n\007questID\030\002 \002(\005\"U\n\022Message" +
-      "UpdateQuest\022\016\n\006userID\030\001 \002(\005\022\017\n\007questID\030\002" +
-      " \002(\005\022\014\n\004step\030\003 \002(\005\022\020\n\010Progress\030\004 \003(\005\"2\n\017" +
-      "MessageEndQuest\022\016\n\006userID\030\001 \002(\005\022\017\n\007quest" +
-      "ID\030\002 \002(\005\"8\n\023MessageRewardsQuest\022\017\n\007quest" +
-      "ID\030\001 \002(\005\022\020\n\010bonusExp\030\002 \002(\005\"B\n\005Quest\022\n\n\002I" +
-      "D\030\001 \002(\005\022\014\n\004Step\030\002 \002(\005\022\020\n\010Progress\030\003 \003(\005\022" +
-      "\r\n\005State\030\004 \002(\005\"T\n\027MessageInformationQues",
-      "t\022\n\n\002ID\030\001 \002(\005\022\014\n\004Step\030\002 \002(\005\022\020\n\010Progress\030" +
-      "\003 \003(\005\022\r\n\005State\030\004 \002(\005\"6\n\017MessageAddMoney\022" +
-      "\017\n\007moneyID\030\001 \002(\005\022\022\n\nmoneyValue\030\002 \002(\005\"J\n\023" +
-      "MessageCollectMoney\022\016\n\006userID\030\001 \002(\005\022\017\n\007m" +
-      "oneyID\030\002 \002(\005\022\022\n\nmoneyValue\030\003 \002(\005\"%\n\022Mess" +
-      "ageRemoveMoney\022\017\n\007moneyID\030\001 \002(\005*\316\010\n\013Mess" +
-      "ageType\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPONE_LO" +
-      "GIN\020\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESPONE_R" +
-      "EGISTER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020\004\022\031\n\025" +
-      "RESPONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_CREAT",
-      "E_CHARACTER\020\006\022\034\n\030RESPONE_CREATE_CHARACTE" +
-      "R\020\007\022\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESPONE_S" +
-      "TART_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSITION\020\n" +
-      "\022\033\n\027RESPONE_UPDATE_POSITION\020\013\022\025\n\021REQUEST" +
-      "_GET_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022\031\n\025" +
-      "REQUEST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE_UPDA" +
-      "TE_ACTION\020\017\022\031\n\025REQUEST_GET_PROTOTYPE\020\020\022\032" +
-      "\n\026RESPONSE_GET_PROTOTYPE\020\021\022\026\n\022REQUEST_CH" +
-      "ANGE_MAP\020\022\022\027\n\023RESPONSE_CHANGE_MAP\020\023\022\030\n\024M" +
-      "ESSAGE_KILL_MONSTER\020\024\022\033\n\027MESSAGE_RESPAWN",
-      "_MONSTER\020\025\022 \n\034MESSAGE_UPDATE_MONSTER_STA" +
-      "TE\020\026\022%\n!MESSAGE_UPDATE_MONSTER_BY_COMMAN" +
-      "D\020\027\022$\n MESSAGE_UPDATE_MONSTER_COLLISION\020" +
-      "\030\022\024\n\020MESSAGE_NEW_USER\020\031\022\027\n\023MESSAGE_DELET" +
-      "E_USER\020\032\022!\n\035MESSAGE_UPDATE_USER_COLLISIO" +
-      "N\020\033\022/\n+MESSAGE_REQUEST_USER_UPDATE_MAP_I" +
-      "NFORMATION\020\034\022\025\n\021MESSAGE_KILL_USER\020\035\022\030\n\024M" +
-      "ESSAGE_RESPAWN_USER\020\036\022\031\n\025MESSAGE_UP_LEVE" +
-      "L_USER\020\037\022\027\n\023MESSAGE_BEGIN_QUEST\020 \022\030\n\024MES" +
-      "SAGE_UPDATE_QUEST\020!\022\025\n\021MESSAGE_END_QUEST",
-      "\020\"\022\031\n\025MESSAGE_REWARDS_QUEST\020#\022\035\n\031MESSAGE" +
-      "_INFORMATION_QUEST\020$\022\025\n\021MESSAGE_ADD_MONE" +
-      "Y\020%\022\030\n\024MESSAGE_REMOVE_MONEY\020&\022\031\n\025MESSAGE" +
-      "_COLLECT_MONEY\020\'*/\n\014ResponseCode\022\013\n\007SUCC" +
-      "ESS\020\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n" +
-      "\rITEM_TYPE_USE\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022" +
-      "\023\n\017ITEM_TYPE_EQUIP\020\002B\036\n\032com.rpg.framewor" +
-      "k.databaseH\001"
+      "\n\007defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"\037\n\021Messag" +
+      "eDeleteUser\022\n\n\002id\030\001 \002(\005\"\035\n\017MessageKillUs" +
+      "er\022\n\n\002id\030\001 \002(\005\"\323\001\n\022MessageRespawnUser\022\n\n" +
+      "\002id\030\001 \002(\005\022\022\n\noccupation\030\002 \002(\005\022\014\n\004name\030\003 " +
+      "\002(\t\022\r\n\005mapID\030\004 \002(\005\022\t\n\001x\030\005 \002(\001\022\t\n\001y\030\006 \002(\001" +
+      "\022\r\n\005maxHP\030\007 \002(\005\022\r\n\005curHP\030\010 \002(\005\022\r\n\005maxMP\030" +
+      "\t \002(\005\022\r\n\005curMP\030\n \002(\005\022\016\n\006damage\030\013 \002(\005\022\017\n\007",
+      "defense\030\014 \002(\005\022\r\n\005speed\030\r \002(\005\"q\n\014MonsterS" +
+      "tate\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\021\n\tPosit" +
+      "ionX\030\004 \002(\001\022\021\n\tPositionY\030\005 \002(\001\022\r\n\005State\030\006" +
+      " \002(\005\022\021\n\tDirection\030\007 \002(\005\"P\n\031MessageUpdate" +
+      "MonsterState\022\r\n\005MapID\030\001 \002(\005\022$\n\004Data\030\002 \003(" +
+      "\0132\026.Protobuf.MonsterState\";\n\rActionComma" +
+      "nd\022\n\n\002ID\030\001 \002(\005\022\r\n\005Index\030\002 \002(\005\022\017\n\007Command" +
+      "\030\003 \002(\005\"F\n\035MessageUpdateMonsterByCommand\022" +
+      "%\n\004Data\030\001 \003(\0132\027.Protobuf.ActionCommand\"p" +
+      "\n\035MessageUpdateMonsterCollision\022\n\n\002ID\030\001 ",
+      "\002(\005\022\r\n\005Index\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\022\021\n\tpo" +
+      "sitionX\030\004 \002(\001\022\021\n\tpositionY\030\005 \002(\001\"<\n\020Requ" +
+      "estChangeMap\022\016\n\006userID\030\001 \002(\005\022\014\n\004from\030\002 \002" +
+      "(\005\022\n\n\002to\030\003 \002(\005\"f\n\021ResponseChangeMap\022\r\n\005m" +
+      "apID\030\001 \002(\005\022\035\n\005users\030\002 \003(\0132\016.Protobuf.Use" +
+      "r\022#\n\010monsters\030\003 \003(\0132\021.Protobuf.Monster\"G" +
+      "\n\032MessageUpdateUserCollision\022\n\n\002ID\030\001 \002(\005" +
+      "\022\r\n\005Index\030\002 \002(\005\022\016\n\006UserID\030\003 \002(\005\"7\n&Messa" +
+      "geRequestUserUpdateMapInformation\022\r\n\005map" +
+      "ID\030\001 \002(\005\"\240\001\n\022MessageUpLevelUser\022\r\n\005level",
+      "\030\001 \002(\005\022\016\n\006curEXP\030\002 \002(\005\022\016\n\006maxEXP\030\003 \002(\005\022\r" +
+      "\n\005curHP\030\004 \002(\005\022\r\n\005maxHP\030\005 \002(\005\022\r\n\005curMP\030\006 " +
+      "\002(\005\022\r\n\005maxMP\030\007 \002(\005\022\016\n\006damage\030\010 \002(\005\022\017\n\007de" +
+      "fense\030\t \002(\005\"4\n\021MessageBeginQuest\022\016\n\006user" +
+      "ID\030\001 \002(\005\022\017\n\007questID\030\002 \002(\005\"U\n\022MessageUpda" +
+      "teQuest\022\016\n\006userID\030\001 \002(\005\022\017\n\007questID\030\002 \002(\005" +
+      "\022\014\n\004step\030\003 \002(\005\022\020\n\010Progress\030\004 \003(\005\"2\n\017Mess" +
+      "ageEndQuest\022\016\n\006userID\030\001 \002(\005\022\017\n\007questID\030\002" +
+      " \002(\005\"8\n\023MessageRewardsQuest\022\017\n\007questID\030\001" +
+      " \002(\005\022\020\n\010bonusExp\030\002 \002(\005\"B\n\005Quest\022\n\n\002ID\030\001 ",
+      "\002(\005\022\014\n\004Step\030\002 \002(\005\022\020\n\010Progress\030\003 \003(\005\022\r\n\005S" +
+      "tate\030\004 \002(\005\"T\n\027MessageInformationQuest\022\n\n" +
+      "\002ID\030\001 \002(\005\022\014\n\004Step\030\002 \002(\005\022\020\n\010Progress\030\003 \003(" +
+      "\005\022\r\n\005State\030\004 \002(\005\"6\n\017MessageAddMoney\022\017\n\007m" +
+      "oneyID\030\001 \002(\005\022\022\n\nmoneyValue\030\002 \002(\005\"J\n\023Mess" +
+      "ageCollectMoney\022\016\n\006userID\030\001 \002(\005\022\017\n\007money" +
+      "ID\030\002 \002(\005\022\022\n\nmoneyValue\030\003 \002(\005\"%\n\022MessageR" +
+      "emoveMoney\022\017\n\007moneyID\030\001 \002(\005*\316\010\n\013MessageT" +
+      "ype\022\021\n\rREQUEST_LOGIN\020\000\022\021\n\rRESPONE_LOGIN\020" +
+      "\001\022\024\n\020REQUEST_REGISTER\020\002\022\024\n\020RESPONE_REGIS",
+      "TER\020\003\022\031\n\025REQUEST_GET_CHARACTER\020\004\022\031\n\025RESP" +
+      "ONE_GET_CHARACTER\020\005\022\034\n\030REQUEST_CREATE_CH" +
+      "ARACTER\020\006\022\034\n\030RESPONE_CREATE_CHARACTER\020\007\022" +
+      "\026\n\022REQUEST_START_GAME\020\010\022\026\n\022RESPONE_START" +
+      "_GAME\020\t\022\033\n\027REQUEST_UPDATE_POSITION\020\n\022\033\n\027" +
+      "RESPONE_UPDATE_POSITION\020\013\022\025\n\021REQUEST_GET" +
+      "_ITEMS\020\014\022\026\n\022RESPONSE_GET_ITEMS\020\r\022\031\n\025REQU" +
+      "EST_UPDATE_ACTION\020\016\022\032\n\026RESPONSE_UPDATE_A" +
+      "CTION\020\017\022\031\n\025REQUEST_GET_PROTOTYPE\020\020\022\032\n\026RE" +
+      "SPONSE_GET_PROTOTYPE\020\021\022\026\n\022REQUEST_CHANGE",
+      "_MAP\020\022\022\027\n\023RESPONSE_CHANGE_MAP\020\023\022\030\n\024MESSA" +
+      "GE_KILL_MONSTER\020\024\022\033\n\027MESSAGE_RESPAWN_MON" +
+      "STER\020\025\022 \n\034MESSAGE_UPDATE_MONSTER_STATE\020\026" +
+      "\022%\n!MESSAGE_UPDATE_MONSTER_BY_COMMAND\020\027\022" +
+      "$\n MESSAGE_UPDATE_MONSTER_COLLISION\020\030\022\024\n" +
+      "\020MESSAGE_NEW_USER\020\031\022\027\n\023MESSAGE_DELETE_US" +
+      "ER\020\032\022!\n\035MESSAGE_UPDATE_USER_COLLISION\020\033\022" +
+      "/\n+MESSAGE_REQUEST_USER_UPDATE_MAP_INFOR" +
+      "MATION\020\034\022\025\n\021MESSAGE_KILL_USER\020\035\022\030\n\024MESSA" +
+      "GE_RESPAWN_USER\020\036\022\031\n\025MESSAGE_UP_LEVEL_US",
+      "ER\020\037\022\027\n\023MESSAGE_BEGIN_QUEST\020 \022\030\n\024MESSAGE" +
+      "_UPDATE_QUEST\020!\022\025\n\021MESSAGE_END_QUEST\020\"\022\031" +
+      "\n\025MESSAGE_REWARDS_QUEST\020#\022\035\n\031MESSAGE_INF" +
+      "ORMATION_QUEST\020$\022\025\n\021MESSAGE_ADD_MONEY\020%\022" +
+      "\030\n\024MESSAGE_REMOVE_MONEY\020&\022\031\n\025MESSAGE_COL" +
+      "LECT_MONEY\020\'*/\n\014ResponseCode\022\013\n\007SUCCESS\020" +
+      "\001\022\010\n\004FAIL\020\002\022\010\n\004IDLE\020\003*I\n\010ItemType\022\021\n\rITE" +
+      "M_TYPE_USE\020\000\022\025\n\021ITEM_TYPE_COLLECT\020\001\022\023\n\017I" +
+      "TEM_TYPE_EQUIP\020\002B\036\n\032com.rpg.framework.da" +
+      "tabaseH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -39363,7 +39693,7 @@ public final class Protocol {
     internal_static_Protobuf_MessageKillMonster_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageKillMonster_descriptor,
-        new java.lang.String[] { "MapID", "MonsterID", "MonsterIndex", "BonusExp", "BonusMoney", "BonusMoneyID", });
+        new java.lang.String[] { "MapID", "MonsterID", "MonsterIndex", "BonusExp", "BonusMoney", "BonusMoneyID", "PositionX", "PositionY", });
     internal_static_Protobuf_MessageRespawnMonster_descriptor =
       getDescriptor().getMessageTypes().get(27);
     internal_static_Protobuf_MessageRespawnMonster_fieldAccessorTable = new
@@ -39423,7 +39753,7 @@ public final class Protocol {
     internal_static_Protobuf_MessageUpdateMonsterCollision_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Protobuf_MessageUpdateMonsterCollision_descriptor,
-        new java.lang.String[] { "ID", "Index", "UserID", });
+        new java.lang.String[] { "ID", "Index", "UserID", "PositionX", "PositionY", });
     internal_static_Protobuf_RequestChangeMap_descriptor =
       getDescriptor().getMessageTypes().get(37);
     internal_static_Protobuf_RequestChangeMap_fieldAccessorTable = new
