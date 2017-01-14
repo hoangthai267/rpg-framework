@@ -118,6 +118,10 @@ public class Client extends com.rpg.framework.core.Client {
 			case Protocol.MessageType.MESSAGE_REMOVE_MONEY_VALUE: {
 				System.out.println(Protocol.MessageRemoveMoney.parseFrom(data));
 			}
+			case Protocol.MessageType.MESSAGE_SEND_MESSAGE_VALUE: {
+				System.out.println(Protocol.MessageSendMessage.parseFrom(data));
+				break;
+			}
 			default:
 				break;
 			}
@@ -156,6 +160,7 @@ public class Client extends com.rpg.framework.core.Client {
 		case RUN: {
 			sendRequestUpdateAction();
 			sendRequestUpdatePosition();
+			sendMessageSendMessage();
 			break;
 		}
 
@@ -397,5 +402,10 @@ public class Client extends com.rpg.framework.core.Client {
 	public void sendMessageCollectMoney(int moneyID, int moneyValue) {
 		sendMessage(Protocol.MessageType.MESSAGE_COLLECT_MONEY_VALUE, Protocol.MessageCollectMoney.newBuilder()
 				.setUserID(userID).setMoneyValue(moneyValue).setMoneyID(moneyID).build().toByteArray());
+	}
+
+	public void sendMessageSendMessage() {
+		sendMessage(Protocol.MessageType.MESSAGE_SEND_MESSAGE_VALUE, Protocol.MessageSendMessage.newBuilder()
+				.setUserID(userID).setUsername(userName).setContent("Hello").build().toByteArray());
 	}
 }

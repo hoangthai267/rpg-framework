@@ -194,6 +194,10 @@ public class Server extends com.rpg.framework.core.Server {
 				handleMessageCollectMoney(Protocol.MessageCollectMoney.parseFrom(data));
 				break;
 			}
+			
+			case Protocol.MessageType.MESSAGE_SEND_MESSAGE_VALUE: {
+				handleMessageSendMessage(Protocol.MessageSendMessage.parseFrom(data));
+			}
 
 			default: {
 				break;
@@ -718,6 +722,18 @@ public class Server extends com.rpg.framework.core.Server {
 			sendMessageTo(UserManager.getInstance().getIdentifiedUser(id).getConnectionID(),
 					Protocol.MessageType.MESSAGE_REMOVE_MONEY_VALUE,
 					Protocol.MessageRemoveMoney.newBuilder().setMoneyID(message.getMoneyID()).build().toByteArray());
+		}
+	}
+	
+	public void handleMessageSendMessage(Protocol.MessageSendMessage message) {
+		User user = UserManager.getInstance().getIdentifiedUser(message.getUserID());
+		List<Integer> list = MapManager.getInstance().getUserList(user.getMapID());
+		for (Integer id : list) {
+			if(id.intValue() == user.getId())
+				continue;
+			sendMessageTo(UserManager.getInstance().getIdentifiedUser(id).getConnectionID(),
+					Protocol.MessageType.MESSAGE_SEND_MESSAGE_VALUE,
+					message.toByteArray());
 		}
 	}
 }
