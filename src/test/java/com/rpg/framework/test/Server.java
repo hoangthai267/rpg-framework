@@ -349,7 +349,7 @@ public class Server extends com.rpg.framework.core.Server {
 						.put("defense", Config.CHARACTER_DEFENSE).put("speed", Config.CHARACTER_SPEED)
 						.put("dame", Config.CHARACTER_DAMAGE).put("armor", 1);
 
-				JsonObject position = JsonObject.create().put("mapID", 1).put("x", 0.0).put("y", 0.0);
+				JsonObject position = JsonObject.create().put("mapID", 1).put("x", Config.CHARACTER_START_MAP_1_X).put("y", Config.CHARACTER_START_MAP_1_X);
 
 				JsonObject status = JsonObject.create().put("maxHP", Config.CHARACTER_HP)
 						.put("curHP", Config.CHARACTER_HP).put("maxMP", Config.CHARACTER_MP)
@@ -729,8 +729,6 @@ public class Server extends com.rpg.framework.core.Server {
 		User user = UserManager.getInstance().getIdentifiedUser(message.getUserID());
 		List<Integer> list = MapManager.getInstance().getUserList(user.getMapID());
 		for (Integer id : list) {
-			if(id.intValue() == user.getId())
-				continue;
 			sendMessageTo(UserManager.getInstance().getIdentifiedUser(id).getConnectionID(),
 					Protocol.MessageType.MESSAGE_SEND_MESSAGE_VALUE,
 					message.toByteArray());

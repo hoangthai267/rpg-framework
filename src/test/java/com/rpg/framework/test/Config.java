@@ -8,7 +8,8 @@ public class Config {
 	public final static int CHARACTER_HP		 		= 100;
 	public final static int CHARACTER_MP		 		= 100;
 	public final static int CHARACTER_EXP				= 100;
-	
+	public final static int CHARACTER_START_MAP_1_X     = -3;
+	public final static int CHARACTER_START_MAP_1_Y     = 0;
 	// Change the number of monster type to get more.
 	public final static int NUMBER_OF_MONSTER_TYPE 		= 3;
 
@@ -73,8 +74,8 @@ public class Config {
 //			2.58, -2.21,
 //			7.53, -2.21,
 //			10.98, -2.21,
-//			13.99, -2.99,
-//			15.58, 0.88,
+			13.99, -2.99,
+			15.58, 0.88,
 //			18.27, 1.54,
 //			20.23, 1.48,
 
