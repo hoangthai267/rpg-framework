@@ -161,6 +161,7 @@ public class Client extends com.rpg.framework.core.Client {
 		case RUN: {
 			sendRequestUpdateAction();
 			sendRequestUpdatePosition();
+			sendMessageSendMessage();
 			break;
 		}
 
