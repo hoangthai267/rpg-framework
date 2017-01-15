@@ -12,10 +12,10 @@ public class Config {
 	// Change the number of monster type to get more.
 	public final static int NUMBER_OF_MONSTER_TYPE 		= 3;
 
-	public final static int MONSTER_TYPE_1_DAMAGE 		= 1;
+	public final static int MONSTER_TYPE_1_DAMAGE 		= 15;
 	public final static int MONSTER_TYPE_1_DEFENSE 		= 1;
 	public final static int MONSTER_TYPE_1_SPEED 		= 1;
-	public final static int MONSTER_TYPE_1_HP 			= 10;
+	public final static int MONSTER_TYPE_1_HP 			= 15;
 	public final static int MONSTER_TYPE_1_MP 			= 10;
 	
 	public final static int MONSTER_TYPE_2_DAMAGE 		= 2;
@@ -68,20 +68,15 @@ public class Config {
 			};
 	
 	public final static double MAP1_SNAIL[] = new double[] {
-			-2.38, -2.21,
-			-0.24, -2.21,
-			2.58, -2.21,
-			7.53, -2.21,
-			10.98, -2.21,
-			20.99, -2.99,
-			27.58, 0.88,
-			33.27, 1.54,
-			40.23, 1.48,
-			51.01, 5.3,
-			38.96, -3.48,
-			44.11, -3.48,
-			50.94, -3.48,
-			59.05, -3.48,
-			62.29, -3.48
+//			-2.38, -2.21,
+//			-0.24, -2.21,
+//			2.58, -2.21,
+//			7.53, -2.21,
+//			10.98, -2.21,
+//			13.99, -2.99,
+//			15.58, 0.88,
+//			18.27, 1.54,
+//			20.23, 1.48,
+
 	};
 }
