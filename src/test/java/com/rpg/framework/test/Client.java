@@ -21,7 +21,7 @@ public class Client extends com.rpg.framework.core.Client {
 	private int mapID;
 	private double positionX;
 	private double positionY;
-
+	private int messageIndex;
 	private List<Integer> items;
 
 	public Client() {
@@ -34,6 +34,7 @@ public class Client extends com.rpg.framework.core.Client {
 		this.mapID = -1;
 		this.positionX = 0.0;
 		this.positionY = 0.0;
+		this.messageIndex = 0;
 	}
 
 	public Client(String userName, String password) {
@@ -160,7 +161,6 @@ public class Client extends com.rpg.framework.core.Client {
 		case RUN: {
 			sendRequestUpdateAction();
 			sendRequestUpdatePosition();
-			sendMessageSendMessage();
 			break;
 		}
 
@@ -252,12 +252,14 @@ public class Client extends com.rpg.framework.core.Client {
 
 	public void sendRequestUpdateAction() {
 		LogManager.print("Client.sendRequestUpdateAction()");
-
+		double x = Math.random() * 10.0;
+		double y = Math.random() * 10.0;
+		
 		Protocol.RequestUpdateAction.Builder builder = Protocol.RequestUpdateAction.newBuilder();
 		builder.setUserID(userID);
-		builder.addActions(Protocol.CharacterAction.newBuilder().setMapID(1).setX(0.0).setY(0.0).setState(10)
+		builder.addActions(Protocol.CharacterAction.newBuilder().setMapID(1).setX(x).setY(y).setState(10)
 				.setActionCommand(100).setType(10).setTimeRecord(100).build());
-		builder.addActions(Protocol.CharacterAction.newBuilder().setMapID(1).setX(0.0).setY(0.0).setState(20)
+		builder.addActions(Protocol.CharacterAction.newBuilder().setMapID(1).setX(y).setY(x).setState(20)
 				.setActionCommand(200).setType(100).setTimeRecord(200).build());
 
 		sendMessage(Protocol.MessageType.REQUEST_UPDATE_ACTION_VALUE, builder.build().toByteArray());
@@ -406,6 +408,6 @@ public class Client extends com.rpg.framework.core.Client {
 
 	public void sendMessageSendMessage() {
 		sendMessage(Protocol.MessageType.MESSAGE_SEND_MESSAGE_VALUE, Protocol.MessageSendMessage.newBuilder()
-				.setUserID(userID).setUsername(userName).setContent("Hello").build().toByteArray());
+				.setUserID(userID).setUsername(userName).setContent("Day la message thu" + messageIndex++).build().toByteArray());
 	}
 }
