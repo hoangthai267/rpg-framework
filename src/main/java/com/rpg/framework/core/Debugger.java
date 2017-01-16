@@ -61,14 +61,14 @@ public class Debugger {
 	}
 	
 	public static void Write(String message) {
-		GetInstance().WriteLog(message);
+		GetInstance().ShowLog(message);
 	}
 	
 	public static void Writeln(String message) {
-		GetInstance().WritelnLog(message);
+		GetInstance().ShowLog(message);
 	}
 	
 	public static void WriteException(Exception ex) {
-		ex.printStackTrace(GetInstance().printStream);
+		ex.printStackTrace();
 	}
 }

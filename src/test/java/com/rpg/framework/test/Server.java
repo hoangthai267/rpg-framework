@@ -54,8 +54,8 @@ public class Server extends com.rpg.framework.core.Server {
 	@Override
 	public void updateSecond(double delta, int fps) {
 		super.updateSecond(delta, fps);
-//		Debugger.Write("FPS : " + fps + " ");
-//		MessageManager.getInstance().print();
+		Debugger.Write("FPS : " + fps + " ");
+		MessageManager.getInstance().print();
 	}
 
 	@Override

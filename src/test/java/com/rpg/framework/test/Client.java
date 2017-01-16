@@ -120,7 +120,7 @@ public class Client extends com.rpg.framework.core.Client {
 				System.out.println(Protocol.MessageRemoveMoney.parseFrom(data));
 			}
 			case Protocol.MessageType.MESSAGE_SEND_MESSAGE_VALUE: {
-				System.out.println(Protocol.MessageSendMessage.parseFrom(data));
+//				System.out.println(Protocol.MessageSendMessage.parseFrom(data));
 				break;
 			}
 			default:
@@ -146,7 +146,7 @@ public class Client extends com.rpg.framework.core.Client {
 	public void stop() {
 		super.stop();
 	}
-
+	
 	@Override
 	public void update(double delta) {
 		super.update(delta);
@@ -159,7 +159,7 @@ public class Client extends com.rpg.framework.core.Client {
 		}
 
 		case RUN: {
-			sendRequestUpdateAction();
+//			sendRequestUpdateAction();
 			sendRequestUpdatePosition();
 			sendMessageSendMessage();
 			break;
@@ -253,14 +253,16 @@ public class Client extends com.rpg.framework.core.Client {
 
 	public void sendRequestUpdateAction() {
 		LogManager.print("Client.sendRequestUpdateAction()");
-		double x = Math.random() * 10.0;
-		double y = Math.random() * 10.0;
+//		double x = Math.random() * 10.0;
+//		double y = Math.random() * 10.0;
+		double x = 0.0;
+		double y = 0.0;
 		
 		Protocol.RequestUpdateAction.Builder builder = Protocol.RequestUpdateAction.newBuilder();
 		builder.setUserID(userID);
 		builder.addActions(Protocol.CharacterAction.newBuilder().setMapID(1).setX(x).setY(y).setState(10)
 				.setActionCommand(100).setType(10).setTimeRecord(100).build());
-		builder.addActions(Protocol.CharacterAction.newBuilder().setMapID(1).setX(y).setY(x).setState(20)
+		builder.addActions(Protocol.CharacterAction.newBuilder().setMapID(1).setX(x).setY(y).setState(20)
 				.setActionCommand(200).setType(100).setTimeRecord(200).build());
 
 		sendMessage(Protocol.MessageType.REQUEST_UPDATE_ACTION_VALUE, builder.build().toByteArray());
@@ -326,8 +328,8 @@ public class Client extends com.rpg.framework.core.Client {
 		this.state = State.RUN;
 		System.out.println("Client.responseStartGame(): " + userName);
 
-		sendMessageBeginQuest();
-		sendMessageUpdateQuest();
+//		sendMessageBeginQuest();
+//		sendMessageUpdateQuest();
 		// sendMessageEndQuest();
 	}
 
