@@ -90,15 +90,19 @@ public class Map {
 		
 		if(refreshTime > REFRESH_TIME) {
 			refreshTime -= REFRESH_TIME;
-			MonsterManager.getInstance().sendMessageUpdateMonsterByCommand(monstersList, userList);
+			MonsterManager.getInstance().sendMessageUpdateMonsterByCommand(monstersList, userList);			
 		} else {
 			refreshTime += delta;
 		}
 	}
 	
 	public void addUser(Integer userID) {		
+		if(userList.contains(userID))
+			return;
+		
 		User newUser = UserManager.getInstance().getIdentifiedUser(userID);
 		newUser.setMapID(this.id);
+		newUser.saveData();
 		Protocol.MessageNewUser message = Protocol.MessageNewUser.newBuilder()
 				.setId(newUser.getId())
 				.setOccupation(newUser.getOccupation())
