@@ -166,7 +166,7 @@ public class Prototype {
 		map1.put("monsters", monsters);				
 
 		JsonObject map2 = JsonObject.create()
-				.put("id", 1)
+				.put("id", 2)
 				.put("width", 200)
 				.put("height", 300);
 		
