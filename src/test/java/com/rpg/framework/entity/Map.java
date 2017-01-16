@@ -98,6 +98,7 @@ public class Map {
 	
 	public void addUser(Integer userID) {		
 		User newUser = UserManager.getInstance().getIdentifiedUser(userID);
+		newUser.setMapID(this.id);
 		Protocol.MessageNewUser message = Protocol.MessageNewUser.newBuilder()
 				.setId(newUser.getId())
 				.setOccupation(newUser.getOccupation())
