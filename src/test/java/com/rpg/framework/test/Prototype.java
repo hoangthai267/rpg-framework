@@ -170,15 +170,15 @@ public class Prototype {
 				.put("width", 200)
 				.put("height", 300);
 		
-		monsters = JsonArray.create();
+		JsonArray monsters2 = JsonArray.create();
 		for (int j = 0; j < Config.MAP2_MONKEY.length; j += 2) {
-			monsters.add(JsonObject.create()
+			monsters2.add(JsonObject.create()
 								.put("id", 2)
 								.put("index", index++)
 								.put("x", Config.MAP2_MONKEY[j])
 								.put("y", Config.MAP2_MONKEY[j + 1]));
 		}	
-		map2.put("monsters", monsters);	
+		map2.put("monsters", monsters2);	
 		
 		
 		mapArray.add(map1).add(map2);

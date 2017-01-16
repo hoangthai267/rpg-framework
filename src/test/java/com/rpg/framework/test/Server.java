@@ -382,7 +382,7 @@ public class Server extends com.rpg.framework.core.Server {
 
 			int userID = request.getUserID();
 			int mapID = UserManager.getInstance().getIdentifiedUser(userID).getMapID();
-
+			System.out.println("Server.handleRequestStartGame(): " + mapID);
 			List<Integer> userList = MapManager.getInstance().getUserList(mapID);
 			List<Integer> monsterList = MapManager.getInstance().getMonsterList(mapID);
 			// List<Integer> itemList =
@@ -415,6 +415,8 @@ public class Server extends com.rpg.framework.core.Server {
 			}
 			MapManager.getInstance().enterMap(request.getUserID(), mapID);
 
+			System.out.println(builder.build());
+			
 			sendMessageTo(clientID, Protocol.MessageType.RESPONE_START_GAME_VALUE, builder.build().toByteArray());
 		} catch (Exception ex) {
 			Debugger.WriteException(ex);
