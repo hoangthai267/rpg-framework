@@ -134,24 +134,54 @@ public class Prototype {
 	public void addPrototypeMap() {
 		JsonArray mapArray = JsonArray.create();
 		int index = 1;
-		for(int i = 0; i < 3; i++) {
-			JsonObject map = JsonObject.create();
-			mapArray.add(map
-					.put("id", i)
-					.put("width", 200 * i)
-					.put("height", 300 *i));
-			System.out.println(Config.MAP1_SNAIL.length);
-			JsonArray monsters = JsonArray.create();
-			for (int j = 0; j < Config.MAP1_SNAIL.length; j += 2) {
-				monsters.add(JsonObject.create()
-									.put("id", 1)
-									.put("index", index++)
-									.put("x", Config.MAP1_SNAIL[j])
-									.put("y", Config.MAP1_SNAIL[j + 1]));
-			}	
-			map.put("monsters", monsters);
-		}
-				
+//		for(int i = 0; i < 3; i++) {
+//			JsonObject map = JsonObject.create();
+//			mapArray.add(map
+//					.put("id", i)
+//					.put("width", 200 * i)
+//					.put("height", 300 *i));
+//			JsonArray monsters = JsonArray.create();
+//			for (int j = 0; j < Config.MAP1_SNAIL.length; j += 2) {
+//				monsters.add(JsonObject.create()
+//									.put("id", 1)
+//									.put("index", index++)
+//									.put("x", Config.MAP1_SNAIL[j])
+//									.put("y", Config.MAP1_SNAIL[j + 1]));
+//			}	
+//			map.put("monsters", monsters);
+//		}
+		
+		JsonObject map1 = JsonObject.create()
+				.put("id", 1)
+				.put("width", 200)
+				.put("height", 300);				
+		JsonArray monsters = JsonArray.create();
+		for (int j = 0; j < Config.MAP1_SNAIL.length; j += 2) {
+			monsters.add(JsonObject.create()
+								.put("id", 1)
+								.put("index", index++)
+								.put("x", Config.MAP1_SNAIL[j])
+								.put("y", Config.MAP1_SNAIL[j + 1]));
+		}	
+		map1.put("monsters", monsters);				
+
+		JsonObject map2 = JsonObject.create()
+				.put("id", 1)
+				.put("width", 200)
+				.put("height", 300);
+		
+		monsters = JsonArray.create();
+		for (int j = 0; j < Config.MAP2_MONKEY.length; j += 2) {
+			monsters.add(JsonObject.create()
+								.put("id", 2)
+								.put("index", index++)
+								.put("x", Config.MAP2_MONKEY[j])
+								.put("y", Config.MAP2_MONKEY[j + 1]));
+		}	
+		map2.put("monsters", monsters);	
+		
+		
+		mapArray.add(map1).add(map2);
 		
 		JsonObject maps = JsonObject.create()
 				.put("normalMaps", mapArray);

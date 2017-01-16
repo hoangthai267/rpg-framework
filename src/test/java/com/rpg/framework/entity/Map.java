@@ -208,6 +208,7 @@ public class Map {
 	
 	public void killMonster(Monster monster) {
 		monstersList.remove((Integer)monster.getIndex());
+		int moneyID = DataManager.getInstance().generateMoneyID();
 		for (Integer id : userList) {
 			User user = UserManager.getInstance().getIdentifiedUser(id.intValue());
 			int exp = monster.getExp(id.intValue());
@@ -220,7 +221,7 @@ public class Map {
 						.setMonsterIndex(monster.getIndex())
 						.setBonusExp(exp)
 						.setBonusMoney(monster.getMoney())
-						.setBonusMoneyID(DataManager.getInstance().generateMoneyID())
+						.setBonusMoneyID(moneyID)
 						.setPositionX(monster.getPositionX())
 						.setPositionY(monster.getPositionY())
 						.build()
